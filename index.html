@@ -212,7 +212,99 @@ margin-bottom:15px;
 line-height:28px;
 
 }
+/* ========= Code-0004 : Responsive + Animation ========= */
 
+@media (max-width:768px){
+
+.hero{
+padding:60px 15px;
+}
+
+.hero h1{
+font-size:30px;
+}
+
+.hero h2{
+font-size:22px;
+}
+
+.hero h3{
+font-size:22px;
+}
+
+.hero-text{
+font-size:16px;
+line-height:28px;
+}
+
+.brand-box{
+flex-direction:column;
+align-items:center;
+}
+
+.brand{
+width:100%;
+max-width:340px;
+}
+
+.brand img{
+width:75px;
+height:75px;
+}
+
+.hero-buttons{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.btn{
+width:90%;
+max-width:320px;
+margin:8px 0;
+}
+
+}
+
+.hero{
+animation:heroFade 1s ease;
+}
+
+@keyframes heroFade{
+
+0%{
+opacity:0;
+transform:translateY(40px);
+}
+
+100%{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.brand{
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.brand:hover{
+
+transform:translateY(-10px) scale(1.03);
+
+}
+
+.btn:hover{
+
+box-shadow:0 10px 20px rgba(0,0,0,.20);
+
+}
+
+html{
+
+scroll-behavior:smooth;
+
+}
 </style>
 
 </head>
