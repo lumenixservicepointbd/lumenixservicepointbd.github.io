@@ -1,10 +1,19 @@
+/* =======================================================
+   LUMENIX SERVICE POINT BD
+   MS FARDIN ELECTRIC
+   WEBSITE VERSION : V3
+   CSS PART-01
+   CODE-0001 → CODE-0004
+======================================================= */
 
+/* ===========================
+   RESET
+=========================== */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
 }
 
 html{
@@ -12,8 +21,10 @@ html{
 }
 
 body{
+    font-family:Arial, Helvetica, sans-serif;
     background:#f5f7fa;
     color:#222;
+    overflow-x:hidden;
 }
 
 .container{
@@ -22,13 +33,17 @@ body{
     margin:auto;
 }
 
+/* ===========================
+   CODE-0001 HEADER
+=========================== */
+
 header{
-    background:#0B3B6E;
-    padding:15px 0;
     position:sticky;
     top:0;
     z-index:999;
-    box-shadow:0 5px 15px rgba(0,0,0,.15);
+    background:#0B3B6E;
+    padding:18px 0;
+    box-shadow:0 6px 20px rgba(0,0,0,.15);
 }
 
 .logo{
@@ -38,65 +53,88 @@ header{
 }
 
 .logo h1{
-    color:white;
+    color:#fff;
     font-size:30px;
+    font-weight:700;
 }
 
 .logo span{
     color:#ff8c00;
 }
 
+nav{
+    display:flex;
+    gap:20px;
+}
+
 nav a{
-    color:white;
+    color:#fff;
     text-decoration:none;
-    margin-left:20px;
-    font-size:16px;
     font-weight:bold;
+    transition:.3s;
 }
 
 nav a:hover{
     color:#ff8c00;
 }
 
+/* ===========================
+   CODE-0002 HERO
+=========================== */
+
 .hero{
     background:linear-gradient(135deg,#0B3B6E,#ff8c00);
-    padding:80px 20px;
+    color:#fff;
     text-align:center;
-    color:white;
+    padding:90px 20px;
+    animation:heroFade .8s ease;
 }
 
 .company{
     font-size:18px;
     color:#ffe0a3;
     letter-spacing:2px;
-    margin-bottom:10px;
 }
 
 .hero h3{
+    margin-top:10px;
     font-size:32px;
-    margin-bottom:35px;
 }
+
+.hero h1{
+    font-size:44px;
+    margin:35px 0 20px;
+}
+
+.hero-text{
+    font-size:20px;
+    line-height:34px;
+}
+
+/* ===========================
+   BRAND BOX
+=========================== */
 
 .brand-box{
     display:flex;
     justify-content:center;
     gap:30px;
     flex-wrap:wrap;
-    margin-bottom:40px;
+    margin:45px 0;
 }
 
 .brand{
-    background:white;
     width:280px;
-    padding:25px;
-    border-radius:20px;
+    background:#fff;
     color:#222;
-    box-shadow:0 10px 25px rgba(0,0,0,.18);
-    transition:.3s;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    transition:.35s;
 }
 
 .brand:hover{
-    transform:translateY(-8px);
+    transform:translateY(-10px);
 }
 
 .brand img{
@@ -108,24 +146,18 @@ nav a:hover{
 
 .brand h2{
     color:#0B3B6E;
-    font-size:22px;
     margin-bottom:10px;
+    font-size:22px;
 }
 
 .brand p{
-    color:#555;
-    line-height:25px;
+    color:#666;
+    line-height:26px;
 }
 
-.hero h1{
-    font-size:42px;
-    margin:30px 0 20px;
-}
-
-.hero-text{
-    font-size:20px;
-    line-height:35px;
-}
+/* ===========================
+   BUTTONS
+=========================== */
 
 .hero-buttons{
     margin-top:35px;
@@ -133,50 +165,65 @@ nav a:hover{
 
 .btn{
     display:inline-block;
-    padding:14px 30px;
-    margin:10px;
-    border-radius:40px;
     text-decoration:none;
+    padding:14px 30px;
+    border-radius:40px;
+    margin:8px;
     font-weight:bold;
+    transition:.3s;
 }
 
 .call{
-    background:white;
+    background:#fff;
     color:#0B3B6E;
 }
 
 .whatsapp{
     background:#25D366;
-    color:white;
+    color:#fff;
 }
 
 .facebook{
     background:#1877F2;
-    color:white;
+    color:#fff;
 }
 
+.btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 20px rgba(0,0,0,.20);
+}
+
+/* ===========================
+   CODE-0004 SERVICES
+=========================== */
+
 .section{
-    padding:70px 20px;
+    padding:80px 20px;
 }
 
 .title{
     text-align:center;
+    font-size:36px;
     color:#0B3B6E;
-    font-size:35px;
-    margin-bottom:40px;
+    margin-bottom:45px;
 }
 
 .cards{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
     gap:25px;
 }
 
 .card{
-    background:white;
+    background:#fff;
     padding:30px;
-    border-radius:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    border-radius:16px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
 }
 
 .card h3{
@@ -188,162 +235,448 @@ nav a:hover{
     line-height:28px;
 }
 
-
-@media(max-width:768px){
-
-.logo{
-    flex-direction:column;
-    gap:15px;
-}
-
-nav a{
-    margin:0 8px;
-}
-
-.hero{
-    padding:60px 15px;
-}
-
-.hero h1{
-    font-size:30px;
-}
-
-.hero h3{
-    font-size:24px;
-}
-
-.hero-text{
-    font-size:16px;
-    line-height:28px;
-}
-
-.brand{
-    width:100%;
-    max-width:330px;
-}
-
-.btn{
-    width:90%;
-    max-width:320px;
-}
-
-}
-/* ===================================================== */
-/* LUMENIX SERVICE POINT BD                             */
-/* WEBSITE VERSION 2                                   */
-/* CODE-0004                                            */
-/* RESPONSIVE + ANIMATION                               */
-/* ===================================================== */
-
-
-@media (max-width:768px){
-
-.hero{
-    padding:60px 15px;
-}
-
-.hero h1{
-    font-size:30px;
-}
-
-.hero h2{
-    font-size:22px;
-}
-
-.hero h3{
-    font-size:22px;
-}
-
-.hero-text{
-    font-size:16px;
-    line-height:28px;
-}
-
-.brand-box{
-    flex-direction:column;
-    align-items:center;
-}
-
-.brand{
-    width:100%;
-    max-width:340px;
-}
-
-.brand img{
-    width:75px;
-    height:75px;
-}
-
-.hero-buttons{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-.btn{
-    width:90%;
-    max-width:320px;
-    margin:8px 0;
-}
-
-}
-
-
-/* ================= HERO ANIMATION ================= */
-
-
-.hero{
-    animation:heroFade 1s ease;
-}
-
+/* ===========================
+   ANIMATION
+=========================== */
 
 @keyframes heroFade{
 
-    0%{
+    from{
         opacity:0;
         transform:translateY(40px);
     }
 
-    100%{
+    to{
         opacity:1;
         transform:translateY(0);
     }
 
+}/* =======================================================
+   CSS V3
+   PART-02
+   CODE-0005 → CODE-0012
+=======================================================*/
+
+/* ===========================
+   ABOUT SECTION
+=========================== */
+
+#about{
+    background:#ffffff;
 }
 
-
-/* ================= HOVER EFFECT ================= */
-
-
-.brand{
-    box-shadow:0 10px 25px rgba(0,0,0,.15);
+#about .card{
+    max-width:950px;
+    margin:auto;
+    text-align:center;
 }
 
+#about p{
+    font-size:18px;
+    line-height:34px;
+    color:#444;
+}
 
+#about strong{
+    color:#0B3B6E;
+}
+
+/* ===========================
+   VISIT CHARGE
+=========================== */
+
+#visit-charge{
+    background:#eef5fb;
+}
+
+#visit-charge .card{
+    border-top:5px solid #ff8c00;
+}
+
+/* ===========================
+   WHY CHOOSE US
+=========================== */
+
+#why-us{
+    background:#ffffff;
+}
+
+#why-us .card{
+    text-align:center;
+}
+
+#why-us h3{
+    font-size:22px;
+}
+
+#why-us p{
+    color:#555;
+}
+
+/* ===========================
+   CONTACT
+=========================== */
+
+#contact{
+    background:#eef5fb;
+}
+
+#contact .card{
+    text-align:center;
+}
+
+#contact a{
+    color:#1877F2;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+#contact a:hover{
+    color:#ff8c00;
+}
+
+/* ===========================
+   SERVICE AGREEMENT
+=========================== */
+
+.section:nth-of-type(6){
+    background:#f8f9fa;
+}
+
+/* ===========================
+   PRIVACY POLICY
+=========================== */
+
+.section:nth-of-type(7){
+    background:#ffffff;
+}
+
+/* ===========================
+   TERMS & CONDITIONS
+=========================== */
+
+.section:nth-of-type(8){
+    background:#eef5fb;
+}
+
+.section:nth-of-type(8) .card{
+    border-left:5px solid #ff8c00;
+}
+
+/* ===========================
+   CUSTOMER REVIEWS
+=========================== */
+
+.section:nth-of-type(9){
+
+    background:#ffffff;
+
+}
+
+.section:nth-of-type(9) .card{
+
+    text-align:center;
+
+}
+
+.section:nth-of-type(9) h3{
+
+    font-size:28px;
+    color:#ffb400;
+
+}
+
+.section:nth-of-type(9) strong{
+
+    display:block;
+    margin-top:15px;
+    color:#0B3B6E;
+
+}
+
+/* ===========================
+   CARD EFFECT
+=========================== */
+
+.card{
+
+    transition:.35s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+    box-shadow:0 18px 35px rgba(0,0,0,.15);
+
+}
+
+/* ===========================
+   TABLET
+=========================== */
+
+@media(max-width:992px){
+
+.title{
+
+    font-size:32px;
+
+}
+
+.cards{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media(max-width:768px){
+
+.section{
+
+    padding:60px 15px;
+
+}
+
+.title{
+
+    font-size:28px;
+
+}
+
+.cards{
+
+    grid-template-columns:1fr;
+
+}
+
+.card{
+
+    padding:25px;
+
+}
+
+#about p{
+
+    font-size:16px;
+    line-height:30px;
+
+}
+
+}
+
+/* =======================================================
+   CSS V3
+   PART-03
+   CODE-0013 → CODE-0017
+=======================================================*/
+
+/* ===========================
+   CODE-0013 FAQ
+=========================== */
+
+#faq,
+.section.faq{
+    background:#ffffff;
+}
+
+#faq .card hr,
+.section hr{
+    margin:20px 0;
+    border:none;
+    border-top:1px solid #ddd;
+}
+
+#faq h3{
+    color:#0B3B6E;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+#faq p{
+    color:#555;
+    line-height:28px;
+}
+
+/* ===========================
+   CODE-0014 TECHNICIAN
+=========================== */
+
+#technician{
+    background:#eef5fb;
+}
+
+#technician ul{
+    margin-top:20px;
+    padding-left:25px;
+}
+
+#technician li{
+    line-height:34px;
+    color:#444;
+}
+
+/* ===========================
+   CODE-0015 COVERAGE
+=========================== */
+
+#coverage{
+    background:#ffffff;
+}
+
+#coverage .card{
+    text-align:center;
+}
+
+/* ===========================
+   CODE-0016 EMERGENCY
+=========================== */
+
+.emergency-card{
+    background:#0B3B6E;
+    color:#fff;
+    text-align:center;
+    padding:40px;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.20);
+}
+
+.emergency-card h2{
+    color:#fff;
+    margin-bottom:20px;
+}
+
+.emergency-card p{
+    color:#f2f2f2;
+    line-height:32px;
+}
+
+/* ===========================
+   CODE-0017 FOOTER
+=========================== */
+
+.footer{
+    background:#081f3f;
+    color:#ffffff;
+    text-align:center;
+    padding:60px 20px 30px;
+}
+
+.footer h2{
+    font-size:32px;
+    margin-bottom:15px;
+}
+
+.footer p{
+    line-height:30px;
+    color:#dddddd;
+}
+
+.footer strong{
+    color:#ff8c00;
+}
+
+.footer-links{
+    margin:20px 0;
+}
+
+.footer-links a{
+    color:#ffffff;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.footer-links a:hover{
+    color:#ff8c00;
+}
+
+.footer-social{
+    margin:20px 0;
+}
+
+.footer-social a{
+    color:#ffffff;
+    text-decoration:none;
+    font-weight:bold;
+    margin:0 10px;
+    transition:.3s;
+}
+
+.footer-social a:hover{
+    color:#25D366;
+}
+
+/* ===========================
+   GLOBAL HOVER
+=========================== */
+
+.card:hover,
 .brand:hover{
-
-    transform:translateY(-10px) scale(1.03);
-
+    transform:translateY(-8px);
 }
-
 
 .btn:hover{
+    transform:translateY(-4px);
+}
 
-    box-shadow:0 10px 20px rgba(0,0,0,.20);
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#eeeeee;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#0B3B6E;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#ff8c00;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width:768px){
+
+    .footer{
+        padding:40px 15px;
+    }
+
+    .footer h2{
+        font-size:26px;
+    }
+
+    .footer-links{
+        line-height:35px;
+    }
+
+    .footer-social a{
+        display:inline-block;
+        margin:8px;
+    }
+
+    .emergency-card{
+        padding:30px 20px;
+    }
 
 }
 
-
-/* ================= SMOOTH SCROLL ================= */
-
-
-html{
-
-    scroll-behavior:smooth;
-
-}
-
-
-/* ===================================================== */
-/* CODE-0004 END                                        */
-/* ===================================================== */
+/* =======================================================
+   END OF CSS V3
+   MS FARDIN ELECTRIC
+   LUMENIX SERVICE POINT BD
+=======================================================*/
