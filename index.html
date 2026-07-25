@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,207 +11,396 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<style>
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+/* ===================================================== */
+/* LUMENIX SERVICE POINT BD                             */
+/* WEBSITE VERSION 2                                   */
+/* CODE-0006                                            */
+/* V2 - PART 02 START                                  */
+/* MAIN STYLE CSS                                       */
+/* ===================================================== */
+
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
+
+
+html{
+    scroll-behavior:smooth;
+}
+
 
 body{
-
-background:#f5f7fa;
-
-color:#222;
-
+    background:#f5f7fa;
+    color:#222;
 }
 
-header{
 
-background:#0B3B6E;
+/* ================= CONTAINER ================= */
 
-padding:15px;
-
-position:sticky;
-
-top:0;
-
-z-index:999;
-
-box-shadow:0 3px 10px rgba(0,0,0,.15);
-
-}
 
 .container{
 
-width:92%;
-
-max-width:1200px;
-
-margin:auto;
+    width:92%;
+    max-width:1200px;
+    margin:auto;
 
 }
+
+
+/* ================= HEADER ================= */
+
+
+header{
+
+    background:#0B3B6E;
+    padding:15px 0;
+    position:sticky;
+    top:0;
+    z-index:999;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
 
 .logo{
 
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
 }
+
 
 .logo h1{
 
-color:#fff;
-
-font-size:30px;
+    color:white;
+    font-size:30px;
 
 }
+
 
 .logo span{
 
-color:#ff8c00;
+    color:#ff8c00;
 
 }
+
 
 nav a{
 
-color:#fff;
-
-text-decoration:none;
-
-margin-left:20px;
-
-font-size:15px;
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-size:16px;
+    font-weight:bold;
 
 }
+
+
+nav a:hover{
+
+    color:#ff8c00;
+
+}
+
+
+/* ================= HERO ================= */
+
 
 .hero{
 
-background:linear-gradient(135deg,#0B3B6E,#ff8c00);
-
-padding:80px 20px;
-
-text-align:center;
-
-color:white;
+    background:linear-gradient(135deg,#0B3B6E,#ff8c00);
+    padding:80px 20px;
+    text-align:center;
+    color:white;
 
 }
 
-.hero h2{
 
-font-size:42px;
+.company{
 
-margin-bottom:20px;
+    font-size:18px;
+    color:#ffe0a3;
+    letter-spacing:2px;
+    margin-bottom:10px;
+
+}
+
+
+.hero h3{
+
+    font-size:32px;
+    margin-bottom:35px;
 
 }
 
-.hero p{
 
-font-size:20px;
+.brand-box{
 
-line-height:35px;
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+    margin-bottom:40px;
 
 }
+
+
+.brand{
+
+    background:white;
+    width:280px;
+    padding:25px;
+    border-radius:20px;
+    color:#222;
+    box-shadow:0 10px 25px rgba(0,0,0,.18);
+    transition:.3s;
+
+}
+
+
+.brand:hover{
+
+    transform:translateY(-8px);
+
+}
+
+
+.brand img{
+
+    width:100px;
+    height:100px;
+    object-fit:contain;
+    margin-bottom:15px;
+
+}
+
+
+.brand h2{
+
+    color:#0B3B6E;
+    font-size:22px;
+    margin-bottom:10px;
+
+}
+
+
+.brand p{
+
+    color:#555;
+    line-height:25px;
+
+}
+
+
+.hero h1{
+
+    font-size:42px;
+    margin:30px 0 20px;
+
+}
+
+
+.hero-text{
+
+    font-size:20px;
+    line-height:35px;
+
+}
+
+
+/* ================= BUTTON ================= */
+
+
+.hero-buttons{
+
+    margin-top:35px;
+
+}
+
 
 .btn{
-display:inline-block;
 
-padding:14px 30px;
-
-margin:10px;
-
-border-radius:40px;
-
-text-decoration:none;
-
-font-weight:bold;
-
-transition:.3s;
+    display:inline-block;
+    padding:14px 30px;
+    margin:10px;
+    border-radius:40px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
 
 }
+
+
+.btn:hover{
+
+    transform:translateY(-4px);
+
+}
+
 
 .call{
 
-background:white;
-
-color:#0B3B6E;
+    background:white;
+    color:#0B3B6E;
 
 }
+
 
 .whatsapp{
 
-background:#25D366;
-
-color:white;
+    background:#25D366;
+    color:white;
 
 }
+
+
+.facebook{
+
+    background:#1877F2;
+    color:white;
+
+}
+
+
+/* ================= COMMON SECTION ================= */
+
 
 .section{
 
-padding:70px 20px;
+    padding:70px 20px;
 
 }
+
 
 .title{
 
-text-align:center;
-
-font-size:35px;
-
-color:#0B3B6E;
-
-margin-bottom:40px;
+    text-align:center;
+    color:#0B3B6E;
+    font-size:35px;
+    margin-bottom:40px;
 
 }
+
 
 .cards{
 
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
-gap:25px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
 
 }
+
 
 .card{
 
-background:white;
-
-padding:30px;
-
-border-radius:15px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-transition:.3s;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 
 }
 
-.card:hover{
-
-transform:translateY(-8px);
-
-}
 
 .card h3{
 
-color:#ff8c00;
-
-margin-bottom:15px;
+    color:#ff8c00;
+    margin-bottom:15px;
 
 }
+
 
 .card p{
 
-line-height:28px;
+    line-height:28px;
 
 }
+
+
+/* ================= MOBILE RESPONSIVE ================= */
+
+
+@media(max-width:768px){
+
+
+.logo{
+
+    flex-direction:column;
+    gap:15px;
+
+}
+
+
+nav a{
+
+    margin:0 8px;
+
+}
+
+
+.hero{
+
+    padding:60px 15px;
+
+}
+
+
+.hero h1{
+
+    font-size:30px;
+
+}
+
+
+.hero h3{
+
+    font-size:24px;
+
+}
+
+
+.hero-text{
+
+    font-size:16px;
+    line-height:28px;
+
+}
+
+
+.brand{
+
+    width:100%;
+    max-width:330px;
+
+}
+
+
+.btn{
+
+    width:90%;
+    max-width:320px;
+
+}
+
+
+}
+
+
+/* ===================================================== */
+/* LUMENIX SERVICE POINT BD                             */
+/* WEBSITE VERSION 2                                   */
+/* CODE-0006                                            */
+/* V2 - PART 02 END                                    */
+/* ===================================================== */
+
 /* ========= Code-0004 : Responsive + Animation ========= */
 
 @media (max-width:768px){
@@ -334,29 +522,56 @@ scroll-behavior:smooth;
 
 </header>
 
+
+<!-- ===================================================== -->
+<!-- LUMENIX SERVICE POINT BD -->
+<!-- WEBSITE VERSION 2 -->
+<!-- CODE-0005 -->
+<!-- V2 - PART 01 START -->
+<!-- HERO SECTION -->
+<!-- ===================================================== -->
+
 <section class="hero">
+
     <div class="hero-content">
 
-        <p class="company">A Brand of</p>
-        <h3>MS FARDIN ELECTRIC</h3>
+        <p class="company">
+            A Brand of
+        </p>
+
+        <h3>
+            MS FARDIN ELECTRIC
+        </h3>
 
         <div class="brand-box">
 
             <div class="brand">
-                <img src="images/lumenix-led-logo.png" alt="Lumenix LED Light">
+
+                <img src="images/lumenix-led-logo.png"
+                     alt="Lumenix LED Light">
+
                 <h2>Lumenix LED Light</h2>
+
                 <p>Premium LED Lighting Solutions</p>
+
             </div>
 
             <div class="brand">
-                <img src="images/lumenix-service-logo.png" alt="Lumenix Service Point BD">
+
+                <img src="images/lumenix-service-logo.png"
+                     alt="Lumenix Service Point BD">
+
                 <h2>Lumenix Service Point BD</h2>
+
                 <p>Professional Technical & Maintenance Services</p>
+
             </div>
 
         </div>
 
-        <h1>Professional Home & Commercial Services</h1>
+        <h1>
+            Professional Home & Commercial Services
+        </h1>
 
         <p class="hero-text">
             Electrical • Plumbing • CCTV • AC • Motor • LED Light • Maintenance
@@ -379,7 +594,15 @@ scroll-behavior:smooth;
         </div>
 
     </div>
+
 </section>
+
+<!-- ===================================================== -->
+<!-- LUMENIX SERVICE POINT BD -->
+<!-- WEBSITE VERSION 2 -->
+<!-- CODE-0005 -->
+<!-- V2 - PART 01 END -->
+<!-- ===================================================== -->
     
 <!-- Code-0005 : Company Intro Section Start -->
 
