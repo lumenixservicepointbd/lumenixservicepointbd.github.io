@@ -1,9 +1,11 @@
 /* =======================================================
    LUMENIX SERVICE POINT BD
    MS FARDIN ELECTRIC
-   VERSION 3
+   WEBSITE VERSION : V3 FINAL
    PREMIUM CORPORATE CSS
+   PART-01
 ======================================================= */
+
 
 /* ===========================
    RESET
@@ -20,22 +22,31 @@ html{
 }
 
 body{
+
     font-family:Arial, Helvetica, sans-serif;
     background:#f4f7fb;
     color:#222;
     overflow-x:hidden;
+
 }
+
 
 img{
+
     max-width:100%;
     display:block;
+
 }
 
+
 .container{
+
     width:92%;
     max-width:1250px;
     margin:auto;
+
 }
+
 
 /* ===========================
    HEADER
@@ -47,15 +58,15 @@ header{
     top:0;
     z-index:9999;
 
-    background:rgba(11,59,110,.96);
-
-    backdrop-filter:blur(12px);
-
-    box-shadow:0 8px 25px rgba(0,0,0,.18);
+    background:#0B3B6E;
 
     padding:18px 0;
 
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.18);
+
 }
+
 
 .logo{
 
@@ -66,13 +77,15 @@ header{
 
 }
 
+
 .company-logo h1{
 
-    color:#ffffff;
+    color:#fff;
     font-size:32px;
     font-weight:700;
 
 }
+
 
 .company-logo span{
 
@@ -80,30 +93,45 @@ header{
 
 }
 
+
 .tagline{
 
     margin-top:6px;
-    color:#d9e7f7;
+
+    color:#dbe9f7;
+
     font-size:14px;
+
     letter-spacing:1px;
 
 }
 
+
+/* ===========================
+   NAVIGATION
+=========================== */
+
 nav{
 
     display:flex;
+
     gap:25px;
 
 }
 
+
 nav a{
 
-    color:#ffffff;
+    color:#fff;
+
     text-decoration:none;
+
     font-weight:600;
-    transition:.35s;
+
+    transition:.3s;
 
 }
+
 
 nav a:hover{
 
@@ -111,53 +139,59 @@ nav a:hover{
 
 }
 
+
 /* ===========================
-   HERO
+   HERO SECTION
 =========================== */
 
 .hero{
 
-    background:linear-gradient(135deg,#0B3B6E,#ff8c00);
+    background:
+    linear-gradient(
+    135deg,
+    #0B3B6E,
+    #ff8c00
+    );
 
-    color:#ffffff;
+    color:#fff;
 
     text-align:center;
 
-    padding:110px 20px 90px;
+    padding:90px 20px;
 
 }
+
 
 .company{
 
     font-size:18px;
 
-    letter-spacing:3px;
+    color:#ffe0a3;
 
-    color:#ffe2aa;
+    letter-spacing:2px;
 
 }
+
 
 .hero h3{
 
-    margin-top:12px;
+    margin-top:10px;
 
-    font-size:34px;
+    font-size:32px;
 
 }
+
 
 .hero h1{
 
-    margin-top:40px;
+    font-size:44px;
 
-    font-size:48px;
-
-    font-weight:700;
+    margin:35px 0 20px;
 
 }
 
-.hero-text{
 
-    margin-top:20px;
+.hero-text{
 
     font-size:20px;
 
@@ -165,9 +199,12 @@ nav a:hover{
 
 }
 
+
+
 /* ===========================
    BRAND BOX
 =========================== */
+
 
 .brand-box{
 
@@ -175,31 +212,36 @@ nav a:hover{
 
     justify-content:center;
 
-    gap:35px;
+    gap:30px;
 
     flex-wrap:wrap;
 
-    margin:55px 0;
+    margin:45px 0;
 
 }
+
+
 
 .brand{
 
-    width:320px;
+    width:300px;
 
-    background:rgba(255,255,255,.96);
+    background:#fff;
 
-    border-radius:22px;
+    color:#222;
 
-    padding:35px 25px;
+    padding:30px;
 
-    box-shadow:0 18px 40px rgba(0,0,0,.18);
+    border-radius:20px;
 
-    transition:.40s;
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.18);
 
-    text-align:center;
+    transition:.35s;
 
 }
+
+
 
 .brand:hover{
 
@@ -207,19 +249,25 @@ nav a:hover{
 
 }
 
+
+
 .brand img{
 
-    width:150px;
+    width:140px;
 
-    height:150px;
+    height:140px;
 
     object-fit:contain;
 
-    margin:0 auto 22px;
+    margin:auto;
+
+    margin-bottom:20px;
 
     transition:.4s;
 
 }
+
+
 
 .brand:hover img{
 
@@ -227,416 +275,912 @@ nav a:hover{
 
 }
 
+
+
 .brand h2{
 
     color:#0B3B6E;
 
-    margin-bottom:12px;
+    font-size:22px;
+
+    margin-bottom:10px;
 
 }
 
+
+
 .brand p{
+
+    color:#666;
+
+    line-height:26px;
+
+}
+
+
+/* =======================================================
+   CSS PART-01 END
+======================================================= */
+/* =======================================================
+   LUMENIX SERVICE POINT BD
+   MS FARDIN ELECTRIC
+   WEBSITE VERSION : V3 FINAL
+   PREMIUM CORPORATE CSS
+   PART-02
+======================================================= */
+
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.hero-buttons{
+
+    margin-top:35px;
+
+}
+
+
+.btn{
+
+    display:inline-block;
+
+    padding:14px 32px;
+
+    margin:8px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    transition:.35s;
+
+}
+
+
+.btn:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.25);
+
+}
+
+
+
+.call{
+
+    background:#fff;
+
+    color:#0B3B6E;
+
+}
+
+
+
+.whatsapp{
+
+    background:#25D366;
+
+    color:#fff;
+
+}
+
+
+
+.facebook{
+
+    background:#1877F2;
+
+    color:#fff;
+
+}
+
+
+
+/* ===========================
+   COMMON SECTION
+=========================== */
+
+
+.section{
+
+    padding:80px 20px;
+
+}
+
+
+
+.title{
+
+    text-align:center;
+
+    color:#0B3B6E;
+
+    font-size:36px;
+
+    margin-bottom:45px;
+
+}
+
+
+
+/* ===========================
+   SERVICE CARDS
+=========================== */
+
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+
+}
+
+
+
+.card{
+
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:18px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+
+    transition:.35s;
+
+}
+
+
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+    0 18px 35px rgba(0,0,0,.15);
+
+}
+
+
+
+.card h3{
+
+    color:#ff8c00;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.card p{
+
+    line-height:28px;
+
+    color:#555;
+
+}
+
+
+
+/* ===========================
+   ABOUT SECTION
+=========================== */
+
+
+#about{
+
+    background:#fff;
+
+}
+
+
+
+#about .card{
+
+    max-width:950px;
+
+    margin:auto;
+
+    text-align:center;
+
+}
+
+
+
+#about p{
+
+    font-size:18px;
+
+    line-height:34px;
+
+}
+
+
+
+#about strong{
+
+    color:#0B3B6E;
+
+}
+
+
+
+/* ===========================
+   VISIT CHARGE POLICY
+=========================== */
+
+
+#visit-charge{
+
+    background:#eef5fb;
+
+}
+
+
+
+#visit-charge .card{
+
+    border-top:
+
+    5px solid #ff8c00;
+
+}
+
+
+
+/* ===========================
+   WHY CHOOSE US
+=========================== */
+
+
+#why-us{
+
+    background:#fff;
+
+}
+
+
+
+#why-us .card{
+
+    text-align:center;
+
+}
+
+
+
+#why-us h3{
+
+    font-size:22px;
+
+}
+
+
+
+#why-us p{
+
+    color:#555;
+
+}
+
+
+
+/* ===========================
+   CONTACT SECTION
+=========================== */
+
+
+#contact{
+
+    background:#eef5fb;
+
+}
+
+
+
+#contact .card{
+
+    text-align:center;
+
+}
+
+
+
+#contact a{
+
+    color:#1877F2;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+}
+
+
+
+#contact a:hover{
+
+    color:#ff8c00;
+
+}
+
+
+
+/* ===========================
+   SERVICE AGREEMENT
+=========================== */
+
+
+#contact + .section{
+
+    background:#f8f9fa;
+
+}
+
+
+
+/* ===========================
+   PRIVACY POLICY
+=========================== */
+
+
+.section .card p{
+
+    color:#444;
+
+}
+
+
+
+/* ===========================
+   TERMS & CONDITIONS
+=========================== */
+
+
+.section:nth-of-type(8){
+
+    background:#eef5fb;
+
+}
+
+
+.section:nth-of-type(8) .card{
+
+    border-left:
+
+    5px solid #ff8c00;
+
+}
+
+
+
+/* ===========================
+   CUSTOMER REVIEWS
+=========================== */
+
+
+.section:nth-of-type(9) .card{
+
+    text-align:center;
+
+}
+
+
+
+.section:nth-of-type(9) h3{
+
+    color:#ffb400;
+
+    font-size:28px;
+
+}
+
+
+
+.section:nth-of-type(9) strong{
+
+    display:block;
+
+    margin-top:15px;
+
+    color:#0B3B6E;
+
+}
+
+
+
+/* =======================================================
+   CSS PART-02 END
+======================================================= */
+/* =======================================================
+   LUMENIX SERVICE POINT BD
+   MS FARDIN ELECTRIC
+   WEBSITE VERSION : V3 FINAL
+   PREMIUM CORPORATE CSS
+   PART-03
+======================================================= */
+
+
+/* ===========================
+   FAQ SECTION
+=========================== */
+
+
+#faq{
+
+    background:#ffffff;
+
+}
+
+
+
+#faq .card hr{
+
+    margin:20px 0;
+
+    border:none;
+
+    border-top:1px solid #ddd;
+
+}
+
+
+
+#faq h3{
+
+    color:#0B3B6E;
+
+    font-size:20px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+#faq p{
 
     color:#555;
 
     line-height:28px;
 
 }
-/* ===========================
-   BUTTONS
-=========================== */
 
-.hero-buttons{
-    margin-top:40px;
-}
 
-.btn{
-    display:inline-block;
-    padding:15px 34px;
-    margin:10px;
-    border-radius:50px;
-    text-decoration:none;
-    font-weight:700;
-    transition:.35s;
-}
-
-.call{
-    background:#ffffff;
-    color:#0B3B6E;
-}
-
-.whatsapp{
-    background:#25D366;
-    color:#ffffff;
-}
-
-.facebook{
-    background:#1877F2;
-    color:#ffffff;
-}
-
-.btn:hover{
-    transform:translateY(-5px);
-    box-shadow:0 15px 30px rgba(0,0,0,.20);
-}
 
 /* ===========================
-   SECTION
+   TECHNICIAN JOIN SECTION
 =========================== */
 
-.section{
-    padding:90px 20px;
-}
-
-.title{
-    text-align:center;
-    font-size:38px;
-    color:#0B3B6E;
-    margin-bottom:50px;
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:28px;
-}
-
-.card{
-    background:#ffffff;
-    border-radius:18px;
-    padding:30px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    transition:.35s;
-}
-
-.card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 20px 40px rgba(0,0,0,.15);
-}
-
-.card h3{
-    color:#ff8c00;
-    margin-bottom:15px;
-    font-size:22px;
-}
-
-.card p{
-    color:#555;
-    line-height:30px;
-}
-
-/* ===========================
-   ABOUT
-=========================== */
-
-#about{
-    background:#ffffff;
-}
-
-#about .card{
-    max-width:950px;
-    margin:auto;
-    text-align:center;
-}
-
-#about strong{
-    color:#0B3B6E;
-}
-
-/* ===========================
-   VISIT CHARGE
-=========================== */
-
-#visit-charge{
-    background:#eef5fb;
-}
-
-#visit-charge .card{
-    border-top:5px solid #ff8c00;
-}
-
-/* ===========================
-   WHY CHOOSE US
-=========================== */
-
-#why-us{
-    background:#ffffff;
-}
-
-#why-us .card{
-    text-align:center;
-}
-
-/* ===========================
-   CONTACT
-=========================== */
-
-#contact{
-    background:#eef5fb;
-}
-
-#contact .card{
-    text-align:center;
-}
-
-#contact a{
-    color:#1877F2;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-#contact a:hover{
-    color:#ff8c00;
-}
-/* ===========================
-   FAQ
-=========================== */
-
-#faq{
-    background:#ffffff;
-}
-
-#faq hr{
-    margin:20px 0;
-    border:none;
-    border-top:1px solid #ddd;
-}
-
-#faq h3{
-    color:#0B3B6E;
-    margin-bottom:10px;
-}
-
-#faq p{
-    color:#555;
-    line-height:30px;
-}
-
-/* ===========================
-   TECHNICIAN
-=========================== */
 
 #technician{
+
     background:#eef5fb;
+
 }
+
+
+
+#technician .card{
+
+    text-align:left;
+
+}
+
+
 
 #technician ul{
+
     margin-top:20px;
+
     padding-left:25px;
+
 }
+
+
 
 #technician li{
+
     line-height:34px;
+
+    color:#444;
+
 }
+
+
 
 /* ===========================
-   COVERAGE
+   COVERAGE AREA
 =========================== */
 
+
 #coverage{
+
     background:#ffffff;
+
 }
 
+
+
 #coverage .card{
+
     text-align:center;
+
 }
+
+
+
+/* ===========================
+   EMERGENCY SERVICE
+=========================== */
+
+
+.emergency-card{
+
+    background:#0B3B6E;
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:40px;
+
+    border-radius:18px;
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,.20);
+
+}
+
+
+
+.emergency-card h2{
+
+    color:#fff;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.emergency-card p{
+
+    color:#f2f2f2;
+
+    line-height:32px;
+
+}
+
+
 
 /* ===========================
    FOOTER
 =========================== */
 
+
 .footer{
+
     background:#081f3f;
-    color:#ffffff;
+
+    color:#fff;
+
     text-align:center;
+
     padding:60px 20px 30px;
+
 }
+
+
 
 .footer h2{
+
     font-size:32px;
+
     margin-bottom:15px;
+
 }
+
+
 
 .footer p{
-    color:#dddddd;
+
     line-height:30px;
+
+    color:#ddd;
+
 }
+
+
 
 .footer strong{
+
     color:#ff8c00;
+
 }
+
+
 
 .footer a{
-    color:#ffffff;
+
+    color:#fff;
+
     text-decoration:none;
+
     transition:.3s;
+
 }
+
+
 
 .footer a:hover{
+
     color:#ff8c00;
+
 }
 
+
+
+.footer-links{
+
+    margin:20px 0;
+
+}
+
+
+
+.footer-social{
+
+    margin:20px 0;
+
+}
+
+
+
 /* ===========================
-   ANIMATION
+   LOADING ANIMATION
 =========================== */
 
-@keyframes heroFade{
+
+.loaded{
+
+    animation:fadeIn .6s ease;
+
+}
+
+
+
+@keyframes fadeIn{
+
 
     from{
+
         opacity:0;
-        transform:translateY(40px);
+
     }
+
 
     to{
+
         opacity:1;
-        transform:translateY(0);
+
     }
 
 }
+
+
 
 /* ===========================
-   RESPONSIVE
+   CARD SHOW ANIMATION
 =========================== */
 
-@media(max-width:992px){
 
-    nav{
-        gap:15px;
-    }
+.card{
 
-    .hero h1{
-        font-size:38px;
-    }
+    opacity:0;
 
-    .cards{
-        grid-template-columns:repeat(2,1fr);
-    }
+    transform:translateY(30px);
 
 }
 
-@media(max-width:768px){
 
-    .logo{
-        flex-direction:column;
-        text-align:center;
-    }
 
-    nav{
-        flex-wrap:wrap;
-        justify-content:center;
-    }
+.card.show{
 
-    .hero{
-        padding:70px 15px;
-    }
+    opacity:1;
 
-    .hero h1{
-        font-size:30px;
-    }
-
-    .hero h3{
-        font-size:24px;
-    }
-
-    .hero-text{
-        font-size:16px;
-        line-height:28px;
-    }
-
-    .brand{
-        width:100%;
-    }
-
-    .brand img{
-        width:120px;
-        height:120px;
-    }
-
-    .btn{
-        width:90%;
-        max-width:320px;
-    }
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    .title{
-        font-size:30px;
-    }
+    transform:translateY(0);
 
 }
+
+
 
 /* ===========================
    SCROLLBAR
 =========================== */
 
+
 ::-webkit-scrollbar{
+
     width:10px;
+
 }
+
+
+
+::-webkit-scrollbar-track{
+
+    background:#eeeeee;
+
+}
+
+
 
 ::-webkit-scrollbar-thumb{
+
     background:#0B3B6E;
+
     border-radius:20px;
+
 }
+
+
 
 ::-webkit-scrollbar-thumb:hover{
+
     background:#ff8c00;
+
 }
+
+
+
+/* ===========================
+   RESPONSIVE TABLET
+=========================== */
+
+
+@media(max-width:992px){
+
+
+    .hero h1{
+
+        font-size:36px;
+
+    }
+
+
+    .title{
+
+        font-size:32px;
+
+    }
+
+
+}
+
+
+
+/* ===========================
+   RESPONSIVE MOBILE
+=========================== */
+
+
+@media(max-width:768px){
+
+
+    .logo{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+
+    nav{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:15px;
+
+    }
+
+
+
+    .hero{
+
+        padding:60px 15px;
+
+    }
+
+
+
+    .hero h1{
+
+        font-size:30px;
+
+    }
+
+
+
+    .hero h3{
+
+        font-size:24px;
+
+    }
+
+
+
+    .hero-text{
+
+        font-size:16px;
+
+    }
+
+
+
+    .brand{
+
+        width:100%;
+
+        max-width:320px;
+
+    }
+
+
+
+    .section{
+
+        padding:60px 15px;
+
+    }
+
+
+
+    .title{
+
+        font-size:28px;
+
+    }
+
+
+
+    .cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+
+    .footer h2{
+
+        font-size:26px;
+
+    }
+
+
+
+}
+
+
 /* =======================================================
-   JAVASCRIPT SUPPORT
+   CSS V3 FINAL COMPLETE
+   MS FARDIN ELECTRIC
+   LUMENIX SERVICE POINT BD
 ======================================================= */
-
-.loaded{
-    animation:fadeIn .6s ease;
-}
-
-.top-btn{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    width:52px;
-    height:52px;
-    border:none;
-    border-radius:50%;
-    background:#ff8c00;
-    color:#ffffff;
-    font-size:22px;
-    cursor:pointer;
-    display:none;
-    z-index:9999;
-    box-shadow:0 10px 25px rgba(0,0,0,.25);
-    transition:all .3s ease;
-}
-
-.top-btn:hover{
-    background:#0B3B6E;
-    transform:translateY(-4px);
-}
-
-nav a.active{
-    color:#ff8c00;
-}
-
-.card{
-    opacity:0;
-    transform:translateY(30px);
-    transition:all .6s ease;
-}
-
-.card.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-@keyframes fadeIn{
-
-    from{
-        opacity:0;
-    }
-
-    to{
-        opacity:1;
-    }
-
-}
