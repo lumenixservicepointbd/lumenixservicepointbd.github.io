@@ -339,18 +339,6 @@ nav a:hover{
 
 }
 
-
-.btn:hover{
-
-    transform:translateY(-5px);
-
-    box-shadow:
-    0 10px 25px rgba(0,0,0,.25);
-
-}
-
-
-
 .call{
 
     background:#fff;
@@ -358,8 +346,6 @@ nav a:hover{
     color:#0B3B6E;
 
 }
-
-
 
 .whatsapp{
 
@@ -369,8 +355,6 @@ nav a:hover{
 
 }
 
-
-
 .facebook{
 
     background:#1877F2;
@@ -379,7 +363,14 @@ nav a:hover{
 
 }
 
+.btn:hover{
 
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.25);
+
+}
 
 /* ===========================
    COMMON SECTION
@@ -726,18 +717,6 @@ nav a:hover{
 
 
 
-#faq .card hr{
-
-    margin:20px 0;
-
-    border:none;
-
-    border-top:1px solid #ddd;
-
-}
-
-
-
 #faq h3{
 
     color:#0B3B6E;
@@ -759,6 +738,15 @@ nav a:hover{
 }
 
 
+#faq .card hr{
+
+    margin:20px 0;
+
+    border:none;
+
+    border-top:1px solid #ddd;
+
+}
 
 /* ===========================
    TECHNICIAN JOIN SECTION
@@ -948,7 +936,21 @@ nav a:hover{
 
 }
 
+.footer-social a{
 
+    color:#ffffff;
+    text-decoration:none;
+    font-weight:bold;
+    margin:0 10px;
+    transition:.3s;
+
+}
+
+.footer-social a:hover{
+
+    color:#25D366;
+
+}
 
 /* ===========================
    LOADING ANIMATION
