@@ -54,3 +54,40 @@ topBtn.onclick=()=>{
     });
 
 };
+
+/* ================= BACK TO TOP BUTTON ================= */
+
+.top-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:50%;
+    background:#ff8c00;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+    display:none;
+    z-index:9999;
+    box-shadow:0 5px 15px rgba(0,0,0,.25);
+    transition:.3s;
+}
+
+.top-btn:hover{
+    background:#0B3B6E;
+}
+
+.loaded{
+    animation:fadeIn .6s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
