@@ -1,29 +1,38 @@
 // =======================================================
 // LUMENIX SERVICE POINT BD
 // MS FARDIN ELECTRIC
-// VERSION 3
+// WEBSITE VERSION : V3 FINAL
 // PREMIUM JAVASCRIPT
 // =======================================================
+
 
 // ==============================
 // SMOOTH SCROLL
 // ==============================
 
-document.querySelectorAll('a[href^="#"]').forEach(link=>{
+document.querySelectorAll('a[href^="#"]').forEach(link => {
 
-    link.addEventListener("click",function(e){
+    link.addEventListener("click", function(e){
 
-        e.preventDefault();
+        const targetId = this.getAttribute("href");
 
-        const target=document.querySelector(this.getAttribute("href"));
+        if(targetId !== "#"){
 
-        if(target){
+            e.preventDefault();
 
-            target.scrollIntoView({
+            const target = document.querySelector(targetId);
 
-                behavior:"smooth"
+            if(target){
 
-            });
+                target.scrollIntoView({
+
+                    behavior:"smooth",
+
+                    block:"start"
+
+                });
+
+            }
 
         }
 
@@ -31,8 +40,10 @@ document.querySelectorAll('a[href^="#"]').forEach(link=>{
 
 });
 
+
+
 // ==============================
-// PAGE LOADING
+// PAGE LOADING EFFECT
 // ==============================
 
 window.addEventListener("load",()=>{
@@ -41,33 +52,47 @@ window.addEventListener("load",()=>{
 
 });
 
+
+
 // ==============================
 // BACK TO TOP BUTTON
 // ==============================
 
-const topBtn=document.createElement("button");
+const topBtn = document.createElement("button");
 
-topBtn.innerHTML="⬆";
 
-topBtn.className="top-btn";
+topBtn.innerHTML = "⬆";
+
+
+topBtn.className = "top-btn";
+
 
 document.body.appendChild(topBtn);
 
+
+
 window.addEventListener("scroll",()=>{
 
-    if(window.scrollY>300){
 
-        topBtn.style.display="block";
+    if(window.scrollY > 300){
 
-    }else{
-
-        topBtn.style.display="none";
+        topBtn.style.display = "block";
 
     }
 
+    else{
+
+        topBtn.style.display = "none";
+
+    }
+
+
 });
 
+
+
 topBtn.addEventListener("click",()=>{
+
 
     window.scrollTo({
 
@@ -77,50 +102,134 @@ topBtn.addEventListener("click",()=>{
 
     });
 
+
 });
+
+
+
 
 // ==============================
 // ACTIVE MENU
 // ==============================
 
-const navLinks=document.querySelectorAll("nav a");
+
+const navLinks = document.querySelectorAll("nav a");
+
 
 navLinks.forEach(link=>{
 
+
     link.addEventListener("click",()=>{
 
-        navLinks.forEach(item=>item.classList.remove("active"));
+
+        navLinks.forEach(item=>{
+
+            item.classList.remove("active");
+
+        });
+
 
         link.classList.add("active");
 
+
     });
+
 
 });
 
+
+
+
 // ==============================
-// CARD ANIMATION
+// CARD SCROLL ANIMATION
 // ==============================
 
-const cards=document.querySelectorAll(".card");
 
-const observer=new IntersectionObserver(entries=>{
+const cards = document.querySelectorAll(".card");
+
+
+const observer = new IntersectionObserver((entries)=>{
+
 
     entries.forEach(entry=>{
 
+
         if(entry.isIntersecting){
+
 
             entry.target.classList.add("show");
 
+
         }
+
 
     });
 
-},{threshold:.15});
 
-cards.forEach(card=>{
+},{
 
-    observer.observe(card);
+    threshold:0.15
 
 });
 
-console.log("Lumenix Service Point BD V3 Loaded Successfully");
+
+
+cards.forEach(card=>{
+
+
+    observer.observe(card);
+
+
+});
+
+
+
+
+// ==============================
+// IMAGE LAZY LOAD SUPPORT
+// ==============================
+
+
+const images = document.querySelectorAll("img");
+
+
+images.forEach(img=>{
+
+
+    img.loading = "lazy";
+
+
+});
+
+
+
+
+// ==============================
+// CURRENT YEAR AUTO UPDATE
+// ==============================
+
+
+const year = new Date().getFullYear();
+
+
+const footerYear = document.querySelector(".footer p:last-child");
+
+
+if(footerYear){
+
+    footerYear.innerHTML =
+    footerYear.innerHTML.replace("2026",year);
+
+}
+
+
+
+
+// ==============================
+// WEBSITE READY MESSAGE
+// ==============================
+
+
+console.log(
+"Lumenix Service Point BD V3 Final Loaded Successfully"
+);
