@@ -1,31 +1,51 @@
+// =======================================================
+// LUMENIX SERVICE POINT BD
+// MS FARDIN ELECTRIC
+// VERSION 3
+// PREMIUM JAVASCRIPT
+// =======================================================
 
-// Lumenix Service Point BD
-// JavaScript V3
+// ==============================
+// SMOOTH SCROLL
+// ==============================
 
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener("click", function(e){
+document.querySelectorAll('a[href^="#"]').forEach(link=>{
+
+    link.addEventListener("click",function(e){
+
         e.preventDefault();
 
-        const target = document.querySelector(this.getAttribute("href"));
+        const target=document.querySelector(this.getAttribute("href"));
 
         if(target){
+
             target.scrollIntoView({
+
                 behavior:"smooth"
+
             });
+
         }
+
     });
+
 });
 
+// ==============================
+// PAGE LOADING
+// ==============================
 
-// Page loading effect
 window.addEventListener("load",()=>{
+
     document.body.classList.add("loaded");
+
 });
 
+// ==============================
+// BACK TO TOP BUTTON
+// ==============================
 
-// Back to top button
-const topBtn = document.createElement("button");
+const topBtn=document.createElement("button");
 
 topBtn.innerHTML="⬆";
 
@@ -33,61 +53,74 @@ topBtn.className="top-btn";
 
 document.body.appendChild(topBtn);
 
-
 window.addEventListener("scroll",()=>{
 
-    if(window.scrollY > 300){
+    if(window.scrollY>300){
+
         topBtn.style.display="block";
-    }
-    else{
+
+    }else{
+
         topBtn.style.display="none";
+
     }
 
 });
 
-
-topBtn.onclick=()=>{
+topBtn.addEventListener("click",()=>{
 
     window.scrollTo({
+
         top:0,
+
         behavior:"smooth"
+
     });
 
-};
+});
 
-/* ================= BACK TO TOP BUTTON ================= */
+// ==============================
+// ACTIVE MENU
+// ==============================
 
-.top-btn{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    width:50px;
-    height:50px;
-    border:none;
-    border-radius:50%;
-    background:#ff8c00;
-    color:#fff;
-    font-size:22px;
-    cursor:pointer;
-    display:none;
-    z-index:9999;
-    box-shadow:0 5px 15px rgba(0,0,0,.25);
-    transition:.3s;
-}
+const navLinks=document.querySelectorAll("nav a");
 
-.top-btn:hover{
-    background:#0B3B6E;
-}
+navLinks.forEach(link=>{
 
-.loaded{
-    animation:fadeIn .6s ease;
-}
+    link.addEventListener("click",()=>{
 
-@keyframes fadeIn{
-    from{
-        opacity:0;
-    }
-    to{
-        opacity:1;
-    }
-}
+        navLinks.forEach(item=>item.classList.remove("active"));
+
+        link.classList.add("active");
+
+    });
+
+});
+
+// ==============================
+// CARD ANIMATION
+// ==============================
+
+const cards=document.querySelectorAll(".card");
+
+const observer=new IntersectionObserver(entries=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("show");
+
+        }
+
+    });
+
+},{threshold:.15});
+
+cards.forEach(card=>{
+
+    observer.observe(card);
+
+});
+
+console.log("Lumenix Service Point BD V3 Loaded Successfully");
