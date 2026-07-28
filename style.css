@@ -583,3 +583,60 @@ nav a:hover{
 ::-webkit-scrollbar-thumb:hover{
     background:#ff8c00;
 }
+/* =======================================================
+   JAVASCRIPT SUPPORT
+======================================================= */
+
+.loaded{
+    animation:fadeIn .6s ease;
+}
+
+.top-btn{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:52px;
+    height:52px;
+    border:none;
+    border-radius:50%;
+    background:#ff8c00;
+    color:#ffffff;
+    font-size:22px;
+    cursor:pointer;
+    display:none;
+    z-index:9999;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+    transition:all .3s ease;
+}
+
+.top-btn:hover{
+    background:#0B3B6E;
+    transform:translateY(-4px);
+}
+
+nav a.active{
+    color:#ff8c00;
+}
+
+.card{
+    opacity:0;
+    transform:translateY(30px);
+    transition:all .6s ease;
+}
+
+.card.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
