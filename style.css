@@ -1,9 +1,8 @@
 /* =======================================================
    LUMENIX SERVICE POINT BD
    MS FARDIN ELECTRIC
-   WEBSITE VERSION : V3
-   CSS PART-01
-   CODE-0001 → CODE-0004
+   VERSION 3
+   PREMIUM CORPORATE CSS
 ======================================================= */
 
 /* ===========================
@@ -22,93 +21,148 @@ html{
 
 body{
     font-family:Arial, Helvetica, sans-serif;
-    background:#f5f7fa;
+    background:#f4f7fb;
     color:#222;
     overflow-x:hidden;
 }
 
+img{
+    max-width:100%;
+    display:block;
+}
+
 .container{
     width:92%;
-    max-width:1200px;
+    max-width:1250px;
     margin:auto;
 }
 
 /* ===========================
-   CODE-0001 HEADER
+   HEADER
 =========================== */
 
 header{
+
     position:sticky;
     top:0;
-    z-index:999;
-    background:#0B3B6E;
+    z-index:9999;
+
+    background:rgba(11,59,110,.96);
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:0 8px 25px rgba(0,0,0,.18);
+
     padding:18px 0;
-    box-shadow:0 6px 20px rgba(0,0,0,.15);
+
 }
 
 .logo{
+
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:20px;
+
 }
 
-.logo h1{
-    color:#fff;
-    font-size:30px;
+.company-logo h1{
+
+    color:#ffffff;
+    font-size:32px;
     font-weight:700;
+
 }
 
-.logo span{
+.company-logo span{
+
     color:#ff8c00;
+
+}
+
+.tagline{
+
+    margin-top:6px;
+    color:#d9e7f7;
+    font-size:14px;
+    letter-spacing:1px;
+
 }
 
 nav{
+
     display:flex;
-    gap:20px;
+    gap:25px;
+
 }
 
 nav a{
-    color:#fff;
+
+    color:#ffffff;
     text-decoration:none;
-    font-weight:bold;
-    transition:.3s;
+    font-weight:600;
+    transition:.35s;
+
 }
 
 nav a:hover{
+
     color:#ff8c00;
+
 }
 
 /* ===========================
-   CODE-0002 HERO
+   HERO
 =========================== */
 
 .hero{
+
     background:linear-gradient(135deg,#0B3B6E,#ff8c00);
-    color:#fff;
+
+    color:#ffffff;
+
     text-align:center;
-    padding:90px 20px;
-    animation:heroFade .8s ease;
+
+    padding:110px 20px 90px;
+
 }
 
 .company{
+
     font-size:18px;
-    color:#ffe0a3;
-    letter-spacing:2px;
+
+    letter-spacing:3px;
+
+    color:#ffe2aa;
+
 }
 
 .hero h3{
-    margin-top:10px;
-    font-size:32px;
+
+    margin-top:12px;
+
+    font-size:34px;
+
 }
 
 .hero h1{
-    font-size:44px;
-    margin:35px 0 20px;
+
+    margin-top:40px;
+
+    font-size:48px;
+
+    font-weight:700;
+
 }
 
 .hero-text{
+
+    margin-top:20px;
+
     font-size:20px;
+
     line-height:34px;
+
 }
 
 /* ===========================
@@ -116,149 +170,163 @@ nav a:hover{
 =========================== */
 
 .brand-box{
+
     display:flex;
+
     justify-content:center;
-    gap:30px;
+
+    gap:35px;
+
     flex-wrap:wrap;
-    margin:45px 0;
+
+    margin:55px 0;
+
 }
 
 .brand{
-    width:280px;
-    background:#fff;
-    color:#222;
-    padding:25px;
-    border-radius:18px;
-    box-shadow:0 10px 25px rgba(0,0,0,.15);
-    transition:.35s;
+
+    width:320px;
+
+    background:rgba(255,255,255,.96);
+
+    border-radius:22px;
+
+    padding:35px 25px;
+
+    box-shadow:0 18px 40px rgba(0,0,0,.18);
+
+    transition:.40s;
+
+    text-align:center;
+
 }
 
 .brand:hover{
+
     transform:translateY(-10px);
+
 }
 
 .brand img{
-    width:100px;
-    height:100px;
+
+    width:150px;
+
+    height:150px;
+
     object-fit:contain;
-    margin-bottom:15px;
+
+    margin:0 auto 22px;
+
+    transition:.4s;
+
+}
+
+.brand:hover img{
+
+    transform:scale(1.08);
+
 }
 
 .brand h2{
+
     color:#0B3B6E;
-    margin-bottom:10px;
-    font-size:22px;
+
+    margin-bottom:12px;
+
 }
 
 .brand p{
-    color:#666;
-    line-height:26px;
-}
 
+    color:#555;
+
+    line-height:28px;
+
+}
 /* ===========================
    BUTTONS
 =========================== */
 
 .hero-buttons{
-    margin-top:35px;
+    margin-top:40px;
 }
 
 .btn{
     display:inline-block;
+    padding:15px 34px;
+    margin:10px;
+    border-radius:50px;
     text-decoration:none;
-    padding:14px 30px;
-    border-radius:40px;
-    margin:8px;
-    font-weight:bold;
-    transition:.3s;
+    font-weight:700;
+    transition:.35s;
 }
 
 .call{
-    background:#fff;
+    background:#ffffff;
     color:#0B3B6E;
 }
 
 .whatsapp{
     background:#25D366;
-    color:#fff;
+    color:#ffffff;
 }
 
 .facebook{
     background:#1877F2;
-    color:#fff;
+    color:#ffffff;
 }
 
 .btn:hover{
-    transform:translateY(-4px);
-    box-shadow:0 10px 20px rgba(0,0,0,.20);
+    transform:translateY(-5px);
+    box-shadow:0 15px 30px rgba(0,0,0,.20);
 }
 
 /* ===========================
-   CODE-0004 SERVICES
+   SECTION
 =========================== */
 
 .section{
-    padding:80px 20px;
+    padding:90px 20px;
 }
 
 .title{
     text-align:center;
-    font-size:36px;
+    font-size:38px;
     color:#0B3B6E;
-    margin-bottom:45px;
+    margin-bottom:50px;
 }
 
 .cards{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:25px;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:28px;
 }
 
 .card{
-    background:#fff;
+    background:#ffffff;
+    border-radius:18px;
     padding:30px;
-    border-radius:16px;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-    transition:.3s;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.35s;
 }
 
 .card:hover{
-    transform:translateY(-8px);
+    transform:translateY(-10px);
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
 }
 
 .card h3{
     color:#ff8c00;
     margin-bottom:15px;
+    font-size:22px;
 }
 
 .card p{
-    line-height:28px;
+    color:#555;
+    line-height:30px;
 }
 
 /* ===========================
-   ANIMATION
-=========================== */
-
-@keyframes heroFade{
-
-    from{
-        opacity:0;
-        transform:translateY(40px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}/* =======================================================
-   CSS V3
-   PART-02
-   CODE-0005 → CODE-0012
-=======================================================*/
-
-/* ===========================
-   ABOUT SECTION
+   ABOUT
 =========================== */
 
 #about{
@@ -269,12 +337,6 @@ nav a:hover{
     max-width:950px;
     margin:auto;
     text-align:center;
-}
-
-#about p{
-    font-size:18px;
-    line-height:34px;
-    color:#444;
 }
 
 #about strong{
@@ -305,14 +367,6 @@ nav a:hover{
     text-align:center;
 }
 
-#why-us h3{
-    font-size:22px;
-}
-
-#why-us p{
-    color:#555;
-}
-
 /* ===========================
    CONTACT
 =========================== */
@@ -334,159 +388,15 @@ nav a:hover{
 #contact a:hover{
     color:#ff8c00;
 }
-
 /* ===========================
-   SERVICE AGREEMENT
+   FAQ
 =========================== */
 
-.section:nth-of-type(6){
-    background:#f8f9fa;
-}
-
-/* ===========================
-   PRIVACY POLICY
-=========================== */
-
-.section:nth-of-type(7){
+#faq{
     background:#ffffff;
 }
 
-/* ===========================
-   TERMS & CONDITIONS
-=========================== */
-
-.section:nth-of-type(8){
-    background:#eef5fb;
-}
-
-.section:nth-of-type(8) .card{
-    border-left:5px solid #ff8c00;
-}
-
-/* ===========================
-   CUSTOMER REVIEWS
-=========================== */
-
-.section:nth-of-type(9){
-
-    background:#ffffff;
-
-}
-
-.section:nth-of-type(9) .card{
-
-    text-align:center;
-
-}
-
-.section:nth-of-type(9) h3{
-
-    font-size:28px;
-    color:#ffb400;
-
-}
-
-.section:nth-of-type(9) strong{
-
-    display:block;
-    margin-top:15px;
-    color:#0B3B6E;
-
-}
-
-/* ===========================
-   CARD EFFECT
-=========================== */
-
-.card{
-
-    transition:.35s;
-
-}
-
-.card:hover{
-
-    transform:translateY(-10px);
-    box-shadow:0 18px 35px rgba(0,0,0,.15);
-
-}
-
-/* ===========================
-   TABLET
-=========================== */
-
-@media(max-width:992px){
-
-.title{
-
-    font-size:32px;
-
-}
-
-.cards{
-
-    grid-template-columns:repeat(2,1fr);
-
-}
-
-}
-
-/* ===========================
-   MOBILE
-=========================== */
-
-@media(max-width:768px){
-
-.section{
-
-    padding:60px 15px;
-
-}
-
-.title{
-
-    font-size:28px;
-
-}
-
-.cards{
-
-    grid-template-columns:1fr;
-
-}
-
-.card{
-
-    padding:25px;
-
-}
-
-#about p{
-
-    font-size:16px;
-    line-height:30px;
-
-}
-
-}
-
-/* =======================================================
-   CSS V3
-   PART-03
-   CODE-0013 → CODE-0017
-=======================================================*/
-
-/* ===========================
-   CODE-0013 FAQ
-=========================== */
-
-#faq,
-.section.faq{
-    background:#ffffff;
-}
-
-#faq .card hr,
-.section hr{
+#faq hr{
     margin:20px 0;
     border:none;
     border-top:1px solid #ddd;
@@ -494,17 +404,16 @@ nav a:hover{
 
 #faq h3{
     color:#0B3B6E;
-    font-size:20px;
     margin-bottom:10px;
 }
 
 #faq p{
     color:#555;
-    line-height:28px;
+    line-height:30px;
 }
 
 /* ===========================
-   CODE-0014 TECHNICIAN
+   TECHNICIAN
 =========================== */
 
 #technician{
@@ -518,11 +427,10 @@ nav a:hover{
 
 #technician li{
     line-height:34px;
-    color:#444;
 }
 
 /* ===========================
-   CODE-0015 COVERAGE
+   COVERAGE
 =========================== */
 
 #coverage{
@@ -534,30 +442,7 @@ nav a:hover{
 }
 
 /* ===========================
-   CODE-0016 EMERGENCY
-=========================== */
-
-.emergency-card{
-    background:#0B3B6E;
-    color:#fff;
-    text-align:center;
-    padding:40px;
-    border-radius:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.20);
-}
-
-.emergency-card h2{
-    color:#fff;
-    margin-bottom:20px;
-}
-
-.emergency-card p{
-    color:#f2f2f2;
-    line-height:32px;
-}
-
-/* ===========================
-   CODE-0017 FOOTER
+   FOOTER
 =========================== */
 
 .footer{
@@ -573,56 +458,113 @@ nav a:hover{
 }
 
 .footer p{
-    line-height:30px;
     color:#dddddd;
+    line-height:30px;
 }
 
 .footer strong{
     color:#ff8c00;
 }
 
-.footer-links{
-    margin:20px 0;
-}
-
-.footer-links a{
+.footer a{
     color:#ffffff;
     text-decoration:none;
-    font-weight:bold;
     transition:.3s;
 }
 
-.footer-links a:hover{
+.footer a:hover{
     color:#ff8c00;
 }
 
-.footer-social{
-    margin:20px 0;
-}
+/* ===========================
+   ANIMATION
+=========================== */
 
-.footer-social a{
-    color:#ffffff;
-    text-decoration:none;
-    font-weight:bold;
-    margin:0 10px;
-    transition:.3s;
-}
+@keyframes heroFade{
 
-.footer-social a:hover{
-    color:#25D366;
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
 }
 
 /* ===========================
-   GLOBAL HOVER
+   RESPONSIVE
 =========================== */
 
-.card:hover,
-.brand:hover{
-    transform:translateY(-8px);
+@media(max-width:992px){
+
+    nav{
+        gap:15px;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
 }
 
-.btn:hover{
-    transform:translateY(-4px);
+@media(max-width:768px){
+
+    .logo{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    nav{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero{
+        padding:70px 15px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .hero h3{
+        font-size:24px;
+    }
+
+    .hero-text{
+        font-size:16px;
+        line-height:28px;
+    }
+
+    .brand{
+        width:100%;
+    }
+
+    .brand img{
+        width:120px;
+        height:120px;
+    }
+
+    .btn{
+        width:90%;
+        max-width:320px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .title{
+        font-size:30px;
+    }
+
 }
 
 /* ===========================
@@ -633,10 +575,6 @@ nav a:hover{
     width:10px;
 }
 
-::-webkit-scrollbar-track{
-    background:#eeeeee;
-}
-
 ::-webkit-scrollbar-thumb{
     background:#0B3B6E;
     border-radius:20px;
@@ -645,38 +583,3 @@ nav a:hover{
 ::-webkit-scrollbar-thumb:hover{
     background:#ff8c00;
 }
-
-/* ===========================
-   RESPONSIVE
-=========================== */
-
-@media (max-width:768px){
-
-    .footer{
-        padding:40px 15px;
-    }
-
-    .footer h2{
-        font-size:26px;
-    }
-
-    .footer-links{
-        line-height:35px;
-    }
-
-    .footer-social a{
-        display:inline-block;
-        margin:8px;
-    }
-
-    .emergency-card{
-        padding:30px 20px;
-    }
-
-}
-
-/* =======================================================
-   END OF CSS V3
-   MS FARDIN ELECTRIC
-   LUMENIX SERVICE POINT BD
-=======================================================*/
