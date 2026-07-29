@@ -1179,10 +1179,100 @@ nav a:hover{
 
 
 }
-
-
 /* =======================================================
    CSS V3 FINAL COMPLETE
    MS FARDIN ELECTRIC
    LUMENIX SERVICE POINT BD
 ======================================================= */
+
+/* ===================================================== */
+/* V2-CODE-0003 : JOIN OUR NETWORK PREMIUM CSS START */
+/* ===================================================== */
+
+#join-network{
+    background:#f8f9fc;
+    padding:80px 20px;
+}
+
+#join-network .title{
+    text-align:center;
+    font-size:38px;
+    font-weight:700;
+    color:#0B3B6E;
+    margin-bottom:15px;
+}
+
+#join-network .hero-text{
+    text-align:center;
+    max-width:850px;
+    margin:0 auto 50px;
+    color:#555;
+    font-size:18px;
+    line-height:1.8;
+}
+
+#join-network .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+#join-network .card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.35s;
+    border-top:5px solid #ff7a00;
+}
+
+#join-network .card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
+}
+
+#join-network .card h3{
+    color:#0B3B6E;
+    margin-bottom:15px;
+    font-size:24px;
+}
+
+#join-network .card p{
+    color:#666;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+#join-network .btn{
+    display:inline-block;
+    padding:12px 28px;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:700;
+    transition:.30s;
+}
+
+#join-network .btn:hover{
+    transform:scale(1.05);
+}
+
+@media(max-width:768px){
+
+#join-network{
+padding:60px 15px;
+}
+
+#join-network .title{
+font-size:30px;
+}
+
+#join-network .hero-text{
+font-size:16px;
+}
+
+}
+
+/* ===================================================== */
+/* V2-CODE-0003 : JOIN OUR NETWORK PREMIUM CSS END */
+/* ===================================================== */
