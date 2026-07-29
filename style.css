@@ -538,4 +538,448 @@ ul{
 /* ====================================================== */
 /* CSS-0005 : ABOUT SECTION END */
 /* ====================================================== */
+/* ====================================================== */
+/* CSS-0006 : WHY CHOOSE US & VISIT CHARGE START */
+/* ====================================================== */
 
+/* Why Choose Us */
+
+#why-us{
+
+    background:#ffffff;
+
+}
+
+#why-us .card{
+
+    text-align:center;
+
+}
+
+#why-us .service-icon{
+
+    margin-bottom:20px;
+
+}
+
+/* Visit Charge */
+
+#visit-charge{
+
+    background:linear-gradient(135deg,#f8fbff,#eef5ff);
+
+}
+
+#visit-charge .card{
+
+    text-align:center;
+    border-top:5px solid var(--primary);
+
+}
+
+#visit-charge .card h2{
+
+    font-size:48px;
+    color:var(--primary);
+    margin:15px 0;
+
+}
+
+#visit-charge .card h3{
+
+    color:var(--secondary);
+
+}
+
+#visit-charge .card p{
+
+    color:var(--text);
+    line-height:1.8;
+
+}
+
+/* Hover Effect */
+
+#visit-charge .card:hover,
+#why-us .card:hover{
+
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+}
+
+/* ====================================================== */
+/* CSS-0006 : WHY CHOOSE US & VISIT CHARGE END */
+/* ====================================================== */
+
+/* ====================================================== */
+/* CSS-0007 : FORMS START */
+/* ====================================================== */
+
+.registration-form{
+
+    max-width:900px;
+    margin:40px auto 0;
+    background:#ffffff;
+    padding:40px;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+
+}
+
+.registration-form input,
+.registration-form select,
+.registration-form textarea{
+
+    width:100%;
+    padding:15px 18px;
+    margin-bottom:20px;
+    border:1px solid #dcdcdc;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+    font-family:'Poppins',sans-serif;
+    transition:var(--transition);
+
+}
+
+.registration-form input:focus,
+.registration-form select:focus,
+.registration-form textarea:focus{
+
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(255,122,0,.15);
+
+}
+
+.registration-form textarea{
+
+    resize:vertical;
+    min-height:140px;
+
+}
+
+.registration-form label{
+
+    display:block;
+    margin-bottom:10px;
+    font-weight:500;
+    color:var(--secondary);
+
+}
+
+.registration-form input[type="checkbox"]{
+
+    width:auto;
+    margin-right:10px;
+
+}
+
+.registration-form input[type="file"]{
+
+    padding:12px;
+    background:#fafafa;
+
+}
+
+.registration-form button{
+
+    width:100%;
+    border:none;
+    cursor:pointer;
+    background:var(--primary);
+    color:#ffffff;
+    font-size:17px;
+    padding:16px;
+    border-radius:50px;
+    transition:var(--transition);
+
+}
+
+.registration-form button:hover{
+
+    background:#e56d00;
+    transform:translateY(-3px);
+
+}
+
+/* ====================================================== */
+/* CSS-0007 : FORMS END */
+/* ====================================================== */
+
+/* ====================================================== */
+/* CSS-0008 : FOOTER + FLOATING BUTTONS + RESPONSIVE START */
+/* ====================================================== */
+
+/* Footer */
+
+footer{
+
+    background:var(--secondary);
+    color:#ffffff;
+    text-align:center;
+    padding:40px 20px;
+
+}
+
+footer h3{
+
+    margin-bottom:15px;
+
+}
+
+footer p{
+
+    color:#dddddd;
+    margin-bottom:10px;
+
+}
+
+footer a{
+
+    color:#ffffff;
+
+}
+
+footer a:hover{
+
+    color:var(--primary);
+
+}
+
+/* Floating Buttons */
+
+.floating-buttons{
+
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    z-index:999;
+
+}
+
+.floating-buttons a{
+
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#ffffff;
+    font-size:22px;
+    box-shadow:var(--shadow);
+    transition:var(--transition);
+
+}
+
+.floating-buttons .whatsapp{
+
+    background:#25D366;
+
+}
+
+.floating-buttons .call{
+
+    background:var(--primary);
+
+}
+
+.floating-buttons .top{
+
+    background:var(--secondary);
+
+}
+
+.floating-buttons a:hover{
+
+    transform:scale(1.1);
+
+}
+
+/* Responsive */
+
+@media (max-width:992px){
+
+    .hero h1{
+
+        font-size:40px;
+
+    }
+
+    #navbar{
+
+        display:none;
+
+    }
+
+    .menu-toggle{
+
+        display:block;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .section{
+
+        padding:70px 0;
+
+    }
+
+    .section-title{
+
+        font-size:30px;
+
+    }
+
+    .hero h1{
+
+        font-size:32px;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .btn{
+
+        width:100%;
+
+    }
+
+    .logo h2{
+
+        font-size:18px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .hero{
+
+        padding:70px 0;
+
+    }
+
+    .brand-card{
+
+        padding:25px;
+
+    }
+
+    .section-title{
+
+        font-size:26px;
+
+    }
+
+}
+
+/* ====================================================== */
+/* CSS-0008 : FOOTER + FLOATING BUTTONS + RESPONSIVE END */
+/* ====================================================== */
+
+/* ====================================================== */
+/* CSS-0009 : ANIMATIONS & UTILITIES START */
+/* ====================================================== */
+
+/* Fade Animation */
+
+.fade-up{
+
+    opacity:0;
+    transform:translateY(40px);
+    transition:all .8s ease;
+
+}
+
+.fade-up.show{
+
+    opacity:1;
+    transform:translateY(0);
+
+}
+
+/* Zoom Animation */
+
+.zoom-in{
+
+    opacity:0;
+    transform:scale(.9);
+    transition:all .8s ease;
+
+}
+
+.zoom-in.show{
+
+    opacity:1;
+    transform:scale(1);
+
+}
+
+/* Image Hover */
+
+.card img,
+.brand-card img{
+
+    transition:var(--transition);
+
+}
+
+.card:hover img,
+.brand-card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+/* Custom Scrollbar */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#f2f2f2;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#e56d00;
+
+}
+
+/* Text Selection */
+
+::selection{
+
+    background:var(--primary);
+    color:#ffffff;
+
+}
+
+/* ====================================================== */
+/* CSS-0009 : ANIMATIONS & UTILITIES END */
+/* ====================================================== */
