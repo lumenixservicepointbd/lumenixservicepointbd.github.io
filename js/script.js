@@ -202,29 +202,6 @@ images.forEach(img=>{
 });
 
 
-
-
-// ==============================
-// CURRENT YEAR AUTO UPDATE
-// ==============================
-
-
-const year = new Date().getFullYear();
-
-
-const footerYear = document.querySelector(".footer p:last-child");
-
-
-if(footerYear){
-
-    footerYear.innerHTML =
-    footerYear.innerHTML.replace("2026",year);
-
-}
-
-
-
-
 // ==============================
 // WEBSITE READY MESSAGE
 // ==============================
@@ -1918,7 +1895,6 @@ function updateTechnicianStatus(
 
 
 }
-
 
 
 
@@ -6863,3 +6839,16 @@ window.addEventListener(
 console.log(
 "V2-JS-0020 Final Website Integration & Performance System Activated Successfully"
 );
+// =======================================================
+// V2-JS-0021 : AUTO CURRENT YEAR
+// =======================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const currentYear = document.getElementById("current-year");
+
+    if (currentYear) {
+        currentYear.textContent = new Date().getFullYear();
+    }
+
+});
