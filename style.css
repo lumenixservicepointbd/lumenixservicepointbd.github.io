@@ -1,15 +1,21 @@
-/* =======================================================
-   LUMENIX SERVICE POINT BD
-   MS FARDIN ELECTRIC
-   WEBSITE VERSION : V3 FINAL
-   PREMIUM CORPORATE CSS
-   PART-01
-======================================================= */
+/* ====================================================== */
+/* CSS-0001 : GLOBAL RESET & ROOT VARIABLES START */
+/* ====================================================== */
 
+:root{
 
-/* ===========================
-   RESET
-=========================== */
+    --primary:#ff7a00;
+    --secondary:#0b3b6e;
+    --dark:#1d1d1d;
+    --light:#ffffff;
+    --grey:#f5f5f5;
+    --text:#555555;
+
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+    --radius:16px;
+    --transition:.35s ease;
+
+}
 
 *{
     margin:0;
@@ -23,13 +29,13 @@ html{
 
 body{
 
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f4f7fb;
-    color:#222;
+    font-family:'Poppins',sans-serif;
+    background:#ffffff;
+    color:var(--dark);
+    line-height:1.7;
     overflow-x:hidden;
 
 }
-
 
 img{
 
@@ -38,3690 +44,498 @@ img{
 
 }
 
+a{
+
+    text-decoration:none;
+    transition:var(--transition);
+
+}
+
+ul{
+
+    list-style:none;
+
+}
 
 .container{
 
-    width:92%;
-    max-width:1250px;
+    width:min(1200px,92%);
     margin:auto;
 
 }
 
+.section{
 
-/* ===========================
-   HEADER
-=========================== */
-
-header{
-
-    position:sticky;
-    top:0;
-    z-index:9999;
-
-    background:#0B3B6E;
-
-    padding:18px 0;
-
-    box-shadow:
-    0 8px 25px rgba(0,0,0,.18);
+    padding:90px 0;
 
 }
 
+.section-title{
 
-.logo{
+    font-size:38px;
+    font-weight:700;
+    color:var(--secondary);
+    text-align:center;
+    margin-bottom:15px;
+
+}
+
+.section-subtitle{
+
+    max-width:750px;
+    margin:0 auto 50px;
+    text-align:center;
+    color:var(--text);
+
+}
+
+/* ====================================================== */
+/* CSS-0001 : GLOBAL RESET & ROOT VARIABLES END */
+/* ====================================================== */
+/* ====================================================== */
+/* CSS-0002 : LOADER + HEADER START */
+/* ====================================================== */
+
+/* Loader */
+
+#loader{
+
+    position:fixed;
+    inset:0;
+    background:#ffffff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    transition:.5s;
+
+}
+
+.loader-box{
+
+    text-align:center;
+
+}
+
+.loader-box img{
+
+    width:110px;
+    margin:0 auto 20px;
+
+}
+
+.loader-box h2{
+
+    color:var(--secondary);
+    margin-bottom:8px;
+
+}
+
+.loader-box p{
+
+    color:var(--text);
+
+}
+
+/* Header */
+
+#header{
+
+    position:sticky;
+    top:0;
+    left:0;
+    width:100%;
+    background:#ffffff;
+    box-shadow:var(--shadow);
+    z-index:999;
+
+}
+
+#header .container{
 
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:20px;
+    padding:18px 0;
 
 }
 
-
-.company-logo h1{
-
-    color:#fff;
-    font-size:32px;
-    font-weight:700;
-
-}
-
-
-.company-logo span{
-
-    color:#ff8c00;
-
-}
-
-
-.tagline{
-
-    margin-top:6px;
-
-    color:#dbe9f7;
-
-    font-size:14px;
-
-    letter-spacing:1px;
-
-}
-
-
-/* ===========================
-   NAVIGATION
-=========================== */
-
-nav{
+.logo{
 
     display:flex;
-
-    gap:25px;
-
-}
-
-
-nav a{
-
-    color:#fff;
-
-    text-decoration:none;
-
-    font-weight:600;
-
-    transition:.3s;
+    align-items:center;
+    gap:15px;
 
 }
 
+.logo img{
 
-nav a:hover{
-
-    color:#ff8c00;
-
-}
-
-
-/* ===========================
-   HERO SECTION
-=========================== */
-
-.hero{
-
-    background:
-    linear-gradient(
-    135deg,
-    #0B3B6E,
-    #ff8c00
-    );
-
-    color:#fff;
-
-    text-align:center;
-
-    padding:90px 20px;
+    width:60px;
 
 }
 
-
-.company{
-
-    font-size:18px;
-
-    color:#ffe0a3;
-
-    letter-spacing:2px;
-
-}
-
-
-.hero h3{
-
-    margin-top:10px;
-
-    font-size:32px;
-
-}
-
-
-.hero h1{
-
-    font-size:44px;
-
-    margin:35px 0 20px;
-
-}
-
-
-.hero-text{
-
-    font-size:20px;
-
-    line-height:34px;
-
-}
-
-
-
-/* ===========================
-   BRAND BOX
-=========================== */
-
-
-.brand-box{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:30px;
-
-    flex-wrap:wrap;
-
-    margin:45px 0;
-
-}
-
-
-
-.brand{
-
-    width:300px;
-
-    background:#fff;
-
-    color:#222;
-
-    padding:30px;
-
-    border-radius:20px;
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.18);
-
-    transition:.35s;
-
-}
-
-
-
-.brand:hover{
-
-    transform:translateY(-10px);
-
-}
-
-
-
-.brand img{
-
-    width:140px;
-
-    height:140px;
-
-    object-fit:contain;
-
-    margin:auto;
-
-    margin-bottom:20px;
-
-    transition:.4s;
-
-}
-
-
-
-.brand:hover img{
-
-    transform:scale(1.08);
-
-}
-
-
-
-.brand h2{
-
-    color:#0B3B6E;
+.logo h2{
 
     font-size:22px;
-
-    margin-bottom:10px;
-
-}
-
-
-
-.brand p{
-
-    color:#666;
-
-    line-height:26px;
+    color:var(--secondary);
 
 }
 
-
-/* =======================================================
-   CSS PART-01 END
-======================================================= */
-/* =======================================================
-   LUMENIX SERVICE POINT BD
-   MS FARDIN ELECTRIC
-   WEBSITE VERSION : V3 FINAL
-   PREMIUM CORPORATE CSS
-   PART-02
-======================================================= */
-
-
-/* ===========================
-   BUTTONS
-=========================== */
-
-.hero-buttons{
-
-    margin-top:35px;
-
-}
-
-
-.btn{
-
-    display:inline-block;
-
-    padding:14px 32px;
-
-    margin:8px;
-
-    border-radius:50px;
-
-    text-decoration:none;
-
-    font-weight:bold;
-
-    transition:.35s;
-
-}
-
-.call{
-
-    background:#fff;
-
-    color:#0B3B6E;
-
-}
-
-.whatsapp{
-
-    background:#25D366;
-
-    color:#fff;
-
-}
-
-.facebook{
-
-    background:#1877F2;
-
-    color:#fff;
-
-}
-
-.btn:hover{
-
-    transform:translateY(-5px);
-
-    box-shadow:
-    0 10px 25px rgba(0,0,0,.25);
-
-}
-
-/* ===========================
-   COMMON SECTION
-=========================== */
-
-
-.section{
-
-    padding:80px 20px;
-
-}
-
-
-
-.title{
-
-    text-align:center;
-
-    color:#0B3B6E;
-
-    font-size:36px;
-
-    margin-bottom:45px;
-
-}
-
-
-
-/* ===========================
-   SERVICE CARDS
-=========================== */
-
-
-.cards{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(260px,1fr));
-
-    gap:25px;
-
-}
-
-
-
-.card{
-
-    background:#fff;
-
-    padding:30px;
-
-    border-radius:18px;
-
-    box-shadow:
-    0 8px 25px rgba(0,0,0,.08);
-
-    transition:.35s;
-
-}
-
-
-
-.card:hover{
-
-    transform:translateY(-10px);
-
-    box-shadow:
-    0 18px 35px rgba(0,0,0,.15);
-
-}
-
-
-
-.card h3{
-
-    color:#ff8c00;
-
-    margin-bottom:15px;
-
-}
-
-
-
-.card p{
-
-    line-height:28px;
-
-    color:#555;
-
-}
-
-
-
-/* ===========================
-   ABOUT SECTION
-=========================== */
-
-
-#about{
-
-    background:#fff;
-
-}
-
-
-
-#about .card{
-
-    max-width:950px;
-
-    margin:auto;
-
-    text-align:center;
-
-}
-
-
-
-#about p{
-
-    font-size:18px;
-
-    line-height:34px;
-
-}
-
-
-
-#about strong{
-
-    color:#0B3B6E;
-
-}
-
-
-
-/* ===========================
-   VISIT CHARGE POLICY
-=========================== */
-
-
-#visit-charge{
-
-    background:#eef5fb;
-
-}
-
-
-
-#visit-charge .card{
-
-    border-top:
-
-    5px solid #ff8c00;
-
-}
-
-
-
-/* ===========================
-   WHY CHOOSE US
-=========================== */
-
-
-#why-us{
-
-    background:#fff;
-
-}
-
-
-
-#why-us .card{
-
-    text-align:center;
-
-}
-
-
-
-#why-us h3{
-
-    font-size:22px;
-
-}
-
-
-
-#why-us p{
-
-    color:#555;
-
-}
-
-
-
-/* ===========================
-   CONTACT SECTION
-=========================== */
-
-
-#contact{
-
-    background:#eef5fb;
-
-}
-
-
-
-#contact .card{
-
-    text-align:center;
-
-}
-
-
-
-#contact a{
-
-    color:#1877F2;
-
-    text-decoration:none;
-
-    font-weight:bold;
-
-}
-
-
-
-#contact a:hover{
-
-    color:#ff8c00;
-
-}
-
-
-
-/* ===========================
-   SERVICE AGREEMENT
-=========================== */
-
-
-#contact + .section{
-
-    background:#f8f9fa;
-
-}
-
-
-
-/* ===========================
-   PRIVACY POLICY
-=========================== */
-
-
-.section .card p{
-
-    color:#444;
-
-}
-
-
-
-/* ===========================
-   TERMS & CONDITIONS
-=========================== */
-
-
-.section:nth-of-type(8){
-
-    background:#eef5fb;
-
-}
-
-
-.section:nth-of-type(8) .card{
-
-    border-left:
-
-    5px solid #ff8c00;
-
-}
-
-
-
-/* ===========================
-   CUSTOMER REVIEWS
-=========================== */
-
-
-.section:nth-of-type(9) .card{
-
-    text-align:center;
-
-}
-
-
-
-.section:nth-of-type(9) h3{
-
-    color:#ffb400;
-
-    font-size:28px;
-
-}
-
-
-
-.section:nth-of-type(9) strong{
+.logo span{
 
     display:block;
-
-    margin-top:15px;
-
-    color:#0B3B6E;
-
-}
-
-
-
-/* =======================================================
-   CSS PART-02 END
-======================================================= */
-/* =======================================================
-   LUMENIX SERVICE POINT BD
-   MS FARDIN ELECTRIC
-   WEBSITE VERSION : V3 FINAL
-   PREMIUM CORPORATE CSS
-   PART-03
-======================================================= */
-
-
-/* ===========================
-   FAQ SECTION
-=========================== */
-
-
-#faq{
-
-    background:#ffffff;
-
-}
-
-
-
-#faq h3{
-
-    color:#0B3B6E;
-
-    font-size:20px;
-
-    margin-bottom:10px;
-
-}
-
-
-
-#faq p{
-
-    color:#555;
-
-    line-height:28px;
-
-}
-
-
-#faq .card hr{
-
-    margin:20px 0;
-
-    border:none;
-
-    border-top:1px solid #ddd;
-
-}
-
-/* ===========================
-   TECHNICIAN JOIN SECTION
-=========================== */
-
-
-#technician{
-
-    background:#eef5fb;
-
-}
-
-
-
-#technician .card{
-
-    text-align:left;
-
-}
-
-
-
-#technician ul{
-
-    margin-top:20px;
-
-    padding-left:25px;
-
-}
-
-
-
-#technician li{
-
-    line-height:34px;
-
-    color:#444;
-
-}
-
-
-
-/* ===========================
-   COVERAGE AREA
-=========================== */
-
-
-#coverage{
-
-    background:#ffffff;
-
-}
-
-
-
-#coverage .card{
-
-    text-align:center;
-
-}
-
-
-
-/* ===========================
-   EMERGENCY SERVICE
-=========================== */
-
-
-.emergency-card{
-
-    background:#0B3B6E;
-
-    color:#fff;
-
-    text-align:center;
-
-    padding:40px;
-
-    border-radius:18px;
-
-    box-shadow:
-
-    0 10px 30px rgba(0,0,0,.20);
-
-}
-
-
-
-.emergency-card h2{
-
-    color:#fff;
-
-    margin-bottom:20px;
-
-}
-
-
-
-.emergency-card p{
-
-    color:#f2f2f2;
-
-    line-height:32px;
-
-}
-
-
-
-/* ===========================
-   FOOTER
-=========================== */
-
-
-.footer{
-
-    background:#081f3f;
-
-    color:#fff;
-
-    text-align:center;
-
-    padding:60px 20px 30px;
-
-}
-
-
-
-.footer h2{
-
-    font-size:32px;
-
-    margin-bottom:15px;
-
-}
-
-
-
-.footer p{
-
-    line-height:30px;
-
-    color:#ddd;
-
-}
-
-
-
-.footer strong{
-
-    color:#ff8c00;
-
-}
-
-
-
-.footer a{
-
-    color:#fff;
-
-    text-decoration:none;
-
-    transition:.3s;
-
-}
-
-
-
-.footer a:hover{
-
-    color:#ff8c00;
-
-}
-
-
-
-.footer-links{
-
-    margin:20px 0;
-
-}
-
-
-
-.footer-social{
-
-    margin:20px 0;
-
-}
-
-.footer-social a{
-
-    color:#ffffff;
-    text-decoration:none;
-    font-weight:bold;
-    margin:0 10px;
-    transition:.3s;
-
-}
-
-.footer-social a:hover{
-
-    color:#25D366;
-
-}
-
-/* ===========================
-   LOADING ANIMATION
-=========================== */
-
-
-.loaded{
-
-    animation:fadeIn .6s ease;
-
-}
-
-
-
-@keyframes fadeIn{
-
-
-    from{
-
-        opacity:0;
-
-    }
-
-
-    to{
-
-        opacity:1;
-
-    }
-
-}
-
-
-
-/* ===========================
-   CARD SHOW ANIMATION
-=========================== */
-
-
-.card{
-
-    opacity:0;
-
-    transform:translateY(30px);
-
-}
-
-
-
-.card.show{
-
-    opacity:1;
-
-    transform:translateY(0);
-
-}
-
-
-
-/* ===========================
-   SCROLLBAR
-=========================== */
-
-
-::-webkit-scrollbar{
-
-    width:10px;
-
-}
-
-
-
-::-webkit-scrollbar-track{
-
-    background:#eeeeee;
-
-}
-
-
-
-::-webkit-scrollbar-thumb{
-
-    background:#0B3B6E;
-
-    border-radius:20px;
-
-}
-
-
-
-::-webkit-scrollbar-thumb:hover{
-
-    background:#ff8c00;
-
-}
-
-
-
-/* ===========================
-   RESPONSIVE TABLET
-=========================== */
-
-
-@media(max-width:992px){
-
-
-    .hero h1{
-
-        font-size:36px;
-
-    }
-
-
-    .title{
-
-        font-size:32px;
-
-    }
-
-
-}
-
-
-
-/* ===========================
-   RESPONSIVE MOBILE
-=========================== */
-
-
-@media(max-width:768px){
-
-
-    .logo{
-
-        flex-direction:column;
-
-        text-align:center;
-
-    }
-
-
-    nav{
-
-        flex-wrap:wrap;
-
-        justify-content:center;
-
-        gap:15px;
-
-    }
-
-
-
-    .hero{
-
-        padding:60px 15px;
-
-    }
-
-
-
-    .hero h1{
-
-        font-size:30px;
-
-    }
-
-
-
-    .hero h3{
-
-        font-size:24px;
-
-    }
-
-
-
-    .hero-text{
-
-        font-size:16px;
-
-    }
-
-
-
-    .brand{
-
-        width:100%;
-
-        max-width:320px;
-
-    }
-
-
-
-    .section{
-
-        padding:60px 15px;
-
-    }
-
-
-
-    .title{
-
-        font-size:28px;
-
-    }
-
-
-
-    .cards{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-
-    .footer h2{
-
-        font-size:26px;
-
-    }
-
-
-
-}
-/* =======================================================
-   CSS V3 FINAL COMPLETE
-   MS FARDIN ELECTRIC
-   LUMENIX SERVICE POINT BD
-======================================================= */
-
-/* ===================================================== */
-/* V2-CODE-0003 : JOIN OUR NETWORK PREMIUM CSS START */
-/* ===================================================== */
-
-#join-network{
-    background:#f8f9fc;
-    padding:80px 20px;
-}
-
-#join-network .title{
-    text-align:center;
-    font-size:38px;
-    font-weight:700;
-    color:#0B3B6E;
-    margin-bottom:15px;
-}
-
-#join-network .hero-text{
-    text-align:center;
-    max-width:850px;
-    margin:0 auto 50px;
-    color:#555;
-    font-size:18px;
-    line-height:1.8;
-}
-
-#join-network .cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:25px;
-}
-
-#join-network .card{
-    background:#ffffff;
-    border-radius:18px;
-    padding:30px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    transition:.35s;
-    border-top:5px solid #ff7a00;
-}
-
-#join-network .card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 20px 40px rgba(0,0,0,.15);
-}
-
-#join-network .card h3{
-    color:#0B3B6E;
-    margin-bottom:15px;
-    font-size:24px;
-}
-
-#join-network .card p{
-    color:#666;
-    line-height:1.8;
-    margin-bottom:25px;
-}
-
-#join-network .btn{
-    display:inline-block;
-    padding:12px 28px;
-    border-radius:50px;
-    text-decoration:none;
-    font-weight:700;
-    transition:.30s;
-}
-
-#join-network .btn:hover{
-    transform:scale(1.05);
-}
-
-@media(max-width:768px){
-
-#join-network{
-padding:60px 15px;
-}
-
-#join-network .title{
-font-size:30px;
-}
-
-#join-network .hero-text{
-font-size:16px;
-}
-
-}
-
-/* ===================================================== */
-/* V2-CODE-0003 : JOIN OUR NETWORK PREMIUM CSS END */
-/* ===================================================== */
-
-/* =======================================================
-   V2-CSS-0001 : PREMIUM FORM DESIGN
-======================================================= */
-
-.registration-form{
-    max-width:900px;
-    margin:40px auto;
-    padding:35px;
-    background:#ffffff;
-    border-radius:18px;
-    box-shadow:0 15px 40px rgba(0,0,0,.08);
-}
-
-.registration-form input,
-.registration-form select,
-.registration-form textarea{
-
-    width:100%;
-    padding:15px 18px;
-    margin:12px 0;
-
-    border:1px solid #dcdcdc;
-    border-radius:10px;
-
-    font-size:16px;
-
-    transition:.30s;
-
-    outline:none;
-    box-sizing:border-box;
-
-}
-
-.registration-form input:focus,
-.registration-form select:focus,
-.registration-form textarea:focus{
-
-    border-color:#0B3B6E;
-
-    box-shadow:0 0 10px rgba(11,59,110,.20);
-
-}
-
-.registration-form textarea{
-
-    resize:vertical;
-    min-height:140px;
-
-}
-
-.registration-form label{
-
-    display:block;
-
-    margin-top:15px;
-    margin-bottom:8px;
-
-    font-weight:600;
-
-    color:#0B3B6E;
-
-}
-
-.registration-form input[type=file]{
-
-    border:none;
-    background:#f5f7fa;
-
-}
-
-.registration-form input[type=checkbox]{
-
-    width:auto;
-    margin-right:10px;
-
-}
-
-.registration-form button{
-
-    width:100%;
-    margin-top:20px;
-
-}
-
-/* =======================================================
-   DASHBOARD CARD
-======================================================= */
-
-#customer-dashboard .card,
-#admin-panel .card,
-#registration-info .card,
-#verification-system .card,
-#technician-membership .card,
-#technician-id .card{
-
-    border-top:5px solid #ff9800;
-
-    transition:.35s;
-
-}
-
-#customer-dashboard .card:hover,
-#admin-panel .card:hover,
-#registration-info .card:hover,
-#verification-system .card:hover,
-#technician-membership .card:hover,
-#technician-id .card:hover{
-
-    transform:translateY(-8px);
-
-}
-
-/* =======================================================
-   STATUS BOX
-======================================================= */
-
-.status{
-
-    display:inline-block;
-
-    padding:8px 15px;
-
-    border-radius:30px;
-
     font-size:14px;
-
-    font-weight:bold;
-
-    color:#fff;
-
-}
-
-.status.pending{
-
-    background:#ff9800;
-
-}
-
-.status.approved{
-
-    background:#4CAF50;
-
-}
-
-.status.rejected{
-
-    background:#F44336;
-
-}
-
-/* =======================================================
-   MOBILE
-======================================================= */
-
-@media(max-width:768px){
-
-.registration-form{
-
-padding:20px;
-
-margin:20px;
-
-}
-
-}
-
-/* =======================================================
-   V2-CSS-0002 : PREMIUM CARD & BUTTON DESIGN
-======================================================= */
-
-/* Premium Card */
-
-.card{
-
-    background:#ffffff;
-
-    border-radius:18px;
-
-    padding:25px;
-
-    border:1px solid #e8e8e8;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-    transition:all .35s ease;
-
-    overflow:hidden;
-
-}
-
-.card:hover{
-
-    transform:translateY(-8px);
-
-    box-shadow:0 18px 40px rgba(0,0,0,.15);
-
-    border-color:#0B3B6E;
-
-}
-
-/* Section Titles */
-
-.title{
-
-    position:relative;
-
-    display:inline-block;
-
-    margin-bottom:25px;
-
-}
-
-.title::after{
-
-    content:"";
-
-    display:block;
-
-    width:70px;
-
-    height:4px;
-
-    margin:10px auto 0;
-
-    background:#ff9800;
-
-    border-radius:20px;
-
-}
-
-/* Premium Buttons */
-
-.btn{
-
-    display:inline-block;
-
-    padding:14px 28px;
-
-    border-radius:50px;
-
-    text-decoration:none;
-
-    font-weight:700;
-
-    transition:all .30s ease;
-
-    cursor:pointer;
-
-}
-
-.btn:hover{
-
-    transform:translateY(-3px);
-
-    box-shadow:0 10px 25px rgba(0,0,0,.18);
-
-}
-
-/* Brand Colours */
-
-.btn.call{
-
-    background:#0B3B6E;
-
-    color:#fff;
-
-}
-
-.btn.whatsapp{
-
-    background:#25D366;
-
-    color:#fff;
-
-}
-
-.btn.facebook{
-
-    background:#1877F2;
-
-    color:#fff;
-
-}
-
-/* Grid Gap */
-
-.cards{
-
-    gap:25px;
-
-}
-/* =======================================================
-   V2-CSS-0003 : PREMIUM HERO & BRAND ANIMATION
-======================================================= */
-
-/* Premium Hero Section */
-
-.hero{
-
-    background:linear-gradient(135deg,#0B3B6E 0%,#145DA0 50%,#0B3B6E 100%);
-
-    color:#ffffff;
-
-    position:relative;
-
-    overflow:hidden;
-
-}
-
-/* Animated Background Glow */
-
-.hero::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:-150px;
-    right:-150px;
-
-    width:350px;
-    height:350px;
-
-    background:rgba(255,255,255,.08);
-
-    border-radius:50%;
-
-    animation:floatGlow 8s ease-in-out infinite;
-
-}
-
-.hero::after{
-
-    content:"";
-
-    position:absolute;
-
-    bottom:-120px;
-    left:-120px;
-
-    width:280px;
-    height:280px;
-
-    background:rgba(255,152,0,.12);
-
-    border-radius:50%;
-
-    animation:floatGlow 10s ease-in-out infinite reverse;
-
-}
-
-/* Keep Content Above Animation */
-
-.hero .container{
-
-    position:relative;
-
-    z-index:2;
-
-}
-
-/* Brand Cards */
-
-.brand{
-
-    background:rgba(255,255,255,.12);
-
-    backdrop-filter:blur(12px);
-
-    border:1px solid rgba(255,255,255,.18);
-
-    border-radius:18px;
-
-    transition:.35s;
-
-}
-
-.brand:hover{
-
-    transform:translateY(-10px) scale(1.03);
-
-    background:rgba(255,255,255,.18);
-
-}
-
-/* Logo Animation */
-
-.brand img{
-
-    transition:.35s;
-
-}
-
-.brand:hover img{
-
-    transform:rotate(-5deg) scale(1.08);
-
-}
-
-/* Hero Heading */
-
-.hero h1{
-
-    text-shadow:0 4px 15px rgba(0,0,0,.25);
-
-}
-
-.hero h3{
-
-    color:#FFD54F;
-
-}
-
-/* Hero Text */
-
-.hero-text{
-
-    opacity:.95;
-
-    line-height:1.8;
-
-}
-
-/* Button Hover */
-
-.hero-buttons .btn{
-
-    transition:.30s;
-
-}
-
-.hero-buttons .btn:hover{
-
-    transform:translateY(-5px);
-
-}
-
-/* Floating Animation */
-
-@keyframes floatGlow{
-
-    0%{
-
-        transform:translateY(0px);
-
-    }
-
-    50%{
-
-        transform:translateY(-25px);
-
-    }
-
-    100%{
-
-        transform:translateY(0px);
-
-    }
-
-}
-
-/* Fade Up Animation */
-
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(35px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
-.hero h1,
-.hero h3,
-.hero-text,
-.brand{
-
-    animation:fadeUp .9s ease both;
-
-}
-
-/* Mobile */
-
-@media(max-width:768px){
-
-.hero{
-
-padding:70px 20px;
-
-}
-
-.brand{
-
-margin-bottom:20px;
-
-}
-
-.hero h1{
-
-font-size:34px;
-
-}
-
-.hero h3{
-
-font-size:26px;
-
-}
-
-}
-
-/* =======================================================
-   V2-CSS-0004 : PREMIUM NAVIGATION & STICKY HEADER
-======================================================= */
-
-/* Smooth Scroll */
-
-html{
-
-    scroll-behavior:smooth;
-
-}
-
-/* Sticky Header */
-
-header{
-
-    position:sticky;
-
-    top:0;
-
-    left:0;
-
-    width:100%;
-
-    z-index:9999;
-
-    background:rgba(11,59,110,.96);
-
-    backdrop-filter:blur(14px);
-
-    box-shadow:0 6px 20px rgba(0,0,0,.15);
+    color:var(--primary);
 
 }
 
 /* Navigation */
 
-nav{
+#navbar ul{
 
     display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:25px;
-
-    flex-wrap:wrap;
+    gap:28px;
 
 }
 
-/* Navigation Links */
+#navbar ul li a{
 
-nav a{
+    color:var(--dark);
+    font-weight:500;
 
-    position:relative;
+}
 
+#navbar ul li a:hover{
+
+    color:var(--primary);
+
+}
+
+/* Mobile Menu */
+
+.menu-toggle{
+
+    display:none;
+    font-size:28px;
+    cursor:pointer;
+    color:var(--secondary);
+
+}
+
+/* ====================================================== */
+/* CSS-0002 : LOADER + HEADER END */
+/* ====================================================== */
+/* ====================================================== */
+/* CSS-0003 : HERO SECTION START */
+/* ====================================================== */
+
+.hero{
+
+    background:linear-gradient(135deg,#0b3b6e,#154f8b);
     color:#ffffff;
-
-    text-decoration:none;
-
-    font-weight:600;
-
-    padding:10px 4px;
-
-    transition:.30s;
-
-}
-
-/* Hover */
-
-nav a:hover{
-
-    color:#FFD54F;
-
-}
-
-/* Animated Underline */
-
-nav a::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    bottom:-4px;
-
-    width:0;
-
-    height:3px;
-
-    background:#FFD54F;
-
-    border-radius:20px;
-
-    transition:.30s;
-
-}
-
-nav a:hover::after{
-
-    width:100%;
-
-}
-
-/* Company Logo */
-
-.company-logo h1{
-
-    transition:.30s;
-
-}
-
-.company-logo:hover h1{
-
-    transform:scale(1.03);
-
-}
-
-/* Active Navigation (future use) */
-
-nav a.active{
-
-    color:#FFD54F;
-
-}
-
-nav a.active::after{
-
-    width:100%;
-
-}
-
-/* Mobile */
-
-@media(max-width:768px){
-
-header{
-
-padding:12px 0;
-
-}
-
-nav{
-
-gap:12px;
-
-}
-
-nav a{
-
-font-size:15px;
-
-padding:8px 2px;
-
-}
-
-.company-logo{
-
-margin-bottom:12px;
-
-}
-
-}
-
-/* =======================================================
-   V2-CSS-0005 : PREMIUM FOOTER & FLOATING BUTTONS
-======================================================= */
-
-/* Premium Footer */
-
-.footer{
-
-    background:linear-gradient(135deg,#08284d,#0B3B6E);
-
-    color:#ffffff;
-
-    padding:60px 20px;
-
     text-align:center;
+    padding:100px 0;
 
 }
 
-.footer h2{
+.company-text{
 
-    color:#FFD54F;
-
-    margin-bottom:15px;
-
-}
-
-.footer p{
-
-    color:#dddddd;
-
-    line-height:1.8;
+    color:#ffd28a;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:10px;
 
 }
 
-.footer a{
+.hero h3{
 
-    color:#ffffff;
-
-    text-decoration:none;
-
-    transition:.30s;
-
-}
-
-.footer a:hover{
-
-    color:#FFD54F;
-
-}
-
-.footer-links{
-
-    margin:20px 0;
-
-}
-
-.footer-social{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:20px;
-
-    flex-wrap:wrap;
-
-}
-
-.footer hr{
-
-    margin:30px auto;
-
-    border:none;
-
-    height:1px;
-
-    background:rgba(255,255,255,.20);
-
-}
-
-/* Floating Contact */
-
-.floating-contact{
-
-    position:fixed;
-
-    right:20px;
-
-    bottom:20px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:12px;
-
-    z-index:999;
-
-}
-
-.floating-contact a{
-
-    width:58px;
-
-    height:58px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    text-decoration:none;
-
-    font-size:24px;
-
-    color:#ffffff;
-
-    background:#0B3B6E;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.25);
-
-    transition:.30s;
-
-}
-
-.floating-contact a:nth-child(2){
-
-    background:#25D366;
-
-}
-
-.floating-contact a:hover{
-
-    transform:scale(1.10);
-
-}
-
-/* Back To Top Button */
-
-#backToTop{
-
-    position:fixed;
-
-    left:20px;
-
-    bottom:20px;
-
-    width:55px;
-
-    height:55px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:#FF9800;
-
-    color:#ffffff;
-
-    font-size:24px;
-
-    text-decoration:none;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.25);
-
-    opacity:0;
-
-    visibility:hidden;
-
-    transition:.30s;
-
-    z-index:999;
-
-}
-
-#backToTop.show{
-
-    opacity:1;
-
-    visibility:visible;
-
-}
-
-/* Mobile */
-
-@media(max-width:768px){
-
-.footer{
-
-padding:45px 15px;
-
-}
-
-.footer-social{
-
-gap:12px;
-
-}
-
-.floating-contact{
-
-right:15px;
-
-bottom:15px;
-
-}
-
-.floating-contact a{
-
-width:52px;
-
-height:52px;
-
-font-size:22px;
-
-}
-
-#backToTop{
-
-left:15px;
-
-bottom:15px;
-
-width:50px;
-
-height:50px;
-
-}
-
-}
-/* =======================================================
-   V2-CSS-0006 : TIMELINE • STATISTICS • GLASS UI
-======================================================= */
-
-/* ==========================
-   Timeline
-========================== */
-
-.timeline{
-
-    position:relative;
-
-    max-width:900px;
-
-    margin:50px auto;
-
-    padding-left:35px;
-
-}
-
-.timeline::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:10px;
-
-    top:0;
-
-    width:4px;
-
-    height:100%;
-
-    background:#0B3B6E;
-
-    border-radius:10px;
-
-}
-
-.timeline-item{
-
-    position:relative;
-
+    font-size:28px;
     margin-bottom:35px;
 
 }
 
-.timeline-item::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:-33px;
-
-    top:6px;
-
-    width:18px;
-
-    height:18px;
-
-    border-radius:50%;
-
-    background:#FF9800;
-
-    border:4px solid #ffffff;
-
-    box-shadow:0 0 0 3px #0B3B6E;
-
-}
-
-.timeline-content{
-
-    background:#ffffff;
-
-    border-radius:15px;
-
-    padding:22px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-    transition:.35s;
-
-}
-
-.timeline-content:hover{
-
-    transform:translateX(8px);
-
-}
-
-/* ==========================
-   Statistics Cards
-========================== */
-
-.stats{
+.brand-wrapper{
 
     display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
-    gap:25px;
-
-    margin:50px 0;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+    margin:40px 0;
 
 }
 
-.stat-card{
-
-    text-align:center;
+.brand-card{
 
     background:#ffffff;
-
-    border-radius:18px;
-
-    padding:30px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-    transition:.35s;
+    color:var(--dark);
+    border-radius:var(--radius);
+    padding:35px 25px;
+    box-shadow:var(--shadow);
+    transition:var(--transition);
 
 }
 
-.stat-card:hover{
+.brand-card:hover{
 
     transform:translateY(-8px);
 
 }
 
-.stat-card h2{
+.brand-card img{
 
-    color:#0B3B6E;
-
-    font-size:40px;
-
-    margin-bottom:10px;
+    width:95px;
+    margin:0 auto 20px;
 
 }
 
-.stat-card p{
+.brand-card h2{
 
-    color:#666666;
-
-}
-
-/* ==========================
-   Glass Cards
-========================== */
-
-.glass-card{
-
-    background:rgba(255,255,255,.16);
-
-    backdrop-filter:blur(14px);
-
-    border:1px solid rgba(255,255,255,.25);
-
-    border-radius:20px;
-
-    padding:30px;
-
-    transition:.35s;
+    color:var(--secondary);
+    margin-bottom:12px;
+    font-size:24px;
 
 }
 
-.glass-card:hover{
+.brand-card p{
 
-    transform:scale(1.02);
-
-}
-
-/* ==========================
-   Premium Badge
-========================== */
-
-.badge{
-
-    display:inline-block;
-
-    padding:8px 18px;
-
-    border-radius:30px;
-
-    background:#0B3B6E;
-
-    color:#ffffff;
-
-    font-size:14px;
-
-    font-weight:700;
+    color:var(--text);
 
 }
 
-.badge.orange{
+.hero h1{
 
-    background:#FF9800;
-
-}
-
-/* ==========================
-   Feature List
-========================== */
-
-.feature-list{
-
-    list-style:none;
-
-    padding:0;
-
-    margin:0;
+    font-size:52px;
+    max-width:900px;
+    margin:50px auto 20px;
+    line-height:1.25;
 
 }
 
-.feature-list li{
+.hero-description{
 
-    padding:12px 0;
-
-    border-bottom:1px solid #eeeeee;
-
-}
-
-.feature-list li:last-child{
-
-    border-bottom:none;
+    max-width:820px;
+    margin:0 auto 45px;
+    color:#f2f2f2;
 
 }
 
-/* ==========================
-   Fade Animation
-========================== */
-
-.fade-up{
-
-    animation:fadeUp .8s ease;
-
-}
-
-/* ==========================
-   Mobile
-========================== */
-
-@media(max-width:768px){
-
-.timeline{
-
-padding-left:25px;
-
-}
-
-.timeline-item::before{
-
-left:-24px;
-
-}
-
-.timeline-content{
-
-padding:18px;
-
-}
-
-.stat-card{
-
-padding:22px;
-
-}
-
-.stat-card h2{
-
-font-size:30px;
-
-}
-
-}
-/* =======================================================
-   V2-CSS-0007 : ADMIN PANEL • TABLE • ALERT • PRICING
-======================================================= */
-
-/* ==========================
-   Premium Table
-========================== */
-
-.table-responsive{
-
-    width:100%;
-
-    overflow-x:auto;
-
-    margin:30px 0;
-
-}
-
-.premium-table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-    background:#ffffff;
-
-    border-radius:18px;
-
-    overflow:hidden;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-}
-
-.premium-table th{
-
-    background:#0B3B6E;
-
-    color:#ffffff;
-
-    padding:16px;
-
-    text-align:left;
-
-    font-weight:700;
-
-}
-
-.premium-table td{
-
-    padding:15px;
-
-    border-bottom:1px solid #eeeeee;
-
-}
-
-.premium-table tr:hover{
-
-    background:#f8fbff;
-
-}
-
-/* ==========================
-   Admin Dashboard Card
-========================== */
-
-.admin-card{
-
-    background:#ffffff;
-
-    border-left:6px solid #FF9800;
-
-    border-radius:18px;
-
-    padding:25px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-    transition:.30s;
-
-}
-
-.admin-card:hover{
-
-    transform:translateY(-6px);
-
-}
-
-.admin-card h3{
-
-    color:#0B3B6E;
-
-    margin-bottom:10px;
-
-}
-
-/* ==========================
-   Pricing Card
-========================== */
-
-.pricing-card{
-
-    background:#ffffff;
-
-    border-radius:20px;
-
-    padding:35px;
-
-    text-align:center;
-
-    box-shadow:0 12px 30px rgba(0,0,0,.10);
-
-    transition:.35s;
-
-}
-
-.pricing-card:hover{
-
-    transform:scale(1.03);
-
-}
-
-.price{
-
-    font-size:42px;
-
-    font-weight:700;
-
-    color:#0B3B6E;
-
-    margin:20px 0;
-
-}
-
-/* ==========================
-   Alert Boxes
-========================== */
-
-.alert{
-
-    padding:18px;
-
-    border-radius:12px;
-
-    margin:20px 0;
-
-    font-weight:600;
-
-}
-
-.alert-success{
-
-    background:#e8f7ed;
-
-    color:#1b7a37;
-
-    border-left:5px solid #28a745;
-
-}
-
-.alert-warning{
-
-    background:#fff8e6;
-
-    color:#8a6d00;
-
-    border-left:5px solid #ffc107;
-
-}
-
-.alert-danger{
-
-    background:#fdeaea;
-
-    color:#b42318;
-
-    border-left:5px solid #dc3545;
-
-}
-
-.alert-info{
-
-    background:#eaf4ff;
-
-    color:#0B3B6E;
-
-    border-left:5px solid #0B3B6E;
-
-}
-
-/* ==========================
-   Dashboard Menu
-========================== */
-
-.dashboard-menu{
+.hero-buttons{
 
     display:flex;
-
+    justify-content:center;
     flex-wrap:wrap;
-
-    gap:15px;
-
-    margin:25px 0;
+    gap:18px;
 
 }
 
-.dashboard-menu a{
+.btn{
 
-    padding:12px 22px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:14px 30px;
+    border-radius:50px;
+    font-weight:600;
+    transition:var(--transition);
 
-    background:#0B3B6E;
+}
 
+.btn-call{
+
+    background:var(--primary);
     color:#ffffff;
 
-    text-decoration:none;
-
-    border-radius:10px;
-
-    transition:.30s;
-
 }
 
-.dashboard-menu a:hover{
+.btn-whatsapp{
 
-    background:#FF9800;
-
-}
-
-/* ==========================
-   Progress Bar
-========================== */
-
-.progress{
-
-    width:100%;
-
-    height:12px;
-
-    background:#e5e5e5;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-}
-
-.progress-bar{
-
-    height:100%;
-
-    width:60%;
-
-    background:linear-gradient(90deg,#0B3B6E,#FF9800);
-
-    border-radius:20px;
-
-}
-
-/* ==========================
-   Mobile
-========================== */
-
-@media(max-width:768px){
-
-.admin-card,
-.pricing-card{
-
-padding:20px;
-
-}
-
-.price{
-
-font-size:34px;
-
-}
-
-.dashboard-menu{
-
-flex-direction:column;
-
-}
-
-.dashboard-menu a{
-
-text-align:center;
-
-}
-
-.premium-table th,
-.premium-table td{
-
-padding:12px;
-
-font-size:14px;
-
-}
-
-}
-/* =======================================================
-   V2-CSS-0008 : LOADER • TOAST • MODAL • SKELETON
-======================================================= */
-
-/* ==========================
-   Full Screen Loader
-========================== */
-
-.loader-screen{
-
-    position:fixed;
-
-    inset:0;
-
-    background:#ffffff;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    flex-direction:column;
-
-    z-index:99999;
-
-    transition:.40s;
-
-}
-
-.loader-screen.hidden{
-
-    opacity:0;
-
-    visibility:hidden;
-
-}
-
-.loader-logo{
-
-    width:90px;
-
-    margin-bottom:20px;
-
-}
-
-.loader-spinner{
-
-    width:60px;
-
-    height:60px;
-
-    border:6px solid #e6e6e6;
-
-    border-top:6px solid #0B3B6E;
-
-    border-radius:50%;
-
-    animation:spin 1s linear infinite;
-
-}
-
-.loader-text{
-
-    margin-top:20px;
-
-    font-size:16px;
-
-    font-weight:600;
-
-    color:#0B3B6E;
-
-}
-
-@keyframes spin{
-
-    from{
-
-        transform:rotate(0deg);
-
-    }
-
-    to{
-
-        transform:rotate(360deg);
-
-    }
-
-}
-
-/* ==========================
-   Toast Notification
-========================== */
-
-.toast{
-
-    position:fixed;
-
-    top:25px;
-
-    right:25px;
-
-    min-width:280px;
-
-    padding:18px 22px;
-
-    border-radius:12px;
-
+    background:#25d366;
     color:#ffffff;
 
-    font-weight:600;
+}
 
-    box-shadow:0 10px 30px rgba(0,0,0,.20);
+.btn-facebook{
 
-    transform:translateX(120%);
-
-    transition:.35s;
-
-    z-index:9999;
+    background:#1877f2;
+    color:#ffffff;
 
 }
 
-.toast.show{
+.btn:hover{
 
-    transform:translateX(0);
-
-}
-
-.toast.success{
-
-    background:#28a745;
-
-}
-
-.toast.warning{
-
-    background:#ff9800;
-
-}
-
-.toast.error{
-
-    background:#dc3545;
-
-}
-
-.toast.info{
-
-    background:#0B3B6E;
-
-}
-
-/* ==========================
-   Premium Modal
-========================== */
-
-.modal{
-
-    position:fixed;
-
-    inset:0;
-
-    display:none;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:rgba(0,0,0,.60);
-
-    z-index:9999;
-
-}
-
-.modal.active{
-
-    display:flex;
-
-}
-
-.modal-box{
-
-    width:min(92%,600px);
-
-    background:#ffffff;
-
-    border-radius:20px;
-
-    padding:30px;
-
-    animation:popup .30s ease;
-
-}
-
-@keyframes popup{
-
-    from{
-
-        transform:scale(.90);
-
-        opacity:0;
-
-    }
-
-    to{
-
-        transform:scale(1);
-
-        opacity:1;
-
-    }
-
-}
-
-/* ==========================
-   Skeleton Loading
-========================== */
-
-.skeleton{
-
-    background:linear-gradient(
-        90deg,
-        #eeeeee 25%,
-        #f8f8f8 50%,
-        #eeeeee 75%
-    );
-
-    background-size:200% 100%;
-
-    animation:skeletonMove 1.3s infinite;
-
-    border-radius:8px;
-
-}
-
-@keyframes skeletonMove{
-
-    0%{
-
-        background-position:200% 0;
-
-    }
-
-    100%{
-
-        background-position:-200% 0;
-
-    }
-
-}
-
-.skeleton.title{
-
-    height:26px;
-
-    width:60%;
-
-    margin-bottom:18px;
-
-}
-
-.skeleton.text{
-
-    height:14px;
-
-    width:100%;
-
-    margin-bottom:10px;
-
-}
-
-.skeleton.button{
-
-    width:150px;
-
-    height:42px;
-
-    margin-top:18px;
-
-}
-
-/* ==========================
-   Fade Utility
-========================== */
-
-.fade-in{
-
-    animation:fadeIn .60s ease;
-
-}
-
-@keyframes fadeIn{
-
-    from{
-
-        opacity:0;
-
-    }
-
-    to{
-
-        opacity:1;
-
-    }
-
-}
-
-/* ==========================
-   Mobile
-========================== */
-
-@media(max-width:768px){
-
-.toast{
-
-    top:15px;
-
-    right:15px;
-
-    left:15px;
-
-    min-width:auto;
-
-}
-
-.modal-box{
-
-    padding:22px;
-
-}
-
-.loader-spinner{
-
-    width:50px;
-
-    height:50px;
-
-}
-
-}
-/* =======================================================
-   V2-CSS-0009 : THEME • DARK MODE • UTILITIES
-======================================================= */
-
-/* ==========================
-   Theme Variables
-========================== */
-
-:root{
-
-    --primary:#0B3B6E;
-    --secondary:#FF9800;
-    --success:#28A745;
-    --danger:#DC3545;
-    --warning:#FFC107;
-
-    --white:#FFFFFF;
-    --light:#F8F9FA;
-    --border:#E5E5E5;
-
-    --text:#222222;
-    --text-light:#666666;
-
-    --radius:18px;
-
-    --shadow:0 12px 30px rgba(0,0,0,.10);
-
-    --transition:.30s ease;
-
-}
-
-/* ==========================
-   Global Transition
-========================== */
-
-*{
-
-    transition:
-    background var(--transition),
-    color var(--transition),
-    border-color var(--transition),
-    box-shadow var(--transition);
-
-}
-
-/* ==========================
-   Utility Classes
-========================== */
-
-.text-center{
-
-    text-align:center;
-
-}
-
-.text-left{
-
-    text-align:left;
-
-}
-
-.text-right{
-
-    text-align:right;
-
-}
-
-.mt-20{
-
-    margin-top:20px;
-
-}
-
-.mt-40{
-
-    margin-top:40px;
-
-}
-
-.mb-20{
-
-    margin-bottom:20px;
-
-}
-
-.mb-40{
-
-    margin-bottom:40px;
-
-}
-
-.p-20{
-
-    padding:20px;
-
-}
-
-.rounded{
-
-    border-radius:var(--radius);
-
-}
-
-.shadow{
-
+    transform:translateY(-4px);
     box-shadow:var(--shadow);
 
 }
 
-.hidden{
+/* ====================================================== */
+/* CSS-0003 : HERO SECTION END */
+/* ====================================================== */
 
-    display:none;
+/* ====================================================== */
+/* CSS-0004 : SECTIONS & CARDS START */
+/* ====================================================== */
 
-}
+.section-header{
 
-.w-100{
-
-    width:100%;
-
-}
-
-/* ==========================
-   Dark Mode
-========================== */
-
-body.dark{
-
-    background:#121212;
-
-    color:#F2F2F2;
+    text-align:center;
+    margin-bottom:60px;
 
 }
 
-body.dark .card,
-body.dark .brand,
-body.dark .registration-form,
-body.dark .modal-box,
-body.dark .pricing-card,
-body.dark .admin-card{
+.section-badge{
 
-    background:#1E1E1E;
-
-    color:#F2F2F2;
-
-    border-color:#333333;
+    display:inline-block;
+    padding:8px 18px;
+    background:rgba(255,122,0,.12);
+    color:var(--primary);
+    border-radius:30px;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:18px;
 
 }
 
-body.dark input,
-body.dark textarea,
-body.dark select{
+.cards{
 
-    background:#2A2A2A;
-
-    color:#FFFFFF;
-
-    border:1px solid #444444;
-
-}
-
-body.dark .footer{
-
-    background:#000000;
-
-}
-
-body.dark .premium-table td{
-
-    background:#1F1F1F;
-
-    color:#F2F2F2;
-
-}
-
-body.dark .premium-table th{
-
-    background:var(--primary);
-
-}
-
-/* ==========================
-   Selection
-========================== */
-
-::selection{
-
-    background:var(--secondary);
-
-    color:#FFFFFF;
-
-}
-
-/* ==========================
-   Scrollbar
-========================== */
-
-::-webkit-scrollbar{
-
-    width:10px;
-
-}
-
-::-webkit-scrollbar-track{
-
-    background:#EFEFEF;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-    background:var(--primary);
-
-    border-radius:20px;
-
-}
-
-::-webkit-scrollbar-thumb:hover{
-
-    background:var(--secondary);
-
-}
-
-/* ==========================
-   Print Mode
-========================== */
-
-@media print{
-
-header,
-footer,
-.floating-contact,
-#backToTop{
-
-display:none !important;
-
-}
-
-body{
-
-background:#FFFFFF;
-
-color:#000000;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
 
 }
 
 .card{
 
-box-shadow:none;
-
-border:1px solid #CCCCCC;
-
-}
-
-}
-
-/* ==========================
-   Mobile
-========================== */
-
-@media(max-width:768px){
-
-.mt-40{
-
-margin-top:25px;
+    background:#ffffff;
+    border-radius:var(--radius);
+    padding:35px 30px;
+    box-shadow:var(--shadow);
+    transition:var(--transition);
+    text-align:center;
+    border:1px solid #eeeeee;
 
 }
 
-.mb-40{
+.card:hover{
 
-margin-bottom:25px;
-
-}
-
-}
-/* =======================================================
-   V2-CSS-0010 : PREMIUM MICRO ANIMATION & VISUAL POLISH
-======================================================= */
-
-
-/* ==========================
-   Reveal Animation
-========================== */
-
-.reveal{
-
-    opacity:0;
-
-    transform:translateY(40px);
-
-    transition:all .8s ease;
+    transform:translateY(-10px);
+    border-color:var(--primary);
 
 }
 
-.reveal.active{
+.service-icon{
 
-    opacity:1;
-
-    transform:translateY(0);
-
-}
-
-
-/* ==========================
-   Floating Animation
-========================== */
-
-.float{
-
-    animation:floating 4s ease-in-out infinite;
-
-}
-
-
-@keyframes floating{
-
-    0%{
-
-        transform:translateY(0);
-
-    }
-
-    50%{
-
-        transform:translateY(-12px);
-
-    }
-
-    100%{
-
-        transform:translateY(0);
-
-    }
-
-}
-
-
-/* ==========================
-   Pulse Effect
-========================== */
-
-.pulse{
-
-    animation:pulseEffect 2s infinite;
-
-}
-
-
-@keyframes pulseEffect{
-
-    0%{
-
-        box-shadow:0 0 0 0 rgba(255,152,0,.5);
-
-    }
-
-    70%{
-
-        box-shadow:0 0 0 18px rgba(255,152,0,0);
-
-    }
-
-    100%{
-
-        box-shadow:0 0 0 0 rgba(255,152,0,0);
-
-    }
-
-}
-
-
-/* ==========================
-   Image Hover Zoom
-========================== */
-
-.image-hover{
-
-    overflow:hidden;
-
-    border-radius:18px;
-
-}
-
-
-.image-hover img{
-
-    transition:.5s ease;
-
-}
-
-
-.image-hover:hover img{
-
-    transform:scale(1.08);
-
-}
-
-
-/* ==========================
-   Icon Animation
-========================== */
-
-.icon-box{
-
-    display:inline-flex;
-
+    width:75px;
+    height:75px;
+    margin:0 auto 20px;
+    display:flex;
     justify-content:center;
-
     align-items:center;
-
-    transition:.35s;
-
-}
-
-
-.icon-box:hover{
-
-    transform:rotate(10deg) scale(1.15);
+    font-size:30px;
+    color:#ffffff;
+    background:linear-gradient(135deg,var(--primary),#ff9f43);
+    border-radius:50%;
 
 }
 
+.card h3{
 
-/* ==========================
-   Shine Effect
-========================== */
-
-.shine{
-
-    position:relative;
-
-    overflow:hidden;
+    font-size:24px;
+    color:var(--secondary);
+    margin-bottom:15px;
 
 }
 
+.card p{
 
-.shine::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    left:-100%;
-
-    width:50%;
-
-    height:100%;
-
-    background:linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,.5),
-        transparent
-    );
-
-    transition:.6s;
+    color:var(--text);
+    margin-bottom:25px;
 
 }
 
-
-.shine:hover::before{
-
-    left:120%;
-
-}
-
-
-/* ==========================
-   Service Card Premium Hover
-========================== */
-
-.service-card{
-
-    position:relative;
-
-    overflow:hidden;
-
-}
-
-
-.service-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    bottom:0;
-
-    left:0;
-
-    width:0;
-
-    height:4px;
-
-    background:#FF9800;
-
-    transition:.35s;
-
-}
-
-
-.service-card:hover::after{
+.card .btn{
 
     width:100%;
 
 }
 
+/* Join Network */
 
-/* ==========================
-   Loading Dots
-========================== */
+#join-network{
 
-.loading-dots span{
-
-    display:inline-block;
-
-    width:8px;
-
-    height:8px;
-
-    margin:0 4px;
-
-    background:#0B3B6E;
-
-    border-radius:50%;
-
-    animation:dotAnimation 1.2s infinite;
+    background:var(--grey);
 
 }
 
+/* Services */
 
-.loading-dots span:nth-child(2){
+#services{
 
-    animation-delay:.2s;
-
-}
-
-
-.loading-dots span:nth-child(3){
-
-    animation-delay:.4s;
+    background:#ffffff;
 
 }
 
+/* ====================================================== */
+/* CSS-0004 : SECTIONS & CARDS END */
+/* ====================================================== */
+/* ====================================================== */
+/* CSS-0005 : ABOUT SECTION START */
+/* ====================================================== */
 
-@keyframes dotAnimation{
+#about{
 
-    0%,80%,100%{
-
-        transform:scale(0);
-
-    }
-
-    40%{
-
-        transform:scale(1);
-
-    }
+    background:#f8fafc;
 
 }
 
+.about-grid{
 
-/* ==========================
-   Smooth Section Entry
-========================== */
-
-.section{
-
-    animation:sectionFade .8s ease;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+    margin-top:20px;
 
 }
 
+.about-card{
 
-@keyframes sectionFade{
-
-    from{
-
-        opacity:0;
-
-    }
-
-    to{
-
-        opacity:1;
-
-    }
+    background:#ffffff;
+    padding:35px;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    transition:var(--transition);
+    border-top:5px solid var(--primary);
 
 }
 
+.about-card:hover{
 
-/* ==========================
-   Mobile Optimization
-========================== */
-
-@media(max-width:768px){
-
-.float{
-
-animation-duration:5s;
+    transform:translateY(-8px);
 
 }
 
-.reveal{
+.about-card h3{
 
-transform:translateY(25px);
+    color:var(--secondary);
+    font-size:24px;
+    margin-bottom:18px;
 
 }
 
+.about-card p{
+
+    color:var(--text);
+    line-height:1.9;
+
 }
+
+.about-card strong{
+
+    color:var(--primary);
+
+}
+
+/* ====================================================== */
+/* CSS-0005 : ABOUT SECTION END */
+/* ====================================================== */
+
