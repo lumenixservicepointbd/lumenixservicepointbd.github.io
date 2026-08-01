@@ -25,6 +25,26 @@ window.addEventListener("load", function () {
    J1 : LOADING SCREEN END
 ====================================================== */
 /* ======================================================
+   J2 : MOBILE MENU FUNCTION
+====================================================== */
+
+const menuToggle = document.querySelector(".menu-toggle");
+const navMenu = document.querySelector(".nav-menu");
+
+if (menuToggle && navMenu) {
+
+    menuToggle.addEventListener("click", function () {
+
+        navMenu.classList.toggle("active");
+
+    });
+
+}
+
+/* ======================================================
+   J2 END
+====================================================== */
+/* ======================================================
    J16 : ONLINE TECHNICIAN REGISTRATION FORM
 ====================================================== */
 
