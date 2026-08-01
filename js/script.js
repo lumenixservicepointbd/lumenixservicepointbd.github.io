@@ -1,114 +1,208 @@
 /* ====================================================== */
-/* JS-0001 : LOADER + MOBILE MENU + HEADER START */
+/* JS-0001 : WINDOW INITIALIZATION + LOADER + HEADER START */
+/* Version : V5.0 */
 /* ====================================================== */
 
-// Loader
+"use strict";
 
-window.addEventListener("load", () => {
+/* -----------------------------
+   DOM Ready
+------------------------------ */
 
-    const loader = document.getElementById("loader");
+document.addEventListener("DOMContentLoaded", () => {
 
-    if(loader){
-
-        loader.style.opacity = "0";
-
-        setTimeout(() => {
-
-            loader.style.display = "none";
-
-        },500);
-
-    }
+    initializeWebsite();
 
 });
 
-// Mobile Menu
+/* -----------------------------
+   Main Initializer
+------------------------------ */
 
-const menuToggle = document.querySelector(".menu-toggle");
+function initializeWebsite() {
 
-const navbar = document.getElementById("navbar");
+    setupLoader();
 
-if(menuToggle && navbar){
+    setupStickyHeader();
 
-    menuToggle.addEventListener("click", () => {
+    setupMobileMenu();
 
-        navbar.classList.toggle("active");
+}
+
+/* -----------------------------
+   Loader
+------------------------------ */
+
+function setupLoader() {
+
+    const loader = document.getElementById("loader");
+
+    if (!loader) return;
+
+    window.addEventListener("load", () => {
+
+        loader.style.opacity = "0";
+
+        loader.style.pointerEvents = "none";
+
+        setTimeout(() => {
+
+            loader.remove();
+
+        }, 500);
 
     });
 
 }
 
-// Sticky Header Shadow
+/* -----------------------------
+   Sticky Header
+------------------------------ */
 
-const header = document.getElementById("header");
+function setupStickyHeader() {
 
-window.addEventListener("scroll", () => {
+    const header = document.getElementById("header");
 
-    if(window.scrollY > 50){
+    if (!header) return;
 
-        header.style.boxShadow = "0 10px 30px rgba(0,0,0,.12)";
+    const updateHeader = () => {
 
-    }else{
+        if (window.scrollY > 40) {
 
-        header.style.boxShadow = "none";
+            header.classList.add("header-scrolled");
 
-    }
+        } else {
 
-});
+            header.classList.remove("header-scrolled");
+
+        }
+
+    };
+
+    updateHeader();
+
+    window.addEventListener("scroll", updateHeader, {
+
+        passive: true
+
+    });
+
+}
+
+/* -----------------------------
+   Mobile Navigation
+------------------------------ */
+
+function setupMobileMenu() {
+
+    const menuButton = document.querySelector(".menu-toggle");
+
+    const navbar = document.getElementById("navbar");
+
+    if (!menuButton || !navbar) return;
+
+    menuButton.addEventListener("click", () => {
+
+        navbar.classList.toggle("active");
+
+        menuButton.classList.toggle("active");
+
+    });
+
+    document.addEventListener("click", (event) => {
+
+        const clickedInsideMenu = navbar.contains(event.target);
+
+        const clickedButton = menuButton.contains(event.target);
+
+        if (!clickedInsideMenu && !clickedButton) {
+
+            navbar.classList.remove("active");
+
+            menuButton.classList.remove("active");
+
+        }
+
+    });
+
+    window.addEventListener("resize", () => {
+
+        if (window.innerWidth > 992) {
+
+            navbar.classList.remove("active");
+
+            menuButton.classList.remove("active");
+
+        }
+
+    });
+
+}
 
 /* ====================================================== */
-/* JS-0001 : LOADER + MOBILE MENU + HEADER END */
+/* JS-0001 : WINDOW INITIALIZATION + LOADER + HEADER END */
 /* ====================================================== */
-
 /* ====================================================== */
-/* JS-0002 : SCROLL ANIMATION + BACK TO TOP START */
+/* JS-0002 : SCROLL ANIMATION + BACK TO TOP START (V5) */
 /* ====================================================== */
 
 // Scroll Animation
 
 const animatedElements = document.querySelectorAll(".fade-up, .zoom-in");
 
-const animationObserver = new IntersectionObserver((entries) => {
+if ("IntersectionObserver" in window) {
 
-    entries.forEach(entry => {
+    const animationObserver = new IntersectionObserver((entries, observer) => {
 
-        if(entry.isIntersecting){
+        entries.forEach(entry => {
 
-            entry.target.classList.add("show");
+            if (entry.isIntersecting) {
 
-        }
+                entry.target.classList.add("show");
+
+                observer.unobserve(entry.target);
+
+            }
+
+        });
+
+    }, {
+
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
 
     });
 
-},{
+    animatedElements.forEach(element => {
 
-    threshold:0.15
+        animationObserver.observe(element);
 
-});
+    });
 
-animatedElements.forEach(element => {
+} else {
 
-    animationObserver.observe(element);
+    animatedElements.forEach(element => {
 
-});
+        element.classList.add("show");
+
+    });
+
+}
 
 // Back To Top Button
 
 const backToTop = document.querySelector(".floating-buttons .top");
 
-if(backToTop){
+if (backToTop) {
+
+    // শুরুতে Hide থাকবে
+    backToTop.style.display = "none";
 
     window.addEventListener("scroll", () => {
 
-        if(window.scrollY > 300){
+        backToTop.style.display =
 
-            backToTop.style.display = "flex";
-
-        }else{
-
-            backToTop.style.display = "none";
-
-        }
+            window.scrollY > 300 ? "flex" : "none";
 
     });
 
@@ -118,9 +212,8 @@ if(backToTop){
 
         window.scrollTo({
 
-            top:0,
-
-            behavior:"smooth"
+            top: 0,
+            behavior: "smooth"
 
         });
 
@@ -129,87 +222,13 @@ if(backToTop){
 }
 
 /* ====================================================== */
-/* JS-0002 : SCROLL ANIMATION + BACK TO TOP END */
+/* JS-0002 : SCROLL ANIMATION + BACK TO TOP END (V5) */
 /* ====================================================== */
 /* ====================================================== */
-/* JS-0003 : SMOOTH NAVIGATION + ACTIVE MENU START */
+/* JS-0004 : FORM VALIDATION + CONTACT ACTIONS START (V5) */
 /* ====================================================== */
 
-// Smooth Navigation
-
-document.querySelectorAll('#navbar a').forEach(link => {
-
-    link.addEventListener('click', function(e){
-
-        const targetId = this.getAttribute('href');
-
-        if(targetId.startsWith("#")){
-
-            e.preventDefault();
-
-            const target = document.querySelector(targetId);
-
-            if(target){
-
-                target.scrollIntoView({
-
-                    behavior:'smooth',
-                    block:'start'
-
-                });
-
-            }
-
-            navbar.classList.remove("active");
-
-        }
-
-    });
-
-});
-
-// Active Menu
-
-const sections = document.querySelectorAll("section[id]");
-
-window.addEventListener("scroll", () => {
-
-    let current = "";
-
-    sections.forEach(section => {
-
-        const sectionTop = section.offsetTop - 120;
-
-        if(window.scrollY >= sectionTop){
-
-            current = section.getAttribute("id");
-
-        }
-
-    });
-
-    document.querySelectorAll("#navbar a").forEach(link => {
-
-        link.classList.remove("active");
-
-        if(link.getAttribute("href") === "#" + current){
-
-            link.classList.add("active");
-
-        }
-
-    });
-
-});
-
-/* ====================================================== */
-/* JS-0003 : SMOOTH NAVIGATION + ACTIVE MENU END */
-/* ====================================================== */
-/* ====================================================== */
-/* JS-0004 : FORM VALIDATION + CONTACT ACTIONS START */
-/* ====================================================== */
-
-// Registration Form Validation
+// Registration Form
 
 const registrationForm = document.querySelector(".registration-form");
 
@@ -225,42 +244,59 @@ if (registrationForm) {
 
         requiredFields.forEach(field => {
 
-            if (field.value.trim() === "") {
+            field.style.borderColor = "#dcdcdc";
 
-                field.style.borderColor = "red";
-                isValid = false;
+            if (field.type === "checkbox") {
+
+                if (!field.checked) {
+
+                    field.style.outline = "2px solid red";
+
+                    isValid = false;
+
+                } else {
+
+                    field.style.outline = "none";
+
+                }
 
             } else {
 
-                field.style.borderColor = "#dddddd";
+                if (field.value.trim() === "") {
+
+                    field.style.borderColor = "red";
+
+                    isValid = false;
+
+                }
 
             }
 
         });
 
-        if (isValid) {
+        if (!isValid) {
 
-            alert("Registration submitted successfully.");
+            alert("Please complete all required fields.");
 
-            registrationForm.reset();
-
-        } else {
-
-            alert("Please fill in all required fields.");
+            return;
 
         }
+
+        alert("Registration submitted successfully.");
+
+        registrationForm.reset();
 
     });
 
 }
 
-// Call Buttons
+// Telephone Buttons
 
 document.querySelectorAll('a[href^="tel:"]').forEach(button => {
 
     button.addEventListener("click", () => {
 
-        console.log("Call button clicked.");
+        console.log("Telephone Call Started.");
 
     });
 
@@ -272,30 +308,42 @@ document.querySelectorAll('a[href*="wa.me"]').forEach(button => {
 
     button.addEventListener("click", () => {
 
-        console.log("WhatsApp button clicked.");
+        console.log("WhatsApp Opened.");
+
+    });
+
+});
+
+// Email Buttons
+
+document.querySelectorAll('a[href^="mailto:"]').forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        console.log("Email Link Opened.");
 
     });
 
 });
 
 /* ====================================================== */
-/* JS-0004 : FORM VALIDATION + CONTACT ACTIONS END */
+/* JS-0004 : FORM VALIDATION + CONTACT ACTIONS END (V5) */
 /* ====================================================== */
 /* ====================================================== */
-/* JS-0005 : FINAL UI ENHANCEMENTS START */
+/* JS-0005 : FOOTER + WINDOW UTILITIES START (V5) */
 /* ====================================================== */
 
-// Current Year for Footer
+// Current Year
 
-const footerYear = document.getElementById("current-year");
+const currentYear = document.getElementById("current-year");
 
-if (footerYear) {
+if (currentYear) {
 
-    footerYear.textContent = new Date().getFullYear();
+    currentYear.textContent = new Date().getFullYear();
 
 }
 
-// Close Mobile Menu After Window Resize
+// Window Resize
 
 window.addEventListener("resize", () => {
 
@@ -307,81 +355,37 @@ window.addEventListener("resize", () => {
 
 });
 
-// Disable Right Click on Logo (Optional)
+// Disable Logo Right Click
 
-document.querySelectorAll(".logo img").forEach(img => {
+document.querySelectorAll(".logo img").forEach(logo => {
 
-    img.addEventListener("contextmenu", (e) => {
+    logo.addEventListener("contextmenu", (event) => {
 
-        e.preventDefault();
+        event.preventDefault();
 
     });
 
 });
 
-// Lazy Loading for Images
+// Image Optimization
 
-document.querySelectorAll("img").forEach(img => {
+document.querySelectorAll("img").forEach(image => {
 
-    if (!img.hasAttribute("loading")) {
+    // Lazy Loading
 
-        img.setAttribute("loading", "lazy");
+    if (!image.hasAttribute("loading")) {
+
+        image.setAttribute("loading", "lazy");
 
     }
 
-});
+    // Disable Drag
 
-// Console Message
+    image.setAttribute("draggable", "false");
 
-console.log(
-    "Lumenix Service Point BD Website V4 Loaded Successfully."
-);
+    // Image Error
 
-/* ====================================================== */
-/* JS-0005 : FINAL UI ENHANCEMENTS END */
-/* ====================================================== */
-
-/* ====================================================== */
-/* JS-0006 : COUNTER + IMAGE + BASIC SECURITY START */
-/* ====================================================== */
-
-// Animated Counter
-
-const counters = document.querySelectorAll(".counter");
-
-counters.forEach(counter => {
-
-    const updateCounter = () => {
-
-        const target = Number(counter.dataset.target);
-
-        const current = Number(counter.innerText);
-
-        const increment = Math.ceil(target / 100);
-
-        if (current < target) {
-
-            counter.innerText = current + increment;
-
-            setTimeout(updateCounter, 20);
-
-        } else {
-
-            counter.innerText = target;
-
-        }
-
-    };
-
-    updateCounter();
-
-});
-
-// Image Error Handler
-
-document.querySelectorAll("img").forEach(img => {
-
-    img.addEventListener("error", function () {
+    image.addEventListener("error", function () {
 
         this.src = "images/no-image.png";
 
@@ -389,23 +393,113 @@ document.querySelectorAll("img").forEach(img => {
 
 });
 
-// Disable Drag on Images
+// Website Information
 
-document.querySelectorAll("img").forEach(img => {
+console.log(
 
-    img.setAttribute("draggable", "false");
+    "MS FARDIN ELECTRIC | LUMENIX Service Point BD | Website V5"
 
-});
-
-/* ====================================================== */
-/* JS-0006 : COUNTER + IMAGE + BASIC SECURITY END */
-/* ====================================================== */
+);
 
 /* ====================================================== */
-/* JS-0007 : THEME UTILITIES + PERFORMANCE START */
+/* JS-0005 : FOOTER + WINDOW UTILITIES END (V5) */
+/* ====================================================== */
+/* ====================================================== */
+/* JS-0006 : COUNTER + IMAGE OBSERVER START (V5) */
 /* ====================================================== */
 
-// Debounce Function
+// Animated Counter
+
+const counters = document.querySelectorAll(".counter");
+
+if ("IntersectionObserver" in window && counters.length) {
+
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+
+        entries.forEach(entry => {
+
+            if (!entry.isIntersecting) return;
+
+            const counter = entry.target;
+
+            const target = Number(counter.dataset.target) || 0;
+
+            const duration = 2000;
+
+            const startTime = performance.now();
+
+            function animateCounter(currentTime) {
+
+                const progress = Math.min(
+
+                    (currentTime - startTime) / duration,
+
+                    1
+
+                );
+
+                counter.textContent = Math.floor(
+
+                    progress * target
+
+                ).toLocaleString();
+
+                if (progress < 1) {
+
+                    requestAnimationFrame(animateCounter);
+
+                } else {
+
+                    counter.textContent = target.toLocaleString();
+
+                }
+
+            }
+
+            requestAnimationFrame(animateCounter);
+
+            observer.unobserve(counter);
+
+        });
+
+    }, {
+
+        threshold: 0.3
+
+    });
+
+    counters.forEach(counter => {
+
+        counterObserver.observe(counter);
+
+    });
+
+}
+
+// Fallback (Old Browser)
+
+else {
+
+    counters.forEach(counter => {
+
+        counter.textContent = Number(
+
+            counter.dataset.target || 0
+
+        ).toLocaleString();
+
+    });
+
+}
+
+/* ====================================================== */
+/* JS-0006 : COUNTER + IMAGE OBSERVER END (V5) */
+/* ====================================================== */
+/* ====================================================== */
+/* JS-0007 : PERFORMANCE + REVEAL UTILITIES START (V5) */
+/* ====================================================== */
+
+// Debounce Utility
 
 function debounce(callback, delay = 100) {
 
@@ -425,27 +519,23 @@ function debounce(callback, delay = 100) {
 
 }
 
-// Optimized Scroll Event
+// Optimized Body Scroll Class
 
-window.addEventListener(
+const updateBodyState = debounce(() => {
 
-    "scroll",
+    document.body.classList.toggle(
 
-    debounce(() => {
+        "scrolled",
 
-        document.body.classList.toggle(
+        window.scrollY > 50
 
-            "scrolled",
+    );
 
-            window.scrollY > 50
+}, 50);
 
-        );
+window.addEventListener("scroll", updateBodyState);
 
-    }, 50)
-
-);
-
-// Reveal Elements
+// Reveal Animation
 
 const revealItems = document.querySelectorAll(
 
@@ -453,52 +543,66 @@ const revealItems = document.querySelectorAll(
 
 );
 
-const revealObserver = new IntersectionObserver(
+if ("IntersectionObserver" in window) {
 
-    (entries) => {
+    const revealObserver = new IntersectionObserver(
 
-        entries.forEach((entry) => {
+        (entries, observer) => {
 
-            if (entry.isIntersecting) {
+            entries.forEach(entry => {
+
+                if (!entry.isIntersecting) return;
 
                 entry.target.classList.add("show");
 
-                revealObserver.unobserve(entry.target);
+                observer.unobserve(entry.target);
 
-            }
+            });
 
-        });
+        },
 
-    },
+        {
 
-    {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
 
-        threshold: 0.15
+        }
 
-    }
+    );
 
-);
+    revealItems.forEach(item => {
 
-revealItems.forEach((item) => {
+        revealObserver.observe(item);
 
-    revealObserver.observe(item);
+    });
 
-});
+} else {
 
-// Website Ready
+    revealItems.forEach(item => {
+
+        item.classList.add("show");
+
+    });
+
+}
+
+// DOM Ready
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    console.log("Lumenix Service Point BD V4 Ready.");
+    console.log(
+
+        "Performance Module Ready."
+
+    );
 
 });
 
 /* ====================================================== */
-/* JS-0007 : THEME UTILITIES + PERFORMANCE END */
+/* JS-0007 : PERFORMANCE + REVEAL UTILITIES END (V5) */
 /* ====================================================== */
-
 /* ====================================================== */
-/* JS-0008 : PREMIUM UI UTILITIES START */
+/* JS-0008 : PREMIUM UI UTILITIES START (V5) */
 /* ====================================================== */
 
 // Online / Offline Status
@@ -511,25 +615,25 @@ window.addEventListener("online", () => {
 
 window.addEventListener("offline", () => {
 
-    alert("No Internet Connection!");
+    console.warn("Internet Disconnected.");
 
 });
 
-// Copy Current Year Automatically
-
-const year = document.querySelector(".current-year");
-
-if (year) {
-
-    year.textContent = new Date().getFullYear();
-
-}
-
-// External Links Open Securely
+// Secure External Links
 
 document.querySelectorAll("a[target='_blank']").forEach(link => {
 
-    link.setAttribute("rel", "noopener noreferrer");
+    if (!link.hasAttribute("rel")) {
+
+        link.setAttribute(
+
+            "rel",
+
+            "noopener noreferrer"
+
+        );
+
+    }
 
 });
 
@@ -539,67 +643,116 @@ document.querySelectorAll(".btn").forEach(button => {
 
     button.addEventListener("click", function () {
 
+        if (this.classList.contains("loading")) return;
+
         this.classList.add("loading");
 
         setTimeout(() => {
 
             this.classList.remove("loading");
 
-        }, 800);
+        }, 600);
 
     });
 
 });
 
-// Website Loaded
+// Disable Button During Form Submit
 
-console.log("MS FARDIN ELECTRIC | Lumenix Service Point BD");
+const submitButtons = document.querySelectorAll(
 
-/* ====================================================== */
-/* JS-0008 : PREMIUM UI UTILITIES END */
-/* ====================================================== */
+    ".registration-form button[type='submit']"
 
-/* ====================================================== */
-/* JS-0009 : FINAL UTILITIES START */
-/* ====================================================== */
+);
 
-// Highlight Current Section
+submitButtons.forEach(button => {
 
-const navLinks = document.querySelectorAll("#navbar a");
+    button.addEventListener("click", function () {
 
-window.addEventListener("scroll", () => {
+        this.disabled = true;
 
-    let currentSection = "";
+        setTimeout(() => {
 
-    document.querySelectorAll("section[id]").forEach(section => {
+            this.disabled = false;
 
-        if (window.scrollY >= section.offsetTop - 120) {
-
-            currentSection = section.id;
-
-        }
-
-    });
-
-    navLinks.forEach(link => {
-
-        link.classList.remove("active");
-
-        if (link.getAttribute("href") === "#" + currentSection) {
-
-            link.classList.add("active");
-
-        }
+        }, 1200);
 
     });
 
 });
 
-// Keyboard Shortcut (Home = Top)
+// Browser Information
 
-document.addEventListener("keydown", (e) => {
+console.log(
 
-    if (e.key === "Home") {
+    `Browser : ${navigator.userAgent}`
+
+);
+
+/* ====================================================== */
+/* JS-0008 : PREMIUM UI UTILITIES END (V5) */
+/* ====================================================== */
+/* ====================================================== */
+/* JS-0009 : FINAL OPTIMIZATION + WEBSITE STARTUP (V5) */
+/* ====================================================== */
+
+// Unified Scroll Manager
+
+function handleWindowScroll() {
+
+    // Active Navigation
+
+    if (typeof updateActiveMenu === "function") {
+
+        updateActiveMenu();
+
+    }
+
+    // Back To Top Button
+
+    const backToTop = document.querySelector(".floating-buttons .top");
+
+    if (backToTop) {
+
+        backToTop.style.display =
+
+            window.scrollY > 300 ? "flex" : "none";
+
+    }
+
+    // Header Shadow
+
+    if (header) {
+
+        header.style.boxShadow =
+
+            window.scrollY > 50
+
+            ? "0 10px 30px rgba(0,0,0,.12)"
+
+            : "none";
+
+    }
+
+}
+
+// Single Scroll Event
+
+window.addEventListener(
+
+    "scroll",
+
+    debounce(handleWindowScroll, 20)
+
+);
+
+// Keyboard Shortcut
+
+document.addEventListener("keydown", (event) => {
+
+    if (event.key === "Home") {
+
+        event.preventDefault();
 
         window.scrollTo({
 
@@ -613,16 +766,52 @@ document.addEventListener("keydown", (e) => {
 
 });
 
-// Final Startup
+// Website Ready
 
 window.addEventListener("load", () => {
 
     document.body.classList.add("website-ready");
 
-    console.log("Website initialized successfully.");
+    handleWindowScroll();
+
+    console.log(
+
+        "========================================"
+
+    );
+
+    console.log(
+
+        "MS FARDIN ELECTRIC"
+
+    );
+
+    console.log(
+
+        "LUMENIX SERVICE POINT BD"
+
+    );
+
+    console.log(
+
+        "Website Version : V5"
+
+    );
+
+    console.log(
+
+        "Status : Ready"
+
+    );
+
+    console.log(
+
+        "========================================"
+
+    );
 
 });
 
 /* ====================================================== */
-/* JS-0009 : FINAL UTILITIES END */
+/* JS-0009 : FINAL OPTIMIZATION + WEBSITE STARTUP END (V5) */
 /* ====================================================== */
