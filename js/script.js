@@ -225,6 +225,113 @@ if (backToTop) {
 /* JS-0002 : SCROLL ANIMATION + BACK TO TOP END (V5) */
 /* ====================================================== */
 /* ====================================================== */
+/* JS-0003 : SMOOTH NAVIGATION + ACTIVE MENU START (V5) */
+/* ====================================================== */
+
+function updateActiveMenu() {
+
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll("#navbar a");
+
+    let currentSection = "";
+
+    sections.forEach(section => {
+
+        const sectionTop = section.offsetTop - 120;
+        const sectionHeight = section.offsetHeight;
+
+        if (
+            window.scrollY >= sectionTop &&
+            window.scrollY < sectionTop + sectionHeight
+        ) {
+
+            currentSection = section.id;
+
+        }
+
+    });
+
+    navLinks.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + currentSection) {
+
+            link.classList.add("active");
+
+        }
+
+    });
+
+}
+
+// Smooth Navigation
+
+document.querySelectorAll("#navbar a").forEach(link => {
+
+    link.addEventListener("click", function (event) {
+
+        const targetId = this.getAttribute("href");
+
+        if (!targetId || !targetId.startsWith("#")) return;
+
+        const targetSection = document.querySelector(targetId);
+
+        if (!targetSection) return;
+
+        event.preventDefault();
+
+        targetSection.scrollIntoView({
+
+            behavior: "smooth",
+            block: "start"
+
+        });
+
+        const navbar = document.getElementById("navbar");
+        const menuButton = document.querySelector(".menu-toggle");
+
+        if (navbar) {
+
+            navbar.classList.remove("active");
+
+        }
+
+        if (menuButton) {
+
+            menuButton.classList.remove("active");
+
+        }
+
+    });
+
+});
+
+// Initial Active Menu
+
+updateActiveMenu();
+
+// Scroll Active Menu
+
+window.addEventListener(
+
+    "scroll",
+
+    updateActiveMenu,
+
+    {
+
+        passive: true
+
+    }
+
+);
+
+/* ====================================================== */
+/* JS-0003 : SMOOTH NAVIGATION + ACTIVE MENU END (V5) */
+/* ====================================================== */
+
+/* ====================================================== */
 /* JS-0004 : FORM VALIDATION + CONTACT ACTIONS START (V5) */
 /* ====================================================== */
 
@@ -333,6 +440,10 @@ document.querySelectorAll('a[href^="mailto:"]').forEach(button => {
 /* JS-0005 : FOOTER + WINDOW UTILITIES START (V5) */
 /* ====================================================== */
 
+// Navbar Reference
+
+const navbar = document.getElementById("navbar");
+
 // Current Year
 
 const currentYear = document.getElementById("current-year");
@@ -353,11 +464,19 @@ window.addEventListener("resize", () => {
 
     }
 
+    const menuButton = document.querySelector(".menu-toggle");
+
+    if (menuButton) {
+
+        menuButton.classList.remove("active");
+
+    }
+
 });
 
 // Disable Logo Right Click
 
-document.querySelectorAll(".logo img").forEach(logo => {
+document.querySelectorAll(".logo img").forEach((logo) => {
 
     logo.addEventListener("contextmenu", (event) => {
 
@@ -369,7 +488,7 @@ document.querySelectorAll(".logo img").forEach(logo => {
 
 // Image Optimization
 
-document.querySelectorAll("img").forEach(image => {
+document.querySelectorAll("img").forEach((image) => {
 
     // Lazy Loading
 
@@ -383,17 +502,23 @@ document.querySelectorAll("img").forEach(image => {
 
     image.setAttribute("draggable", "false");
 
-    // Image Error
+    // Fallback Image
 
     image.addEventListener("error", function () {
 
-        this.src = "images/no-image.png";
+        if (!this.dataset.fallbackApplied) {
+
+            this.dataset.fallbackApplied = "true";
+
+            this.src = "images/no-image.png";
+
+        }
 
     });
 
 });
 
-// Website Information
+// Console Information
 
 console.log(
 
@@ -404,6 +529,7 @@ console.log(
 /* ====================================================== */
 /* JS-0005 : FOOTER + WINDOW UTILITIES END (V5) */
 /* ====================================================== */
+
 /* ====================================================== */
 /* JS-0006 : COUNTER + IMAGE OBSERVER START (V5) */
 /* ====================================================== */
@@ -601,6 +727,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ====================================================== */
 /* JS-0007 : PERFORMANCE + REVEAL UTILITIES END (V5) */
 /* ====================================================== */
+
 /* ====================================================== */
 /* JS-0008 : PREMIUM UI UTILITIES START (V5) */
 /* ====================================================== */
@@ -692,9 +819,14 @@ console.log(
 /* ====================================================== */
 /* JS-0008 : PREMIUM UI UTILITIES END (V5) */
 /* ====================================================== */
+
 /* ====================================================== */
-/* JS-0009 : FINAL OPTIMIZATION + WEBSITE STARTUP (V5) */
+/* JS-0009 : FINAL OPTIMIZATION + WEBSITE STARTUP START (V5) */
 /* ====================================================== */
+
+// Header Reference
+
+const header = document.getElementById("header");
 
 // Unified Scroll Manager
 
@@ -702,47 +834,37 @@ function handleWindowScroll() {
 
     // Active Navigation
 
-    if (typeof updateActiveMenu === "function") {
+    updateActiveMenu();
 
-        updateActiveMenu();
-
-    }
-
-    // Back To Top Button
-
-    const backToTop = document.querySelector(".floating-buttons .top");
-
-    if (backToTop) {
-
-        backToTop.style.display =
-
-            window.scrollY > 300 ? "flex" : "none";
-
-    }
-
-    // Header Shadow
+    // Header Effect
 
     if (header) {
 
-        header.style.boxShadow =
+        header.classList.toggle(
 
-            window.scrollY > 50
+            "header-scrolled",
 
-            ? "0 10px 30px rgba(0,0,0,.12)"
+            window.scrollY > 40
 
-            : "none";
+        );
 
     }
 
 }
 
-// Single Scroll Event
+// Single Optimized Scroll Event
 
 window.addEventListener(
 
     "scroll",
 
-    debounce(handleWindowScroll, 20)
+    debounce(handleWindowScroll, 20),
+
+    {
+
+        passive: true
+
+    }
 
 );
 
@@ -766,7 +888,7 @@ document.addEventListener("keydown", (event) => {
 
 });
 
-// Website Ready
+// Website Startup
 
 window.addEventListener("load", () => {
 
@@ -774,41 +896,12 @@ window.addEventListener("load", () => {
 
     handleWindowScroll();
 
-    console.log(
-
-        "========================================"
-
-    );
-
-    console.log(
-
-        "MS FARDIN ELECTRIC"
-
-    );
-
-    console.log(
-
-        "LUMENIX SERVICE POINT BD"
-
-    );
-
-    console.log(
-
-        "Website Version : V5"
-
-    );
-
-    console.log(
-
-        "Status : Ready"
-
-    );
-
-    console.log(
-
-        "========================================"
-
-    );
+    console.log("========================================");
+    console.log("MS FARDIN ELECTRIC");
+    console.log("LUMENIX SERVICE POINT BD");
+    console.log("Website Version : V5");
+    console.log("Status : Production Ready");
+    console.log("========================================");
 
 });
 
