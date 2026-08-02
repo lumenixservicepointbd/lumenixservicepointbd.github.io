@@ -657,66 +657,101 @@ font-size:15px;
 /* V5-C005 : PREMIUM ABOUT US END */
 /* ====================================================== */
 /* ====================================================== */
-/* V4-0007 : WHY CHOOSE US START */
+/* V5-C006 : PREMIUM WHY CHOOSE US START */
 /* ====================================================== */
 
 #why-choose-us{
-    background:#f8fbff;
+    background:#f8fafc;
 }
 
 #why-choose-us .cards{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:30px;
-    margin-top:50px;
+    margin-top:55px;
 }
 
 #why-choose-us .card{
     background:#ffffff;
-    border-radius:18px;
-    padding:35px 25px;
+    border:1px solid #edf1f5;
+    border-radius:22px;
+    padding:40px 30px;
     text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    transition:.35s;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    transition:all .35s ease;
+    height:100%;
 }
 
 #why-choose-us .card:hover{
     transform:translateY(-10px);
-    box-shadow:0 18px 40px rgba(0,0,0,.12);
+    border-color:#ff8a00;
+    box-shadow:0 22px 45px rgba(0,0,0,.15);
 }
 
 #why-choose-us .service-icon{
-    font-size:50px;
-    color:#ff7a00;
-    margin-bottom:20px;
+    width:90px;
+    height:90px;
+    line-height:90px;
+    margin:0 auto 25px;
+    border-radius:50%;
+    background:#081830;
+    color:#ffffff;
+    font-size:34px;
+    transition:.35s;
+}
+
+#why-choose-us .card:hover .service-icon{
+    background:#ff8a00;
+    transform:scale(1.08) rotate(8deg);
 }
 
 #why-choose-us .card h3{
-    color:#0B3B6E;
+    color:#081830;
     font-size:22px;
-    margin-bottom:15px;
+    font-weight:700;
+    margin-bottom:18px;
 }
 
 #why-choose-us .card p{
     color:#555;
-    line-height:1.8;
-    font-size:15px;
+    font-size:16px;
+    line-height:1.9;
 }
 
-@media (max-width:768px){
+@media(max-width:768px){
 
-    #why-choose-us .cards{
-        gap:20px;
-    }
+#why-choose-us{
+padding:70px 0;
+}
 
-    #why-choose-us .card{
-        padding:25px 20px;
-    }
+#why-choose-us .cards{
+grid-template-columns:1fr;
+gap:20px;
+}
+
+#why-choose-us .card{
+padding:30px 22px;
+}
+
+#why-choose-us .service-icon{
+width:75px;
+height:75px;
+line-height:75px;
+font-size:30px;
+}
+
+#why-choose-us .card h3{
+font-size:20px;
+}
+
+#why-choose-us .card p{
+font-size:15px;
+}
 
 }
 
 /* ====================================================== */
-/* V4-0007 : WHY CHOOSE US END */
+/* V5-C006 : PREMIUM WHY CHOOSE US END */
 /* ====================================================== */
 /* ====================================================== */
 /* V4-0008 : VISIT CHARGE START */
