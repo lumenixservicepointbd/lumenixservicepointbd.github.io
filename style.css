@@ -571,65 +571,90 @@ width:100%;
 /* V5-C003 : LUMENIX ECOSYSTEM CSS END */
 /* ====================================================== */
 /* ====================================================== */
-/* V4-0006 : ABOUT US SECTION START */
+/* V5-C005 : PREMIUM ABOUT US START */
 /* ====================================================== */
+
+#about{
+    background:#f8fafc;
+}
 
 .about-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
     gap:30px;
-    margin-top:50px;
+    margin-top:55px;
 }
 
 .about-card{
     background:#ffffff;
-    border-radius:20px;
-    padding:35px 30px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    transition:.35s;
-    border-top:5px solid #ff7a00;
+    border-radius:22px;
+    padding:40px 32px;
+    border:1px solid #edf1f5;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    transition:.35s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.about-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:5px;
+    background:#ff8a00;
 }
 
 .about-card:hover{
     transform:translateY(-10px);
-    box-shadow:0 18px 45px rgba(0,0,0,.12);
+    box-shadow:0 20px 45px rgba(0,0,0,.15);
 }
 
 .about-card h3{
+    color:#081830;
     font-size:24px;
-    color:#0B3B6E;
-    margin-bottom:18px;
     font-weight:700;
+    margin-bottom:18px;
 }
 
 .about-card p{
     color:#555;
-    line-height:1.9;
     font-size:16px;
+    line-height:1.9;
 }
 
 .about-card strong{
-    color:#ff7a00;
+    color:#ff8a00;
 }
 
 @media(max-width:768px){
 
-    .about-grid{
-        gap:20px;
-    }
+#about{
+padding:70px 0;
+}
 
-    .about-card{
-        padding:25px;
-    }
+.about-grid{
+grid-template-columns:1fr;
+gap:20px;
+}
 
-    .about-card h3{
-        font-size:21px;
-    }
+.about-card{
+padding:30px 22px;
+}
+
+.about-card h3{
+font-size:21px;
+}
+
+.about-card p{
+font-size:15px;
+}
 
 }
 
 /* ====================================================== */
-/* V4-0006 : ABOUT US SECTION END */
+/* V5-C005 : PREMIUM ABOUT US END */
 /* ====================================================== */
 /* ====================================================== */
 /* V4-0007 : WHY CHOOSE US START */
