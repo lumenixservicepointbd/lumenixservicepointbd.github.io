@@ -428,87 +428,91 @@ width:100%;
 /* V5-C002 : PREMIUM HERO SECTION END */
 /* ====================================================== */
 /* ====================================================== */
-/* V4-0004 : JOIN OUR PROFESSIONAL NETWORK START */
+/* V5-C003 : LUMENIX ECOSYSTEM CSS START */
 /* ====================================================== */
 
 .section{
-    padding:90px 0;
+    padding:100px 0;
+    background:#f8fafc;
 }
 
 .section-title{
-    font-size:40px;
-    font-weight:700;
     text-align:center;
+    font-size:42px;
+    font-weight:800;
+    color:#081830;
     margin-bottom:15px;
-    color:#0b1f3a;
 }
 
 .section-subtitle{
-    max-width:760px;
-    margin:0 auto 55px;
+    max-width:820px;
+    margin:0 auto 60px;
     text-align:center;
     color:#666;
-    line-height:1.8;
     font-size:17px;
+    line-height:1.9;
 }
 
 .cards{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
     gap:30px;
 }
 
 .card{
     background:#ffffff;
-    padding:35px 28px;
-    border-radius:18px;
+    border-radius:22px;
+    padding:40px 30px;
     text-align:center;
-    box-shadow:0 12px 35px rgba(0,0,0,.08);
-    transition:.35s;
-    border:1px solid #f2f2f2;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    border:1px solid #edf1f5;
+    transition:.35s ease;
 }
 
 .card:hover{
     transform:translateY(-10px);
-    box-shadow:0 18px 45px rgba(0,0,0,.15);
+    box-shadow:0 20px 45px rgba(0,0,0,.15);
 }
 
 .service-icon{
-    width:85px;
-    height:85px;
-    line-height:85px;
+    width:90px;
+    height:90px;
+    line-height:90px;
+    margin:0 auto 25px;
     border-radius:50%;
-    background:#ff7a00;
-    color:#ffffff;
-    font-size:34px;
-    margin:0 auto 22px;
+    background:#ff8a00;
+    color:#fff;
+    font-size:36px;
 }
 
 .card h3{
-    font-size:24px;
-    color:#0b1f3a;
+    color:#081830;
+    font-size:22px;
+    font-weight:700;
+    line-height:1.5;
     margin-bottom:18px;
 }
 
 .card p{
-    color:#666;
-    line-height:1.8;
-    margin-bottom:28px;
+    color:#555;
+    font-size:16px;
+    line-height:1.9;
+    margin-bottom:30px;
 }
 
 .card .btn{
-    background:#ff7a00;
-    color:#ffffff;
-    border-radius:50px;
-    padding:14px 30px;
-    text-decoration:none;
     display:inline-block;
+    padding:14px 32px;
+    border-radius:50px;
+    background:#081830;
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
     transition:.3s;
 }
 
 .card .btn:hover{
-    background:#0b1f3a;
-    transform:translateY(-3px);
+    background:#ff8a00;
 }
 
 .card .btn-whatsapp{
@@ -534,25 +538,37 @@ width:100%;
     margin-bottom:40px;
 }
 
+.cards{
+    grid-template-columns:1fr;
+}
+
 .card{
     padding:30px 22px;
 }
 
 .service-icon{
-    width:72px;
-    height:72px;
-    line-height:72px;
-    font-size:28px;
+    width:75px;
+    height:75px;
+    line-height:75px;
+    font-size:30px;
 }
 
 .card h3{
-    font-size:21px;
+    font-size:20px;
+}
+
+.card p{
+    font-size:15px;
+}
+
+.card .btn{
+    width:100%;
 }
 
 }
 
 /* ====================================================== */
-/* V4-0004 : JOIN OUR PROFESSIONAL NETWORK END */
+/* V5-C003 : LUMENIX ECOSYSTEM CSS END */
 /* ====================================================== */
 /* ====================================================== */
 /* V4-0006 : ABOUT US SECTION START */
