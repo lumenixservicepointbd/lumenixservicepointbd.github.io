@@ -98,3 +98,47 @@ Future Modules
 /* =====================================
 J1 END
 ===================================== */
+
+/* =====================================
+J2 START
+Mobile Navigation Menu Controller
+===================================== */
+
+
+const menuButton = document.getElementById("menuToggle");
+
+const navigation = document.getElementById("mainNavigation");
+
+
+if (menuButton && navigation) {
+
+    navigation.style.display = "none";
+
+
+    menuButton.addEventListener("click", function () {
+
+        if (navigation.style.display === "block") {
+
+            navigation.style.display = "none";
+
+            menuButton.innerHTML = "☰ Menu";
+
+        } else {
+
+            navigation.style.display = "block";
+
+            menuButton.innerHTML = "✕ Close";
+
+        }
+
+    });
+
+}
+
+
+
+/* =====================================
+J2 END
+===================================== */
+
+
