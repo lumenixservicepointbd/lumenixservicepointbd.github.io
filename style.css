@@ -471,3 +471,476 @@ User Panel Section Design
 
 
 /* C5 END */
+
+
+/* ================================
+C6 START
+Premium Footer Design
+================================ */
+
+
+.footer {
+
+    width: 100%;
+
+    background: #0b1f3a;
+
+    color: #ffffff;
+
+    padding: 60px 5% 25px;
+
+}
+
+
+
+.footer-container {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 30px;
+
+    margin-bottom: 35px;
+
+}
+
+
+
+.footer h3 {
+
+    color: #ffd700;
+
+    margin-bottom: 15px;
+
+    font-size: 24px;
+
+}
+
+
+
+.footer h4 {
+
+    color: #ffffff;
+
+    margin-bottom: 15px;
+
+    font-size: 18px;
+
+}
+
+
+
+.footer p {
+
+    color: #d6d6d6;
+
+    margin-bottom: 10px;
+
+    font-size: 15px;
+
+}
+
+
+
+.footer-links ul li {
+
+    margin-bottom: 10px;
+
+    color: #d6d6d6;
+
+    transition: 0.3s;
+
+    cursor: pointer;
+
+}
+
+
+
+.footer-links ul li:hover {
+
+    color: #ffd700;
+
+}
+
+
+
+.footer-bottom {
+
+    text-align: center;
+
+    border-top: 1px solid rgba(255,255,255,0.15);
+
+    padding-top: 20px;
+
+    margin-top: 15px;
+
+}
+
+
+
+.developer-credit {
+
+    text-align: center;
+
+    margin-top: 25px;
+
+}
+
+
+
+.developer-credit strong {
+
+    color: #ffd700;
+
+}
+
+
+
+.developer-credit p {
+
+    margin-bottom: 8px;
+
+}
+
+
+/* C6 END */
+
+/* ================================
+C7 START
+Mobile Responsive Design
+(Header, Navigation & Hero)
+================================ */
+
+
+@media (max-width: 768px) {
+
+
+.main-header{
+
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 15px;
+
+}
+
+
+
+.brand-area h1{
+
+    font-size: 28px;
+
+}
+
+
+
+.brand-area p{
+
+    font-size: 13px;
+
+    margin-bottom: 12px;
+
+}
+
+
+
+.menu-area{
+
+    width: 100%;
+
+}
+
+
+
+.menu-area button{
+
+    width: 100%;
+
+}
+
+
+
+.navigation ul{
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    padding: 15px;
+
+}
+
+
+
+.navigation ul li{
+
+    width: 100%;
+
+    text-align: center;
+
+}
+
+
+
+.hero-section{
+
+    min-height: auto;
+
+    padding: 50px 20px;
+
+}
+
+
+
+.hero-section h2{
+
+    font-size: 28px;
+
+}
+
+
+
+.hero-section h3{
+
+    font-size: 22px;
+
+}
+
+
+
+.hero-section p{
+
+    font-size: 15px;
+
+}
+
+
+
+.hero-section button{
+
+    width: 100%;
+
+    max-width: 300px;
+
+}
+
+
+}
+
+
+/* C7 END */
+
+/* ================================
+C8 START
+Responsive Grid Design
+================================ */
+
+
+@media (max-width: 768px) {
+
+
+.ecosystem-container,
+.panel-box,
+.service-container,
+.technician-info,
+.dealer-container,
+.training-container,
+.growth-flow,
+.trust-container,
+.booking-container,
+.registration-container,
+.product-container,
+.stats-container,
+.contact-box,
+.footer-container {
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+
+}
+
+
+
+.ecosystem-card,
+.service-card,
+.dealer-card,
+.training-card,
+.growth-card,
+.trust-card,
+.booking-card,
+.registration-card,
+.product-card,
+.stats-card {
+
+    width: 100%;
+
+}
+
+
+
+.flow-arrow{
+
+    font-size: 28px;
+
+    text-align: center;
+
+}
+
+
+
+.footer{
+
+    text-align: center;
+
+}
+
+
+
+.footer-links ul{
+
+    padding: 0;
+
+}
+
+
+
+.footer-links ul li{
+
+    margin-bottom: 12px;
+
+}
+
+
+}
+
+
+/* C8 END */
+
+/* ================================
+C9 START
+Login Section Design
+================================ */
+
+
+.login-section{
+
+    width: 100%;
+
+    padding: 70px 5%;
+
+    background: #ffffff;
+
+    text-align: center;
+
+}
+
+
+
+.login-section h2{
+
+    font-size: 32px;
+
+    color: #0b3d91;
+
+    margin-bottom: 10px;
+
+}
+
+
+
+.login-section p{
+
+    color: #666666;
+
+    margin-bottom: 40px;
+
+}
+
+
+
+.login-options{
+
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 20px;
+
+}
+
+
+
+.login-card{
+
+    background: #f8faff;
+
+    padding: 30px 20px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+    transition: 0.3s;
+
+}
+
+
+
+.login-card:hover{
+
+    transform: translateY(-8px);
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+}
+
+
+
+.login-card h3{
+
+    color: #0b3d91;
+
+    font-size: 20px;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.login-card button{
+
+    width: 100%;
+
+    background: #0b3d91;
+
+    color: #ffffff;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+
+}
+
+
+
+.login-card button:hover{
+
+    background: #06275f;
+
+}
+
+
+/* C9 END */
+
