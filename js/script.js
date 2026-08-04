@@ -423,6 +423,302 @@ if(findTechnicianBtn){
 J10 END
 ===================================== */
 
+/* =====================================
+J11 START
+Dealer Network Controller
+Version : LUMENIX V5.1
+===================================== */
+
+
+const becomeDealerBtn = document.getElementById("becomeDealerBtn");
+const dealerLoginBtn2 = document.getElementById("dealerLoginBtn2");
+const findDealerBtn = document.getElementById("findDealerBtn");
+
+
+if(becomeDealerBtn){
+
+    becomeDealerBtn.addEventListener("click", function(){
+
+        alert("Dealer Registration Module Coming Soon.");
+
+    });
+
+}
+
+
+if(dealerLoginBtn2){
+
+    dealerLoginBtn2.addEventListener("click", function(){
+
+        alert("Dealer Login Module Coming Soon.");
+
+    });
+
+}
+
+
+if(findDealerBtn){
+
+    findDealerBtn.addEventListener("click", function(){
+
+        alert("Finding verified LUMENIX dealers.");
+
+    });
+
+}
+
+
+/* =====================================
+J11 END
+===================================== */
+
+/* =====================================
+J12 START
+Technical Training Centre Controller
+Version : LUMENIX V5.1
+===================================== */
+
+
+/* ==========================
+Training Logo Check
+========================== */
+
+const trainingLogo = document.querySelector(".training-logo img");
+
+
+if(trainingLogo){
+
+    trainingLogo.addEventListener("load", function(){
+
+        console.log("Training Centre Logo Loaded Successfully");
+
+    });
+
+
+    trainingLogo.addEventListener("error", function(){
+
+        console.log("Training Centre Logo Not Found. Check images/training-logo.png");
+
+    });
+
+}
+
+
+
+/* ==========================
+Training Module Buttons
+========================== */
+
+
+const studentRegisterBtn = document.getElementById("studentRegisterBtn");
+
+const viewCoursesBtn = document.getElementById("viewCoursesBtn");
+
+const joinNetworkBtn = document.getElementById("joinNetworkBtn");
+
+
+
+if(studentRegisterBtn){
+
+    studentRegisterBtn.addEventListener("click", function(){
+
+        alert("Student Registration Module Coming Soon.");
+
+    });
+
+}
+
+
+
+
+if(viewCoursesBtn){
+
+    viewCoursesBtn.addEventListener("click", function(){
+
+        alert("Course Management Module Coming Soon.");
+
+    });
+
+}
+
+
+
+
+if(joinNetworkBtn){
+
+    joinNetworkBtn.addEventListener("click", function(){
+
+        alert("Graduate Network Module Coming Soon.");
+
+    });
+
+}
+
+
+
+/* =====================================
+J12 END
+===================================== */
+
+/* =====================================
+J13 START
+Business Growth Flow Controller
+Version : LUMENIX V5.1
+===================================== */
+
+
+/* ==========================
+Growth Flow Card Controller
+========================== */
+
+
+const growthCards = document.querySelectorAll(".growth-card");
+
+
+growthCards.forEach(function(card){
+
+
+    card.addEventListener("click", function(){
+
+
+        const growthTitle = this.querySelector("h3");
+
+
+        if(growthTitle){
+
+
+            alert(
+                growthTitle.innerText + 
+                " Selected. Growth Module Coming Soon."
+            );
+
+
+        }
+
+
+    });
+
+
+});
+
+
+
+/* =====================================
+J13 END
+===================================== */
+
+/* =====================================
+J14 START
+Trust & Platform Feature Controller
+Version : LUMENIX V5.1
+===================================== */
+
+
+/* ==========================
+Trust Card Interaction
+========================== */
+
+
+const trustCards = document.querySelectorAll(".trust-card");
+
+
+trustCards.forEach(function(card){
+
+
+    card.addEventListener("click", function(){
+
+
+        const featureTitle = this.querySelector("h3");
+
+
+        if(featureTitle){
+
+
+            alert(
+                featureTitle.innerText +
+                " Information Module Coming Soon."
+            );
+
+
+        }
+
+
+    });
+
+
+});
+
+
+
+/* =====================================
+J14 END
+===================================== */
+/* =====================================
+J15 START
+Customer Service Booking Controller
+Version : LUMENIX V5.1
+===================================== */
+
+
+/* ==========================
+Booking Buttons Controller
+========================== */
+
+
+const selectServiceBtn = document.getElementById("selectServiceBtn");
+
+const selectLocationBtn = document.getElementById("selectLocationBtn");
+
+const bookNowBtn = document.getElementById("bookNowBtn");
+
+
+
+if(selectServiceBtn){
+
+    selectServiceBtn.addEventListener("click", function(){
+
+        alert(
+            "Service Selection Opened."
+        );
+
+    });
+
+}
+
+
+
+if(selectLocationBtn){
+
+    selectLocationBtn.addEventListener("click", function(){
+
+        alert(
+            "Location Selection Module Coming Soon."
+        );
+
+    });
+
+}
+
+
+
+if(bookNowBtn){
+
+    bookNowBtn.addEventListener("click", function(){
+
+        alert(
+            "Your Service Booking Request Has Been Received."
+        );
+
+    });
+
+}
+
+
+
+/* =====================================
+J15 END
+===================================== */
+
 
 
 
