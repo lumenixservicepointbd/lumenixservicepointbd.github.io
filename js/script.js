@@ -1104,6 +1104,149 @@ J21 END
 ===================================== */
 
 
+/* =====================================
+J22 START
+Login Button Activation
+===================================== */
+
+const customerLoginBtn = document.getElementById("customerLoginBtn");
+const technicianLoginBtn = document.getElementById("technicianLoginBtn");
+const dealerLoginBtn = document.getElementById("dealerLoginBtn");
+const employeeLoginBtn = document.getElementById("employeeLoginBtn");
+const adminLoginBtn = document.getElementById("adminLoginBtn");
+
+
+if(customerLoginBtn){
+
+    customerLoginBtn.addEventListener("click",function(){
+
+        alert("Customer Login System Coming Soon");
+
+    });
+
+}
+
+
+if(technicianLoginBtn){
+
+    technicianLoginBtn.addEventListener("click",function(){
+
+        alert("Technician Login System Coming Soon");
+
+    });
+
+}
+
+
+if(dealerLoginBtn){
+
+    dealerLoginBtn.addEventListener("click",function(){
+
+        alert("Dealer Login System Coming Soon");
+
+    });
+
+}
+
+
+if(employeeLoginBtn){
+
+    employeeLoginBtn.addEventListener("click",function(){
+
+        alert("Employee Login System Coming Soon");
+
+    });
+
+}
+
+
+if(adminLoginBtn){
+
+    adminLoginBtn.addEventListener("click",function(){
+
+        alert("Admin Dashboard Coming Soon");
+
+    });
+
+}
+
+
+/* =====================================
+J22 END
+===================================== */
+/* =====================================
+J23 START
+Registration Button Activation
+===================================== */
+
+const customerRegistrationBtn = document.getElementById("customerRegistrationBtn");
+const technicianRegistrationBtn = document.getElementById("technicianRegistrationBtn");
+const dealerRegistrationBtn = document.getElementById("dealerRegistrationBtn");
+const studentRegistrationBtn = document.getElementById("studentRegistrationBtn");
+const medicalRegistrationBtn = document.getElementById("medicalRegistrationBtn");
+
+
+if(customerRegistrationBtn){
+
+    customerRegistrationBtn.addEventListener("click",function(){
+
+        alert("Customer Registration Form Coming Soon");
+
+    });
+
+}
+
+
+if(technicianRegistrationBtn){
+
+    technicianRegistrationBtn.addEventListener("click",function(){
+
+        alert("Technician Registration Form Coming Soon");
+
+    });
+
+}
+
+
+if(dealerRegistrationBtn){
+
+    dealerRegistrationBtn.addEventListener("click",function(){
+
+        alert("Dealer Registration Form Coming Soon");
+
+    });
+
+}
+
+
+if(studentRegistrationBtn){
+
+    studentRegistrationBtn.addEventListener("click",function(){
+
+        alert("Student Registration Form Coming Soon");
+
+    });
+
+}
+
+
+if(medicalRegistrationBtn){
+
+    medicalRegistrationBtn.addEventListener("click",function(){
+
+        alert("Medical Registration Form Coming Soon");
+
+    });
+
+}
+
+
+/* =====================================
+J23 END
+===================================== */
+
+
+
 
 
 
