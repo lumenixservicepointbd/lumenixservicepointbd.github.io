@@ -1293,6 +1293,66 @@ J24 END
 
 
 
+/* =====================================
+J25 START
+Find Technician Button Activation
+===================================== */
+
+const findTechnicianBtn = document.getElementById("findTechnicianBtn");
+
+
+if (findTechnicianBtn) {
+
+    findTechnicianBtn.addEventListener("click", function () {
+
+        alert("Technician Search System Coming Soon");
+
+    });
+
+}
+
+
+/* =====================================
+J25 END
+===================================== */
+
+
+/* =====================================
+J26 START
+Contact & CTA Button Activation
+===================================== */
+
+const callNowBtn = document.getElementById("callNowBtn");
+const contactUsBtn = document.getElementById("contactUsBtn");
+
+
+if (callNowBtn) {
+
+    callNowBtn.addEventListener("click", function () {
+
+        alert("Phone Call Feature Coming Soon");
+
+    });
+
+}
+
+
+if (contactUsBtn) {
+
+    contactUsBtn.addEventListener("click", function () {
+
+        alert("Contact Form Coming Soon");
+
+    });
+
+}
+
+
+/* =====================================
+J26 END
+===================================== */
+
+
 
 
 
