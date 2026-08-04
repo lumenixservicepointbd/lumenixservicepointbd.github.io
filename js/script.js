@@ -1244,6 +1244,53 @@ if(medicalRegistrationBtn){
 /* =====================================
 J23 END
 ===================================== */
+/* =====================================
+J24 START
+Service Booking Button Activation
+===================================== */
+
+const selectServiceBtn = document.getElementById("selectServiceBtn");
+const selectLocationBtn = document.getElementById("selectLocationBtn");
+const bookNowBtn = document.getElementById("bookNowBtn");
+
+
+if (selectServiceBtn) {
+
+    selectServiceBtn.addEventListener("click", function () {
+
+        alert("Service Category Selection Coming Soon");
+
+    });
+
+}
+
+
+if (selectLocationBtn) {
+
+    selectLocationBtn.addEventListener("click", function () {
+
+        alert("Location Selection Coming Soon");
+
+    });
+
+}
+
+
+if (bookNowBtn) {
+
+    bookNowBtn.addEventListener("click", function () {
+
+        alert("Online Service Booking Coming Soon");
+
+    });
+
+}
+
+
+/* =====================================
+J24 END
+===================================== */
+
 
 
 
