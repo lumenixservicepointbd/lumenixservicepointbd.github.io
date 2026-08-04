@@ -720,6 +720,155 @@ J15 END
 ===================================== */
 
 
+/* =====================================
+J16 START
+Technician & Dealer Registration Controller
+Version : LUMENIX V5.1
+===================================== */
+
+
+/* ==========================
+Registration Buttons
+========================== */
+
+
+const technicianRegisterBtn = document.getElementById("technicianRegisterBtn");
+
+const dealerRegisterBtn = document.getElementById("dealerRegisterBtn");
+
+
+
+if(technicianRegisterBtn){
+
+    technicianRegisterBtn.addEventListener("click", function(){
+
+        alert(
+            "Technician Registration Module Coming Soon."
+        );
+
+    });
+
+}
+
+
+
+if(dealerRegisterBtn){
+
+    dealerRegisterBtn.addEventListener("click", function(){
+
+        alert(
+            "Dealer Registration Module Coming Soon."
+        );
+
+    });
+
+}
+
+
+
+/* =====================================
+J16 END
+===================================== */
+
+/* =====================================
+J17 START
+Product & Business Showcase Controller
+Version : LUMENIX V5.1
+===================================== */
+
+
+/* ==========================
+Product Card Controller
+========================== */
+
+
+const productCards = document.querySelectorAll(".product-card");
+
+
+productCards.forEach(function(card){
+
+
+    card.addEventListener("click", function(){
+
+
+        const productTitle = this.querySelector("h3");
+
+
+        if(productTitle){
+
+
+            alert(
+                productTitle.innerText +
+                " Selected. Product Details Coming Soon."
+            );
+
+
+        }
+
+
+    });
+
+
+});
+
+
+
+/* =====================================
+J17 END
+===================================== */
+
+/* =====================================
+J18 START
+Statistics & Achievement Controller
+Version : LUMENIX V5.1
+===================================== */
+
+
+/* ==========================
+Statistics Counter Effect
+========================== */
+
+
+const statsCards = document.querySelectorAll(".stats-card");
+
+
+statsCards.forEach(function(card){
+
+
+    card.addEventListener("click", function(){
+
+
+        const number = this.querySelector("h3");
+
+        const title = this.querySelector("p");
+
+
+        if(number && title){
+
+
+            alert(
+                title.innerText +
+                " : " +
+                number.innerText
+            );
+
+
+        }
+
+
+    });
+
+
+});
+
+
+
+/* =====================================
+J18 END
+===================================== */
+
+
+
 
 
 
