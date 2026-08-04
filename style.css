@@ -2197,7 +2197,6 @@ C20 START
 Final CTA, Contact & Responsive Optimization
 ================================ */
 
-
 /* ===== Call To Action ===== */
 
 .cta-section{
@@ -2222,6 +2221,7 @@ Final CTA, Contact & Responsive Optimization
     max-width:700px;
     margin:0 auto 35px;
     color:#e8e8e8;
+    line-height:1.7;
 
 }
 
@@ -2229,6 +2229,7 @@ Final CTA, Contact & Responsive Optimization
 
     display:flex;
     justify-content:center;
+    align-items:center;
     gap:20px;
     flex-wrap:wrap;
 
@@ -2272,10 +2273,11 @@ Final CTA, Contact & Responsive Optimization
 
 }
 
-.contact-container>p{
+.contact-container > p{
 
     color:#666666;
     margin-bottom:40px;
+    line-height:1.7;
 
 }
 
@@ -2293,6 +2295,14 @@ Final CTA, Contact & Responsive Optimization
     padding:30px 25px;
     border-radius:15px;
     box-shadow:0 6px 18px rgba(0,0,0,.08);
+    transition:.3s;
+
+}
+
+.contact-box div:hover{
+
+    transform:translateY(-6px);
+    box-shadow:0 12px 25px rgba(0,0,0,.15);
 
 }
 
@@ -2309,6 +2319,7 @@ Final CTA, Contact & Responsive Optimization
 @media (max-width:992px){
 
     .ecosystem-container,
+    .login-options,
     .dealer-container,
     .training-container,
     .product-container,
@@ -2331,6 +2342,7 @@ Final CTA, Contact & Responsive Optimization
     .technician-info,
     .dealer-container,
     .training-container,
+    .growth-flow,
     .booking-container,
     .registration-container,
     .product-container,
@@ -2345,7 +2357,6 @@ Final CTA, Contact & Responsive Optimization
     .cta-buttons{
 
         flex-direction:column;
-
         align-items:center;
 
     }
@@ -2359,9 +2370,7 @@ Final CTA, Contact & Responsive Optimization
 
 }
 
-
 /* ================================
 C20 END
-LUMENIX V5.1 CSS COMPLETE
 ================================ */
 
