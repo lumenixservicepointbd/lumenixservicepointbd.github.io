@@ -349,4 +349,54 @@ serviceCards.forEach(function (card) {
 J8 END
 ===================================== */
 
+/* =====================================
+J9 START
+Service Booking Controller
+Version : LUMENIX V5.1
+===================================== */
+
+
+const selectServiceBtn = document.getElementById("selectServiceBtn");
+const selectLocationBtn = document.getElementById("selectLocationBtn");
+const bookNowBtn = document.getElementById("bookNowBtn");
+
+
+if(selectServiceBtn){
+
+    selectServiceBtn.addEventListener("click", function(){
+
+        alert("Please select your required service.");
+
+    });
+
+}
+
+
+if(selectLocationBtn){
+
+    selectLocationBtn.addEventListener("click", function(){
+
+        alert("Location selection module coming soon.");
+
+    });
+
+}
+
+
+if(bookNowBtn){
+
+    bookNowBtn.addEventListener("click", function(){
+
+        alert("Your service booking request is being prepared.");
+
+    });
+
+}
+
+
+/* =====================================
+J9 END
+===================================== */
+
+
 
