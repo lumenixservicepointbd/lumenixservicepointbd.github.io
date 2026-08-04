@@ -867,6 +867,177 @@ statsCards.forEach(function(card){
 J18 END
 ===================================== */
 
+/* =====================================
+J19 START
+Final Contact & CTA Controller
+Version : LUMENIX V5.1
+===================================== */
+
+
+/* ==========================
+Contact Information Controller
+========================== */
+
+
+const contactBoxes = document.querySelectorAll(".contact-box div");
+
+
+contactBoxes.forEach(function(box){
+
+
+    box.addEventListener("click", function(){
+
+
+        const contactTitle = this.querySelector("h3");
+
+
+        if(contactTitle){
+
+
+            alert(
+                contactTitle.innerText +
+                " Information Selected."
+            );
+
+
+        }
+
+
+    });
+
+
+});
+
+
+
+/* ==========================
+Final CTA Controller
+========================== */
+
+
+const ctaButtons = document.querySelectorAll(".cta-buttons button");
+
+
+ctaButtons.forEach(function(button){
+
+
+    button.addEventListener("click", function(){
+
+
+        alert(
+            "Thank you for connecting with LUMENIX. Our team will assist you soon."
+        );
+
+
+    });
+
+
+});
+
+
+
+/* =====================================
+J19 END
+===================================== */
+
+/* =====================================
+J20 START
+Final System Optimization Controller
+Version : LUMENIX V5.1 Premium
+===================================== */
+
+
+/* ==========================
+System Ready Status
+========================== */
+
+
+window.addEventListener("load", function(){
+
+
+    console.log("================================");
+
+    console.log("LUMENIX V5.1 Premium");
+
+    console.log("All HTML Sections Loaded");
+
+    console.log("All CSS Modules Loaded");
+
+    console.log("All JavaScript Controllers Loaded");
+
+    console.log("System Optimization Complete");
+
+    console.log("================================");
+
+
+});
+
+
+
+/* ==========================
+Smooth Section Navigation
+========================== */
+
+
+const allLinks = document.querySelectorAll("a[href^='#']");
+
+
+allLinks.forEach(function(link){
+
+
+    link.addEventListener("click", function(e){
+
+
+        const target = document.querySelector(
+            this.getAttribute("href")
+        );
+
+
+        if(target){
+
+
+            e.preventDefault();
+
+
+            target.scrollIntoView({
+
+                behavior:"smooth"
+
+            });
+
+
+        }
+
+
+    });
+
+
+});
+
+
+
+/* ==========================
+Error Protection
+========================== */
+
+
+window.addEventListener("error", function(event){
+
+
+    console.log(
+        "System Error Detected:",
+        event.message
+    );
+
+
+});
+
+
+
+/* =====================================
+J20 END
+===================================== */
+
 
 
 
