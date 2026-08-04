@@ -1,4 +1,3 @@
-
 /* =====================================
 J1 START
 Core System Initialization
@@ -1036,6 +1035,72 @@ window.addEventListener("error", function(event){
 
 /* =====================================
 J20 END
+===================================== */
+
+/* =====================================
+J21 START
+Ecosystem Button Navigation
+===================================== */
+
+const ledDetailsBtn = document.getElementById("ledDetailsBtn");
+const serviceDetailsBtn = document.getElementById("serviceDetailsBtn");
+const trainingDetailsBtn = document.getElementById("trainingDetailsBtn");
+
+
+if (ledDetailsBtn) {
+
+    ledDetailsBtn.addEventListener("click", function () {
+
+        alert("LUMENIX LED Details page will be available soon.");
+
+    });
+
+}
+
+
+if (serviceDetailsBtn) {
+
+    serviceDetailsBtn.addEventListener("click", function () {
+
+        const technicianSection = document.getElementById("technician");
+
+        if (technicianSection) {
+
+            technicianSection.scrollIntoView({
+
+                behavior: "smooth"
+
+            });
+
+        }
+
+    });
+
+}
+
+
+if (trainingDetailsBtn) {
+
+    trainingDetailsBtn.addEventListener("click", function () {
+
+        const trainingSection = document.getElementById("training");
+
+        if (trainingSection) {
+
+            trainingSection.scrollIntoView({
+
+                behavior: "smooth"
+
+            });
+
+        }
+
+    });
+
+}
+
+/* =====================================
+J21 END
 ===================================== */
 
 
