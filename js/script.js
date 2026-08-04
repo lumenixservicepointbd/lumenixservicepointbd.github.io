@@ -398,5 +398,32 @@ if(bookNowBtn){
 J9 END
 ===================================== */
 
+/* =====================================
+J10 START
+Technician Network Controller
+Version : LUMENIX V5.1
+===================================== */
+
+
+const findTechnicianBtn = document.getElementById("findTechnicianBtn");
+
+
+if(findTechnicianBtn){
+
+    findTechnicianBtn.addEventListener("click", function(){
+
+        alert("Finding verified LUMENIX technicians in your area.");
+
+    });
+
+}
+
+
+/* =====================================
+J10 END
+===================================== */
+
+
+
 
 
