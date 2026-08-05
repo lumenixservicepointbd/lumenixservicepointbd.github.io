@@ -1,1 +1,123 @@
+/* =====================================
+A1 START
+LUMENIX V5.1 Premium
+Admin Login UI
+===================================== */
 
+.admin-login-section{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 20px;
+
+    background:#f5f7fb;
+
+}
+
+.admin-login-box{
+
+    width:100%;
+
+    max-width:420px;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+
+}
+
+.admin-login-box h2{
+
+    text-align:center;
+
+    color:#0b2d6b;
+
+    margin-bottom:15px;
+
+    font-size:30px;
+
+}
+
+.admin-login-box p{
+
+    text-align:center;
+
+    color:#666;
+
+    margin-bottom:25px;
+
+    line-height:1.6;
+
+}
+
+.admin-login-box input{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-bottom:18px;
+
+    border:1px solid #d6d6d6;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.admin-login-box input:focus{
+
+    border-color:#0b5ed7;
+
+    box-shadow:0 0 10px rgba(11,94,215,.25);
+
+}
+
+#adminLoginSystemBtn{
+
+    width:100%;
+
+    padding:15px;
+
+    background:#0b5ed7;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+#adminLoginSystemBtn:hover{
+
+    background:#084298;
+
+}
+
+/* =====================================
+A1 END
+===================================== */
