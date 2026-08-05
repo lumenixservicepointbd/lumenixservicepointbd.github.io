@@ -1353,6 +1353,83 @@ J26 END
 ===================================== */
 
 
+/* =====================================
+C21 START
+Admin Login Section
+===================================== */
+
+.admin-login-section{
+
+    padding:80px 20px;
+    background:#f5f7fb;
+
+}
+
+.admin-login-box{
+
+    max-width:420px;
+    margin:auto;
+    background:#ffffff;
+    padding:35px 25px;
+    border-radius:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,.10);
+
+}
+
+.admin-login-box h2{
+
+    text-align:center;
+    color:#0d47a1;
+    margin-bottom:15px;
+
+}
+
+.admin-login-box p{
+
+    text-align:center;
+    color:#555;
+    margin-bottom:25px;
+
+}
+
+.admin-login-box input{
+
+    width:100%;
+    padding:14px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:16px;
+    box-sizing:border-box;
+
+}
+
+.admin-login-box button{
+
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#0d47a1;
+    color:#fff;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+
+}
+
+.admin-login-box button:hover{
+
+    background:#1565c0;
+
+}
+
+/* =====================================
+C21 END
+===================================== */
+
+
+
 
 
 
