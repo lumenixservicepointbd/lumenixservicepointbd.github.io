@@ -44,3 +44,48 @@ document.addEventListener("DOMContentLoaded", function () {
 /* =====================================
 AJ1 END
 ===================================== */
+/* =====================================
+AJ2 START
+Admin Session System
+LUMENIX V5.1 Premium
+===================================== */
+
+"use strict";
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const loginBtn = document.getElementById("adminLoginSystemBtn");
+
+    if (!loginBtn) return;
+
+    loginBtn.addEventListener("click", function () {
+
+        const username = document.getElementById("adminUsername").value.trim();
+        const password = document.getElementById("adminPassword").value.trim();
+
+        if (username === "" || password === "") {
+
+            alert("Please enter Username and Password.");
+            return;
+
+        }
+
+        if (username === "admin" && password === "12345") {
+
+            localStorage.setItem("adminLoggedIn", "true");
+
+            window.location.href = "dashboard.html";
+
+        } else {
+
+            alert("Invalid Username or Password");
+
+        }
+
+    });
+
+});
+
+/* =====================================
+AJ2 END
+===================================== */
