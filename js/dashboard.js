@@ -60,3 +60,42 @@ document.addEventListener("DOMContentLoaded", function () {
 /* =====================================
 DJ2 END
 ===================================== */
+/* =====================================
+DJ3 START
+Quick Action Navigation
+===================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const links = {
+
+        goProjectBtn: "project.html",
+        goAccountsBtn: "accounts.html",
+        goInventoryBtn: "inventory.html",
+        goAttendanceBtn: "attendance.html",
+        goReportsBtn: "reports.html",
+        goSettingsBtn: "settings.html"
+
+    };
+
+    Object.keys(links).forEach(function (id) {
+
+        const btn = document.getElementById(id);
+
+        if (btn) {
+
+            btn.addEventListener("click", function () {
+
+                window.location.href = links[id];
+
+            });
+
+        }
+
+    });
+
+});
+
+/* =====================================
+DJ3 END
+===================================== */
