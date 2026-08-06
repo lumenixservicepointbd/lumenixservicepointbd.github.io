@@ -113,3 +113,68 @@ Dashboard Layout
 /* =====================================
 DC1 END
 ===================================== */
+
+/* =====================================
+DC2 START
+Dashboard Summary Cards
+===================================== */
+
+.dashboard-cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:25px;
+
+    margin-top:30px;
+
+}
+
+.dashboard-card{
+
+    background:#ffffff;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+    text-align:center;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+
+}
+
+.dashboard-card h3{
+
+    color:#555;
+
+    font-size:18px;
+
+    margin-bottom:15px;
+
+}
+
+.dashboard-card h2{
+
+    color:#0d47a1;
+
+    font-size:34px;
+
+    font-weight:700;
+
+}
+
+/* =====================================
+DC2 END
+===================================== */
