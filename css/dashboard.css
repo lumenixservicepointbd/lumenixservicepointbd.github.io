@@ -326,4 +326,540 @@ Dashboard Recent Activity
 /* =====================================
 DC4 END
 ===================================== */
+/* =====================================
+DC5 START
+Latest Projects
+===================================== */
+
+.latest-projects{
+
+    margin-top:40px;
+
+    background:#ffffff;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.latest-projects h2{
+
+    color:#0d47a1;
+
+    font-size:24px;
+
+    margin-bottom:20px;
+
+}
+
+.projects-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    overflow:hidden;
+
+    border-radius:10px;
+
+}
+
+.projects-table thead{
+
+    background:#0d47a1;
+
+    color:#ffffff;
+
+}
+
+.projects-table th{
+
+    padding:15px;
+
+    text-align:left;
+
+    font-size:15px;
+
+}
+
+.projects-table td{
+
+    padding:15px;
+
+    border-bottom:1px solid #e5e7eb;
+
+    font-size:14px;
+
+    color:#444;
+
+}
+
+.projects-table tbody tr:hover{
+
+    background:#f5f9ff;
+
+}
+
+/* =====================================
+DC5 END
+===================================== */
+/* =====================================
+DC6 START
+Income & Expense Overview
+===================================== */
+
+.income-expense-overview{
+
+    margin-top:40px;
+
+    background:#ffffff;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.income-expense-overview h2{
+
+    color:#0d47a1;
+
+    font-size:24px;
+
+    margin-bottom:20px;
+
+}
+
+.income-expense-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+}
+
+.income-box,
+.expense-box,
+.profit-box{
+
+    padding:25px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    color:#ffffff;
+
+    transition:.3s;
+
+}
+
+.income-box{
+
+    background:#16a34a;
+
+}
+
+.expense-box{
+
+    background:#dc2626;
+
+}
+
+.profit-box{
+
+    background:#2563eb;
+
+}
+
+.income-box:hover,
+.expense-box:hover,
+.profit-box:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.income-box h3,
+.expense-box h3,
+.profit-box h3{
+
+    font-size:18px;
+
+    margin-bottom:12px;
+
+}
+
+.income-box h2,
+.expense-box h2,
+.profit-box h2{
+
+    font-size:32px;
+
+    font-weight:700;
+
+}
+
+/* =====================================
+DC6 END
+===================================== */
+/* =====================================
+DC7 START
+Inventory Overview
+===================================== */
+
+.inventory-overview{
+
+    margin-top:40px;
+
+    background:#ffffff;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.inventory-overview h2{
+
+    color:#0d47a1;
+
+    font-size:24px;
+
+    margin-bottom:20px;
+
+}
+
+.inventory-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+}
+
+.inventory-card{
+
+    background:#f8f9fc;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    border-top:5px solid #0d47a1;
+
+    transition:.3s;
+
+}
+
+.inventory-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+    background:#eef5ff;
+
+}
+
+.inventory-card h3{
+
+    color:#0d47a1;
+
+    font-size:32px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+.inventory-card p{
+
+    color:#555;
+
+    font-size:16px;
+
+    margin:0;
+
+}
+
+/* =====================================
+DC7 END
+===================================== */
+/* =====================================
+DC8 START
+Attendance Overview
+===================================== */
+
+.attendance-overview{
+
+    margin-top:40px;
+
+    background:#ffffff;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.attendance-overview h2{
+
+    color:#0d47a1;
+
+    font-size:24px;
+
+    margin-bottom:20px;
+
+}
+
+.attendance-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+}
+
+.attendance-card{
+
+    background:#f8f9fc;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    border-top:5px solid #16a34a;
+
+    transition:.3s;
+
+}
+
+.attendance-card:hover{
+
+    background:#eefaf2;
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.attendance-card h3{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:#16a34a;
+
+    margin-bottom:10px;
+
+}
+
+.attendance-card p{
+
+    margin:0;
+
+    color:#555;
+
+    font-size:16px;
+
+}
+
+/* =====================================
+DC8 END
+===================================== */
+/* =====================================
+DC9 START
+Technician Status
+===================================== */
+
+.technician-status{
+
+    margin-top:40px;
+
+    background:#ffffff;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.technician-status h2{
+
+    color:#0d47a1;
+
+    font-size:24px;
+
+    margin-bottom:20px;
+
+}
+
+.technician-status-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+}
+
+.technician-status-card{
+
+    background:#f8f9fc;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    border-top:5px solid #f59e0b;
+
+    transition:.3s;
+
+}
+
+.technician-status-card:hover{
+
+    background:#fff8eb;
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.technician-status-card h3{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:#f59e0b;
+
+    margin-bottom:10px;
+
+}
+
+.technician-status-card p{
+
+    margin:0;
+
+    color:#555;
+
+    font-size:16px;
+
+}
+
+/* =====================================
+DC9 END
+===================================== */
+/* =====================================
+DC10 START
+Customer Service Requests
+===================================== */
+
+.service-request-section{
+
+    margin-top:40px;
+
+    background:#ffffff;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.service-request-section h2{
+
+    color:#0d47a1;
+
+    font-size:24px;
+
+    margin-bottom:20px;
+
+}
+
+.service-request-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    overflow:hidden;
+
+    border-radius:10px;
+
+}
+
+.service-request-table thead{
+
+    background:#0d47a1;
+
+    color:#ffffff;
+
+}
+
+.service-request-table th{
+
+    padding:15px;
+
+    text-align:left;
+
+    font-size:15px;
+
+}
+
+.service-request-table td{
+
+    padding:15px;
+
+    border-bottom:1px solid #e5e7eb;
+
+    color:#444;
+
+    font-size:14px;
+
+}
+
+.service-request-table tbody tr:hover{
+
+    background:#eef5ff;
+
+}
+
+/* =====================================
+DC10 END
+===================================== */
 
