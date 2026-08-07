@@ -150,36 +150,38 @@ Latest Projects Controller
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    const projectTable = document.querySelector(".projects-table tbody");
+    const projectTable = document.getElementById("latestProjectsBody");
 
-    if(!projectTable) return;
-
+    if(!projectTable){
+        return;
+    }
 
     const projects = [
 
         {
             id:"PR-001",
             name:"Electrical Installation",
-            status:"Running"
+            status:"Running",
+            amount:"৳50,000"
         },
 
         {
             id:"PR-002",
             name:"Service & Maintenance",
-            status:"Pending"
+            status:"Pending",
+            amount:"৳18,000"
         },
 
         {
             id:"PR-003",
             name:"Smart Home Setup",
-            status:"Completed"
+            status:"Completed",
+            amount:"৳75,000"
         }
 
     ];
 
-
-    projectTable.innerHTML="";
-
+    projectTable.innerHTML = "";
 
     projects.forEach(function(project){
 
@@ -193,18 +195,54 @@ document.addEventListener("DOMContentLoaded", function(){
 
             <td>${project.status}</td>
 
+            <td>${project.amount}</td>
+
         </tr>
 
         `;
 
     });
 
-
 });
-
 
 /* =====================================
 DJ5 END
+===================================== */
+/* =====================================
+DJ6 START
+Income & Expense Controller
+===================================== */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const monthlyIncome = document.getElementById("monthlyIncome");
+    const monthlyExpense = document.getElementById("monthlyExpense");
+    const netProfit = document.getElementById("netProfit");
+
+    if(
+        !monthlyIncome ||
+        !monthlyExpense ||
+        !netProfit
+    ){
+        return;
+    }
+
+    const income = 50000;
+
+    const expense = 15000;
+
+    const profit = income - expense;
+
+    monthlyIncome.innerHTML = "৳" + income;
+
+    monthlyExpense.innerHTML = "৳" + expense;
+
+    netProfit.innerHTML = "৳" + profit;
+
+});
+
+/* =====================================
+DJ6 END
 ===================================== */
 /* =====================================
 DJ7 START
