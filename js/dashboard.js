@@ -1,11 +1,16 @@
 /* =====================================
-DJ1 START
-Dashboard Security
+LUMENIX V5.1
+Dashboard Controller
 ===================================== */
 
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    /* =====================================
+    DJ1
+    Dashboard Security + Logout
+    ===================================== */
 
     const isLoggedIn = localStorage.getItem("adminLoggedIn");
 
@@ -39,234 +44,401 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-});
 
-/* =====================================
-DJ1 END
-===================================== */
-/* =====================================
-DJ3 START
-Quick Action Navigation
-===================================== */
+    /* =====================================
+    DJ2
+    Dashboard Navigation
+    ===================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
+    const navigationLinks = {
 
-    const links = {
+        dashboardHomeBtn: "dashboard.html",
+
+        projectBtn: "project.html",
+
+        accountsBtn: "accounts.html",
+
+        inventoryBtn: "inventory.html",
+
+        attendanceBtn: "attendance.html",
+
+        reportsBtn: "reports.html",
+
+        settingsBtn: "settings.html",
 
         goProjectBtn: "project.html",
+
         goAccountsBtn: "accounts.html",
+
         goInventoryBtn: "inventory.html",
+
         goAttendanceBtn: "attendance.html",
+
         goReportsBtn: "reports.html",
+
         goSettingsBtn: "settings.html"
 
     };
 
-    Object.keys(links).forEach(function (id) {
 
-        const btn = document.getElementById(id);
+    Object.keys(navigationLinks).forEach(function (id) {
 
-        if (btn) {
+        const button = document.getElementById(id);
 
-            btn.addEventListener("click", function () {
+        if (!button) return;
 
-                window.location.href = links[id];
 
-            });
+        button.addEventListener("click", function (event) {
 
-        }
+            event.preventDefault();
+
+            window.location.href = navigationLinks[id];
+
+        });
 
     });
 
-});
 
-/* =====================================
-DJ3 END
-===================================== */
-/* =====================================
-DJ4 START
-Dashboard Recent Activity
-===================================== */
+    /* =====================================
+    DJ3
+    Dashboard Summary Data
+    ===================================== */
 
-"use strict";
+    const dashboardData = {
 
-document.addEventListener("DOMContentLoaded", function () {
+        projects: 0,
 
-    const activityList = document.querySelector(".activity-list");
+        income: 0,
 
-    if (!activityList) return;
+        expense: 0,
 
-    const activityData = [
+        inventory: 0,
 
-        {
-            icon: "📁",
-            text: "System Ready."
-        },
+        lastUpdate: new Date().toLocaleString()
 
-        {
-            icon: "💰",
-            text: "Income & Expense Module Ready."
-        },
+    };
 
-        {
-            icon: "📦",
-            text: "Inventory Module Ready."
-        },
 
-        {
-            icon: "👥",
-            text: "Attendance Module Ready."
+    let currentData;
+
+
+    const savedData = localStorage.getItem(
+        "lumenixDashboard"
+    );
+
+
+    if (savedData) {
+
+        try {
+
+            currentData = JSON.parse(savedData);
+
+        } catch (error) {
+
+            currentData = dashboardData;
+
+            localStorage.setItem(
+                "lumenixDashboard",
+                JSON.stringify(dashboardData)
+            );
+
         }
 
-    ];
+    } else {
 
-    activityList.innerHTML = "";
+        currentData = dashboardData;
 
-    activityData.forEach(function (item) {
+        localStorage.setItem(
+            "lumenixDashboard",
+            JSON.stringify(dashboardData)
+        );
 
-        activityList.innerHTML += `
+    }
 
-            <div class="activity-item">
+
+    const totalProjects =
+        document.getElementById("totalProjects");
+
+    const totalIncome =
+        document.getElementById("totalIncome");
+
+    const totalExpense =
+        document.getElementById("totalExpense");
+
+    const totalInventory =
+        document.getElementById("totalInventory");
+
+
+    if (totalProjects) {
+
+        totalProjects.textContent =
+            currentData.projects || 0;
+
+    }
+
+
+    if (totalIncome) {
+
+        totalIncome.textContent =
+            "৳" + (currentData.income || 0);
+
+    }
+
+
+    if (totalExpense) {
+
+        totalExpense.textContent =
+            "৳" + (currentData.expense || 0);
+
+    }
+
+
+    if (totalInventory) {
+
+        totalInventory.textContent =
+            currentData.inventory || 0;
+
+    }
+
+
+    /* =====================================
+    DJ4
+    Quick Action Navigation
+    ===================================== */
+
+    const quickActions = {
+
+        goProjectBtn: "project.html",
+
+        goAccountsBtn: "accounts.html",
+
+        goInventoryBtn: "inventory.html",
+
+        goAttendanceBtn: "attendance.html",
+
+        goReportsBtn: "reports.html",
+
+        goSettingsBtn: "settings.html"
+
+    };
+
+
+    Object.keys(quickActions).forEach(function (id) {
+
+        const button = document.getElementById(id);
+
+        if (!button) return;
+
+
+        button.addEventListener("click", function () {
+
+            window.location.href = quickActions[id];
+
+        });
+
+    });
+
+
+    /* =====================================
+    DJ5
+    Recent Activity
+    ===================================== */
+
+    const activityList =
+        document.querySelector(".activity-list");
+
+
+    if (activityList) {
+
+        const activityData = [
+
+            {
+                icon: "📁",
+                text: "System Ready."
+            },
+
+            {
+                icon: "💰",
+                text: "Income & Expense Module Ready."
+            },
+
+            {
+                icon: "📦",
+                text: "Inventory Module Ready."
+            },
+
+            {
+                icon: "👥",
+                text: "Attendance Module Ready."
+            }
+
+        ];
+
+
+        activityList.innerHTML = "";
+
+
+        activityData.forEach(function (item) {
+
+            const activityItem =
+                document.createElement("div");
+
+            activityItem.className =
+                "activity-item";
+
+
+            activityItem.innerHTML = `
 
                 <span>${item.icon}</span>
 
                 <p>${item.text}</p>
 
-            </div>
-
-        `;
-
-    });
-
-});
-
-/* =====================================
-DJ4 END
-===================================== */
-/* =====================================
-DJ5 START
-Latest Projects Controller
-===================================== */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const projectTable = document.getElementById("latestProjectsBody");
-
-    if(!projectTable){
-        return;
-    }
-
-    const projects = [
-
-        {
-            id:"PR-001",
-            name:"Electrical Installation",
-            status:"Running",
-            amount:"৳50,000"
-        },
-
-        {
-            id:"PR-002",
-            name:"Service & Maintenance",
-            status:"Pending",
-            amount:"৳18,000"
-        },
-
-        {
-            id:"PR-003",
-            name:"Smart Home Setup",
-            status:"Completed",
-            amount:"৳75,000"
-        }
-
-    ];
-
-    projectTable.innerHTML = "";
-
-    projects.forEach(function(project){
-
-        projectTable.innerHTML += `
-
-        <tr>
-
-            <td>${project.id}</td>
-
-            <td>${project.name}</td>
-
-            <td>${project.status}</td>
-
-            <td>${project.amount}</td>
-
-        </tr>
-
-        `;
-
-    });
-
-});
-
-/* =====================================
-DJ5 END
-===================================== */
-/* =====================================
-DJ6 START
-Income & Expense Controller
-===================================== */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const monthlyIncome = document.getElementById("monthlyIncome");
-    const monthlyExpense = document.getElementById("monthlyExpense");
-    const netProfit = document.getElementById("netProfit");
-
-    if(
-        !monthlyIncome ||
-        !monthlyExpense ||
-        !netProfit
-    ){
-        return;
-    }
-
-    const income = 50000;
-
-    const expense = 15000;
-
-    const profit = income - expense;
-
-    monthlyIncome.innerHTML = "৳" + income;
-
-    monthlyExpense.innerHTML = "৳" + expense;
-
-    netProfit.innerHTML = "৳" + profit;
-
-});
-
-/* =====================================
-DJ6 END
-===================================== */
-/* =====================================
-DJ7 START
-Inventory Controller
-===================================== */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const totalProducts = document.getElementById("totalProducts");
-    const lowStockItems = document.getElementById("lowStockItems");
-    const outOfStockItems = document.getElementById("outOfStockItems");
-    const inventoryValue = document.getElementById("inventoryValue");
+            `;
 
 
-    if(
-        !totalProducts ||
-        !lowStockItems ||
-        !outOfStockItems ||
-        !inventoryValue
-    ){
+            activityList.appendChild(
+                activityItem
+            );
 
-        return;
+        });
 
     }
+
+
+    /* =====================================
+    DJ6
+    Latest Projects
+    ===================================== */
+
+    const projectTable =
+        document.getElementById("latestProjectsBody");
+
+
+    if (projectTable) {
+
+        const projects = [
+
+            {
+                id: "PR-001",
+                name: "Electrical Installation",
+                customer: "Customer A",
+                status: "Running",
+                amount: 50000
+            },
+
+            {
+                id: "PR-002",
+                name: "Service & Maintenance",
+                customer: "Customer B",
+                status: "Pending",
+                amount: 25000
+            },
+
+            {
+                id: "PR-003",
+                name: "Smart Home Setup",
+                customer: "Customer C",
+                status: "Completed",
+                amount: 75000
+            }
+
+        ];
+
+
+        projectTable.innerHTML = "";
+
+
+        projects.forEach(function (project) {
+
+            const row =
+                document.createElement("tr");
+
+
+            row.innerHTML = `
+
+                <td>${project.id}</td>
+
+                <td>${project.customer}</td>
+
+                <td>${project.status}</td>
+
+                <td>৳${project.amount}</td>
+
+            `;
+
+
+            projectTable.appendChild(row);
+
+        });
+
+    }
+
+
+    /* =====================================
+    DJ7
+    Income & Expense Overview
+    ===================================== */
+
+    const monthlyIncome =
+        document.getElementById("monthlyIncome");
+
+    const monthlyExpense =
+        document.getElementById("monthlyExpense");
+
+    const netProfit =
+        document.getElementById("netProfit");
+
+
+    const incomeValue =
+        Number(currentData.income || 0);
+
+    const expenseValue =
+        Number(currentData.expense || 0);
+
+    const profitValue =
+        incomeValue - expenseValue;
+
+
+    if (monthlyIncome) {
+
+        monthlyIncome.textContent =
+            "৳" + incomeValue;
+
+    }
+
+
+    if (monthlyExpense) {
+
+        monthlyExpense.textContent =
+            "৳" + expenseValue;
+
+    }
+
+
+    if (netProfit) {
+
+        netProfit.textContent =
+            "৳" + profitValue;
+
+    }
+
+
+    /* =====================================
+    DJ8
+    Inventory Overview
+    ===================================== */
+
+    const totalProducts =
+        document.getElementById("totalProducts");
+
+    const lowStockItems =
+        document.getElementById("lowStockItems");
+
+    const outOfStockItems =
+        document.getElementById("outOfStockItems");
+
+    const inventoryValue =
+        document.getElementById("inventoryValue");
 
 
     const inventoryData = {
@@ -282,45 +454,54 @@ document.addEventListener("DOMContentLoaded", function(){
     };
 
 
-    totalProducts.innerHTML = inventoryData.products;
+    if (totalProducts) {
 
-    lowStockItems.innerHTML = inventoryData.lowStock;
-
-    outOfStockItems.innerHTML = inventoryData.outOfStock;
-
-    inventoryValue.innerHTML = "৳" + inventoryData.value;
-
-
-});
-
-
-/* =====================================
-DJ7 END
-===================================== */
-
-/* =====================================
-DJ8 START
-Attendance Controller
-===================================== */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const presentEmployees = document.getElementById("presentEmployees");
-    const absentEmployees = document.getElementById("absentEmployees");
-    const leaveEmployees = document.getElementById("leaveEmployees");
-    const lateEmployees = document.getElementById("lateEmployees");
-
-
-    if(
-        !presentEmployees ||
-        !absentEmployees ||
-        !leaveEmployees ||
-        !lateEmployees
-    ){
-
-        return;
+        totalProducts.textContent =
+            inventoryData.products;
 
     }
+
+
+    if (lowStockItems) {
+
+        lowStockItems.textContent =
+            inventoryData.lowStock;
+
+    }
+
+
+    if (outOfStockItems) {
+
+        outOfStockItems.textContent =
+            inventoryData.outOfStock;
+
+    }
+
+
+    if (inventoryValue) {
+
+        inventoryValue.textContent =
+            "৳" + inventoryData.value;
+
+    }
+
+
+    /* =====================================
+    DJ9
+    Attendance Overview
+    ===================================== */
+
+    const presentEmployees =
+        document.getElementById("presentEmployees");
+
+    const absentEmployees =
+        document.getElementById("absentEmployees");
+
+    const leaveEmployees =
+        document.getElementById("leaveEmployees");
+
+    const lateEmployees =
+        document.getElementById("lateEmployees");
 
 
     const attendanceData = {
@@ -336,44 +517,54 @@ document.addEventListener("DOMContentLoaded", function(){
     };
 
 
-    presentEmployees.innerHTML = attendanceData.present;
+    if (presentEmployees) {
 
-    absentEmployees.innerHTML = attendanceData.absent;
-
-    leaveEmployees.innerHTML = attendanceData.leave;
-
-    lateEmployees.innerHTML = attendanceData.late;
-
-
-});
-
-
-/* =====================================
-DJ8 END
-===================================== */
-/* =====================================
-DJ9 START
-Technician Status Controller
-===================================== */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const availableTechnicians = document.getElementById("availableTechnicians");
-    const workingTechnicians = document.getElementById("workingTechnicians");
-    const offlineTechnicians = document.getElementById("offlineTechnicians");
-    const totalTechnicians = document.getElementById("totalTechnicians");
-
-
-    if(
-        !availableTechnicians ||
-        !workingTechnicians ||
-        !offlineTechnicians ||
-        !totalTechnicians
-    ){
-
-        return;
+        presentEmployees.textContent =
+            attendanceData.present;
 
     }
+
+
+    if (absentEmployees) {
+
+        absentEmployees.textContent =
+            attendanceData.absent;
+
+    }
+
+
+    if (leaveEmployees) {
+
+        leaveEmployees.textContent =
+            attendanceData.leave;
+
+    }
+
+
+    if (lateEmployees) {
+
+        lateEmployees.textContent =
+            attendanceData.late;
+
+    }
+
+
+    /* =====================================
+    DJ10
+    Technician Status
+    ===================================== */
+
+    const availableTechnicians =
+        document.getElementById("availableTechnicians");
+
+    const workingTechnicians =
+        document.getElementById("workingTechnicians");
+
+    const offlineTechnicians =
+        document.getElementById("offlineTechnicians");
+
+    const totalTechnicians =
+        document.getElementById("totalTechnicians");
 
 
     const technicianData = {
@@ -387,314 +578,214 @@ document.addEventListener("DOMContentLoaded", function(){
     };
 
 
-    const total = 
+    const technicianTotal =
         technicianData.available +
         technicianData.working +
         technicianData.offline;
 
 
-    availableTechnicians.innerHTML = technicianData.available;
+    if (availableTechnicians) {
 
-    workingTechnicians.innerHTML = technicianData.working;
-
-    offlineTechnicians.innerHTML = technicianData.offline;
-
-    totalTechnicians.innerHTML = total;
-
-
-});
-
-
-/* =====================================
-DJ9 END
-===================================== */
-/* =====================================
-DJ10 START
-Customer Service Requests Controller
-===================================== */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const serviceRequestBody = document.getElementById("serviceRequestBody");
-
-
-    if(!serviceRequestBody){
-
-        return;
+        availableTechnicians.textContent =
+            technicianData.available;
 
     }
 
 
-    const serviceRequests = [
+    if (workingTechnicians) {
 
-        {
-            id:"SR-001",
-            customer:"Customer A",
-            service:"Electrical Repair",
-            status:"Pending"
-        },
-
-        {
-            id:"SR-002",
-            customer:"Customer B",
-            service:"Maintenance",
-            status:"Completed"
-        },
-
-        {
-            id:"SR-003",
-            customer:"Customer C",
-            service:"Installation",
-            status:"Running"
-        }
-
-    ];
-
-
-    serviceRequestBody.innerHTML="";
-
-
-    serviceRequests.forEach(function(request){
-
-        serviceRequestBody.innerHTML += `
-
-        <tr>
-
-            <td>${request.id}</td>
-
-            <td>${request.customer}</td>
-
-            <td>${request.service}</td>
-
-            <td>${request.status}</td>
-
-        </tr>
-
-        `;
-
-    });
-
-
-});
-
-
-/* =====================================
-DJ10 END
-===================================== */
-/* =====================================
-DJ11 START
-Notifications Controller
-===================================== */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const notificationList = document.getElementById("notificationList");
-
-
-    if(!notificationList){
-
-        return;
+        workingTechnicians.textContent =
+            technicianData.working;
 
     }
 
 
-    const notifications = [
+    if (offlineTechnicians) {
 
-        {
-            icon:"🔔",
-            text:"New service request received"
-        },
-
-        {
-            icon:"📁",
-            text:"Project management system updated"
-        },
-
-        {
-            icon:"📦",
-            text:"Inventory check completed"
-        },
-
-        {
-            icon:"✅",
-            text:"All dashboard modules are running"
-        }
-
-    ];
-
-
-    notificationList.innerHTML="";
-
-
-    notifications.forEach(function(notification){
-
-        notificationList.innerHTML += `
-
-        <li>
-
-            ${notification.icon}
-            ${notification.text}
-
-        </li>
-
-        `;
-
-    });
-
-
-});
-
-
-/* =====================================
-DJ11 END
-===================================== */
-/* =====================================
-DJ12 START
-System Status Controller
-===================================== */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const databaseStatus = document.getElementById("databaseStatus");
-    const serverStatus = document.getElementById("serverStatus");
-    const backupStatus = document.getElementById("backupStatus");
-
-
-    if(
-        !databaseStatus ||
-        !serverStatus ||
-        !backupStatus
-    ){
-
-        return;
+        offlineTechnicians.textContent =
+            technicianData.offline;
 
     }
 
 
-    const systemStatus = {
+    if (totalTechnicians) {
 
-        database:"🟢 Connected",
-
-        server:"🟢 Online",
-
-        backup:"🟢 Updated"
-
-    };
-
-
-    databaseStatus.innerHTML = systemStatus.database;
-
-    serverStatus.innerHTML = systemStatus.server;
-
-    backupStatus.innerHTML = systemStatus.backup;
-
-
-});
-
-
-/* =====================================
-DJ12 END
-===================================== */
-/* =====================================
-DJ13 START
-Local Storage Management
-===================================== */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const dashboardData = {
-
-        projects:0,
-
-        income:0,
-
-        expense:0,
-
-        inventory:0,
-
-        lastUpdate:new Date().toLocaleString()
-
-    };
-
-
-    const savedData = localStorage.getItem("lumenixDashboard");
-
-
-    if(!savedData){
-
-        localStorage.setItem(
-
-            "lumenixDashboard",
-
-            JSON.stringify(dashboardData)
-
-        );
+        totalTechnicians.textContent =
+            technicianTotal;
 
     }
 
 
-    const currentData = JSON.parse(
+    /* =====================================
+    DJ11
+    Customer Service Requests
+    ===================================== */
 
-        localStorage.getItem("lumenixDashboard")
+    const serviceRequestBody =
+        document.getElementById("serviceRequestBody");
 
+
+    if (serviceRequestBody) {
+
+        const serviceRequests = [
+
+            {
+                id: "SR-001",
+                customer: "Customer A",
+                service: "Electrical Repair",
+                status: "Pending"
+            },
+
+            {
+                id: "SR-002",
+                customer: "Customer B",
+                service: "Maintenance",
+                status: "Completed"
+            },
+
+            {
+                id: "SR-003",
+                customer: "Customer C",
+                service: "Installation",
+                status: "Running"
+            }
+
+        ];
+
+
+        serviceRequestBody.innerHTML = "";
+
+
+        serviceRequests.forEach(function (request) {
+
+            const row =
+                document.createElement("tr");
+
+
+            row.innerHTML = `
+
+                <td>${request.id}</td>
+
+                <td>${request.customer}</td>
+
+                <td>${request.service}</td>
+
+                <td>${request.status}</td>
+
+            `;
+
+
+            serviceRequestBody.appendChild(row);
+
+        });
+
+    }
+
+
+    /* =====================================
+    DJ12
+    Notifications
+    ===================================== */
+
+    const notificationList =
+        document.getElementById("notificationList");
+
+
+    if (notificationList) {
+
+        const notifications = [
+
+            {
+                icon: "🔔",
+                text: "New service request received"
+            },
+
+            {
+                icon: "📁",
+                text: "Project management system updated"
+            },
+
+            {
+                icon: "📦",
+                text: "Inventory check completed"
+            },
+
+            {
+                icon: "✅",
+                text: "All dashboard modules are running"
+            }
+
+        ];
+
+
+        notificationList.innerHTML = "";
+
+
+        notifications.forEach(function (notification) {
+
+            const item =
+                document.createElement("li");
+
+
+            item.textContent =
+                notification.icon +
+                " " +
+                notification.text;
+
+
+            notificationList.appendChild(item);
+
+        });
+
+    }
+
+
+    /* =====================================
+    DJ13
+    System Status
+    ===================================== */
+
+    const databaseStatus =
+        document.getElementById("databaseStatus");
+
+    const serverStatus =
+        document.getElementById("serverStatus");
+
+    const backupStatus =
+        document.getElementById("backupStatus");
+
+
+    if (databaseStatus) {
+
+        databaseStatus.textContent =
+            "🟢 Connected";
+
+    }
+
+
+    if (serverStatus) {
+
+        serverStatus.textContent =
+            "🟢 Online";
+
+    }
+
+
+    if (backupStatus) {
+
+        backupStatus.textContent =
+            "🟢 Updated";
+
+    }
+
+
+    /* =====================================
+    DJ14
+    Dashboard Ready
+    ===================================== */
+
+    console.log(
+        "LUMENIX V5.1 Dashboard Loaded Successfully"
     );
 
-
-    const totalProjects = document.getElementById("totalProjects");
-    const totalIncome = document.getElementById("totalIncome");
-    const totalExpense = document.getElementById("totalExpense");
-    const totalInventory = document.getElementById("totalInventory");
-
-
-    if(totalProjects){
-
-        totalProjects.innerHTML = currentData.projects;
-
-    }
-
-
-    if(totalIncome){
-
-        totalIncome.innerHTML = "৳" + currentData.income;
-
-    }
-
-
-    if(totalExpense){
-
-        totalExpense.innerHTML = "৳" + currentData.expense;
-
-    }
-
-
-    if(totalInventory){
-
-        totalInventory.innerHTML = currentData.inventory;
-
-    }
-
-
 });
-
-
-/* =====================================
-DJ13 END
-===================================== */
-
-       /* =====================================
-DJ14 START
-Dashboard UI Controller
-===================================== */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    console.log("LUMENIX Dashboard Loaded Successfully");
-
-});
-
-/* =====================================
-DJ14 END
-===================================== */        
-
-
-
