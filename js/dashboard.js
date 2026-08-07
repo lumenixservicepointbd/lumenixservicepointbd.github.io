@@ -99,3 +99,63 @@ document.addEventListener("DOMContentLoaded", function () {
 /* =====================================
 DJ3 END
 ===================================== */
+/* =====================================
+DJ4 START
+Dashboard Recent Activity
+===================================== */
+
+"use strict";
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const activityList = document.querySelector(".activity-list");
+
+    if (!activityList) return;
+
+    const activityData = [
+
+        {
+            icon: "📁",
+            text: "System Ready."
+        },
+
+        {
+            icon: "💰",
+            text: "Income & Expense Module Ready."
+        },
+
+        {
+            icon: "📦",
+            text: "Inventory Module Ready."
+        },
+
+        {
+            icon: "👥",
+            text: "Attendance Module Ready."
+        }
+
+    ];
+
+    activityList.innerHTML = "";
+
+    activityData.forEach(function (item) {
+
+        activityList.innerHTML += `
+
+            <div class="activity-item">
+
+                <span>${item.icon}</span>
+
+                <p>${item.text}</p>
+
+            </div>
+
+        `;
+
+    });
+
+});
+
+/* =====================================
+DJ4 END
+===================================== */
