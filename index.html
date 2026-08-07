@@ -1,24 +1,338 @@
-<!-- ================================
-H1 START
-LUMENIX V5.1 Basic HTML Structure
-================================ -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>
-LUMENIX V5.1 Premium Ecosystem
-</title>
+    <title>LUMENIX | Premium Ecosystem Platform</title>
 
+    <link rel="stylesheet" href="css/style.css">
 
-<link rel="stylesheet" href="css/style.css">
+    <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #173f7a;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* =========================
+        HEADER
+        ========================= */
+
+        .main-header {
+            background: #ffffff;
+            padding: 18px 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-logo {
+            margin: 0;
+            color: #17458b;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .main-tagline {
+            margin: 5px 0 12px;
+            color: #666;
+            font-size: 15px;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .header-btn {
+            border: none;
+            background: #164b99;
+            color: #ffffff;
+            padding: 10px 28px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .header-btn:hover {
+            background: #0d3979;
+        }
+
+        /* =========================
+        MENU
+        ========================= */
+
+        .mobile-menu {
+            display: none;
+            background: #174a96;
+            padding: 12px;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 9px;
+            font-size: 15px;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* =========================
+        HERO
+        ========================= */
+
+        .hero {
+            background: linear-gradient(
+                135deg,
+                #174c9c,
+                #126dd4
+            );
+
+            color: white;
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: 34px;
+        }
+
+        .hero h2 {
+            color: #ffd900;
+            margin: 12px 0;
+            font-size: 24px;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 15px auto 25px;
+            line-height: 1.7;
+        }
+
+        .hero-btn {
+            border: none;
+            background: #ffd400;
+            color: #111;
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .hero-btn:hover {
+            background: #ffbf00;
+        }
+
+        /* =========================
+        SECTION
+        ========================= */
+
+        .section {
+            padding: 50px 15px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #17458b;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        /* =========================
+        ECOSYSTEM
+        ========================= */
+
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 20px;
+        }
+
+        .ecosystem-card {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.07);
+        }
+
+        .ecosystem-card img {
+            width: 120px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .ecosystem-card h3 {
+            margin: 8px 0;
+            color: #17458b;
+        }
+
+        .ecosystem-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .card-btn {
+            border: none;
+            background: #164b99;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 22px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .card-btn:hover {
+            background: #0c3979;
+        }
+
+        /* =========================
+        SERVICES
+        ========================= */
+
+        .service-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 18px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+
+        .service-card h3 {
+            color: #17458b;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* =========================
+        CTA
+        ========================= */
+
+        .cta-section {
+            background: #174a96;
+            color: white;
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        .cta-section h2 {
+            margin-top: 0;
+        }
+
+        .cta-btn {
+            border: none;
+            background: #ffd400;
+            color: #111;
+            padding: 13px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* =========================
+        FOOTER
+        ========================= */
+
+        .footer {
+            background: #102c55;
+            color: white;
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        .footer p {
+            margin: 7px 0;
+            font-size: 13px;
+        }
+
+        /* =========================
+        MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .main-logo {
+                font-size: 27px;
+            }
+
+            .hero {
+                padding: 55px 18px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero h2 {
+                font-size: 21px;
+            }
+
+            .section {
+                padding: 40px 12px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -26,164 +340,414 @@ LUMENIX V5.1 Premium Ecosystem
 <body>
 
 
-<!-- H1 END -->
-    
-    <!-- ================================
-H2 START
-Top Header & Navigation Section
-================================ -->
+<!-- =====================================
+HEADER
+===================================== -->
 
 <header class="main-header">
 
-    <div class="brand-area">
+    <h1 class="main-logo">
+        LUMENIX
+    </h1>
 
-        <h1>LUMENIX</h1>
+    <p class="main-tagline">
+        Premium Ecosystem Platform
+    </p>
 
-        <p>Premium Ecosystem Platform</p>
+    <div class="header-actions">
+
+        <button
+            type="button"
+            class="header-btn"
+            id="loginBtn"
+        >
+            Login
+        </button>
+
+        <button
+            type="button"
+            class="header-btn"
+            id="menuBtn"
+        >
+            ☰ Menu
+        </button>
 
     </div>
-
-<div class="menu-area">
-
-    <button id="loginButton">
-        Login
-    </button>
-
-    <button id="menuToggle">
-        ☰ Menu
-    </button>
-
-</div>
 
 </header>
 
 
-<nav id="mainNavigation" class="navigation">
+<!-- =====================================
+NAVIGATION
+===================================== -->
 
-    <ul>
+<nav
+    class="mobile-menu"
+    id="mobileMenu"
+>
 
-        <li><a href="#home">Home</a></li>
+    <a href="#home">
+        Home
+    </a>
 
-<li><a href="#services">Service</a></li>
+    <a href="#services">
+        Service
+    </a>
 
-<li><a href="#training">Training</a></li>
+    <a href="#training">
+        Training
+    </a>
 
-<li><a href="#dealers">Dealer</a></li>
+    <a href="#dealer">
+        Dealer
+    </a>
 
-<li><a href="#ecosystem">Projects</a></li>
+    <a href="#projects">
+        Projects
+    </a>
 
-<li><a href="#contact">Contact</a></li>
-
-        
-    </ul>
+    <a href="#contact">
+        Contact
+    </a>
 
 </nav>
 
-<!-- H2 END -->
-    
-    <!-- ================================
-H3 START
-Hero Section
-================================ -->
 
+<!-- =====================================
+HOME / HERO
+===================================== -->
 
-<section id="home" class="hero-section">
+<section
+    class="hero"
+    id="home"
+>
 
+    <h1>
+        MS FARDIN ELECTRIC
+    </h1>
 
-<h2>
-MS FARDIN ELECTRIC
-</h2>
+    <h2>
+        LUMENIX BRAND
+    </h2>
 
+    <p>
+        One Platform For Complete Business Management
+    </p>
 
-<h3>
-LUMENIX BRAND
-</h3>
-
-
-<p>
-One Platform For Complete Business Management
-</p>
-
-
-<button id="exploreButton">
-    Explore Ecosystem
-</button>
-
+    <button
+        type="button"
+        class="hero-btn"
+        id="exploreBtn"
+    >
+        Explore Ecosystem
+    </button>
 
 </section>
 
-    <!-- H3 END -->
-
 
 <!-- =====================================
-H4 START
-Ecosystem Main Project Section
+ECOSYSTEM
 ===================================== -->
 
-<section id="ecosystem" class="ecosystem-section">
+<section
+    class="section"
+    id="ecosystem"
+>
 
-    <h2>Our Ecosystem</h2>
+    <h2 class="section-title">
+        Our Ecosystem
+    </h2>
 
-    <div class="ecosystem-container">
+
+    <div class="ecosystem-grid">
+
 
         <!-- LUMENIX LED -->
+
         <div class="ecosystem-card">
 
-            <img src="images/lumenix-led-logo-white.png"
-                 alt="LUMENIX LED"
-                 class="ecosystem-logo">
+            <img
+                src="images/lumenix-led.png"
+                alt="LUMENIX LED"
+            >
 
-            <h3>LUMENIX LED</h3>
+            <h3>
+                LUMENIX LED
+            </h3>
 
             <p>
                 Lighting Product Business,
-                Dealer Network and Product Management System.
+                Dealer Network and Product
+                Management System.
             </p>
 
-            <button id="ledDetailsBtn">
+            <button
+                type="button"
+                class="card-btn"
+                data-target="dealer"
+            >
                 View Details
             </button>
 
         </div>
 
 
-        <!-- LUMENIX Service -->
+        <!-- SERVICE POINT -->
+
         <div class="ecosystem-card">
 
-            <img src="images/lumenix-service-logo-white.png"
-                 alt="LUMENIX Service"
-                 class="ecosystem-logo">
+            <img
+                src="images/lumenix-service-point.png"
+                alt="LUMENIX Service Point BD"
+            >
 
-            <h3>LUMENIX Service Point BD</h3>
+            <h3>
+                LUMENIX Service Point BD
+            </h3>
 
             <p>
                 Customer Service Platform,
-                Technician Network and Service Management.
+                Technician Network and
+                Service Management.
             </p>
 
-            <button id="serviceDetailsBtn">
+            <button
+                type="button"
+                class="card-btn"
+                data-target="services"
+            >
                 Book Service
             </button>
 
         </div>
 
 
-        <!-- LUMENIX Training -->
+        <!-- TRAINING -->
+
         <div class="ecosystem-card">
 
-            <img src="images/lumenix-training-logo.png"
-                 alt="LUMENIX Technical Training Centre"
-                 class="ecosystem-logo">
+            <img
+                src="images/lumenix-training.png"
+                alt="LUMENIX Technical Training Centre"
+            >
 
-            <h3>LUMENIX Technical Training Centre</h3>
+            <h3>
+                LUMENIX Technical Training Centre
+            </h3>
 
             <p>
-                Skill Development,
-                Training and Career Network.
+                Skill Development, Training
+                and Career Network.
             </p>
 
-            <button id="trainingDetailsBtn">
+            <button
+                type="button"
+                class="card-btn"
+                data-target="training"
+            >
                 Learn More
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+SERVICES
+===================================== -->
+
+<section
+    class="section"
+    id="services"
+>
+
+    <h2 class="section-title">
+        Our Services
+    </h2>
+
+
+    <div class="service-grid">
+
+
+        <div class="service-card">
+
+            <h3>
+                ⚡ Electrical Service
+            </h3>
+
+            <p>
+                Electrical repair,
+                installation and maintenance
+                services.
+            </p>
+
+            <button
+                type="button"
+                class="card-btn"
+                id="serviceBookBtn"
+            >
+                Book Service
+            </button>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <h3>
+                🔧 Maintenance
+            </h3>
+
+            <p>
+                Professional maintenance
+                and technical support.
+            </p>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <h3>
+                🏠 Smart Home
+            </h3>
+
+            <p>
+                Smart home setup and
+                electrical automation.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+TRAINING
+===================================== -->
+
+<section
+    class="section"
+    id="training"
+>
+
+    <h2 class="section-title">
+        Technical Training
+    </h2>
+
+    <div class="service-grid">
+
+        <div class="service-card">
+
+            <h3>
+                🛠 Electrical Skills
+            </h3>
+
+            <p>
+                Technical skill development
+                and practical learning.
+            </p>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <h3>
+                📚 Professional Training
+            </h3>
+
+            <p>
+                Training and career
+                development programs.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+DEALER
+===================================== -->
+
+<section
+    class="section"
+    id="dealer"
+>
+
+    <h2 class="section-title">
+        Dealer Network
+    </h2>
+
+    <div class="service-card">
+
+        <h3>
+            LUMENIX Dealer Network
+        </h3>
+
+        <p>
+            Product distribution,
+            dealer management and
+            business network support.
+        </p>
+
+        <button
+            type="button"
+            class="card-btn"
+            id="dealerBtn"
+        >
+            Dealer Information
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+PROJECTS
+===================================== -->
+
+<section
+    class="section"
+    id="projects"
+>
+
+    <h2 class="section-title">
+        Projects
+    </h2>
+
+    <div class="service-grid">
+
+        <div class="service-card">
+
+            <h3>
+                📁 Project Management
+            </h3>
+
+            <p>
+                Manage projects,
+                customers, status and
+                project information.
+            </p>
+
+            <button
+                type="button"
+                class="card-btn"
+                id="projectBtn"
+            >
+                Project Management
             </button>
 
         </div>
@@ -192,1448 +756,320 @@ Ecosystem Main Project Section
 
 </section>
 
-<!-- H4 END -->
-    
-  <!-- ================================
-H5 START
-User Panel Section
-================================ -->
 
+<!-- =====================================
+CONTACT
+===================================== -->
 
-<section id="users" class="user-panel">
+<section
+    class="cta-section"
+    id="contact"
+>
 
+    <h2>
+        Contact LUMENIX
+    </h2>
 
-<h2>
-LUMENIX User System
-</h2>
+    <p>
+        Get in touch with MS FARDIN ELECTRIC.
+    </p>
 
-
-
-<div class="panel-box">
-
-
-<div>
-Admin Panel
-</div>
-
-
-<div>
-Customer Panel
-</div>
-
-
-<div>
-Technician Panel
-</div>
-
-
-<div>
-Dealer Panel
-</div>
-
-
-<div>
-Employee Panel
-</div>
-
-
-
-</div>
-
+    <button
+        type="button"
+        class="cta-btn"
+        id="contactBtn"
+    >
+        Contact Us
+    </button>
 
 </section>
 
 
-<!-- H5 END -->
-    
-  <!-- ================================
-H6 START
-Footer Section
-================================ -->
-
+<!-- =====================================
+FOOTER
+===================================== -->
 
 <footer class="footer">
 
+    <p>
+        © 2026 LUMENIX V5.1 Premium
+    </p>
 
-<div class="footer-container">
+    <p>
+        Developed By MS FARDIN ELECTRIC
+    </p>
 
-
-<div class="footer-brand">
-
-<h3>
-LUMENIX
-</h3>
-
-<p>
-Premium Ecosystem Platform
-</p>
-
-</div>
-
-
-
-<div class="footer-company">
-
-<h4>
-Parent Company
-</h4>
-
-<p>
-MS FARDIN ELECTRIC
-</p>
-
-</div>
-
-
-
-<div class="footer-links">
-
-<h4>
-Quick Links
-</h4>
-
-
-<ul>
-
-<li>
-Home
-</li>
-
-<li>
-LUMENIX LED
-</li>
-
-<li>
-LUMENIX Service Point BD
-</li>
-
-<li>
-LUMENIX Technical Training Centre
-</li>
-
-</ul>
-
-
-</div>
-
-
-
-<div class="footer-contact">
-
-<h4>
-Contact
-</h4>
-
-
-<p>
-Customer Support
-</p>
-
-
-<p>
-Business Network
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-
-<div class="footer-bottom">
-
-
-<p>
-© MS FARDIN ELECTRIC | LUMENIX V5.1 Premium Ecosystem
-</p>
-
-
-</div>
-
-
-
-<div class="developer-credit">
-
-
-<p>
-Design and Developed by
-<strong>
-Md. Limon Chowdhury
-</strong>
-</p>
-
-
-<p>
-Premium Quality | LUMENIX V5.1 Ecosystem
-</p>
-
-
-</div>
-
-
+    <p>
+        All Rights Reserved.
+    </p>
 
 </footer>
 
 
-<!-- H6 END -->
-
-    <!-- ================================
-H8 START
-Login Entry Section
-================================ -->
-
-
-<section id="login" class="login-section">
-
-
-<h2>
-Access Your Account
-</h2>
-
-
-<p>
-Login according to your role
-</p>
-
-
-
-<div class="login-options">
-
-
-<div class="login-card">
-
-<h3>
-Customer Login
-</h3>
-
-<button id="customerLoginBtn">
-Login
-</button>
-
-</div>
-
-
-
-<div class="login-card">
-
-<h3>
-Technician Login
-</h3>
-
-<button id="technicianLoginBtn">
-Login
-</button>
-
-</div>
-
-
-
-<div class="login-card">
-
-<h3>
-Dealer Login
-</h3>
-
-<button id="dealerLoginBtn">
-Login
-</button>
-
-</div>
-
-
-
-<div class="login-card">
-
-<h3>
-Employee Login
-</h3>
-
-<button id="employeeLoginBtn">
-Login
-</button>
-
-</div>
-
-
-
-<div class="login-card">
-
-<h3>
-Admin Login
-</h3>
-
-<button id="adminLoginBtn">
-Login
-</button>
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-<!-- H8 END -->
-    
-    <!-- ================================
-H9 START
-Service Category Section (Updated)
-================================ -->
-
-
-<section id="services" class="service-section">
-
-<h2>
-LUMENIX Service Point BD
-</h2>
-
-
-<p>
-Professional service solutions through verified technicians.
-</p>
-
-
-
-<div class="service-container">
-
-
-
-<div class="service-card">
-Electrical Service
-</div>
-
-
-<div class="service-card">
-AC Service
-</div>
-
-
-<div class="service-card">
-CCTV Service
-</div>
-
-
-<div class="service-card">
-Plumbing Service
-</div>
-
-
-<div class="service-card">
-Solar Service
-</div>
-
-
-<div class="service-card">
-Generator Service
-</div>
-
-
-<div class="service-card">
-IPS Service
-</div>
-
-
-<div class="service-card">
-Motor Service
-</div>
-
-
-<div class="service-card">
-Interior Solution
-</div>
-
-
-
-<div class="service-card">
-Painting Service (রং)
-</div>
-
-
-<div class="service-card">
-Thai Aluminium & Glass Work (থাই)
-</div>
-
-
-<div class="service-card">
-Tiles Work (টাইলস)
-</div>
-
-
-<div class="service-card">
-False Ceiling
-</div>
-
-
-<div class="service-card">
-Civil Repair Work
-</div>
-
-
-<div class="service-card">
-Sanitary & Bathroom Solution
-</div>
-
-
-<div class="service-card">
-Kitchen Solution
-</div>
-
-
-<div class="service-card">
-Door & Window Solution
-</div>
-
-
-
-</div>
-
-
-
-</section>
-
-
-<!-- H9 END -->
-
 <!-- =====================================
-H10 START
-Technician Network Preview
+JAVASCRIPT
 ===================================== -->
 
-<section class="technician-section">
+<script>
 
-    <img src="images/lumenix-service-logo-white.png"
-         alt="LUMENIX Service"
-         class="section-logo">
+"use strict";
 
-    <h2>
-        LUMENIX Technician Network
-    </h2>
 
-    <p>
-        Verified technicians available across different areas.
-    </p>
+/* ================================
+MENU
+================================ */
 
-    <div class="technician-info">
+const menuBtn =
+    document.getElementById("menuBtn");
 
-        <div>
-            Skill Based Technician
-        </div>
+const mobileMenu =
+    document.getElementById("mobileMenu");
 
-        <div>
-            Area Based Service
-        </div>
 
-        <div>
-            Verified Profile
-        </div>
+if (menuBtn && mobileMenu) {
 
-        <div>
-            Job Management
-        </div>
+    menuBtn.addEventListener(
+        "click",
+        function () {
 
-    </div>
+            mobileMenu.classList.toggle(
+                "active"
+            );
 
-    <button id="findTechnicianBtn">
-        Find Technician
-    </button>
+        }
+    );
 
-</section>
+}
 
-<!-- H10 END -->
 
-<!-- =====================================
-H11 START
-Dealer Network Section
-================================ -->
+/* ================================
+CLOSE MENU AFTER CLICK
+================================ */
 
+const menuLinks =
+    document.querySelectorAll(
+        ".mobile-menu a"
+    );
 
-<section class="dealer-section">
 
+menuLinks.forEach(function(link) {
 
-<h2>
-LUMENIX Dealer Network
-</h2>
+    link.addEventListener(
+        "click",
+        function() {
 
+            mobileMenu.classList.remove(
+                "active"
+            );
 
-<p>
-Build a strong business network with verified LUMENIX dealers.
-</p>
+        }
+    );
 
+});
 
 
-<div class="dealer-container">
+/* ================================
+LOGIN
+================================ */
 
+const loginBtn =
+    document.getElementById("loginBtn");
 
 
-<div class="dealer-card">
+if (loginBtn) {
 
+    loginBtn.addEventListener(
+        "click",
+        function() {
 
-<h3>
-Dealer Registration
-</h3>
+            window.location.href =
+                "admin.html";
 
+        }
+    );
 
-<p>
-New business partners can apply for LUMENIX Dealer Membership.
-</p>
+}
 
 
-<button id="becomeDealerBtn">
-Become A Dealer
-</button>
+/* ================================
+EXPLORE ECOSYSTEM
+================================ */
 
+const exploreBtn =
+    document.getElementById("exploreBtn");
 
-</div>
 
+if (exploreBtn) {
 
+    exploreBtn.addEventListener(
+        "click",
+        function() {
 
+            const ecosystem =
+                document.getElementById(
+                    "ecosystem"
+                );
 
+            if (ecosystem) {
 
-<div class="dealer-card">
+                ecosystem.scrollIntoView({
+                    behavior: "smooth"
+                });
 
+            }
 
-<h3>
-Dealer Dashboard
-</h3>
+        }
+    );
 
+}
 
-<p>
-Manage products, orders, stock and sales history.
-</p>
 
+/* ================================
+ECOSYSTEM CARD BUTTONS
+================================ */
 
-<button id="dealerLoginBtn2">
-Dealer Login
-</button>
+const cardButtons =
+    document.querySelectorAll(
+        ".card-btn[data-target]"
+    );
 
 
-</div>
+cardButtons.forEach(function(button) {
 
+    button.addEventListener(
+        "click",
+        function() {
 
+            const targetId =
+                button.getAttribute(
+                    "data-target"
+                );
 
+            const target =
+                document.getElementById(
+                    targetId
+                );
 
+            if (target) {
 
-<div class="dealer-card">
+                target.scrollIntoView({
+                    behavior: "smooth"
+                });
 
+            }
 
-<h3>
-Area Based Dealer Network
-</h3>
+        }
+    );
 
+});
 
-<p>
-Find verified dealers by Division, District and Area.
-</p>
 
+/* ================================
+PROJECT MANAGEMENT
+================================ */
 
-<button id="findDealerBtn">
-Find Dealer
-</button>
+const projectBtn =
+    document.getElementById(
+        "projectBtn"
+    );
 
 
-</div>
+if (projectBtn) {
 
+    projectBtn.addEventListener(
+        "click",
+        function() {
 
+            window.location.href =
+                "project.html";
 
-</div>
+        }
+    );
 
+}
 
 
-</section>
+/* ================================
+SERVICE BOOKING
+================================ */
 
+const serviceBookBtn =
+    document.getElementById(
+        "serviceBookBtn"
+    );
 
-<!-- H11 END --> 
 
-<!-- =====================================
-H12 START
-Technical Training Centre Section
-================================ -->
+if (serviceBookBtn) {
 
+    serviceBookBtn.addEventListener(
+        "click",
+        function() {
 
-<section class="training-section">
+            alert(
+                "Service booking module is ready."
+            );
 
+        }
+    );
 
-<div class="training-logo">
+}
 
-<img src="images/training-logo.png" alt="LUMENIX Training Centre Logo">
 
-</div>
+/* ================================
+DEALER
+================================ */
 
+const dealerBtn =
+    document.getElementById(
+        "dealerBtn"
+    );
 
 
-<h2>
-Technical Training Centre
-</h2>
+if (dealerBtn) {
 
+    dealerBtn.addEventListener(
+        "click",
+        function() {
 
-<p>
-Professional technical training, skill development and career opportunities.
-</p>
+            alert(
+                "Dealer information module is ready."
+            );
 
+        }
+    );
 
+}
 
-<div class="training-container">
 
+/* ================================
+CONTACT
+================================ */
 
+const contactBtn =
+    document.getElementById(
+        "contactBtn"
+    );
 
-<div class="training-card">
 
+if (contactBtn) {
 
-<h3>
-Student Registration
-</h3>
+    contactBtn.addEventListener(
+        "click",
+        function() {
 
+            alert(
+                "Contact module is ready."
+            );
 
-<p>
-Register for professional technical courses and skill programs.
-</p>
+        }
+    );
 
+}
 
-<button id="studentRegisterBtn">
-Register Now
-</button>
 
+</script>
 
-</div>
 
+</body>
 
-
-
-
-<div class="training-card">
-
-
-<h3>
-Course Management
-</h3>
-
-
-<p>
-Explore available courses, training programs and skill development.
-</p>
-
-
-<button id="viewCoursesBtn">
-View Courses
-</button>
-
-
-</div>
-
-
-
-
-
-<div class="training-card">
-
-
-<h3>
-Graduate Network
-</h3>
-
-
-<p>
-Connect trained members with technician and business opportunities.
-</p>
-
-
-<button id="joinNetworkBtn">
-Join Network
-</button>
-
-
-</div>
-
-
-
-</div>
-
-
-
-</section>
-
-
-<!-- H12 END -->
- 
-<!-- =====================================
-H13 START
-Business Growth Flow Section
-===================================== -->
-
-<section class="growth-section">
-
-    <img src="images/lumenix-training-logo.png"
-         alt="LUMENIX Technical Training Centre"
-         class="section-logo">
-
-    <h2>
-        LUMENIX Business Growth Ecosystem
-    </h2>
-
-    <p>
-        From skill development to business partnership, building a complete growth network.
-    </p>
-
-    <div class="growth-flow">
-
-        <div class="growth-card">
-
-            <h3>
-                Training Centre
-            </h3>
-
-            <p>
-                Skill Development & Professional Training
-            </p>
-
-        </div>
-
-        <div class="flow-arrow">
-            ↓
-        </div>
-
-        <div class="growth-card">
-
-            <h3>
-                Technician Network
-            </h3>
-
-            <p>
-                Verified Technical Service Professionals
-            </p>
-
-        </div>
-
-        <div class="flow-arrow">
-            ↓
-        </div>
-
-        <div class="growth-card">
-
-            <h3>
-                Dealer Network
-            </h3>
-
-            <p>
-                Business Partners & Product Distribution
-            </p>
-
-        </div>
-
-        <div class="flow-arrow">
-            ↓
-        </div>
-
-        <div class="growth-card">
-
-            <h3>
-                Business Growth
-            </h3>
-
-            <p>
-                Creating Opportunities Through LUMENIX Ecosystem
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- H13 END -->
-    <!-- ================================
-H14 START
-Customer Trust & Platform Features Section
-================================ -->
-
-
-<section class="trust-section">
-
-
-<h2>
-Why Choose LUMENIX Ecosystem
-</h2>
-
-
-<p>
-A trusted platform connecting customers, technicians, dealers and businesses.
-</p>
-
-
-
-<div class="trust-container">
-
-
-
-<div class="trust-card">
-
-<h3>
-Verified Network
-</h3>
-
-<p>
-Trusted technicians and business partners through verification system.
-</p>
-
-</div>
-
-
-
-
-<div class="trust-card">
-
-<h3>
-Quality Service
-</h3>
-
-<p>
-Professional service management with customer satisfaction focus.
-</p>
-
-</div>
-
-
-
-
-<div class="trust-card">
-
-<h3>
-Smart Management
-</h3>
-
-<p>
-Digital platform for service, business and ecosystem management.
-</p>
-
-</div>
-
-
-
-
-<div class="trust-card">
-
-<h3>
-Easy Access
-</h3>
-
-<p>
-Mobile friendly system designed for everyone.
-</p>
-
-</div>
-
-
-
-
-<div class="trust-card">
-
-<h3>
-Secure Permission
-</h3>
-
-<p>
-Role based access system for different users.
-</p>
-
-</div>
-
-
-
-
-<div class="trust-card">
-
-<h3>
-Complete Ecosystem
-</h3>
-
-<p>
-LED, Service, Training and Business network in one platform.
-</p>
-
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-<!-- H14 END -->
-    
-<!-- ================================
-H15 START
-Customer Service Booking Preview Section
-================================ -->
-
-
-<section class="booking-section" id="booking">
-
-
-<h2>
-Book Your Service
-</h2>
-
-
-<p>
-Get professional solutions from verified LUMENIX Service Point BD technicians.
-</p>
-
-
-
-<div class="booking-container">
-
-
-
-<div class="booking-card">
-
-
-<h3>
-Select Service
-</h3>
-
-
-<p>
-Choose your required service category.
-</p>
-
-
-<button id="selectServiceBtn">
-Select Service
-</button>
-
-
-</div>
-
-
-
-
-<div class="booking-card">
-
-
-<h3>
-Choose Location
-</h3>
-
-
-<p>
-Find available technicians based on your area.
-</p>
-
-
-<button id="selectLocationBtn">
-Select Location
-</button>
-
-
-</div>
-
-
-
-
-<div class="booking-card">
-
-
-<h3>
-Confirm Booking
-</h3>
-
-
-<p>
-Submit your request and receive service updates.
-</p>
-
-
-<button id="bookNowBtn">
-Book Now
-</button>
-
-
-</div>
-
-
-
-</div>
-
-
-
-</section>
-
-
-<!-- H15 END -->
-
-    <!-- ================================
-H16 START
-Technician & Dealer Registration Section
-================================ -->
-
-<section class="registration-section" id="registration">
-
-<h2>
-Join LUMENIX Professional Network
-</h2>
-
-<p>
-Register as a verified technician or business dealer partner.
-</p>
-
-<div class="registration-container">
-
-    <div class="registration-card">
-
-        <h3>
-Technician Registration
-        </h3>
-
-        <p>
-Join the LUMENIX technician network and receive professional opportunities.
-        </p>
-
-        <ul>
-
-            <li>Skill Verification</li>
-
-            <li>Service Opportunity</li>
-
-            <li>Professional Network Access</li>
-
-        </ul>
-
-        <button id="technicianRegistrationBtn">
-Register Technician
-        </button>
-
-    </div>
-
-
-    <div class="registration-card">
-
-        <h3>
-Dealer Registration
-        </h3>
-
-        <p>
-Become an authorized LUMENIX dealer partner and grow your business.
-        </p>
-
-        <ul>
-
-            <li>Business Partnership</li>
-
-            <li>Product Access</li>
-
-            <li>Dealer Support System</li>
-
-        </ul>
-
-        <button id="dealerRegistrationBtn">
-Register Dealer
-        </button>
-
-    </div>
-
-</div>
-
-</section>
-
-<!-- H16 END -->
-   
-<!-- ================================
-H17 START
-Product & Business Showcase Section
-================================ -->
-
-
-<section class="product-section">
-
-
-<h2>
-LUMENIX Product & Business Solutions
-</h2>
-
-
-<p>
-Explore LUMENIX products, services and business opportunities.
-</p>
-
-
-
-<div class="product-container">
-
-
-
-<div class="product-card">
-
-
-<h3>
-LUMENIX LED
-</h3>
-
-
-<p>
-Premium lighting solutions with product management and dealer network.
-</p>
-
-
-<button>
-Explore Products
-</button>
-
-
-</div>
-
-
-
-
-
-<div class="product-card">
-
-
-<h3>
-Service Solutions
-</h3>
-
-
-<p>
-Complete technical service support through LUMENIX Service Point BD.
-</p>
-
-
-<button>
-View Services
-</button>
-
-
-</div>
-
-
-
-
-
-<div class="product-card">
-
-
-<h3>
-Business Partnership
-</h3>
-
-
-<p>
-Join LUMENIX network as dealer or professional partner.
-</p>
-
-
-<button>
-Join Network
-</button>
-
-
-</div>
-
-
-
-</div>
-
-
-
-</section>
-
-
-<!-- H17 END -->
-
- <!-- ================================
-H18 START
-Statistics & Achievement Section
-================================ -->
-
-
-<section class="stats-section">
-
-
-<h2>
-LUMENIX Ecosystem Overview
-</h2>
-
-
-<p>
-Building a connected platform for customers, professionals and businesses.
-</p>
-
-
-
-<div class="stats-container">
-
-
-
-<div class="stats-card">
-
-
-<h3>
-500+
-</h3>
-
-
-<p>
-Future Technician Network
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="stats-card">
-
-
-<h3>
-100+
-</h3>
-
-
-<p>
-Service Areas
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="stats-card">
-
-
-<h3>
-50+
-</h3>
-
-
-<p>
-Business Partners
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="stats-card">
-
-
-<h3>
-24/7
-</h3>
-
-
-<p>
-Customer Support Vision
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-
-</section>
-
-
-<!-- H18 END -->
-<!-- ================================
-H19 START
-Call To Action Section
-================================ -->
-
-
-<section class="cta-section">
-
-
-<div class="cta-container">
-
-
-<h2>
-Start Your Journey With LUMENIX
-</h2>
-
-
-<p>
-Join the complete ecosystem of service, technology, training and business opportunities.
-</p>
-
-
-
-<div class="cta-buttons">
-
-
-<button>
-Book Service
-</button>
-
-
-<button>
-Join Technician Network
-</button>
-
-
-<button>
-Become Dealer
-</button>
-
-
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-<!-- H19 END -->
-    <!-- ================================
-H20 START
-Final Contact & Closing Section
-================================ -->
-
-
-<section class="contact-section">
-
-
-<div class="contact-container">
-
-
-<h2>
-Connect With LUMENIX
-</h2>
-
-
-<p>
-MS FARDIN ELECTRIC welcomes customers, technicians, dealers and business partners to the LUMENIX Ecosystem.
-</p>
-
-
-
-<div class="contact-box">
-
-
-
-<div>
-
-<h3>
-Customer Support
-</h3>
-
-<p>
-Service assistance and booking support.
-</p>
-
-</div>
-
-
-
-
-<div>
-
-<h3>
-Business Partnership
-</h3>
-
-<p>
-Dealer and professional network opportunities.
-</p>
-
-</div>
-
-
-
-
-<div>
-
-<h3>
-Training Support
-</h3>
-
-<p>
-Technical learning and skill development information.
-</p>
-
-</div>
-
-</div>
-
-<div class="cta-buttons">
-
-    <button id="callNowBtn">
-        Call Now
-    </button>
-
-    <button id="contactUsBtn">
-        Contact Us
-    </button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- H20 END -->
-
-    <!-- ================================
-H21 START
-Admin Login Section
-================================ -->
-
-<section id="admin-login" class="admin-login-section">
-
-    <div class="admin-login-box">
-
-        <h2>Administrator Login</h2>
-
-        <p>
-            Secure access for MS FARDIN ELECTRIC &
-            LUMENIX Management System.
-        </p>
-
-        <input
-            type="text"
-            id="adminUsername"
-            placeholder="Admin Username"
-        >
-
-        <input
-            type="password"
-            id="adminPassword"
-            placeholder="Password"
-        >
-
-        <button id="adminLoginSystemBtn">
-            Login to Dashboard
-        </button>
-
-    </div>
-
-</section>
-
-<!-- H21 END -->
-
-    
-    
-    
-   
-    
+</html>
