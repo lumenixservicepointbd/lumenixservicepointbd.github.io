@@ -240,4 +240,90 @@ Dashboard Quick Action Panel
 /* =====================================
 DC3 END
 ===================================== */
+/* =====================================
+DC4 START
+Dashboard Recent Activity
+===================================== */
+
+.dashboard-activity{
+
+    margin-top:40px;
+
+    background:#ffffff;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.dashboard-activity h2{
+
+    color:#0d47a1;
+
+    margin-bottom:20px;
+
+    font-size:24px;
+
+}
+
+.activity-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.activity-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:16px 18px;
+
+    background:#f8f9fc;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+.activity-item:hover{
+
+    background:#eef4ff;
+
+    transform:translateX(5px);
+
+}
+
+.activity-item span{
+
+    font-size:24px;
+
+}
+
+.activity-item p{
+
+    margin:0;
+
+    color:#444;
+
+    font-size:15px;
+
+    font-weight:500;
+
+}
+
+/* =====================================
+DC4 END
+===================================== */
 
