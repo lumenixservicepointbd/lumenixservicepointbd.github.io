@@ -1,28 +1,28 @@
-
-<!-- =====================================
-PM1 START
-Project Management Structure
-===================================== -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<title>LUMENIX | Project Management</title>
+    <title>LUMENIX | Project Management</title>
 
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/project.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/project.css">
 
-<script src="js/project.js" defer></script>
+    <script src="js/project.js" defer></script>
 
 </head>
 
 <body>
+
+<!-- =====================================
+PM1 START
+Project Management Header
+===================================== -->
 
 <header class="project-header">
 
@@ -38,17 +38,20 @@ Project Management Structure
 
         <span>Administrator</span>
 
-        <button id="backDashboardBtn">
-
+        <button
+            type="button"
+            id="backDashboardBtn">
             Dashboard
-
         </button>
 
     </div>
 
 </header>
+
 <!-- PM1 END -->
-  <main class="project-container">
+
+
+<main class="project-container">
 
 <!-- =====================================
 PM2 START
@@ -57,32 +60,44 @@ Project Navigation
 
 <section class="project-navigation">
 
-    <button id="addProjectBtn">
+    <button
+        type="button"
+        id="addProjectBtn">
         ➕ Add New Project
     </button>
 
-    <button id="viewProjectsBtn">
+    <button
+        type="button"
+        id="viewProjectsBtn">
         📁 View Projects
     </button>
 
-    <button id="runningProjectsBtn">
+    <button
+        type="button"
+        id="runningProjectsBtn">
         🚧 Running Projects
     </button>
 
-    <button id="completedProjectsBtn">
+    <button
+        type="button"
+        id="completedProjectsBtn">
         ✅ Completed Projects
     </button>
 
-    <button id="pendingProjectsBtn">
+    <button
+        type="button"
+        id="pendingProjectsBtn">
         ⏳ Pending Projects
     </button>
 
 </section>
 
+<!-- PM2 END -->
+
+
 <section class="project-content">
 
-<!-- PM2 END -->
-  <!-- =====================================
+<!-- =====================================
 PM3 START
 Project Summary Cards
 ===================================== -->
@@ -97,7 +112,6 @@ Project Summary Cards
 
     </div>
 
-
     <div class="project-summary-card">
 
         <h3>Running Projects</h3>
@@ -106,7 +120,6 @@ Project Summary Cards
 
     </div>
 
-
     <div class="project-summary-card">
 
         <h3>Completed Projects</h3>
@@ -114,7 +127,6 @@ Project Summary Cards
         <h2 id="completedProjectCount">0</h2>
 
     </div>
-
 
     <div class="project-summary-card">
 
@@ -127,7 +139,9 @@ Project Summary Cards
 </section>
 
 <!-- PM3 END -->
-  <!-- =====================================
+
+
+<!-- =====================================
 PM4 START
 Project List
 ===================================== -->
@@ -138,12 +152,13 @@ Project List
 
         <h2>All Projects</h2>
 
-        <button id="refreshProjectsBtn">
+        <button
+            type="button"
+            id="refreshProjectsBtn">
             🔄 Refresh Projects
         </button>
 
     </div>
-
 
     <div class="project-table-wrapper">
 
@@ -169,12 +184,13 @@ Project List
 
             </thead>
 
-
             <tbody id="projectTableBody">
 
                 <tr>
 
-                    <td colspan="6" style="text-align:center;">
+                    <td
+                        colspan="6"
+                        style="text-align:center;">
                         No Project Found
                     </td>
 
@@ -189,7 +205,9 @@ Project List
 </section>
 
 <!-- PM4 END -->
-  <!-- =====================================
+
+
+<!-- =====================================
 PM5 START
 Add New Project Form
 ===================================== -->
@@ -213,8 +231,7 @@ Add New Project Form
                     id="projectId"
                     name="projectId"
                     placeholder="Enter Project ID"
-                    required
-                >
+                    required>
 
             </div>
 
@@ -230,8 +247,7 @@ Add New Project Form
                     id="projectName"
                     name="projectName"
                     placeholder="Enter Project Name"
-                    required
-                >
+                    required>
 
             </div>
 
@@ -247,8 +263,7 @@ Add New Project Form
                     id="projectCustomer"
                     name="projectCustomer"
                     placeholder="Enter Customer Name"
-                    required
-                >
+                    required>
 
             </div>
 
@@ -265,8 +280,7 @@ Add New Project Form
                     name="projectAmount"
                     placeholder="Enter Project Amount"
                     min="0"
-                    required
-                >
+                    required>
 
             </div>
 
@@ -280,8 +294,7 @@ Add New Project Form
                 <select
                     id="projectStatus"
                     name="projectStatus"
-                    required
-                >
+                    required>
 
                     <option value="">
                         Select Status
@@ -310,15 +323,13 @@ Add New Project Form
 
             <button
                 type="submit"
-                id="saveProjectBtn"
-            >
+                id="saveProjectBtn">
                 💾 Save Project
             </button>
 
             <button
                 type="reset"
-                id="clearProjectBtn"
-            >
+                id="clearProjectBtn">
                 🗑 Clear
             </button>
 
@@ -329,9 +340,11 @@ Add New Project Form
 </section>
 
 <!-- PM5 END -->
-  <!-- =====================================
+
+
+<!-- =====================================
 PM6 START
-Project Details Overview
+Project Details
 ===================================== -->
 
 <section class="project-details-section">
@@ -388,7 +401,9 @@ Project Details Overview
 </section>
 
 <!-- PM6 END -->
-  <!-- =====================================
+
+
+<!-- =====================================
 PM7 START
 Project Search & Filter
 ===================================== -->
@@ -408,8 +423,7 @@ Project Search & Filter
             <input
                 type="text"
                 id="projectSearch"
-                placeholder="Search by Project ID, Name or Customer"
-            >
+                placeholder="Search by Project ID, Name or Customer">
 
         </div>
 
@@ -476,9 +490,11 @@ Project Search & Filter
 </section>
 
 <!-- PM7 END -->
-  <!-- =====================================
+
+
+<!-- =====================================
 PM8 START
-Project Control Actions
+Project Controls
 ===================================== -->
 
 <section class="project-control-section">
@@ -489,32 +505,28 @@ Project Control Actions
 
         <button
             type="button"
-            id="editProjectBtn"
-        >
+            id="editProjectBtn">
             ✏️ Edit Project
         </button>
 
 
         <button
             type="button"
-            id="deleteProjectBtn"
-        >
+            id="deleteProjectBtn">
             🗑 Delete Project
         </button>
 
 
         <button
             type="button"
-            id="viewProjectBtn"
-        >
+            id="viewProjectBtn">
             👁 View Details
         </button>
 
 
         <button
             type="button"
-            id="printProjectBtn"
-        >
+            id="printProjectBtn">
             🖨 Print Project
         </button>
 
@@ -523,9 +535,11 @@ Project Control Actions
 </section>
 
 <!-- PM8 END -->
-  <!-- =====================================
+
+
+<!-- =====================================
 PM9 START
-Project Notes & Description
+Project Notes
 ===================================== -->
 
 <section class="project-notes-section">
@@ -544,8 +558,7 @@ Project Notes & Description
                 id="projectDescription"
                 name="projectDescription"
                 rows="5"
-                placeholder="Write project description..."
-            ></textarea>
+                placeholder="Write project description..."></textarea>
 
         </div>
 
@@ -560,8 +573,7 @@ Project Notes & Description
                 id="projectNotes"
                 name="projectNotes"
                 rows="5"
-                placeholder="Write additional project notes..."
-            ></textarea>
+                placeholder="Write additional project notes..."></textarea>
 
         </div>
 
@@ -570,9 +582,11 @@ Project Notes & Description
 </section>
 
 <!-- PM9 END -->
-  <!-- =====================================
+
+
+<!-- =====================================
 PM10 START
-Project Footer & Dashboard Return
+Project Footer
 ===================================== -->
 
 <section class="project-footer-section">
@@ -581,19 +595,19 @@ Project Footer & Dashboard Return
 
         <button
             type="button"
-            id="backDashboardBottomBtn"
-        >
+            id="backDashboardBottomBtn">
             🏠 Back to Dashboard
         </button>
 
+
         <button
             type="button"
-            id="resetProjectDataBtn"
-        >
+            id="resetProjectDataBtn">
             🔄 Reset Project Data
         </button>
 
     </div>
+
 
     <div class="project-footer-info">
 
