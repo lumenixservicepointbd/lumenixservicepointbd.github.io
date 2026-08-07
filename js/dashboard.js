@@ -223,43 +223,6 @@ document.addEventListener("DOMContentLoaded", function(){
 DJ5 END
 ===================================== */
 /* =====================================
-DJ6 START
-Income & Expense Controller
-===================================== */
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const monthlyIncome = document.getElementById("monthlyIncome");
-    const monthlyExpense = document.getElementById("monthlyExpense");
-    const netProfit = document.getElementById("netProfit");
-
-
-    if(!monthlyIncome || !monthlyExpense || !netProfit){
-        return;
-    }
-
-
-    let income = 50000;
-
-    let expense = 15000;
-
-    let profit = income - expense;
-
-
-    monthlyIncome.innerHTML = "৳" + income;
-
-    monthlyExpense.innerHTML = "৳" + expense;
-
-    netProfit.innerHTML = "৳" + profit;
-
-
-});
-
-
-/* =====================================
-DJ6 END
-===================================== */
-/* =====================================
 DJ7 START
 Inventory Controller
 ===================================== */
