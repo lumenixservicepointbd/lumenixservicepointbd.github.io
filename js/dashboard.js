@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         window.location.href = "admin.html";
 
+        return;
+
     }
 
     const logoutBtn = document.getElementById("logoutBtn");
@@ -21,9 +23,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         logoutBtn.addEventListener("click", function () {
 
-            localStorage.removeItem("adminLoggedIn");
+            const confirmLogout = confirm(
+                "Are you sure you want to logout?"
+            );
 
-            window.location.href = "admin.html";
+            if (confirmLogout) {
+
+                localStorage.removeItem("adminLoggedIn");
+
+                window.location.href = "admin.html";
+
+            }
 
         });
 
@@ -34,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
 /* =====================================
 DJ1 END
 ===================================== */
-
 /* =====================================
 DJ2 START
 Dashboard Summary Data
@@ -658,167 +667,21 @@ document.addEventListener("DOMContentLoaded", function(){
 /* =====================================
 DJ13 END
 ===================================== */
-/* =====================================
+
+       /* =====================================
 DJ14 START
-Final Dashboard Controller
+Dashboard UI Controller
 ===================================== */
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
 
-
-    /* Dashboard Navigation */
-
-    const buttons = {
-
-        dashboardHomeBtn:"Dashboard Home",
-
-        projectBtn:"Project Management",
-
-        accountsBtn:"Income & Expense",
-
-        inventoryBtn:"Inventory",
-
-        attendanceBtn:"Attendance",
-
-        reportsBtn:"Reports",
-
-        settingsBtn:"Settings"
-
-    };
-
-
-    Object.keys(buttons).forEach(function(id){
-
-
-        const btn = document.getElementById(id);
-
-
-        if(btn){
-
-
-            btn.addEventListener("click",function(e){
-
-
-                e.preventDefault();
-
-
-                alert(
-
-                    buttons[id] + 
-                    " Module Opening..."
-
-                );
-
-
-            });
-
-
-        }
-
-
-    });
-
-
-
-    /* Quick Action Buttons */
-
-
-    const quickButtons = [
-
-        "goProjectBtn",
-
-        "goAccountsBtn",
-
-        "goInventoryBtn",
-
-        "goAttendanceBtn",
-
-        "goReportsBtn",
-
-        "goSettingsBtn"
-
-    ];
-
-
-    quickButtons.forEach(function(id){
-
-
-        const button = document.getElementById(id);
-
-
-        if(button){
-
-
-            button.addEventListener("click",function(){
-
-
-                alert(
-
-                    "LUMENIX V5.1 " +
-                    this.innerText +
-                    " Selected"
-
-                );
-
-
-            });
-
-
-        }
-
-
-    });
-
-
-
-    /* Logout Controller */
-
-
-    const logoutBtn = document.getElementById("logoutBtn");
-
-
-    if(logoutBtn){
-
-
-        logoutBtn.addEventListener("click",function(){
-
-
-            let confirmLogout = confirm(
-
-                "Are you sure you want to logout?"
-
-            );
-
-
-            if(confirmLogout){
-
-
-                localStorage.removeItem(
-
-                    "lumenixDashboard"
-
-                );
-
-
-                window.location.href="index.html";
-
-
-            }
-
-
-        });
-
-
-    }
-
-
+    console.log("LUMENIX Dashboard Loaded Successfully");
 
 });
 
-
 /* =====================================
 DJ14 END
-===================================== */
+===================================== */        
 
 
 
