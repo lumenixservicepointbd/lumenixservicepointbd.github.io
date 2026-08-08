@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
     Dashboard Security + Logout
     ===================================== */
 
-    const isLoggedIn = localStorage.getItem("adminLoggedIn");
+    const isLoggedIn =
+        localStorage.getItem("adminLoggedIn");
 
     if (isLoggedIn !== "true") {
 
@@ -22,25 +23,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    const logoutBtn = document.getElementById("logoutBtn");
+
+    const logoutBtn =
+        document.getElementById("logoutBtn");
+
 
     if (logoutBtn) {
 
-        logoutBtn.addEventListener("click", function () {
+        logoutBtn.addEventListener(
+            "click",
+            function () {
 
-            const confirmLogout = confirm(
-                "Are you sure you want to logout?"
-            );
+                const confirmLogout =
+                    confirm(
+                        "Are you sure you want to logout?"
+                    );
 
-            if (confirmLogout) {
 
-                localStorage.removeItem("adminLoggedIn");
+                if (confirmLogout) {
 
-                window.location.href = "admin.html";
+                    localStorage.removeItem(
+                        "adminLoggedIn"
+                    );
+
+                    window.location.href =
+                        "admin.html";
+
+                }
 
             }
-
-        });
+        );
 
     }
 
@@ -50,53 +62,169 @@ document.addEventListener("DOMContentLoaded", function () {
     Dashboard Navigation
     ===================================== */
 
-    const navigationLinks = {
+    function navigateTo(page) {
 
-        dashboardHomeBtn: "dashboard.html",
+        window.location.href = page;
 
-        projectBtn: "project.html",
-
-        accountsBtn: "accounts.html",
-
-        inventoryBtn: "inventory.html",
-
-        attendanceBtn: "attendance.html",
-
-        reportsBtn: "reports.html",
-
-        settingsBtn: "settings.html",
-
-        goProjectBtn: "project.html",
-
-        goAccountsBtn: "accounts.html",
-
-        goInventoryBtn: "inventory.html",
-
-        goAttendanceBtn: "attendance.html",
-
-        goReportsBtn: "reports.html",
-
-        goSettingsBtn: "settings.html"
-
-    };
+    }
 
 
-    Object.keys(navigationLinks).forEach(function (id) {
+    /*
+    Sidebar Navigation
+    */
 
-        const button = document.getElementById(id);
+    const dashboardHomeBtn =
+        document.getElementById(
+            "dashboardHomeBtn"
+        );
 
-        if (!button) return;
+
+    const projectBtn =
+        document.getElementById(
+            "projectBtn"
+        );
 
 
-        button.addEventListener("click", function (event) {
+    const accountsBtn =
+        document.getElementById(
+            "accountsBtn"
+        );
 
-            event.preventDefault();
 
-            window.location.href = navigationLinks[id];
+    const inventoryBtn =
+        document.getElementById(
+            "inventoryBtn"
+        );
 
-        });
 
-    });
+    const attendanceBtn =
+        document.getElementById(
+            "attendanceBtn"
+        );
+
+
+    const reportsBtn =
+        document.getElementById(
+            "reportsBtn"
+        );
+
+
+    const settingsBtn =
+        document.getElementById(
+            "settingsBtn"
+        );
+
+
+    if (dashboardHomeBtn) {
+
+        dashboardHomeBtn.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                navigateTo("dashboard.html");
+
+            }
+        );
+
+    }
+
+
+    if (projectBtn) {
+
+        projectBtn.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                navigateTo("project.html");
+
+            }
+        );
+
+    }
+
+
+    if (accountsBtn) {
+
+        accountsBtn.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                navigateTo("accounts.html");
+
+            }
+        );
+
+    }
+
+
+    if (inventoryBtn) {
+
+        inventoryBtn.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                navigateTo("inventory.html");
+
+            }
+        );
+
+    }
+
+
+    if (attendanceBtn) {
+
+        attendanceBtn.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                navigateTo("attendance.html");
+
+            }
+        );
+
+    }
+
+
+    if (reportsBtn) {
+
+        reportsBtn.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                navigateTo("reports.html");
+
+            }
+        );
+
+    }
+
+
+    if (settingsBtn) {
+
+        settingsBtn.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                navigateTo("settings.html");
+
+            }
+        );
+
+    }
 
 
     /* =====================================
@@ -114,7 +242,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         inventory: 0,
 
-        lastUpdate: new Date().toLocaleString()
+        lastUpdate:
+            new Date().toLocaleString()
 
     };
 
@@ -122,51 +251,70 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentData;
 
 
-    const savedData = localStorage.getItem(
-        "lumenixDashboard"
-    );
+    const savedData =
+        localStorage.getItem(
+            "lumenixDashboard"
+        );
 
 
     if (savedData) {
 
         try {
 
-            currentData = JSON.parse(savedData);
+            currentData =
+                JSON.parse(savedData);
 
         } catch (error) {
 
-            currentData = dashboardData;
+            currentData =
+                dashboardData;
 
             localStorage.setItem(
                 "lumenixDashboard",
-                JSON.stringify(dashboardData)
+                JSON.stringify(
+                    dashboardData
+                )
             );
 
         }
 
     } else {
 
-        currentData = dashboardData;
+        currentData =
+            dashboardData;
 
         localStorage.setItem(
             "lumenixDashboard",
-            JSON.stringify(dashboardData)
+            JSON.stringify(
+                dashboardData
+            )
         );
 
     }
 
 
     const totalProjects =
-        document.getElementById("totalProjects");
+        document.getElementById(
+            "totalProjects"
+        );
+
 
     const totalIncome =
-        document.getElementById("totalIncome");
+        document.getElementById(
+            "totalIncome"
+        );
+
 
     const totalExpense =
-        document.getElementById("totalExpense");
+        document.getElementById(
+            "totalExpense"
+        );
+
 
     const totalInventory =
-        document.getElementById("totalInventory");
+        document.getElementById(
+            "totalInventory"
+        );
 
 
     if (totalProjects) {
@@ -180,7 +328,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (totalIncome) {
 
         totalIncome.textContent =
-            "৳" + (currentData.income || 0);
+            "৳" +
+            (currentData.income || 0);
 
     }
 
@@ -188,7 +337,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (totalExpense) {
 
         totalExpense.textContent =
-            "৳" + (currentData.expense || 0);
+            "৳" +
+            (currentData.expense || 0);
 
     }
 
@@ -206,37 +356,136 @@ document.addEventListener("DOMContentLoaded", function () {
     Quick Action Navigation
     ===================================== */
 
-    const quickActions = {
-
-        goProjectBtn: "project.html",
-
-        goAccountsBtn: "accounts.html",
-
-        goInventoryBtn: "inventory.html",
-
-        goAttendanceBtn: "attendance.html",
-
-        goReportsBtn: "reports.html",
-
-        goSettingsBtn: "settings.html"
-
-    };
+    const goProjectBtn =
+        document.getElementById(
+            "goProjectBtn"
+        );
 
 
-    Object.keys(quickActions).forEach(function (id) {
+    const goAccountsBtn =
+        document.getElementById(
+            "goAccountsBtn"
+        );
 
-        const button = document.getElementById(id);
 
-        if (!button) return;
+    const goInventoryBtn =
+        document.getElementById(
+            "goInventoryBtn"
+        );
 
 
-        button.addEventListener("click", function () {
+    const goAttendanceBtn =
+        document.getElementById(
+            "goAttendanceBtn"
+        );
 
-            window.location.href = quickActions[id];
 
-        });
+    const goReportsBtn =
+        document.getElementById(
+            "goReportsBtn"
+        );
 
-    });
+
+    const goSettingsBtn =
+        document.getElementById(
+            "goSettingsBtn"
+        );
+
+
+    if (goProjectBtn) {
+
+        goProjectBtn.addEventListener(
+            "click",
+            function () {
+
+                navigateTo(
+                    "project.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    if (goAccountsBtn) {
+
+        goAccountsBtn.addEventListener(
+            "click",
+            function () {
+
+                navigateTo(
+                    "accounts.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    if (goInventoryBtn) {
+
+        goInventoryBtn.addEventListener(
+            "click",
+            function () {
+
+                navigateTo(
+                    "inventory.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    if (goAttendanceBtn) {
+
+        goAttendanceBtn.addEventListener(
+            "click",
+            function () {
+
+                navigateTo(
+                    "attendance.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    if (goReportsBtn) {
+
+        goReportsBtn.addEventListener(
+            "click",
+            function () {
+
+                navigateTo(
+                    "reports.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    if (goSettingsBtn) {
+
+        goSettingsBtn.addEventListener(
+            "click",
+            function () {
+
+                navigateTo(
+                    "settings.html"
+                );
+
+            }
+        );
+
+    }
 
 
     /* =====================================
@@ -245,7 +494,9 @@ document.addEventListener("DOMContentLoaded", function () {
     ===================================== */
 
     const activityList =
-        document.querySelector(".activity-list");
+        document.querySelector(
+            ".activity-list"
+        );
 
 
     if (activityList) {
@@ -259,17 +510,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
             {
                 icon: "💰",
-                text: "Income & Expense Module Ready."
+                text:
+                    "Income & Expense Module Ready."
             },
 
             {
                 icon: "📦",
-                text: "Inventory Module Ready."
+                text:
+                    "Inventory Module Ready."
             },
 
             {
                 icon: "👥",
-                text: "Attendance Module Ready."
+                text:
+                    "Attendance Module Ready."
             }
 
         ];
@@ -278,29 +532,38 @@ document.addEventListener("DOMContentLoaded", function () {
         activityList.innerHTML = "";
 
 
-        activityData.forEach(function (item) {
+        activityData.forEach(
+            function (item) {
 
-            const activityItem =
-                document.createElement("div");
-
-            activityItem.className =
-                "activity-item";
-
-
-            activityItem.innerHTML = `
-
-                <span>${item.icon}</span>
-
-                <p>${item.text}</p>
-
-            `;
+                const activityItem =
+                    document.createElement(
+                        "div"
+                    );
 
 
-            activityList.appendChild(
-                activityItem
-            );
+                activityItem.className =
+                    "activity-item";
 
-        });
+
+                activityItem.innerHTML = `
+
+                    <span>
+                        ${item.icon}
+                    </span>
+
+                    <p>
+                        ${item.text}
+                    </p>
+
+                `;
+
+
+                activityList.appendChild(
+                    activityItem
+                );
+
+            }
+        );
 
     }
 
@@ -311,65 +574,94 @@ document.addEventListener("DOMContentLoaded", function () {
     ===================================== */
 
     const projectTable =
-        document.getElementById("latestProjectsBody");
+        document.getElementById(
+            "latestProjectsBody"
+        );
 
 
     if (projectTable) {
 
-        const projects = [
+        /*
+        Project data is loaded from
+        lumenixProjects if available.
+        */
 
-            {
-                id: "PR-001",
-                name: "Electrical Installation",
-                customer: "Customer A",
-                status: "Running",
-                amount: 50000
-            },
-
-            {
-                id: "PR-002",
-                name: "Service & Maintenance",
-                customer: "Customer B",
-                status: "Pending",
-                amount: 25000
-            },
-
-            {
-                id: "PR-003",
-                name: "Smart Home Setup",
-                customer: "Customer C",
-                status: "Completed",
-                amount: 75000
-            }
-
-        ];
+        const savedProjects =
+            JSON.parse(
+                localStorage.getItem(
+                    "lumenixProjects"
+                )
+            ) || [];
 
 
         projectTable.innerHTML = "";
 
 
-        projects.forEach(function (project) {
+        if (savedProjects.length === 0) {
 
-            const row =
-                document.createElement("tr");
+            projectTable.innerHTML = `
 
+                <tr>
 
-            row.innerHTML = `
+                    <td
+                        colspan="4"
+                        style="text-align:center;"
+                    >
+                        No Project Found
+                    </td>
 
-                <td>${project.id}</td>
-
-                <td>${project.customer}</td>
-
-                <td>${project.status}</td>
-
-                <td>৳${project.amount}</td>
+                </tr>
 
             `;
 
+        } else {
 
-            projectTable.appendChild(row);
+            /*
+            Show latest 5 projects.
+            */
 
-        });
+            const latestProjects =
+                savedProjects.slice(-5).reverse();
+
+
+            latestProjects.forEach(
+                function (project) {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            ${project.id}
+                        </td>
+
+                        <td>
+                            ${project.customer}
+                        </td>
+
+                        <td>
+                            ${project.status}
+                        </td>
+
+                        <td>
+                            ৳${project.amount}
+                        </td>
+
+                    `;
+
+
+                    projectTable.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        }
 
     }
 
@@ -380,29 +672,45 @@ document.addEventListener("DOMContentLoaded", function () {
     ===================================== */
 
     const monthlyIncome =
-        document.getElementById("monthlyIncome");
+        document.getElementById(
+            "monthlyIncome"
+        );
+
 
     const monthlyExpense =
-        document.getElementById("monthlyExpense");
+        document.getElementById(
+            "monthlyExpense"
+        );
+
 
     const netProfit =
-        document.getElementById("netProfit");
+        document.getElementById(
+            "netProfit"
+        );
 
 
     const incomeValue =
-        Number(currentData.income || 0);
+        Number(
+            currentData.income || 0
+        );
+
 
     const expenseValue =
-        Number(currentData.expense || 0);
+        Number(
+            currentData.expense || 0
+        );
+
 
     const profitValue =
-        incomeValue - expenseValue;
+        incomeValue -
+        expenseValue;
 
 
     if (monthlyIncome) {
 
         monthlyIncome.textContent =
-            "৳" + incomeValue;
+            "৳" +
+            incomeValue;
 
     }
 
@@ -410,7 +718,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (monthlyExpense) {
 
         monthlyExpense.textContent =
-            "৳" + expenseValue;
+            "৳" +
+            expenseValue;
 
     }
 
@@ -418,7 +727,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (netProfit) {
 
         netProfit.textContent =
-            "৳" + profitValue;
+            "৳" +
+            profitValue;
 
     }
 
@@ -429,16 +739,27 @@ document.addEventListener("DOMContentLoaded", function () {
     ===================================== */
 
     const totalProducts =
-        document.getElementById("totalProducts");
+        document.getElementById(
+            "totalProducts"
+        );
+
 
     const lowStockItems =
-        document.getElementById("lowStockItems");
+        document.getElementById(
+            "lowStockItems"
+        );
+
 
     const outOfStockItems =
-        document.getElementById("outOfStockItems");
+        document.getElementById(
+            "outOfStockItems"
+        );
+
 
     const inventoryValue =
-        document.getElementById("inventoryValue");
+        document.getElementById(
+            "inventoryValue"
+        );
 
 
     const inventoryData = {
@@ -481,7 +802,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (inventoryValue) {
 
         inventoryValue.textContent =
-            "৳" + inventoryData.value;
+            "৳" +
+            inventoryData.value;
 
     }
 
@@ -492,16 +814,27 @@ document.addEventListener("DOMContentLoaded", function () {
     ===================================== */
 
     const presentEmployees =
-        document.getElementById("presentEmployees");
+        document.getElementById(
+            "presentEmployees"
+        );
+
 
     const absentEmployees =
-        document.getElementById("absentEmployees");
+        document.getElementById(
+            "absentEmployees"
+        );
+
 
     const leaveEmployees =
-        document.getElementById("leaveEmployees");
+        document.getElementById(
+            "leaveEmployees"
+        );
+
 
     const lateEmployees =
-        document.getElementById("lateEmployees");
+        document.getElementById(
+            "lateEmployees"
+        );
 
 
     const attendanceData = {
@@ -555,16 +888,27 @@ document.addEventListener("DOMContentLoaded", function () {
     ===================================== */
 
     const availableTechnicians =
-        document.getElementById("availableTechnicians");
+        document.getElementById(
+            "availableTechnicians"
+        );
+
 
     const workingTechnicians =
-        document.getElementById("workingTechnicians");
+        document.getElementById(
+            "workingTechnicians"
+        );
+
 
     const offlineTechnicians =
-        document.getElementById("offlineTechnicians");
+        document.getElementById(
+            "offlineTechnicians"
+        );
+
 
     const totalTechnicians =
-        document.getElementById("totalTechnicians");
+        document.getElementById(
+            "totalTechnicians"
+        );
 
 
     const technicianData = {
@@ -622,7 +966,9 @@ document.addEventListener("DOMContentLoaded", function () {
     ===================================== */
 
     const serviceRequestBody =
-        document.getElementById("serviceRequestBody");
+        document.getElementById(
+            "serviceRequestBody"
+        );
 
 
     if (serviceRequestBody) {
@@ -632,21 +978,24 @@ document.addEventListener("DOMContentLoaded", function () {
             {
                 id: "SR-001",
                 customer: "Customer A",
-                service: "Electrical Repair",
+                service:
+                    "Electrical Repair",
                 status: "Pending"
             },
 
             {
                 id: "SR-002",
                 customer: "Customer B",
-                service: "Maintenance",
+                service:
+                    "Maintenance",
                 status: "Completed"
             },
 
             {
                 id: "SR-003",
                 customer: "Customer C",
-                service: "Installation",
+                service:
+                    "Installation",
                 status: "Running"
             }
 
@@ -656,28 +1005,42 @@ document.addEventListener("DOMContentLoaded", function () {
         serviceRequestBody.innerHTML = "";
 
 
-        serviceRequests.forEach(function (request) {
+        serviceRequests.forEach(
+            function (request) {
 
-            const row =
-                document.createElement("tr");
-
-
-            row.innerHTML = `
-
-                <td>${request.id}</td>
-
-                <td>${request.customer}</td>
-
-                <td>${request.service}</td>
-
-                <td>${request.status}</td>
-
-            `;
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
 
 
-            serviceRequestBody.appendChild(row);
+                row.innerHTML = `
 
-        });
+                    <td>
+                        ${request.id}
+                    </td>
+
+                    <td>
+                        ${request.customer}
+                    </td>
+
+                    <td>
+                        ${request.service}
+                    </td>
+
+                    <td>
+                        ${request.status}
+                    </td>
+
+                `;
+
+
+                serviceRequestBody.appendChild(
+                    row
+                );
+
+            }
+        );
 
     }
 
@@ -688,7 +1051,9 @@ document.addEventListener("DOMContentLoaded", function () {
     ===================================== */
 
     const notificationList =
-        document.getElementById("notificationList");
+        document.getElementById(
+            "notificationList"
+        );
 
 
     if (notificationList) {
@@ -697,22 +1062,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
             {
                 icon: "🔔",
-                text: "New service request received"
+                text:
+                    "New service request received"
             },
 
             {
                 icon: "📁",
-                text: "Project management system updated"
+                text:
+                    "Project management system updated"
             },
 
             {
                 icon: "📦",
-                text: "Inventory check completed"
+                text:
+                    "Inventory check completed"
             },
 
             {
                 icon: "✅",
-                text: "All dashboard modules are running"
+                text:
+                    "All dashboard modules are running"
             }
 
         ];
@@ -721,21 +1090,27 @@ document.addEventListener("DOMContentLoaded", function () {
         notificationList.innerHTML = "";
 
 
-        notifications.forEach(function (notification) {
+        notifications.forEach(
+            function (notification) {
 
-            const item =
-                document.createElement("li");
-
-
-            item.textContent =
-                notification.icon +
-                " " +
-                notification.text;
+                const item =
+                    document.createElement(
+                        "li"
+                    );
 
 
-            notificationList.appendChild(item);
+                item.textContent =
+                    notification.icon +
+                    " " +
+                    notification.text;
 
-        });
+
+                notificationList.appendChild(
+                    item
+                );
+
+            }
+        );
 
     }
 
@@ -746,13 +1121,21 @@ document.addEventListener("DOMContentLoaded", function () {
     ===================================== */
 
     const databaseStatus =
-        document.getElementById("databaseStatus");
+        document.getElementById(
+            "databaseStatus"
+        );
+
 
     const serverStatus =
-        document.getElementById("serverStatus");
+        document.getElementById(
+            "serverStatus"
+        );
+
 
     const backupStatus =
-        document.getElementById("backupStatus");
+        document.getElementById(
+            "backupStatus"
+        );
 
 
     if (databaseStatus) {
