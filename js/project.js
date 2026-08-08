@@ -1,1214 +1,1208 @@
-/* =====================================
-LUMENIX V5.1
-PROJECT MANAGEMENT JAVASCRIPT
-===================================== */
+/* =========================================================
+   LUMENIX V5.1
+   PROJECT MANAGEMENT
+   project.js
+
+   Storage:
+   lumenix_projects_v51
+   ========================================================= */
 
 "use strict";
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    /* =====================================
-    PROJECT DATA
-    ===================================== */
+const STORAGE_KEY = "lumenix_projects_v51";
 
-    let projects = JSON.parse(
-        localStorage.getItem("lumenixProjects")
-    ) || [];
+let projects = [];
+let selectedProjectIndex = -1;
 
 
-    let selectedProjectId = null;
+/* =========================================================
+   DOM HELPER
+   ========================================================= */
 
+function $(id) {
+    return document.getElementById(id);
+}
 
-    /* =====================================
-    COMMON ELEMENTS
-    ===================================== */
 
-    const projectForm =
-        document.getElementById("projectForm");
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
 
-    const projectTableBody =
-        document.getElementById("projectTableBody");
+document.addEventListener("DOMContentLoaded", () => {
 
-    const projectSearch =
-        document.getElementById("projectSearch");
+    loadProjects();
 
-    const projectStatusFilter =
-        document.getElementById("projectStatusFilter");
+    bindEvents();
 
-    const projectSort =
-        document.getElementById("projectSort");
-
-
-    /* =====================================
-    SAVE DATA
-    ===================================== */
-
-    function saveProjects() {
-
-        localStorage.setItem(
-            "lumenixProjects",
-            JSON.stringify(projects)
-        );
-
-    }
-
-
-    /* =====================================
-    PROJECT SUMMARY
-    ===================================== */
-
-    function updateSummary() {
-
-        const totalProjectCount =
-            document.getElementById("totalProjectCount");
-
-        const runningProjectCount =
-            document.getElementById("runningProjectCount");
-
-        const completedProjectCount =
-            document.getElementById("completedProjectCount");
-
-        const pendingProjectCount =
-            document.getElementById("pendingProjectCount");
-
-
-        const running =
-            projects.filter(
-                project => project.status === "Running"
-            ).length;
-
-
-        const completed =
-            projects.filter(
-                project => project.status === "Completed"
-            ).length;
-
-
-        const pending =
-            projects.filter(
-                project => project.status === "Pending"
-            ).length;
-
-
-        if (totalProjectCount) {
-
-            totalProjectCount.textContent =
-                projects.length;
-
-        }
-
-
-        if (runningProjectCount) {
-
-            runningProjectCount.textContent =
-                running;
-
-        }
-
-
-        if (completedProjectCount) {
-
-            completedProjectCount.textContent =
-                completed;
-
-        }
-
-
-        if (pendingProjectCount) {
-
-            pendingProjectCount.textContent =
-                pending;
-
-        }
-
-    }
-
-
-    /* =====================================
-    DISPLAY PROJECTS
-    ===================================== */
-
-    function displayProjects(list = projects) {
-
-        if (!projectTableBody) return;
-
-
-        projectTableBody.innerHTML = "";
-
-
-        if (list.length === 0) {
-
-            projectTableBody.innerHTML = `
-
-                <tr>
-
-                    <td colspan="6"
-                        style="text-align:center;">
-
-                        No Project Found
-
-                    </td>
-
-                </tr>
-
-            `;
-
-            updateSummary();
-
-            return;
-
-        }
-
-
-        list.forEach(function (project) {
-
-            const row =
-                document.createElement("tr");
-
-
-            row.innerHTML = `
-
-                <td>
-                    ${project.id}
-                </td>
-
-                <td>
-                    ${project.name}
-                </td>
-
-                <td>
-                    ${project.customer}
-                </td>
-
-                <td>
-                    ${project.status}
-                </td>
-
-                <td>
-                    ৳${project.amount}
-                </td>
-
-                <td>
-
-                    <button
-                        type="button"
-                        class="select-project-btn"
-                        data-id="${project.id}"
-                    >
-                        View
-                    </button>
-
-                </td>
-
-            `;
-
-
-            projectTableBody.appendChild(row);
-
-        });
-
-
-        updateSummary();
-
-    }
-
-
-    /* =====================================
-    ADD NEW PROJECT
-    ===================================== */
-
-    if (projectForm) {
-
-        projectForm.addEventListener(
-            "submit",
-            function (event) {
-
-                event.preventDefault();
-
-
-                const projectId =
-                    document.getElementById(
-                        "projectId"
-                    ).value.trim();
-
-
-                const projectName =
-                    document.getElementById(
-                        "projectName"
-                    ).value.trim();
-
-
-                const projectCustomer =
-                    document.getElementById(
-                        "projectCustomer"
-                    ).value.trim();
-
-
-                const projectAmount =
-                    document.getElementById(
-                        "projectAmount"
-                    ).value;
-
-
-                const projectStatus =
-                    document.getElementById(
-                        "projectStatus"
-                    ).value;
-
-
-                if (
-                    !projectId ||
-                    !projectName ||
-                    !projectCustomer ||
-                    !projectAmount ||
-                    !projectStatus
-                ) {
-
-                    alert(
-                        "Please complete all project fields."
-                    );
-
-                    return;
-
-                }
-
-
-                const alreadyExists =
-                    projects.some(
-                        project =>
-                            project.id === projectId
-                    );
-
-
-                if (alreadyExists) {
-
-                    alert(
-                        "Project ID already exists."
-                    );
-
-                    return;
-
-                }
-
-
-                const newProject = {
-
-                    id: projectId,
-
-                    name: projectName,
-
-                    customer: projectCustomer,
-
-                    amount: Number(
-                        projectAmount
-                    ),
-
-                    status: projectStatus,
-
-                    description: "",
-
-                    notes: "",
-
-                    createdAt:
-                        new Date().toLocaleString()
-
-                };
-
-
-                projects.push(newProject);
-
-
-                saveProjects();
-
-                displayProjects();
-
-
-                projectForm.reset();
-
-
-                alert(
-                    "Project saved successfully."
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    SELECT PROJECT
-    ===================================== */
-
-    if (projectTableBody) {
-
-        projectTableBody.addEventListener(
-            "click",
-            function (event) {
-
-                const button =
-                    event.target.closest(
-                        ".select-project-btn"
-                    );
-
-
-                if (!button) return;
-
-
-                selectedProjectId =
-                    button.dataset.id;
-
-
-                const project =
-                    projects.find(
-                        item =>
-                            item.id ===
-                            selectedProjectId
-                    );
-
-
-                if (!project) return;
-
-
-                showProjectDetails(project);
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    SHOW PROJECT DETAILS
-    ===================================== */
-
-    function showProjectDetails(project) {
-
-        const activeProjectName =
-            document.getElementById(
-                "activeProjectName"
-            );
-
-        const currentProjectStatus =
-            document.getElementById(
-                "currentProjectStatus"
-            );
-
-        const currentProjectCustomer =
-            document.getElementById(
-                "currentProjectCustomer"
-            );
-
-        const currentProjectAmount =
-            document.getElementById(
-                "currentProjectAmount"
-            );
-
-
-        if (activeProjectName) {
-
-            activeProjectName.textContent =
-                project.name;
-
-        }
-
-
-        if (currentProjectStatus) {
-
-            currentProjectStatus.textContent =
-                project.status;
-
-        }
-
-
-        if (currentProjectCustomer) {
-
-            currentProjectCustomer.textContent =
-                project.customer;
-
-        }
-
-
-        if (currentProjectAmount) {
-
-            currentProjectAmount.textContent =
-                "৳" + project.amount;
-
-        }
-
-
-        const description =
-            document.getElementById(
-                "projectDescription"
-            );
-
-        const notes =
-            document.getElementById(
-                "projectNotes"
-            );
-
-
-        if (description) {
-
-            description.value =
-                project.description || "";
-
-        }
-
-
-        if (notes) {
-
-            notes.value =
-                project.notes || "";
-
-        }
-
-    }
-
-
-    /* =====================================
-    SEARCH PROJECT
-    ===================================== */
-
-    function applyFilters() {
-
-        let filtered =
-            [...projects];
-
-
-        const searchText =
-            projectSearch
-                ? projectSearch.value
-                    .toLowerCase()
-                    .trim()
-                : "";
-
-
-        const status =
-            projectStatusFilter
-                ? projectStatusFilter.value
-                : "all";
-
-
-        const sort =
-            projectSort
-                ? projectSort.value
-                : "default";
-
-
-        if (searchText) {
-
-            filtered =
-                filtered.filter(
-                    project =>
-
-                        project.id
-                            .toLowerCase()
-                            .includes(searchText)
-
-                        ||
-
-                        project.name
-                            .toLowerCase()
-                            .includes(searchText)
-
-                        ||
-
-                        project.customer
-                            .toLowerCase()
-                            .includes(searchText)
-                );
-
-        }
-
-
-        if (status !== "all") {
-
-            filtered =
-                filtered.filter(
-                    project =>
-                        project.status === status
-                );
-
-        }
-
-
-        if (sort === "name") {
-
-            filtered.sort(
-                (a, b) =>
-                    a.name.localeCompare(
-                        b.name
-                    )
-            );
-
-        }
-
-
-        if (sort === "amount") {
-
-            filtered.sort(
-                (a, b) =>
-                    Number(b.amount) -
-                    Number(a.amount)
-            );
-
-        }
-
-
-        if (sort === "status") {
-
-            filtered.sort(
-                (a, b) =>
-                    a.status.localeCompare(
-                        b.status
-                    )
-            );
-
-        }
-
-
-        displayProjects(filtered);
-
-    }
-
-
-    if (projectSearch) {
-
-        projectSearch.addEventListener(
-            "input",
-            applyFilters
-        );
-
-    }
-
-
-    if (projectStatusFilter) {
-
-        projectStatusFilter.addEventListener(
-            "change",
-            applyFilters
-        );
-
-    }
-
-
-    if (projectSort) {
-
-        projectSort.addEventListener(
-            "change",
-            applyFilters
-        );
-
-    }
-
-
-    /* =====================================
-    REFRESH PROJECTS
-    ===================================== */
-
-    const refreshProjectsBtn =
-        document.getElementById(
-            "refreshProjectsBtn"
-        );
-
-
-    if (refreshProjectsBtn) {
-
-        refreshProjectsBtn.addEventListener(
-            "click",
-            function () {
-
-                projects =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "lumenixProjects"
-                        )
-                    ) || [];
-
-
-                displayProjects();
-
-                alert(
-                    "Project list refreshed."
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    NAVIGATION BUTTONS
-    ===================================== */
-
-    function goToPage(page) {
-
-        window.location.href = page;
-
-    }
-
-
-    const backDashboardBtn =
-        document.getElementById(
-            "backDashboardBtn"
-        );
-
-
-    const backDashboardBottomBtn =
-        document.getElementById(
-            "backDashboardBottomBtn"
-        );
-
-
-    if (backDashboardBtn) {
-
-        backDashboardBtn.addEventListener(
-            "click",
-            function () {
-
-                goToPage("dashboard.html");
-
-            }
-        );
-
-    }
-
-
-    if (backDashboardBottomBtn) {
-
-        backDashboardBottomBtn.addEventListener(
-            "click",
-            function () {
-
-                goToPage("dashboard.html");
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    PROJECT NAVIGATION
-    ===================================== */
-
-    const addProjectBtn =
-        document.getElementById(
-            "addProjectBtn"
-        );
-
-
-    const viewProjectsBtn =
-        document.getElementById(
-            "viewProjectsBtn"
-        );
-
-
-    const runningProjectsBtn =
-        document.getElementById(
-            "runningProjectsBtn"
-        );
-
-
-    const completedProjectsBtn =
-        document.getElementById(
-            "completedProjectsBtn"
-        );
-
-
-    const pendingProjectsBtn =
-        document.getElementById(
-            "pendingProjectsBtn"
-        );
-
-
-    if (addProjectBtn) {
-
-        addProjectBtn.addEventListener(
-            "click",
-            function () {
-
-                document
-                    .querySelector(
-                        ".add-project-section"
-                    )
-                    ?.scrollIntoView({
-                        behavior: "smooth"
-                    });
-
-            }
-        );
-
-    }
-
-
-    if (viewProjectsBtn) {
-
-        viewProjectsBtn.addEventListener(
-            "click",
-            function () {
-
-                displayProjects();
-
-                document
-                    .querySelector(
-                        ".project-list-section"
-                    )
-                    ?.scrollIntoView({
-                        behavior: "smooth"
-                    });
-
-            }
-        );
-
-    }
-
-
-    if (runningProjectsBtn) {
-
-        runningProjectsBtn.addEventListener(
-            "click",
-            function () {
-
-                if (projectStatusFilter) {
-
-                    projectStatusFilter.value =
-                        "Running";
-
-                    applyFilters();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    if (completedProjectsBtn) {
-
-        completedProjectsBtn.addEventListener(
-            "click",
-            function () {
-
-                if (projectStatusFilter) {
-
-                    projectStatusFilter.value =
-                        "Completed";
-
-                    applyFilters();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    if (pendingProjectsBtn) {
-
-        pendingProjectsBtn.addEventListener(
-            "click",
-            function () {
-
-                if (projectStatusFilter) {
-
-                    projectStatusFilter.value =
-                        "Pending";
-
-                    applyFilters();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    EDIT PROJECT
-    ===================================== */
-
-    const editProjectBtn =
-        document.getElementById(
-            "editProjectBtn"
-        );
-
-
-    if (editProjectBtn) {
-
-        editProjectBtn.addEventListener(
-            "click",
-            function () {
-
-                if (!selectedProjectId) {
-
-                    alert(
-                        "Please select a project first."
-                    );
-
-                    return;
-
-                }
-
-
-                const project =
-                    projects.find(
-                        item =>
-                            item.id ===
-                            selectedProjectId
-                    );
-
-
-                if (!project) return;
-
-
-                const newName =
-                    prompt(
-                        "Enter Project Name:",
-                        project.name
-                    );
-
-
-                if (
-                    newName === null ||
-                    !newName.trim()
-                ) {
-
-                    return;
-
-                }
-
-
-                project.name =
-                    newName.trim();
-
-
-                saveProjects();
-
-                displayProjects();
-
-                showProjectDetails(project);
-
-
-                alert(
-                    "Project updated successfully."
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    DELETE PROJECT
-    ===================================== */
-
-    const deleteProjectBtn =
-        document.getElementById(
-            "deleteProjectBtn"
-        );
-
-
-    if (deleteProjectBtn) {
-
-        deleteProjectBtn.addEventListener(
-            "click",
-            function () {
-
-                if (!selectedProjectId) {
-
-                    alert(
-                        "Please select a project first."
-                    );
-
-                    return;
-
-                }
-
-
-                const confirmDelete =
-                    confirm(
-                        "Are you sure you want to delete this project?"
-                    );
-
-
-                if (!confirmDelete) return;
-
-
-                projects =
-                    projects.filter(
-                        project =>
-                            project.id !==
-                            selectedProjectId
-                    );
-
-
-                selectedProjectId = null;
-
-
-                saveProjects();
-
-                displayProjects();
-
-
-                alert(
-                    "Project deleted successfully."
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    VIEW PROJECT DETAILS
-    ===================================== */
-
-    const viewProjectBtn =
-        document.getElementById(
-            "viewProjectBtn"
-        );
-
-
-    if (viewProjectBtn) {
-
-        viewProjectBtn.addEventListener(
-            "click",
-            function () {
-
-                if (!selectedProjectId) {
-
-                    alert(
-                        "Please select a project first."
-                    );
-
-                    return;
-
-                }
-
-
-                const project =
-                    projects.find(
-                        item =>
-                            item.id ===
-                            selectedProjectId
-                    );
-
-
-                if (!project) return;
-
-
-                alert(
-
-                    "Project ID: " +
-                    project.id +
-
-                    "\nProject Name: " +
-                    project.name +
-
-                    "\nCustomer: " +
-                    project.customer +
-
-                    "\nStatus: " +
-                    project.status +
-
-                    "\nAmount: ৳" +
-                    project.amount
-
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    PRINT PROJECT
-    ===================================== */
-
-    const printProjectBtn =
-        document.getElementById(
-            "printProjectBtn"
-        );
-
-
-    if (printProjectBtn) {
-
-        printProjectBtn.addEventListener(
-            "click",
-            function () {
-
-                if (!selectedProjectId) {
-
-                    alert(
-                        "Please select a project first."
-                    );
-
-                    return;
-
-                }
-
-
-                window.print();
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    RESET PROJECT DATA
-    ===================================== */
-
-    const resetProjectDataBtn =
-        document.getElementById(
-            "resetProjectDataBtn"
-        );
-
-
-    if (resetProjectDataBtn) {
-
-        resetProjectDataBtn.addEventListener(
-            "click",
-            function () {
-
-                const confirmReset =
-                    confirm(
-                        "This will delete all project data. Continue?"
-                    );
-
-
-                if (!confirmReset) return;
-
-
-                projects = [];
-
-                selectedProjectId = null;
-
-
-                localStorage.removeItem(
-                    "lumenixProjects"
-                );
-
-
-                displayProjects();
-
-
-                if (projectForm) {
-
-                    projectForm.reset();
-
-                }
-
-
-                alert(
-                    "All project data has been reset."
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    PROJECT DESCRIPTION & NOTES
-    ===================================== */
-
-    const projectDescription =
-        document.getElementById(
-            "projectDescription"
-        );
-
-
-    const projectNotes =
-        document.getElementById(
-            "projectNotes"
-        );
-
-
-    function saveProjectNotes() {
-
-        if (!selectedProjectId) return;
-
-
-        const project =
-            projects.find(
-                item =>
-                    item.id ===
-                    selectedProjectId
-            );
-
-
-        if (!project) return;
-
-
-        if (projectDescription) {
-
-            project.description =
-                projectDescription.value;
-
-        }
-
-
-        if (projectNotes) {
-
-            project.notes =
-                projectNotes.value;
-
-        }
-
-
-        saveProjects();
-
-    }
-
-
-    if (projectDescription) {
-
-        projectDescription.addEventListener(
-            "input",
-            saveProjectNotes
-        );
-
-    }
-
-
-    if (projectNotes) {
-
-        projectNotes.addEventListener(
-            "input",
-            saveProjectNotes
-        );
-
-    }
-
-
-    /* =====================================
-    INITIAL LOAD
-    ===================================== */
-
-    displayProjects();
+    renderProjects();
 
     updateSummary();
 
-
-    console.log(
-        "LUMENIX Project Management Loaded Successfully"
-    );
+    clearSelectedProject();
 
 });
 
 
-/* =====================================
-PROJECT JS END
-===================================== */
+/* =========================================================
+   LOAD / SAVE
+   ========================================================= */
+
+function loadProjects() {
+
+    try {
+
+        const saved = localStorage.getItem(STORAGE_KEY);
+
+        if (!saved) {
+            projects = [];
+            return;
+        }
+
+        const parsed = JSON.parse(saved);
+
+        projects = Array.isArray(parsed) ? parsed : [];
+
+    } catch (error) {
+
+        console.error("Project data load error:", error);
+
+        projects = [];
+
+    }
+
+}
+
+
+function saveProjects() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(projects)
+    );
+
+}
+
+
+/* =========================================================
+   EVENT BINDING
+   ========================================================= */
+
+function bindEvents() {
+
+    $("projectForm").addEventListener(
+        "submit",
+        handleProjectSubmit
+    );
+
+
+    $("clearProjectBtn").addEventListener(
+        "click",
+        clearForm
+    );
+
+
+    $("cancelEditBtn").addEventListener(
+        "click",
+        cancelEdit
+    );
+
+
+    $("refreshProjectsBtn").addEventListener(
+        "click",
+        refreshProjects
+    );
+
+
+    $("projectSearch").addEventListener(
+        "input",
+        renderProjects
+    );
+
+
+    $("projectStatusFilter").addEventListener(
+        "change",
+        renderProjects
+    );
+
+
+    $("projectSort").addEventListener(
+        "change",
+        renderProjects
+    );
+
+
+    $("addProjectBtn").addEventListener(
+        "click",
+        focusAddForm
+    );
+
+
+    $("viewProjectsBtn").addEventListener(
+        "click",
+        () => scrollToSection("projectTableBody")
+    );
+
+
+    $("runningProjectsBtn").addEventListener(
+        "click",
+        () => setStatusFilter("Running")
+    );
+
+
+    $("completedProjectsBtn").addEventListener(
+        "click",
+        () => setStatusFilter("Completed")
+    );
+
+
+    $("pendingProjectsBtn").addEventListener(
+        "click",
+        () => setStatusFilter("Pending")
+    );
+
+
+    $("editProjectBtn").addEventListener(
+        "click",
+        editSelectedProject
+    );
+
+
+    $("deleteProjectBtn").addEventListener(
+        "click",
+        deleteSelectedProject
+    );
+
+
+    $("viewProjectBtn").addEventListener(
+        "click",
+        viewSelectedProject
+    );
+
+
+    $("printProjectBtn").addEventListener(
+        "click",
+        printSelectedProject
+    );
+
+
+    $("backDashboardBtn").addEventListener(
+        "click",
+        goDashboard
+    );
+
+
+    $("backDashboardBottomBtn").addEventListener(
+        "click",
+        goDashboard
+    );
+
+
+    $("resetProjectDataBtn").addEventListener(
+        "click",
+        resetAllProjectData
+    );
+
+}
+
+
+/* =========================================================
+   PROJECT SUBMIT
+   ========================================================= */
+
+function handleProjectSubmit(event) {
+
+    event.preventDefault();
+
+    const project = collectFormData();
+
+    if (!project.projectId || !project.projectName) {
+
+        alert("Project ID and Project Name are required.");
+
+        return;
+
+    }
+
+
+    const editingIndex = Number(
+        $("editingProjectIndex").value
+    );
+
+
+    if (editingIndex >= 0) {
+
+        const existing = projects[editingIndex];
+
+        project.createdAt =
+            existing.createdAt || new Date().toISOString();
+
+        project.updatedAt =
+            new Date().toISOString();
+
+        projects[editingIndex] = project;
+
+        selectedProjectIndex = editingIndex;
+
+        alert("Project updated successfully.");
+
+    } else {
+
+        project.createdAt =
+            new Date().toISOString();
+
+        project.updatedAt =
+            new Date().toISOString();
+
+        projects.push(project);
+
+        selectedProjectIndex =
+            projects.length - 1;
+
+        alert("Project saved successfully.");
+
+    }
+
+
+    saveProjects();
+
+    renderProjects();
+
+    updateSummary();
+
+    showSelectedProject(
+        selectedProjectIndex
+    );
+
+    clearForm(false);
+
+}
+
+
+/* =========================================================
+   COLLECT FORM DATA
+   ========================================================= */
+
+function collectFormData() {
+
+    return {
+
+        projectId:
+            $("projectId").value.trim(),
+
+        projectName:
+            $("projectName").value.trim(),
+
+        customer:
+            $("projectCustomer").value.trim(),
+
+        type:
+            $("projectType").value,
+
+        amount:
+            Number($("projectAmount").value) || 0,
+
+        startDate:
+            $("projectStartDate").value,
+
+        endDate:
+            $("projectEndDate").value,
+
+        status:
+            $("projectStatus").value,
+
+        description:
+            $("projectDescription").value.trim(),
+
+        notes:
+            $("projectNotes").value.trim()
+
+    };
+
+}
+
+
+/* =========================================================
+   RENDER PROJECT TABLE
+   ========================================================= */
+
+function renderProjects() {
+
+    const tbody = $("projectTableBody");
+
+    tbody.innerHTML = "";
+
+    let filteredProjects =
+        getFilteredProjects();
+
+
+    if (filteredProjects.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="empty-row">
+                    No Project Found
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    filteredProjects.forEach(item => {
+
+        const project =
+            projects[item.index];
+
+        const row =
+            document.createElement("tr");
+
+
+        if (item.index === selectedProjectIndex) {
+            row.classList.add("selected-row");
+        }
+
+
+        row.innerHTML = `
+
+            <td>
+                ${escapeHTML(project.projectId)}
+            </td>
+
+            <td>
+                <strong>
+                    ${escapeHTML(project.projectName)}
+                </strong>
+            </td>
+
+            <td>
+                ${escapeHTML(project.customer)}
+            </td>
+
+            <td>
+                ${statusBadge(project.status)}
+            </td>
+
+            <td>
+                ৳${formatMoney(project.amount)}
+            </td>
+
+            <td>
+
+                <div class="table-actions">
+
+                    <button
+                        class="table-view"
+                        type="button"
+                        data-action="view"
+                        data-index="${item.index}">
+                        View
+                    </button>
+
+                    <button
+                        class="table-edit"
+                        type="button"
+                        data-action="edit"
+                        data-index="${item.index}">
+                        Edit
+                    </button>
+
+                    <button
+                        class="table-delete"
+                        type="button"
+                        data-action="delete"
+                        data-index="${item.index}">
+                        Delete
+                    </button>
+
+                </div>
+
+            </td>
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+
+    tbody
+        .querySelectorAll("button[data-action]")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                handleTableAction
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   FILTER / SORT
+   ========================================================= */
+
+function getFilteredProjects() {
+
+    const search =
+        $("projectSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const status =
+        $("projectStatusFilter").value;
+
+
+    let result =
+        projects
+            .map((project, index) => ({
+                project,
+                index
+            }))
+            .filter(item => {
+
+                const project =
+                    item.project;
+
+                const matchesSearch =
+                    !search ||
+                    project.projectId
+                        .toLowerCase()
+                        .includes(search) ||
+
+                    project.projectName
+                        .toLowerCase()
+                        .includes(search) ||
+
+                    project.customer
+                        .toLowerCase()
+                        .includes(search);
+
+
+                const matchesStatus =
+                    status === "all" ||
+                    project.status === status;
+
+
+                return matchesSearch &&
+                       matchesStatus;
+
+            });
+
+
+    const sort =
+        $("projectSort").value;
+
+
+    if (sort === "name") {
+
+        result.sort((a, b) =>
+            a.project.projectName.localeCompare(
+                b.project.projectName
+            )
+        );
+
+    }
+
+
+    if (sort === "amount") {
+
+        result.sort(
+            (a, b) =>
+                Number(b.project.amount) -
+                Number(a.project.amount)
+        );
+
+    }
+
+
+    if (sort === "status") {
+
+        result.sort((a, b) =>
+            a.project.status.localeCompare(
+                b.project.status
+            )
+        );
+
+    }
+
+
+    if (sort === "newest") {
+
+        result.sort((a, b) =>
+            new Date(b.project.createdAt) -
+            new Date(a.project.createdAt)
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+function updateSummary() {
+
+    $("totalProjectCount").textContent =
+        projects.length;
+
+
+    $("runningProjectCount").textContent =
+        projects.filter(
+            project =>
+                project.status === "Running"
+        ).length;
+
+
+    $("completedProjectCount").textContent =
+        projects.filter(
+            project =>
+                project.status === "Completed"
+        ).length;
+
+
+    $("pendingProjectCount").textContent =
+        projects.filter(
+            project =>
+                project.status === "Pending"
+        ).length;
+
+}
+
+
+/* =========================================================
+   TABLE ACTION
+   ========================================================= */
+
+function handleTableAction(event) {
+
+    const button =
+        event.currentTarget;
+
+    const index =
+        Number(button.dataset.index);
+
+    const action =
+        button.dataset.action;
+
+
+    if (
+        index < 0 ||
+        index >= projects.length
+    ) {
+        return;
+    }
+
+
+    if (action === "view") {
+
+        selectedProjectIndex = index;
+
+        showSelectedProject(index);
+
+        scrollToSection(
+            "activeProjectName"
+        );
+
+    }
+
+
+    if (action === "edit") {
+
+        selectedProjectIndex = index;
+
+        showSelectedProject(index);
+
+        fillFormForEdit(index);
+
+    }
+
+
+    if (action === "delete") {
+
+        deleteProject(index);
+
+    }
+
+}
+
+
+/* =========================================================
+   SELECT PROJECT
+   ========================================================= */
+
+function showSelectedProject(index) {
+
+    if (
+        index < 0 ||
+        index >= projects.length
+    ) {
+        clearSelectedProject();
+        return;
+    }
+
+
+    const project =
+        projects[index];
+
+
+    selectedProjectIndex =
+        index;
+
+
+    $("activeProjectName").textContent =
+        project.projectName;
+
+
+    $("currentProjectId").textContent =
+        project.projectId;
+
+
+    $("currentProjectCustomer").textContent =
+        project.customer;
+
+
+    $("currentProjectType").textContent =
+        project.type || "—";
+
+
+    $("currentProjectStatus").textContent =
+        project.status;
+
+
+    $("currentProjectAmount").textContent =
+        `৳${formatMoney(project.amount)}`;
+
+
+    $("currentProjectStartDate").textContent =
+        project.startDate || "—";
+
+
+    $("currentProjectEndDate").textContent =
+        project.endDate || "—";
+
+
+    $("currentProjectDescription").textContent =
+        project.description ||
+        "No description available.";
+
+
+    $("currentProjectNotes").textContent =
+        project.notes ||
+        "No additional notes.";
+
+
+    $("selectedProjectBadge").className =
+        `status-badge ${statusClass(project.status)}`;
+
+
+    $("selectedProjectBadge").textContent =
+        project.status;
+
+
+    renderProjects();
+
+}
+
+
+/* =========================================================
+   CLEAR SELECTED PROJECT
+   ========================================================= */
+
+function clearSelectedProject() {
+
+    selectedProjectIndex = -1;
+
+    $("activeProjectName").textContent =
+        "No Active Project";
+
+    $("currentProjectId").textContent =
+        "—";
+
+    $("currentProjectCustomer").textContent =
+        "No Customer";
+
+    $("currentProjectType").textContent =
+        "—";
+
+    $("currentProjectStatus").textContent =
+        "No Status";
+
+    $("currentProjectAmount").textContent =
+        "৳0";
+
+    $("currentProjectStartDate").textContent =
+        "—";
+
+    $("currentProjectEndDate").textContent =
+        "—";
+
+    $("currentProjectDescription").textContent =
+        "No description available.";
+
+    $("currentProjectNotes").textContent =
+        "No additional notes.";
+
+    $("selectedProjectBadge").className =
+        "status-badge neutral";
+
+    $("selectedProjectBadge").textContent =
+        "No Selection";
+
+}
+
+
+/* =========================================================
+   EDIT
+   ========================================================= */
+
+function editSelectedProject() {
+
+    if (
+        selectedProjectIndex < 0
+    ) {
+        alert("Please select a project first.");
+        return;
+    }
+
+
+    fillFormForEdit(
+        selectedProjectIndex
+    );
+
+}
+
+
+function fillFormForEdit(index) {
+
+    const project =
+        projects[index];
+
+
+    $("editingProjectIndex").value =
+        index;
+
+
+    $("projectId").value =
+        project.projectId;
+
+
+    $("projectName").value =
+        project.projectName;
+
+
+    $("projectCustomer").value =
+        project.customer;
+
+
+    $("projectType").value =
+        project.type || "Electrical";
+
+
+    $("projectAmount").value =
+        project.amount;
+
+
+    $("projectStartDate").value =
+        project.startDate || "";
+
+
+    $("projectEndDate").value =
+        project.endDate || "";
+
+
+    $("projectStatus").value =
+        project.status;
+
+
+    $("projectDescription").value =
+        project.description || "";
+
+
+    $("projectNotes").value =
+        project.notes || "";
+
+
+    $("projectFormTitle").textContent =
+        "Edit Project";
+
+
+    $("saveProjectBtn").textContent =
+        "💾 Update Project";
+
+
+    $("cancelEditBtn").hidden =
+        false;
+
+
+    scrollToSection(
+        "projectFormSection"
+    );
+
+}
+
+
+/* =========================================================
+   DELETE
+   ========================================================= */
+
+function deleteSelectedProject() {
+
+    if (
+        selectedProjectIndex < 0
+    ) {
+        alert("Please select a project first.");
+        return;
+    }
+
+
+    deleteProject(
+        selectedProjectIndex
+    );
+
+}
+
+
+function deleteProject(index) {
+
+    const project =
+        projects[index];
+
+
+    if (!project) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Delete project "${project.projectName}"?`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    projects.splice(index, 1);
+
+
+    saveProjects();
+
+    selectedProjectIndex = -1;
+
+
+    renderProjects();
+
+    updateSummary();
+
+    clearSelectedProject();
+
+    clearForm();
+
+
+    alert("Project deleted successfully.");
+
+}
+
+
+/* =========================================================
+   VIEW DETAILS
+   ========================================================= */
+
+function viewSelectedProject() {
+
+    if (
+        selectedProjectIndex < 0
+    ) {
+        alert("Please select a project first.");
+        return;
+    }
+
+
+    showSelectedProject(
+        selectedProjectIndex
+    );
+
+
+    scrollToSection(
+        "activeProjectName"
+    );
+
+}
+
+
+/* =========================================================
+   FORM CLEAR
+   ========================================================= */
+
+function clearForm(showMessage = false) {
+
+    $("projectForm").reset();
+
+    $("editingProjectIndex").value =
+        "-1";
+
+
+    $("projectFormTitle").textContent =
+        "Add New Project";
+
+
+    $("saveProjectBtn").textContent =
+        "💾 Save Project";
+
+
+    $("cancelEditBtn").hidden =
+        true;
+
+
+    if (showMessage) {
+        alert("Form cleared.");
+    }
+
+}
+
+
+function cancelEdit() {
+
+    clearForm();
+
+}
+
+
+/* =========================================================
+   NAVIGATION HELPERS
+   ========================================================= */
+
+function focusAddForm() {
+
+    clearForm();
+
+    scrollToSection(
+        "projectFormSection"
+    );
+
+
+    setTimeout(() => {
+
+        $("projectId").focus();
+
+    }, 300);
+
+}
+
+
+function setStatusFilter(status) {
+
+    $("projectStatusFilter").value =
+        status;
+
+    renderProjects();
+
+    scrollToSection(
+        "projectTableBody"
+    );
+
+}
+
+
+function refreshProjects() {
+
+    loadProjects();
+
+    renderProjects();
+
+    updateSummary();
+
+
+    if (
+        selectedProjectIndex >= 0 &&
+        selectedProjectIndex < projects.length
+    ) {
+
+        showSelectedProject(
+            selectedProjectIndex
+        );
+
+    } else {
+
+        clearSelectedProject();
+
+    }
+
+}
+
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+function printSelectedProject() {
+
+    if (
+        selectedProjectIndex < 0
+    ) {
+        alert("Please select a project first.");
+        return;
+    }
+
+
+    window.print();
+
+}
+
+
+/* =========================================================
+   RESET ALL DATA
+   ========================================================= */
+
+function resetAllProjectData() {
+
+    const confirmed =
+        confirm(
+            "This will permanently remove all locally stored project records. Continue?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    localStorage.removeItem(
+        STORAGE_KEY
+    );
+
+
+    projects = [];
+
+    selectedProjectIndex = -1;
+
+
+    renderProjects();
+
+    updateSummary();
+
+    clearSelectedProject();
+
+    clearForm();
+
+
+    alert("All project data has been reset.");
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+function goDashboard() {
+
+    window.location.href =
+        "admin.html";
+
+}
+
+
+/* =========================================================
+   SCROLL
+   ========================================================= */
+
+function scrollToSection(id) {
+
+    const element =
+        $(id);
+
+
+    if (!element) {
+        return;
+    }
+
+
+    element.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+/* =========================================================
+   STATUS HELPERS
+   ========================================================= */
+
+function statusClass(status) {
+
+    if (status === "Running") {
+        return "running";
+    }
+
+    if (status === "Completed") {
+        return "completed";
+    }
+
+    if (status === "Pending") {
+        return "pending";
+    }
+
+    return "neutral";
+
+}
+
+
+function statusBadge(status) {
+
+    return `
+        <span class="status-badge ${statusClass(status)}">
+            ${escapeHTML(status)}
+        </span>
+    `;
+
+}
+
+
+/* =========================================================
+   FORMAT
+   ========================================================= */
+
+function formatMoney(value) {
+
+    return Number(value || 0)
+        .toLocaleString(
+            "en-BD",
+            {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            }
+        );
+
+}
+
+
+/* =========================================================
+   SECURITY
+   ========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
