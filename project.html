@@ -1,637 +1,614 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>LUMENIX | Project Management</title>
 
+    <!-- Existing global stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Project Management stylesheet -->
     <link rel="stylesheet" href="css/project.css">
-
-    <script src="js/project.js" defer></script>
-
 </head>
 
 <body>
 
-<!-- =====================================
-PM1 START
-Project Management Header
-===================================== -->
-
 <header class="project-header">
-
     <div class="project-logo">
-
         <h1>LUMENIX</h1>
-
         <p>Project Management</p>
-
     </div>
 
     <div class="project-user">
-
         <span>Administrator</span>
 
-        <button
-            type="button"
-            id="backDashboardBtn">
+        <button type="button" id="backDashboardBtn">
             Dashboard
         </button>
-
     </div>
-
 </header>
-
-<!-- PM1 END -->
 
 
 <main class="project-container">
 
-<!-- =====================================
-PM2 START
-Project Navigation
-===================================== -->
+    <!-- Navigation -->
+    <section class="project-navigation">
 
-<section class="project-navigation">
-
-    <button
-        type="button"
-        id="addProjectBtn">
-        ➕ Add New Project
-    </button>
-
-    <button
-        type="button"
-        id="viewProjectsBtn">
-        📁 View Projects
-    </button>
-
-    <button
-        type="button"
-        id="runningProjectsBtn">
-        🚧 Running Projects
-    </button>
-
-    <button
-        type="button"
-        id="completedProjectsBtn">
-        ✅ Completed Projects
-    </button>
-
-    <button
-        type="button"
-        id="pendingProjectsBtn">
-        ⏳ Pending Projects
-    </button>
-
-</section>
-
-<!-- PM2 END -->
-
-
-<section class="project-content">
-
-<!-- =====================================
-PM3 START
-Project Summary Cards
-===================================== -->
-
-<section class="project-summary">
-
-    <div class="project-summary-card">
-
-        <h3>Total Projects</h3>
-
-        <h2 id="totalProjectCount">0</h2>
-
-    </div>
-
-    <div class="project-summary-card">
-
-        <h3>Running Projects</h3>
-
-        <h2 id="runningProjectCount">0</h2>
-
-    </div>
-
-    <div class="project-summary-card">
-
-        <h3>Completed Projects</h3>
-
-        <h2 id="completedProjectCount">0</h2>
-
-    </div>
-
-    <div class="project-summary-card">
-
-        <h3>Pending Projects</h3>
-
-        <h2 id="pendingProjectCount">0</h2>
-
-    </div>
-
-</section>
-
-<!-- PM3 END -->
-
-
-<!-- =====================================
-PM4 START
-Project List
-===================================== -->
-
-<section class="project-list-section">
-
-    <div class="project-list-header">
-
-        <h2>All Projects</h2>
-
-        <button
-            type="button"
-            id="refreshProjectsBtn">
-            🔄 Refresh Projects
+        <button type="button" id="addProjectBtn">
+            ➕ Add New Project
         </button>
 
-    </div>
+        <button type="button" id="viewProjectsBtn">
+            📁 View Projects
+        </button>
 
-    <div class="project-table-wrapper">
+        <button type="button" id="runningProjectsBtn">
+            🚧 Running Projects
+        </button>
 
-        <table class="project-table">
+        <button type="button" id="completedProjectsBtn">
+            ✅ Completed Projects
+        </button>
 
-            <thead>
+        <button type="button" id="pendingProjectsBtn">
+            ⏳ Pending Projects
+        </button>
 
-                <tr>
-
-                    <th>Project ID</th>
-
-                    <th>Project Name</th>
-
-                    <th>Customer</th>
-
-                    <th>Status</th>
-
-                    <th>Amount</th>
-
-                    <th>Action</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="projectTableBody">
-
-                <tr>
-
-                    <td
-                        colspan="6"
-                        style="text-align:center;">
-                        No Project Found
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-<!-- PM4 END -->
+    </section>
 
 
-<!-- =====================================
-PM5 START
-Add New Project Form
-===================================== -->
+    <section class="project-content">
 
-<section class="add-project-section">
+        <!-- Summary -->
+        <section class="project-summary">
 
-    <h2>Add New Project</h2>
+            <div class="project-summary-card">
+                <h3>Total Projects</h3>
+                <h2 id="totalProjectCount">0</h2>
+            </div>
 
-    <form id="projectForm">
+            <div class="project-summary-card">
+                <h3>Running Projects</h3>
+                <h2 id="runningProjectCount">0</h2>
+            </div>
 
-        <div class="project-form-grid">
+            <div class="project-summary-card">
+                <h3>Completed Projects</h3>
+                <h2 id="completedProjectCount">0</h2>
+            </div>
 
-            <div class="project-form-group">
+            <div class="project-summary-card">
+                <h3>Pending Projects</h3>
+                <h2 id="pendingProjectCount">0</h2>
+            </div>
 
-                <label for="projectId">
-                    Project ID
-                </label>
+        </section>
 
-                <input
-                    type="text"
-                    id="projectId"
-                    name="projectId"
-                    placeholder="Enter Project ID"
-                    required>
+
+        <!-- Project List -->
+        <section class="project-list-section">
+
+            <div class="project-list-header">
+                <h2>All Projects</h2>
+
+                <button type="button" id="refreshProjectsBtn">
+                    🔄 Refresh
+                </button>
+            </div>
+
+            <div class="project-table-wrapper">
+
+                <table class="project-table">
+
+                    <thead>
+                        <tr>
+                            <th>Project ID</th>
+                            <th>Project Name</th>
+                            <th>Customer</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="projectTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- Add / Edit Project -->
+        <section class="add-project-section" id="projectFormSection">
+
+            <div class="section-heading">
+                <div>
+                    <h2 id="projectFormTitle">Add New Project</h2>
+                    <p>Create and manage project records.</p>
+                </div>
+            </div>
+
+            <form id="projectForm">
+
+                <input type="hidden" id="editingProjectIndex" value="-1">
+
+                <div class="project-form-grid">
+
+                    <div class="project-form-group">
+                        <label for="projectId">Project ID</label>
+
+                        <input
+                            type="text"
+                            id="projectId"
+                            name="projectId"
+                            placeholder="Example: MSF-P-00001"
+                            required>
+                    </div>
+
+
+                    <div class="project-form-group">
+                        <label for="projectName">Project Name</label>
+
+                        <input
+                            type="text"
+                            id="projectName"
+                            name="projectName"
+                            placeholder="Enter project name"
+                            required>
+                    </div>
+
+
+                    <div class="project-form-group">
+                        <label for="projectCustomer">Customer</label>
+
+                        <input
+                            type="text"
+                            id="projectCustomer"
+                            name="projectCustomer"
+                            placeholder="Enter customer name"
+                            required>
+                    </div>
+
+
+                    <div class="project-form-group">
+                        <label for="projectType">Project Type</label>
+
+                        <select id="projectType" name="projectType">
+
+                            <option value="Electrical">
+                                Electrical
+                            </option>
+
+                            <option value="AC">
+                                AC
+                            </option>
+
+                            <option value="CCTV">
+                                CCTV
+                            </option>
+
+                            <option value="Solar">
+                                Solar
+                            </option>
+
+                            <option value="Generator">
+                                Generator
+                            </option>
+
+                            <option value="IPS">
+                                IPS
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="project-form-group">
+                        <label for="projectAmount">Project Value</label>
+
+                        <input
+                            type="number"
+                            id="projectAmount"
+                            name="projectAmount"
+                            min="0"
+                            step="0.01"
+                            placeholder="0"
+                            required>
+                    </div>
+
+
+                    <div class="project-form-group">
+                        <label for="projectStartDate">Start Date</label>
+
+                        <input
+                            type="date"
+                            id="projectStartDate"
+                            name="projectStartDate">
+                    </div>
+
+
+                    <div class="project-form-group">
+                        <label for="projectEndDate">End Date</label>
+
+                        <input
+                            type="date"
+                            id="projectEndDate"
+                            name="projectEndDate">
+                    </div>
+
+
+                    <div class="project-form-group">
+                        <label for="projectStatus">Status</label>
+
+                        <select
+                            id="projectStatus"
+                            name="projectStatus"
+                            required>
+
+                            <option value="Pending">
+                                Pending
+                            </option>
+
+                            <option value="Running">
+                                Running
+                            </option>
+
+                            <option value="Completed">
+                                Completed
+                            </option>
+
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <div class="project-notes-form">
+
+                    <div class="project-form-group">
+
+                        <label for="projectDescription">
+                            Project Description
+                        </label>
+
+                        <textarea
+                            id="projectDescription"
+                            rows="4"
+                            placeholder="Write project description..."></textarea>
+
+                    </div>
+
+
+                    <div class="project-form-group">
+
+                        <label for="projectNotes">
+                            Additional Notes
+                        </label>
+
+                        <textarea
+                            id="projectNotes"
+                            rows="4"
+                            placeholder="Write additional notes..."></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="project-form-actions">
+
+                    <button
+                        type="submit"
+                        id="saveProjectBtn">
+                        💾 Save Project
+                    </button>
+
+                    <button
+                        type="button"
+                        id="clearProjectBtn">
+                        🗑 Clear
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelEditBtn"
+                        class="secondary-btn"
+                        hidden>
+                        Cancel Edit
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- Search & Filter -->
+        <section class="project-filter-section">
+
+            <h2>Search & Filter Projects</h2>
+
+            <div class="project-filter-grid">
+
+                <div class="project-filter-group">
+
+                    <label for="projectSearch">
+                        Search Project
+                    </label>
+
+                    <input
+                        type="search"
+                        id="projectSearch"
+                        placeholder="Search ID, name or customer">
+
+                </div>
+
+
+                <div class="project-filter-group">
+
+                    <label for="projectStatusFilter">
+                        Filter By Status
+                    </label>
+
+                    <select id="projectStatusFilter">
+
+                        <option value="all">
+                            All Projects
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Running">
+                            Running
+                        </option>
+
+                        <option value="Completed">
+                            Completed
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="project-filter-group">
+
+                    <label for="projectSort">
+                        Sort Projects
+                    </label>
+
+                    <select id="projectSort">
+
+                        <option value="default">
+                            Default
+                        </option>
+
+                        <option value="name">
+                            Project Name
+                        </option>
+
+                        <option value="amount">
+                            Project Value
+                        </option>
+
+                        <option value="status">
+                            Status
+                        </option>
+
+                        <option value="newest">
+                            Newest First
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Selected Project -->
+        <section class="project-details-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Selected Project</h2>
+                    <p>Project information and controls.</p>
+                </div>
+
+                <span
+                    id="selectedProjectBadge"
+                    class="status-badge neutral">
+                    No Selection
+                </span>
 
             </div>
 
 
-            <div class="project-form-group">
+            <div class="project-details-grid">
 
-                <label for="projectName">
-                    Project Name
-                </label>
+                <div class="project-detail-card">
+                    <span>Project</span>
+                    <strong id="activeProjectName">
+                        No Active Project
+                    </strong>
+                </div>
 
-                <input
-                    type="text"
-                    id="projectName"
-                    name="projectName"
-                    placeholder="Enter Project Name"
-                    required>
+
+                <div class="project-detail-card">
+                    <span>Project ID</span>
+                    <strong id="currentProjectId">
+                        —
+                    </strong>
+                </div>
+
+
+                <div class="project-detail-card">
+                    <span>Customer</span>
+                    <strong id="currentProjectCustomer">
+                        No Customer
+                    </strong>
+                </div>
+
+
+                <div class="project-detail-card">
+                    <span>Type</span>
+                    <strong id="currentProjectType">
+                        —
+                    </strong>
+                </div>
+
+
+                <div class="project-detail-card">
+                    <span>Status</span>
+                    <strong id="currentProjectStatus">
+                        No Status
+                    </strong>
+                </div>
+
+
+                <div class="project-detail-card">
+                    <span>Project Value</span>
+                    <strong id="currentProjectAmount">
+                        ৳0
+                    </strong>
+                </div>
+
+
+                <div class="project-detail-card">
+                    <span>Start Date</span>
+                    <strong id="currentProjectStartDate">
+                        —
+                    </strong>
+                </div>
+
+
+                <div class="project-detail-card">
+                    <span>End Date</span>
+                    <strong id="currentProjectEndDate">
+                        —
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="selected-project-text">
+
+                <div>
+                    <h3>Description</h3>
+                    <p id="currentProjectDescription">
+                        No description available.
+                    </p>
+                </div>
+
+                <div>
+                    <h3>Notes</h3>
+                    <p id="currentProjectNotes">
+                        No additional notes.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Controls -->
+        <section class="project-control-section">
+
+            <h2>Project Controls</h2>
+
+            <div class="project-control-grid">
+
+                <button
+                    type="button"
+                    id="editProjectBtn">
+                    ✏️ Edit Project
+                </button>
+
+                <button
+                    type="button"
+                    id="deleteProjectBtn"
+                    class="danger-btn">
+                    🗑 Delete Project
+                </button>
+
+                <button
+                    type="button"
+                    id="viewProjectBtn">
+                    👁 View Details
+                </button>
+
+                <button
+                    type="button"
+                    id="printProjectBtn">
+                    🖨 Print Project
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <section class="project-footer-section">
+
+            <div class="project-footer-actions">
+
+                <button
+                    type="button"
+                    id="backDashboardBottomBtn">
+                    🏠 Back to Dashboard
+                </button>
+
+                <button
+                    type="button"
+                    id="resetProjectDataBtn"
+                    class="danger-btn">
+                    🔄 Reset Project Data
+                </button>
 
             </div>
 
 
-            <div class="project-form-group">
+            <div class="project-footer-info">
 
-                <label for="projectCustomer">
-                    Customer
-                </label>
+                <hr>
 
-                <input
-                    type="text"
-                    id="projectCustomer"
-                    name="projectCustomer"
-                    placeholder="Enter Customer Name"
-                    required>
+                <p>
+                    © 2026 LUMENIX V5.1 Premium |
+                    Developed By MS FARDIN ELECTRIC
+                </p>
 
-            </div>
-
-
-            <div class="project-form-group">
-
-                <label for="projectAmount">
-                    Amount
-                </label>
-
-                <input
-                    type="number"
-                    id="projectAmount"
-                    name="projectAmount"
-                    placeholder="Enter Project Amount"
-                    min="0"
-                    required>
+                <p>
+                    All Rights Reserved.
+                </p>
 
             </div>
 
+        </section>
 
-            <div class="project-form-group">
-
-                <label for="projectStatus">
-                    Status
-                </label>
-
-                <select
-                    id="projectStatus"
-                    name="projectStatus"
-                    required>
-
-                    <option value="">
-                        Select Status
-                    </option>
-
-                    <option value="Pending">
-                        Pending
-                    </option>
-
-                    <option value="Running">
-                        Running
-                    </option>
-
-                    <option value="Completed">
-                        Completed
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-
-        <div class="project-form-actions">
-
-            <button
-                type="submit"
-                id="saveProjectBtn">
-                💾 Save Project
-            </button>
-
-            <button
-                type="reset"
-                id="clearProjectBtn">
-                🗑 Clear
-            </button>
-
-        </div>
-
-    </form>
-
-</section>
-
-<!-- PM5 END -->
-
-
-<!-- =====================================
-PM6 START
-Project Details
-===================================== -->
-
-<section class="project-details-section">
-
-    <h2>Project Details</h2>
-
-    <div class="project-details-grid">
-
-        <div class="project-detail-card">
-
-            <h3>Active Project</h3>
-
-            <p id="activeProjectName">
-                No Active Project
-            </p>
-
-        </div>
-
-
-        <div class="project-detail-card">
-
-            <h3>Current Status</h3>
-
-            <p id="currentProjectStatus">
-                No Status
-            </p>
-
-        </div>
-
-
-        <div class="project-detail-card">
-
-            <h3>Project Customer</h3>
-
-            <p id="currentProjectCustomer">
-                No Customer
-            </p>
-
-        </div>
-
-
-        <div class="project-detail-card">
-
-            <h3>Project Amount</h3>
-
-            <p id="currentProjectAmount">
-                ৳0
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- PM6 END -->
-
-
-<!-- =====================================
-PM7 START
-Project Search & Filter
-===================================== -->
-
-<section class="project-filter-section">
-
-    <h2>Search & Filter Projects</h2>
-
-    <div class="project-filter-grid">
-
-        <div class="project-filter-group">
-
-            <label for="projectSearch">
-                Search Project
-            </label>
-
-            <input
-                type="text"
-                id="projectSearch"
-                placeholder="Search by Project ID, Name or Customer">
-
-        </div>
-
-
-        <div class="project-filter-group">
-
-            <label for="projectStatusFilter">
-                Filter By Status
-            </label>
-
-            <select id="projectStatusFilter">
-
-                <option value="all">
-                    All Projects
-                </option>
-
-                <option value="Pending">
-                    Pending
-                </option>
-
-                <option value="Running">
-                    Running
-                </option>
-
-                <option value="Completed">
-                    Completed
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div class="project-filter-group">
-
-            <label for="projectSort">
-                Sort Projects
-            </label>
-
-            <select id="projectSort">
-
-                <option value="default">
-                    Default
-                </option>
-
-                <option value="name">
-                    Project Name
-                </option>
-
-                <option value="amount">
-                    Amount
-                </option>
-
-                <option value="status">
-                    Status
-                </option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- PM7 END -->
-
-
-<!-- =====================================
-PM8 START
-Project Controls
-===================================== -->
-
-<section class="project-control-section">
-
-    <h2>Project Controls</h2>
-
-    <div class="project-control-grid">
-
-        <button
-            type="button"
-            id="editProjectBtn">
-            ✏️ Edit Project
-        </button>
-
-
-        <button
-            type="button"
-            id="deleteProjectBtn">
-            🗑 Delete Project
-        </button>
-
-
-        <button
-            type="button"
-            id="viewProjectBtn">
-            👁 View Details
-        </button>
-
-
-        <button
-            type="button"
-            id="printProjectBtn">
-            🖨 Print Project
-        </button>
-
-    </div>
-
-</section>
-
-<!-- PM8 END -->
-
-
-<!-- =====================================
-PM9 START
-Project Notes
-===================================== -->
-
-<section class="project-notes-section">
-
-    <h2>Project Notes</h2>
-
-    <div class="project-notes-form">
-
-        <div class="project-form-group">
-
-            <label for="projectDescription">
-                Project Description
-            </label>
-
-            <textarea
-                id="projectDescription"
-                name="projectDescription"
-                rows="5"
-                placeholder="Write project description..."></textarea>
-
-        </div>
-
-
-        <div class="project-form-group">
-
-            <label for="projectNotes">
-                Additional Notes
-            </label>
-
-            <textarea
-                id="projectNotes"
-                name="projectNotes"
-                rows="5"
-                placeholder="Write additional project notes..."></textarea>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- PM9 END -->
-
-
-<!-- =====================================
-PM10 START
-Project Footer
-===================================== -->
-
-<section class="project-footer-section">
-
-    <div class="project-footer-actions">
-
-        <button
-            type="button"
-            id="backDashboardBottomBtn">
-            🏠 Back to Dashboard
-        </button>
-
-
-        <button
-            type="button"
-            id="resetProjectDataBtn">
-            🔄 Reset Project Data
-        </button>
-
-    </div>
-
-
-    <div class="project-footer-info">
-
-        <hr>
-
-        <p>
-            © 2026 LUMENIX V5.1 Premium |
-            Developed By MS FARDIN ELECTRIC
-        </p>
-
-        <p>
-            All Rights Reserved.
-        </p>
-
-    </div>
-
-</section>
-
-<!-- PM10 END -->
-
-</section>
+    </section>
 
 </main>
 
-</body>
 
+<!-- Project Management JavaScript -->
+<script src="js/project.js" defer></script>
+
+</body>
 </html>
