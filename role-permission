@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LUMENIX | Role & Permission</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/role-permission.css">
+</head>
+
+<body>
+
+<header class="rp-header">
+    <div>
+        <h1>LUMENIX</h1>
+        <p>V5.1 Role & Permission Control</p>
+    </div>
+
+    <div class="header-actions">
+        <a href="dashboard.html" class="back-btn">← Dashboard</a>
+    </div>
+</header>
+
+<main class="rp-container">
+
+    <section class="page-intro">
+        <div>
+            <span class="eyebrow">ADMIN CONTROL</span>
+            <h2>Role & Permission Management</h2>
+            <p>
+                Control users, roles and module-level access from one place.
+            </p>
+        </div>
+
+        <button id="saveAllBtn" class="primary-btn">
+            Save Changes
+        </button>
+    </section>
+
+    <!-- SUMMARY -->
+
+    <section class="summary-grid">
+
+        <div class="summary-card">
+            <span>👤</span>
+            <div>
+                <strong id="totalUsers">0</strong>
+                <small>Total Users</small>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <span>🛡️</span>
+            <div>
+                <strong id="totalRoles">0</strong>
+                <small>Total Roles</small>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <span>🔐</span>
+            <div>
+                <strong id="activeUsers">0</strong>
+                <small>Active Users</small>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <span>⚙️</span>
+            <div>
+                <strong id="permissionCount">0</strong>
+                <small>Permission Rules</small>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- USER MANAGEMENT -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+            <div>
+                <h3>User Management</h3>
+                <p>Create users and assign system roles.</p>
+            </div>
+
+            <button id="addUserBtn" class="primary-btn">
+                + Add User
+            </button>
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="data-table">
+
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="usersTableBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ROLE MANAGEMENT -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+            <div>
+                <h3>Role Management</h3>
+                <p>Select a role and configure its permissions.</p>
+            </div>
+
+            <button id="addRoleBtn" class="secondary-btn">
+                + Add Role
+            </button>
+        </div>
+
+        <div class="role-layout">
+
+            <aside class="role-list" id="roleList"></aside>
+
+            <div class="permission-area">
+
+                <div class="permission-header">
+
+                    <div>
+                        <span class="eyebrow">SELECTED ROLE</span>
+                        <h3 id="selectedRoleName">Super Admin</h3>
+                        <p id="selectedRoleDescription">
+                            Full system control.
+                        </p>
+                    </div>
+
+                    <button id="selectAllBtn" class="small-btn">
+                        Select All
+                    </button>
+
+                </div>
+
+                <div class="permission-table-wrapper">
+
+                    <table class="permission-table">
+
+                        <thead>
+                            <tr>
+                                <th>Module</th>
+                                <th>View</th>
+                                <th>Add</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                                <th>Manage</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="permissionTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACCESS PRINCIPLE -->
+
+    <section class="security-note">
+
+        <div class="security-icon">🔒</div>
+
+        <div>
+            <h3>Access Control Principle</h3>
+
+            <p>
+                A user should only see and use modules permitted by their
+                assigned role. Customer, Technician, Dealer, Employee and
+                other accounts must remain separated by role and permission.
+            </p>
+
+            <div class="boundary-list">
+                <span>✓ Role Based Access</span>
+                <span>✓ Module Visibility</span>
+                <span>✓ Permission Separation</span>
+                <span>✓ Data Boundary</span>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- USER MODAL -->
+
+<div class="modal" id="userModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <h3 id="userModalTitle">Add User</h3>
+            <button class="close-modal" data-close="userModal">×</button>
+        </div>
+
+        <form id="userForm">
+
+            <input type="hidden" id="editUserId">
+
+            <div class="form-grid">
+
+                <label>
+                    Full Name
+                    <input type="text" id="userName" required>
+                </label>
+
+                <label>
+                    Username
+                    <input type="text" id="userUsername" required>
+                </label>
+
+                <label>
+                    User Role
+                    <select id="userRole" required></select>
+                </label>
+
+                <label>
+                    Status
+                    <select id="userStatus">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </label>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        class="secondary-btn"
+                        data-close="userModal">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn">
+                    Save User
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ROLE MODAL -->
+
+<div class="modal" id="roleModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <h3>Add Role</h3>
+            <button class="close-modal" data-close="roleModal">×</button>
+        </div>
+
+        <form id="roleForm">
+
+            <label>
+                Role Name
+                <input type="text" id="roleName" required>
+            </label>
+
+            <label>
+                Description
+                <textarea id="roleDescription" rows="4"></textarea>
+            </label>
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        class="secondary-btn"
+                        data-close="roleModal">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn">
+                    Create Role
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="js/role-permission.js"></script>
+
+</body>
+</html>
