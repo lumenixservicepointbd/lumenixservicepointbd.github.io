@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMINEX | Training Program Management</title>
+  <link rel="stylesheet" href="css/training-program.css">
+</head>
+
+<body>
+
+  <div class="page-shell">
+
+    <header class="topbar">
+      <div class="brand-area">
+        <div class="brand">LUMINEX</div>
+        <div class="sub-brand">Technical Training Centre</div>
+      </div>
+
+      <a href="course-management.html" class="back-btn">
+        ← Course Management
+      </a>
+    </header>
+
+
+    <section class="page-header">
+
+      <div>
+        <span class="eyebrow">TRAINING CENTRE</span>
+        <h1>Training Program</h1>
+        <p>Create and manage training batches and programs.</p>
+      </div>
+
+      <button
+        type="button"
+        class="primary-btn"
+        id="addProgramBtn"
+      >
+        + Add Training Program
+      </button>
+
+    </section>
+
+
+    <!-- SUMMARY -->
+
+    <section class="summary-grid">
+
+      <div class="summary-card">
+        <div class="summary-icon blue">🎓</div>
+        <div>
+          <span>Total Programs</span>
+          <strong id="totalPrograms">0</strong>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon green">✓</div>
+        <div>
+          <span>Active Programs</span>
+          <strong id="activePrograms">0</strong>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon orange">⏳</div>
+        <div>
+          <span>Upcoming</span>
+          <strong id="upcomingPrograms">0</strong>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon purple">👥</div>
+        <div>
+          <span>Total Seats</span>
+          <strong id="totalSeats">0</strong>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- FILTER -->
+
+    <section class="filter-card">
+
+      <div class="search-field">
+
+        <label for="programSearch">
+          Search Program
+        </label>
+
+        <input
+          type="text"
+          id="programSearch"
+          placeholder="Search by Program ID, name or course..."
+        >
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label for="programStatusFilter">
+          Status
+        </label>
+
+        <select id="programStatusFilter">
+          <option value="">All Status</option>
+          <option value="Upcoming">Upcoming</option>
+          <option value="Running">Running</option>
+          <option value="Completed">Completed</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label for="programMonthFilter">
+          Month
+        </label>
+
+        <select id="programMonthFilter">
+          <option value="">All Months</option>
+        </select>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="reset-btn"
+        id="resetFilterBtn"
+      >
+        Reset
+      </button>
+
+    </section>
+
+
+    <!-- TABLE -->
+
+    <section class="table-card">
+
+      <div class="table-header">
+
+        <div>
+          <h2>Training Program List</h2>
+          <p>Manage all training programs and batches.</p>
+        </div>
+
+        <span
+          class="record-count"
+          id="recordCount"
+        >
+          0 Programs
+        </span>
+
+      </div>
+
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Program ID</th>
+              <th>Program Name</th>
+              <th>Course</th>
+              <th>Schedule</th>
+              <th>Trainer</th>
+              <th>Seats</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="programTableBody"></tbody>
+
+        </table>
+
+      </div>
+
+
+      <div
+        id="emptyState"
+        class="empty-state hidden"
+      >
+
+        <div class="empty-icon">🎓</div>
+
+        <h3>No Training Programs Found</h3>
+
+        <p>
+          Create your first training program to get started.
+        </p>
+
+        <button
+          type="button"
+          class="primary-btn"
+          id="emptyAddBtn"
+        >
+          + Add Program
+        </button>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- MODAL -->
+
+  <div
+    class="modal-overlay hidden"
+    id="programModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="eyebrow">PROGRAM MASTER</span>
+          <h2 id="modalTitle">Add Training Program</h2>
+        </div>
+
+        <button
+          type="button"
+          class="close-btn"
+          id="closeModalBtn"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="programForm">
+
+        <input
+          type="hidden"
+          id="programEditId"
+        >
+
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label for="programName">
+              Program Name <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              id="programName"
+              required
+              placeholder="Example: Electrical Basic Batch 01"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="programCourse">
+              Course <span>*</span>
+            </label>
+
+            <select
+              id="programCourse"
+              required
+            >
+              <option value="">
+                Select Course
+              </option>
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="startDate">
+              Start Date <span>*</span>
+            </label>
+
+            <input
+              type="date"
+              id="startDate"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="endDate">
+              End Date <span>*</span>
+            </label>
+
+            <input
+              type="date"
+              id="endDate"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="trainerName">
+              Trainer / Instructor
+            </label>
+
+            <input
+              type="text"
+              id="trainerName"
+              placeholder="Trainer name"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="trainingLocation">
+              Training Location
+            </label>
+
+            <input
+              type="text"
+              id="trainingLocation"
+              placeholder="Training centre / room"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="seatCapacity">
+              Seat Capacity <span>*</span>
+            </label>
+
+            <input
+              type="number"
+              id="seatCapacity"
+              min="1"
+              required
+              placeholder="Example: 30"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="programStatus">
+              Status
+            </label>
+
+            <select id="programStatus">
+
+              <option value="Upcoming">
+                Upcoming
+              </option>
+
+              <option value="Running">
+                Running
+              </option>
+
+              <option value="Completed">
+                Completed
+              </option>
+
+              <option value="Cancelled">
+                Cancelled
+              </option>
+
+              <option value="Inactive">
+                Inactive
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group full">
+
+            <label for="programSchedule">
+              Schedule
+            </label>
+
+            <textarea
+              id="programSchedule"
+              rows="3"
+              placeholder="Example: Sunday, Tuesday & Thursday — 10:00 AM to 1:00 PM"
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-group full">
+
+            <label for="programDescription">
+              Program Description
+            </label>
+
+            <textarea
+              id="programDescription"
+              rows="4"
+              placeholder="Write program details..."
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+          <button
+            type="button"
+            class="secondary-btn"
+            id="cancelBtn"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="primary-btn"
+          >
+            Save Program
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <div id="toast" class="toast"></div>
+
+
+  <script src="js/training-program.js"></script>
+
+</body>
+</html>
