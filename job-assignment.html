@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LUMENIX Job Assignment</title>
-  <link rel="stylesheet" href="job-assignment.css">
+  <link rel="stylesheet" href="css/job-assignment.css">
 </head>
 
 <body>
@@ -18,9 +18,7 @@
       <p>Match service requests with technicians by area, skill and availability.</p>
     </div>
 
-    <button class="primary-btn" id="refreshBtn">
-      ↻ Refresh
-    </button>
+    <button class="primary-btn" id="refreshBtn">↻ Refresh</button>
   </header>
 
 
@@ -127,9 +125,7 @@
           <h2 id="assignmentTitle">Assign Technician</h2>
         </div>
 
-        <button class="close-btn" data-close="assignmentModal">
-          ×
-        </button>
+        <button class="close-btn" data-close="assignmentModal">×</button>
 
       </div>
 
@@ -141,6 +137,7 @@
 
         <div>
           <h3>Recommended Technicians</h3>
+
           <p>
             Matching priority:
             <strong>Area → Skill → Availability</strong>
@@ -176,7 +173,7 @@
 
   <div class="modal-overlay" id="jobModal">
 
-    <div class="modal">
+    <div class="modal large-modal">
 
       <div class="modal-header">
 
@@ -185,13 +182,169 @@
           <h2 id="jobTitle">Service Job</h2>
         </div>
 
-        <button class="close-btn" data-close="jobModal">
-          ×
-        </button>
+        <button class="close-btn" data-close="jobModal">×</button>
 
       </div>
 
+
+      <!-- EXISTING JOB DETAILS -->
+
       <div class="job-detail" id="jobDetail"></div>
+
+
+      <!-- TECHNICIAN JOB MANAGEMENT -->
+
+      <section
+        class="technician-job-panel"
+        id="technicianJobPanel"
+        hidden>
+
+        <div class="technician-job-header">
+
+          <div>
+            <span class="eyebrow">TECHNICIAN OPERATIONS</span>
+            <h3>Job Management</h3>
+            <p>
+              Track acceptance, work progress and completion.
+            </p>
+          </div>
+
+          <span
+            class="job-status-pill"
+            id="technicianJobStatus">
+            Assigned
+          </span>
+
+        </div>
+
+
+        <!-- STATUS FLOW -->
+
+        <div class="technician-status-flow">
+
+          <div
+            class="tech-status-step"
+            data-status-step="Assigned">
+
+            <div class="tech-status-circle">1</div>
+
+            <strong>Assigned</strong>
+            <small>Technician assigned</small>
+
+          </div>
+
+
+          <div class="tech-status-line"></div>
+
+
+          <div
+            class="tech-status-step"
+            data-status-step="In Progress">
+
+            <div class="tech-status-circle">2</div>
+
+            <strong>In Progress</strong>
+            <small>Work started</small>
+
+          </div>
+
+
+          <div class="tech-status-line"></div>
+
+
+          <div
+            class="tech-status-step"
+            data-status-step="Completed">
+
+            <div class="tech-status-circle">3</div>
+
+            <strong>Completed</strong>
+            <small>Work finished</small>
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTION -->
+
+        <div class="technician-action-box">
+
+          <h4>Technician Action</h4>
+
+          <div id="technicianActionArea"></div>
+
+        </div>
+
+
+        <!-- COMPLETION -->
+
+        <div
+          class="technician-completion-box"
+          id="technicianCompletionBox"
+          hidden>
+
+          <h4>Complete Service Job</h4>
+
+          <div class="technician-form-grid">
+
+            <div class="technician-form-group">
+
+              <label for="technicianCompletionNotes">
+                Completion Notes *
+              </label>
+
+              <textarea
+                id="technicianCompletionNotes"
+                rows="4"
+                placeholder="Write completed work details..."></textarea>
+
+            </div>
+
+
+            <div class="technician-form-group">
+
+              <label for="technicianCustomerConfirmation">
+                Customer Confirmation
+              </label>
+
+              <select id="technicianCustomerConfirmation">
+
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Not Available">
+                  Not Available
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <button
+            class="technician-complete-btn"
+            id="technicianCompleteBtn">
+
+            ✓ Complete Job
+
+          </button>
+
+        </div>
+
+
+        <!-- TIMELINE -->
+
+        <div class="technician-timeline-box">
+
+          <h4>Job Timeline</h4>
+
+          <div id="technicianJobTimeline"></div>
+
+        </div>
+
+      </section>
 
     </div>
 
@@ -200,7 +353,8 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="job-assignment.js"></script>
+
+  <script src="js/job-assignment.js"></script>
 
 </main>
 
