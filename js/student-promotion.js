@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const STORAGE_KEY =
     "lumenix_student_promotion_records";
 
-
   let records = loadRecords();
 
   let pendingDeleteId = null;
@@ -46,10 +45,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function saveRecords() {
 
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(records)
-    );
+    try {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(records)
+      );
+
+    } catch (error) {
+
+      console.error(
+        "Could not save promotion records:",
+        error
+      );
+
+      showToast(
+        "Could not save data.",
+        "error"
+      );
+    }
   }
 
 
@@ -337,8 +351,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (total) {
+
       total.textContent =
         records.length;
+
     }
 
 
@@ -385,60 +401,50 @@ document.addEventListener("DOMContentLoaded", () => {
       "promotionForm"
     );
 
-
   const recordId =
     document.getElementById(
       "recordId"
     );
-
 
   const studentName =
     document.getElementById(
       "studentName"
     );
 
-
   const studentId =
     document.getElementById(
       "studentId"
     );
-
 
   const courseName =
     document.getElementById(
       "courseName"
     );
 
-
   const fromLevel =
     document.getElementById(
       "fromLevel"
     );
-
 
   const toLevel =
     document.getElementById(
       "toLevel"
     );
 
-
   const progress =
     document.getElementById(
       "progress"
     );
-
 
   const promotionStatus =
     document.getElementById(
       "promotionStatus"
     );
 
-
   const promotionDate =
     document.getElementById(
       "promotionDate"
     );
-
 
   const remarks =
     document.getElementById(
@@ -480,7 +486,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.reset();
 
-    recordId.value = "";
+    recordId.value =
+      "";
 
     promotionDate.value =
       today();
@@ -557,9 +564,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
 
-      if (
-        from === to
-      ) {
+      if (from === to) {
 
         showToast(
           "From Level and To Level cannot be the same.",
@@ -584,6 +589,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (index === -1) {
+
+          showToast(
+            "Record not found.",
+            "error"
+          );
+
           return;
         }
 
@@ -797,13 +808,11 @@ document.addEventListener("DOMContentLoaded", () => {
                   </strong>
                 </td>
 
-
                 <td>
                   ${escapeHTML(
                     item.studentId
                   )}
                 </td>
-
 
                 <td>
                   ${escapeHTML(
@@ -811,20 +820,17 @@ document.addEventListener("DOMContentLoaded", () => {
                   )}
                 </td>
 
-
                 <td>
                   ${escapeHTML(
                     item.fromLevel
                   )}
                 </td>
 
-
                 <td>
                   ${escapeHTML(
                     item.toLevel
                   )}
                 </td>
-
 
                 <td class="progress-cell">
 
@@ -840,7 +846,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                   </div>
 
-
                   <div class="progress-track">
 
                     <div
@@ -851,7 +856,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   </div>
 
                 </td>
-
 
                 <td>
 
@@ -867,7 +871,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 </td>
 
-
                 <td>
 
                   <div class="table-actions">
@@ -881,7 +884,6 @@ document.addEventListener("DOMContentLoaded", () => {
                       View
                     </button>
 
-
                     <button
                       type="button"
                       class="action-btn"
@@ -890,7 +892,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     >
                       Edit
                     </button>
-
 
                     <button
                       type="button"
@@ -936,7 +937,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const action =
         button.dataset.action;
-
 
       const id =
         button.dataset.id;
@@ -1128,14 +1128,10 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
 
-    document
-      .getElementById(
-        "progressContainer"
-      )
-      ?.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
+    container.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
   }
 
 
@@ -1339,22 +1335,40 @@ document.addEventListener("DOMContentLoaded", () => {
       "click",
       () => {
 
-        document.getElementById(
-          "searchInput"
-        ).value = "";
+        const searchInput =
+          document.getElementById(
+            "searchInput"
+          );
+
+        const statusFilter =
+          document.getElementById(
+            "statusFilter"
+          );
+
+        const fromLevelFilter =
+          document.getElementById(
+            "fromLevelFilter"
+          );
 
 
-        document.getElementById(
-          "statusFilter"
-        ).value = "all";
+        if (searchInput) {
+          searchInput.value = "";
+        }
 
 
-        document.getElementById(
-          "fromLevelFilter"
-        ).value = "all";
+        if (statusFilter) {
+          statusFilter.value = "all";
+        }
+
+
+        if (fromLevelFilter) {
+          fromLevelFilter.value = "all";
+        }
 
 
         renderTable();
+
+        renderEmptyProgress();
 
       }
     );
