@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Student Promotion & Progress | Lumenix Service Point BD</title>
+
+  <link rel="stylesheet" href="css/student-promotion.css">
+</head>
+
+<body>
+
+  <main class="promotion-page">
+
+    <!-- HEADER -->
+    <header class="page-header">
+
+      <div>
+        <span class="eyebrow">STUDENT MANAGEMENT</span>
+
+        <h1>Student Promotion & Progress</h1>
+
+        <p>
+          Manage student academic progress, promotion,
+          completion status and training progression.
+        </p>
+      </div>
+
+      <div class="header-actions">
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          id="refreshBtn"
+        >
+          ↻ Refresh
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="addPromotionBtn"
+        >
+          + Add Promotion
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- SUMMARY -->
+    <section class="summary-grid">
+
+      <div class="summary-card">
+        <div class="summary-icon blue">👨‍🎓</div>
+
+        <div>
+          <span>Total Records</span>
+          <strong id="totalRecords">0</strong>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="summary-icon green">↑</div>
+
+        <div>
+          <span>Promoted</span>
+          <strong id="totalPromoted">0</strong>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="summary-icon orange">⏳</div>
+
+        <div>
+          <span>Pending</span>
+          <strong id="totalPending">0</strong>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="summary-icon purple">✓</div>
+
+        <div>
+          <span>Completed</span>
+          <strong id="totalCompleted">0</strong>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- FILTER AREA -->
+    <section class="filter-card">
+
+      <div class="filter-header">
+
+        <div>
+          <h2>Promotion Records</h2>
+
+          <p>
+            Search and manage student progression records.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="filters">
+
+        <div class="input-group">
+
+          <label for="searchInput">
+            Search
+          </label>
+
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Student name, ID or course..."
+          >
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label for="statusFilter">
+            Status
+          </label>
+
+          <select id="statusFilter">
+
+            <option value="all">
+              All Status
+            </option>
+
+            <option value="Pending">
+              Pending
+            </option>
+
+            <option value="Promoted">
+              Promoted
+            </option>
+
+            <option value="Completed">
+              Completed
+            </option>
+
+            <option value="Hold">
+              Hold
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label for="fromLevelFilter">
+            From Level
+          </label>
+
+          <select id="fromLevelFilter">
+
+            <option value="all">
+              All Levels
+            </option>
+
+            <option value="Beginner">
+              Beginner
+            </option>
+
+            <option value="Intermediate">
+              Intermediate
+            </option>
+
+            <option value="Advanced">
+              Advanced
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="btn btn-secondary filter-reset"
+          id="resetFiltersBtn"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- TABLE -->
+    <section class="table-card">
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Student</th>
+              <th>Student ID</th>
+              <th>Course</th>
+              <th>From Level</th>
+              <th>To Level</th>
+              <th>Progress</th>
+              <th>Status</th>
+              <th>Action</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="promotionTableBody">
+
+            <tr class="empty-row">
+
+              <td colspan="8">
+                No promotion records found.
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROGRESS SECTION -->
+    <section class="progress-panel">
+
+      <div class="panel-header">
+
+        <div>
+          <h2>Student Progress Overview</h2>
+
+          <p>
+            Track overall progress of selected students.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div
+        class="progress-container"
+        id="progressContainer"
+      >
+
+        <div class="empty-progress">
+          Select a promotion record to view progress.
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- PROMOTION MODAL -->
+  <div
+    class="modal-overlay"
+    id="promotionModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="eyebrow">
+            STUDENT PROGRESSION
+          </span>
+
+          <h2 id="modalTitle">
+            Add Promotion Record
+          </h2>
+        </div>
+
+        <button
+          type="button"
+          class="close-btn"
+          data-close="promotionModal"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="promotionForm">
+
+        <input
+          type="hidden"
+          id="recordId"
+        >
+
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label for="studentName">
+              Student Name *
+            </label>
+
+            <input
+              type="text"
+              id="studentName"
+              placeholder="Enter student name"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="studentId">
+              Student ID *
+            </label>
+
+            <input
+              type="text"
+              id="studentId"
+              placeholder="Enter student ID"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="courseName">
+              Course *
+            </label>
+
+            <input
+              type="text"
+              id="courseName"
+              placeholder="Enter course name"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="fromLevel">
+              From Level *
+            </label>
+
+            <select id="fromLevel" required>
+
+              <option value="">
+                Select level
+              </option>
+
+              <option value="Beginner">
+                Beginner
+              </option>
+
+              <option value="Intermediate">
+                Intermediate
+              </option>
+
+              <option value="Advanced">
+                Advanced
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="toLevel">
+              To Level *
+            </label>
+
+            <select id="toLevel" required>
+
+              <option value="">
+                Select level
+              </option>
+
+              <option value="Intermediate">
+                Intermediate
+              </option>
+
+              <option value="Advanced">
+                Advanced
+              </option>
+
+              <option value="Completed">
+                Completed
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="progress">
+              Progress %
+            </label>
+
+            <input
+              type="number"
+              id="progress"
+              min="0"
+              max="100"
+              value="0"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="promotionStatus">
+              Status *
+            </label>
+
+            <select
+              id="promotionStatus"
+              required
+            >
+
+              <option value="Pending">
+                Pending
+              </option>
+
+              <option value="Promoted">
+                Promoted
+              </option>
+
+              <option value="Completed">
+                Completed
+              </option>
+
+              <option value="Hold">
+                Hold
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="promotionDate">
+              Date
+            </label>
+
+            <input
+              type="date"
+              id="promotionDate"
+            >
+
+          </div>
+
+
+          <div class="form-group full-width">
+
+            <label for="remarks">
+              Remarks
+            </label>
+
+            <textarea
+              id="remarks"
+              rows="4"
+              placeholder="Add notes or remarks..."
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-close="promotionModal"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save Record
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- CONFIRM MODAL -->
+  <div
+    class="modal-overlay"
+    id="deleteModal"
+  >
+
+    <div class="modal small-modal">
+
+      <div class="modal-header">
+
+        <h2>Delete Record?</h2>
+
+        <button
+          type="button"
+          class="close-btn"
+          data-close="deleteModal"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="confirm-content">
+
+        <p>
+          This promotion record will be removed from
+          this browser's saved data.
+        </p>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-close="deleteModal"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-danger"
+          id="confirmDeleteBtn"
+        >
+          Delete
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <script src="js/student-promotion.js"></script>
+
+</body>
+</html>
