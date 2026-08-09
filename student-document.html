@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Student Documents | Lumenix</title>
+
+  <link rel="stylesheet" href="css/student-document.css">
+</head>
+
+<body>
+
+  <main class="document-page">
+
+    <!-- HEADER -->
+    <header class="page-header">
+
+      <div>
+        <h1>Student Documents</h1>
+        <p>Student ID Card & Document Management</p>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="addDocumentBtn"
+      >
+        + Add Student
+      </button>
+
+    </header>
+
+
+    <!-- SUMMARY -->
+    <section class="summary-grid">
+
+      <div class="summary-card">
+        <span>Total Students</span>
+        <strong id="totalStudents">0</strong>
+      </div>
+
+      <div class="summary-card">
+        <span>ID Cards Ready</span>
+        <strong id="readyCards">0</strong>
+      </div>
+
+      <div class="summary-card">
+        <span>Pending</span>
+        <strong id="pendingCards">0</strong>
+      </div>
+
+    </section>
+
+
+    <!-- TOOLBAR -->
+    <section class="toolbar">
+
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search student name or ID..."
+        autocomplete="off"
+      >
+
+      <select id="statusFilter">
+        <option value="all">All Status</option>
+        <option value="Ready">Ready</option>
+        <option value="Pending">Pending</option>
+      </select>
+
+      <button
+        type="button"
+        class="btn btn-light"
+        id="refreshBtn"
+      >
+        Refresh
+      </button>
+
+    </section>
+
+
+    <!-- TABLE -->
+    <section class="table-card">
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Student ID</th>
+              <th>Course</th>
+              <th>Phone</th>
+              <th>ID Card</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody id="documentTableBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ADD / EDIT MODAL -->
+  <div
+    class="modal-overlay"
+    id="documentModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+          <h2 id="modalTitle">
+            Add Student Document
+          </h2>
+
+          <p>
+            Enter basic student information.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="close-btn"
+          data-close="documentModal"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="documentForm">
+
+        <input
+          type="hidden"
+          id="recordId"
+        >
+
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label for="studentName">
+              Student Name *
+            </label>
+
+            <input
+              type="text"
+              id="studentName"
+              required
+              maxlength="100"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="studentId">
+              Student ID *
+            </label>
+
+            <input
+              type="text"
+              id="studentId"
+              required
+              maxlength="50"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="courseName">
+              Course *
+            </label>
+
+            <input
+              type="text"
+              id="courseName"
+              required
+              maxlength="100"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="phone">
+              Phone
+            </label>
+
+            <input
+              type="tel"
+              id="phone"
+              maxlength="30"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="bloodGroup">
+              Blood Group
+            </label>
+
+            <select id="bloodGroup">
+
+              <option value="">Not Set</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="cardStatus">
+              ID Card Status
+            </label>
+
+            <select id="cardStatus">
+
+              <option value="Pending">
+                Pending
+              </option>
+
+              <option value="Ready">
+                Ready
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group full">
+
+            <label for="address">
+              Address
+            </label>
+
+            <textarea
+              id="address"
+              rows="3"
+              maxlength="250"
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="btn btn-light"
+            data-close="documentModal"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save Student
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- VIEW ID CARD MODAL -->
+  <div
+    class="modal-overlay"
+    id="cardModal"
+  >
+
+    <div class="modal card-modal">
+
+      <button
+        type="button"
+        class="close-btn card-close"
+        data-close="cardModal"
+      >
+        ×
+      </button>
+
+
+      <div
+        class="student-id-card"
+        id="idCard"
+      >
+
+        <div class="card-top">
+
+          <div>
+            <small>LUMENIX</small>
+            <h2>STUDENT ID CARD</h2>
+          </div>
+
+          <div class="card-logo">
+            L
+          </div>
+
+        </div>
+
+
+        <div class="card-body">
+
+          <div class="avatar">
+            <span id="cardInitial">S</span>
+          </div>
+
+
+          <div class="card-info">
+
+            <h3 id="cardStudentName">
+              Student Name
+            </h3>
+
+            <p>
+              ID:
+              <strong id="cardStudentId">
+                —
+              </strong>
+            </p>
+
+            <p>
+              Course:
+              <strong id="cardCourse">
+                —
+              </strong>
+            </p>
+
+            <p>
+              Phone:
+              <strong id="cardPhone">
+                —
+              </strong>
+            </p>
+
+            <p>
+              Blood:
+              <strong id="cardBlood">
+                —
+              </strong>
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="card-footer">
+          <span>Student Identification</span>
+          <strong id="cardStatus">
+            READY
+          </strong>
+        </div>
+
+      </div>
+
+
+      <div class="print-actions">
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="printCardBtn"
+        >
+          Print ID Card
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- DELETE MODAL -->
+  <div
+    class="modal-overlay"
+    id="deleteModal"
+  >
+
+    <div class="modal small-modal">
+
+      <div class="modal-header">
+
+        <div>
+          <h2>Delete Student?</h2>
+
+          <p>
+            This action cannot be undone.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="close-btn"
+          data-close="deleteModal"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="delete-actions">
+
+        <button
+          type="button"
+          class="btn btn-light"
+          data-close="deleteModal"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-danger"
+          id="confirmDeleteBtn"
+        >
+          Delete
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <script src="js/student-document.js"></script>
+
+</body>
+</html>
