@@ -3,110 +3,208 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>LUMENIX - Worker & Attendance</title>
 
-  <link rel="stylesheet" href="worker.css">
+  <link rel="stylesheet" href="css/worker.css">
 </head>
 
 <body>
 
   <div class="worker-page">
 
-    <!-- Header -->
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
     <header class="page-header">
+
       <div>
         <span class="eyebrow">LUMENIX V5.1</span>
+
         <h1>Worker & Attendance</h1>
-        <p>Manage workers, attendance, salary and payment records.</p>
+
+        <p>
+          Manage workers, attendance, salary,
+          payments and project labour costs.
+        </p>
       </div>
 
-      <button class="primary-btn" id="openWorkerModal">
+      <button
+        class="primary-btn"
+        id="openWorkerModal"
+      >
         + Add Worker
       </button>
+
     </header>
 
-    <!-- Summary Cards -->
+
+    <!-- =====================================================
+         SUMMARY
+    ====================================================== -->
+
     <section class="summary-grid">
 
       <div class="summary-card">
+
         <div class="card-icon blue">👷</div>
+
         <div>
-          <span>Total Workers</span>
+          <span>Active Workers</span>
           <strong id="totalWorkers">0</strong>
         </div>
+
       </div>
 
+
       <div class="summary-card">
+
         <div class="card-icon green">✓</div>
+
         <div>
           <span>Present Today</span>
           <strong id="presentToday">0</strong>
         </div>
+
       </div>
 
+
       <div class="summary-card">
+
         <div class="card-icon orange">◷</div>
+
         <div>
           <span>Leave Today</span>
           <strong id="leaveToday">0</strong>
         </div>
+
       </div>
 
+
       <div class="summary-card">
+
         <div class="card-icon red">৳</div>
+
         <div>
           <span>Pending Salary</span>
           <strong id="pendingSalary">৳0</strong>
         </div>
+
       </div>
 
     </section>
 
-    <!-- Tabs -->
+
+    <!-- =====================================================
+         TABS
+    ====================================================== -->
+
     <nav class="module-tabs">
-      <button class="tab-btn active" data-tab="workers">
+
+      <button
+        class="tab-btn active"
+        data-tab="workers"
+      >
         Workers
       </button>
 
-      <button class="tab-btn" data-tab="attendance">
+
+      <button
+        class="tab-btn"
+        data-tab="attendance"
+      >
         Attendance
       </button>
 
-      <button class="tab-btn" data-tab="salary">
+
+      <!-- NEW -->
+      <button
+        class="tab-btn"
+        data-tab="project-integration"
+      >
+        Project Integration
+      </button>
+
+
+      <button
+        class="tab-btn"
+        data-tab="salary"
+      >
         Salary & Payment
       </button>
+
     </nav>
 
-    <!-- Workers -->
-    <section class="tab-content active" id="workers">
+
+    <!-- =====================================================
+         WORKERS
+    ====================================================== -->
+
+    <section
+      class="tab-content active"
+      id="workers"
+    >
 
       <div class="section-header">
+
         <div>
+
           <h2>Worker Directory</h2>
-          <p>Registered workers and field staff.</p>
+
+          <p>
+            Registered workers and field staff.
+          </p>
+
         </div>
 
+
         <div class="toolbar">
+
           <input
             type="search"
             id="workerSearch"
             placeholder="Search worker..."
           >
 
+
           <select id="workerTypeFilter">
-            <option value="all">All Types</option>
-            <option value="Mistri">Mistri</option>
-            <option value="Helper">Helper</option>
-            <option value="Technician">Technician</option>
-            <option value="Other">Other</option>
+
+            <option value="all">
+              All Types
+            </option>
+
+            <option value="Mistri">
+              Mistri
+            </option>
+
+            <option value="Helper">
+              Helper
+            </option>
+
+            <option value="Technician">
+              Technician
+            </option>
+
+            <option value="Other">
+              Other
+            </option>
+
           </select>
+
         </div>
+
       </div>
 
+
       <div class="table-wrapper">
+
         <table>
+
           <thead>
+
             <tr>
+
               <th>Worker ID</th>
               <th>Worker</th>
               <th>Type</th>
@@ -114,41 +212,80 @@
               <th>Project</th>
               <th>Status</th>
               <th>Action</th>
+
             </tr>
+
           </thead>
 
+
           <tbody id="workerTableBody"></tbody>
+
         </table>
+
       </div>
 
     </section>
 
-    <!-- Attendance -->
-    <section class="tab-content" id="attendance">
+
+    <!-- =====================================================
+         ATTENDANCE
+    ====================================================== -->
+
+    <section
+      class="tab-content"
+      id="attendance"
+    >
 
       <div class="section-header">
+
         <div>
+
           <h2>Daily Attendance</h2>
-          <p>Record worker attendance by date and project.</p>
+
+          <p>
+            Record worker attendance by date and project.
+          </p>
+
         </div>
+
 
         <div class="attendance-controls">
-          <input type="date" id="attendanceDate">
+
+          <input
+            type="date"
+            id="attendanceDate"
+          >
+
 
           <select id="attendanceProject">
-            <option value="all">All Projects</option>
+
+            <option value="all">
+              All Projects
+            </option>
+
           </select>
 
-          <button class="secondary-btn" id="saveAttendance">
+
+          <button
+            class="secondary-btn"
+            id="saveAttendance"
+          >
             Save Attendance
           </button>
+
         </div>
+
       </div>
 
+
       <div class="attendance-table-wrapper">
+
         <table>
+
           <thead>
+
             <tr>
+
               <th>Worker</th>
               <th>Type</th>
               <th>Project</th>
@@ -156,51 +293,242 @@
               <th>Absent</th>
               <th>Leave</th>
               <th>Late</th>
+
             </tr>
+
           </thead>
 
-          <tbody id="attendanceTableBody"></tbody>
+
+          <tbody
+            id="attendanceTableBody"
+          ></tbody>
+
         </table>
+
       </div>
 
     </section>
 
-    <!-- Salary -->
-    <section class="tab-content" id="salary">
+
+    <!-- =====================================================
+         PROJECT INTEGRATION
+    ====================================================== -->
+
+    <section
+      class="tab-content"
+      id="project-integration"
+    >
 
       <div class="section-header">
+
         <div>
-          <h2>Salary & Payment</h2>
-          <p>Worker salary and payment history.</p>
+
+          <h2>
+            Worker → Project Integration
+          </h2>
+
+          <p>
+            View worker assignments and project labour costs.
+          </p>
+
         </div>
 
-        <button class="secondary-btn" id="openPaymentModal">
-          + Record Payment
-        </button>
+
+        <div class="attendance-controls">
+
+          <select
+            id="integrationProject"
+          >
+
+            <option value="all">
+              All Projects
+            </option>
+
+          </select>
+
+
+          <button
+            class="secondary-btn"
+            id="refreshProjectIntegration"
+          >
+            Refresh
+          </button>
+
+        </div>
+
       </div>
 
-      <div class="salary-summary">
-        <div>
-          <span>Total Salary</span>
-          <strong id="totalSalary">৳0</strong>
+
+      <!-- Integration Summary -->
+
+      <div class="integration-summary">
+
+        <div class="integration-card">
+
+          <span>
+            Assigned Workers
+          </span>
+
+          <strong
+            id="assignedWorkerCount"
+          >
+            0
+          </strong>
+
         </div>
 
-        <div>
-          <span>Paid</span>
-          <strong id="totalPaid">৳0</strong>
+
+        <div class="integration-card">
+
+          <span>
+            Project Labour Paid
+          </span>
+
+          <strong
+            id="projectLabourPaid"
+          >
+            ৳0
+          </strong>
+
         </div>
 
-        <div>
-          <span>Due</span>
-          <strong id="totalDue">৳0</strong>
+
+        <div class="integration-card">
+
+          <span>
+            Active Workers
+          </span>
+
+          <strong
+            id="projectActiveWorkers"
+          >
+            0
+          </strong>
+
         </div>
+
       </div>
+
+
+      <!-- Integration Table -->
 
       <div class="table-wrapper">
 
         <table>
+
           <thead>
+
             <tr>
+
+              <th>Worker ID</th>
+              <th>Worker</th>
+              <th>Type</th>
+              <th>Project</th>
+              <th>Daily Salary</th>
+              <th>Paid</th>
+              <th>Status</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody
+            id="projectWorkerTableBody"
+          ></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SALARY & PAYMENT
+    ====================================================== -->
+
+    <section
+      class="tab-content"
+      id="salary"
+    >
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>
+            Salary & Payment
+          </h2>
+
+          <p>
+            Worker salary and payment history.
+          </p>
+
+        </div>
+
+
+        <button
+          class="secondary-btn"
+          id="openPaymentModal"
+        >
+          + Record Payment
+        </button>
+
+      </div>
+
+
+      <div class="salary-summary">
+
+        <div>
+
+          <span>
+            Total Salary
+          </span>
+
+          <strong id="totalSalary">
+            ৳0
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Paid
+          </span>
+
+          <strong id="totalPaid">
+            ৳0
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Due
+          </span>
+
+          <strong id="totalDue">
+            ৳0
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
               <th>Worker</th>
               <th>Project</th>
               <th>Salary</th>
@@ -208,10 +536,16 @@
               <th>Due</th>
               <th>Last Payment</th>
               <th>Status</th>
+
             </tr>
+
           </thead>
 
-          <tbody id="salaryTableBody"></tbody>
+
+          <tbody
+            id="salaryTableBody"
+          ></tbody>
+
         </table>
 
       </div>
@@ -220,148 +554,345 @@
 
   </div>
 
-  <!-- Worker Modal -->
-  <div class="modal-overlay" id="workerModal">
+
+  <!-- =====================================================
+       WORKER MODAL
+  ====================================================== -->
+
+  <div
+    class="modal-overlay"
+    id="workerModal"
+  >
 
     <div class="modal">
 
       <div class="modal-header">
+
         <div>
-          <span class="eyebrow">WORKER REGISTRATION</span>
-          <h2>Add Worker</h2>
+
+          <span class="eyebrow">
+            WORKER REGISTRATION
+          </span>
+
+          <h2>
+            Add Worker
+          </h2>
+
         </div>
 
-        <button class="close-btn" data-close="workerModal">
+
+        <button
+          class="close-btn"
+          data-close="workerModal"
+        >
           ×
         </button>
+
       </div>
+
 
       <form id="workerForm">
 
         <div class="form-grid">
 
           <div class="form-group">
-            <label>Worker Name *</label>
-            <input type="text" id="workerName" required>
+
+            <label>
+              Worker Name *
+            </label>
+
+            <input
+              type="text"
+              id="workerName"
+              required
+            >
+
           </div>
 
+
           <div class="form-group">
-            <label>Worker Type *</label>
-            <select id="workerType" required>
-              <option value="">Select Type</option>
-              <option value="Mistri">Mistri</option>
-              <option value="Helper">Helper</option>
-              <option value="Technician">Technician</option>
-              <option value="Other">Other</option>
+
+            <label>
+              Worker Type *
+            </label>
+
+            <select
+              id="workerType"
+              required
+            >
+
+              <option value="">
+                Select Type
+              </option>
+
+              <option value="Mistri">
+                Mistri
+              </option>
+
+              <option value="Helper">
+                Helper
+              </option>
+
+              <option value="Technician">
+                Technician
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
             </select>
+
           </div>
 
-          <div class="form-group">
-            <label>Mobile Number</label>
-            <input type="tel" id="workerMobile">
-          </div>
 
           <div class="form-group">
-            <label>Daily Salary</label>
-            <input type="number" id="workerSalary" min="0">
+
+            <label>
+              Mobile Number
+            </label>
+
+            <input
+              type="tel"
+              id="workerMobile"
+            >
+
           </div>
 
+
           <div class="form-group">
-            <label>Project</label>
-            <select id="workerProject">
-              <option value="Unassigned">Unassigned</option>
-              <option value="Project A">Project A</option>
-              <option value="Project B">Project B</option>
-              <option value="Project C">Project C</option>
+
+            <label>
+              Daily Salary
+            </label>
+
+            <input
+              type="number"
+              id="workerSalary"
+              min="0"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Project
+            </label>
+
+            <select
+              id="workerProject"
+            >
+
+              <option value="Unassigned">
+                Unassigned
+              </option>
+
             </select>
+
           </div>
 
+
           <div class="form-group">
-            <label>Status</label>
-            <select id="workerStatus">
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
+
+            <label>
+              Status
+            </label>
+
+            <select
+              id="workerStatus"
+            >
+
+              <option value="Active">
+                Active
+              </option>
+
+              <option value="Inactive">
+                Inactive
+              </option>
+
             </select>
+
           </div>
+
 
           <div class="form-group full">
-            <label>Address</label>
-            <textarea id="workerAddress" rows="3"></textarea>
+
+            <label>
+              Address
+            </label>
+
+            <textarea
+              id="workerAddress"
+              rows="3"
+            ></textarea>
+
           </div>
 
         </div>
 
+
         <div class="modal-actions">
-          <button type="button" class="secondary-btn" data-close="workerModal">
+
+          <button
+            type="button"
+            class="secondary-btn"
+            data-close="workerModal"
+          >
             Cancel
           </button>
 
-          <button type="submit" class="primary-btn">
+
+          <button
+            type="submit"
+            class="primary-btn"
+          >
             Save Worker
           </button>
+
         </div>
 
       </form>
 
     </div>
+
   </div>
 
-  <!-- Payment Modal -->
-  <div class="modal-overlay" id="paymentModal">
+
+  <!-- =====================================================
+       PAYMENT MODAL
+  ====================================================== -->
+
+  <div
+    class="modal-overlay"
+    id="paymentModal"
+  >
 
     <div class="modal small-modal">
 
       <div class="modal-header">
+
         <div>
-          <span class="eyebrow">PAYMENT</span>
-          <h2>Record Worker Payment</h2>
+
+          <span class="eyebrow">
+            PAYMENT
+          </span>
+
+          <h2>
+            Record Worker Payment
+          </h2>
+
         </div>
 
-        <button class="close-btn" data-close="paymentModal">
+
+        <button
+          class="close-btn"
+          data-close="paymentModal"
+        >
           ×
         </button>
+
       </div>
+
 
       <form id="paymentForm">
 
         <div class="form-group">
-          <label>Worker *</label>
-          <select id="paymentWorker" required></select>
+
+          <label>
+            Worker *
+          </label>
+
+          <select
+            id="paymentWorker"
+            required
+          ></select>
+
         </div>
 
-        <div class="form-group">
-          <label>Payment Amount *</label>
-          <input type="number" id="paymentAmount" min="1" required>
-        </div>
 
         <div class="form-group">
-          <label>Payment Date *</label>
-          <input type="date" id="paymentDate" required>
+
+          <label>
+            Payment Amount *
+          </label>
+
+          <input
+            type="number"
+            id="paymentAmount"
+            min="1"
+            required
+          >
+
         </div>
 
+
         <div class="form-group">
-          <label>Reference</label>
-          <input type="text" id="paymentReference">
+
+          <label>
+            Payment Date *
+          </label>
+
+          <input
+            type="date"
+            id="paymentDate"
+            required
+          >
+
         </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Reference
+          </label>
+
+          <input
+            type="text"
+            id="paymentReference"
+          >
+
+        </div>
+
 
         <div class="modal-actions">
-          <button type="button" class="secondary-btn" data-close="paymentModal">
+
+          <button
+            type="button"
+            class="secondary-btn"
+            data-close="paymentModal"
+          >
             Cancel
           </button>
 
-          <button type="submit" class="primary-btn">
+
+          <button
+            type="submit"
+            class="primary-btn"
+          >
             Save Payment
           </button>
+
         </div>
 
       </form>
 
     </div>
+
   </div>
 
-  <div class="toast" id="toast"></div>
 
-  <script src="worker.js"></script>
+  <!-- TOAST -->
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <script src="js/worker.js"></script>
 
 </body>
 </html>
