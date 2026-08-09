@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LUMINEX | Student Profile</title>
+
+  <link rel="stylesheet" href="css/student-profile.css">
+</head>
+
+<body>
+
+  <div class="page-shell">
+
+    <header class="topbar">
+
+      <div>
+        <div class="brand">LUMINEX</div>
+        <div class="sub-brand">Technical Training Centre</div>
+      </div>
+
+      <a href="student-registration.html" class="back-btn">
+        ← Student Registration
+      </a>
+
+    </header>
+
+
+    <section class="page-header">
+
+      <div>
+        <span class="eyebrow">TRAINING CENTRE</span>
+        <h1>Student Profile</h1>
+        <p>View and manage complete student information.</p>
+      </div>
+
+      <div class="search-box">
+
+        <input
+          type="text"
+          id="studentSearch"
+          placeholder="Search Student ID / Name / Mobile"
+        >
+
+        <button id="searchBtn">
+          Search
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <div id="profileEmpty" class="empty-profile">
+
+      <div class="empty-icon">👨‍🎓</div>
+
+      <h2>Select a Student</h2>
+
+      <p>
+        Search using Student ID, name or mobile number
+        to view the complete profile.
+      </p>
+
+    </div>
+
+
+    <main id="profileContainer" class="profile-container hidden">
+
+      <!-- PROFILE HEADER -->
+
+      <section class="profile-hero">
+
+        <div class="avatar" id="studentAvatar">
+          S
+        </div>
+
+        <div class="profile-main">
+
+          <span class="profile-label">
+            STUDENT PROFILE
+          </span>
+
+          <h2 id="profileName">
+            Student Name
+          </h2>
+
+          <div class="profile-meta">
+
+            <span>
+              ID:
+              <strong id="profileId">LUM-ST-00001</strong>
+            </span>
+
+            <span>
+              Course:
+              <strong id="profileCourse">-</strong>
+            </span>
+
+            <span>
+              Batch:
+              <strong id="profileBatch">-</strong>
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="profile-status">
+
+          <span>Status</span>
+
+          <strong id="profileStatus">
+            Active
+          </strong>
+
+        </div>
+
+      </section>
+
+
+      <!-- SUMMARY -->
+
+      <section class="summary-grid">
+
+        <div class="summary-card">
+
+          <span>Course</span>
+
+          <strong id="summaryCourse">
+            -
+          </strong>
+
+        </div>
+
+        <div class="summary-card">
+
+          <span>Batch</span>
+
+          <strong id="summaryBatch">
+            -
+          </strong>
+
+        </div>
+
+        <div class="summary-card">
+
+          <span>Admission Date</span>
+
+          <strong id="summaryAdmission">
+            -
+          </strong>
+
+        </div>
+
+        <div class="summary-card">
+
+          <span>Training Status</span>
+
+          <strong id="summaryStatus">
+            -
+          </strong>
+
+        </div>
+
+      </section>
+
+
+      <!-- PERSONAL INFORMATION -->
+
+      <section class="content-card">
+
+        <div class="section-header">
+
+          <div>
+            <span class="section-number">01</span>
+
+            <div>
+              <h3>Personal Information</h3>
+              <p>Student's basic personal information.</p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="info-grid">
+
+          <div class="info-item">
+            <span>Student Name</span>
+            <strong id="infoName">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Father's Name</span>
+            <strong id="infoFather">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Mother's Name</span>
+            <strong id="infoMother">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Mobile</span>
+            <strong id="infoMobile">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Alternative Mobile</span>
+            <strong id="infoAlternative">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Email</span>
+            <strong id="infoEmail">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Date of Birth</span>
+            <strong id="infoDob">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Gender</span>
+            <strong id="infoGender">-</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ADDRESS -->
+
+      <section class="content-card">
+
+        <div class="section-header">
+
+          <div>
+            <span class="section-number">02</span>
+
+            <div>
+              <h3>Address Information</h3>
+              <p>Student location information.</p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="info-grid">
+
+          <div class="info-item">
+            <span>Division</span>
+            <strong id="infoDivision">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>District</span>
+            <strong id="infoDistrict">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Area</span>
+            <strong id="infoArea">-</strong>
+          </div>
+
+          <div class="info-item full">
+            <span>Full Address</span>
+            <strong id="infoAddress">-</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TRAINING -->
+
+      <section class="content-card">
+
+        <div class="section-header">
+
+          <div>
+            <span class="section-number">03</span>
+
+            <div>
+              <h3>Training Information</h3>
+              <p>Course enrollment and training details.</p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="info-grid">
+
+          <div class="info-item">
+            <span>Course</span>
+            <strong id="infoCourse">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Batch</span>
+            <strong id="infoBatch">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Admission Date</span>
+            <strong id="infoAdmission">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Educational Qualification</span>
+            <strong id="infoEducation">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Previous Experience</span>
+            <strong id="infoExperience">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Training Status</span>
+            <strong id="infoTrainingStatus">-</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- EMERGENCY -->
+
+      <section class="content-card">
+
+        <div class="section-header">
+
+          <div>
+            <span class="section-number">04</span>
+
+            <div>
+              <h3>Emergency Contact</h3>
+              <p>Emergency contact information.</p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="info-grid">
+
+          <div class="info-item">
+            <span>Contact Name</span>
+            <strong id="infoEmergencyName">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Relationship</span>
+            <strong id="infoEmergencyRelation">-</strong>
+          </div>
+
+          <div class="info-item">
+            <span>Contact Mobile</span>
+            <strong id="infoEmergencyMobile">-</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TRAINING PROGRESS -->
+
+      <section class="content-card">
+
+        <div class="section-header">
+
+          <div>
+            <span class="section-number">05</span>
+
+            <div>
+              <h3>Training Progress</h3>
+              <p>Reserved structure for future training modules.</p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="progress-grid">
+
+          <div class="progress-card">
+
+            <div class="progress-icon">📅</div>
+
+            <div>
+              <span>Attendance</span>
+              <strong id="attendanceStatus">
+                Not Available
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="progress-card">
+
+            <div class="progress-icon">📝</div>
+
+            <div>
+              <span>Assessment</span>
+              <strong id="assessmentStatus">
+                Not Available
+              </strong>
+            </div>
+
+          </div>
+
+
+          <div class="progress-card">
+
+            <div class="progress-icon">🎓</div>
+
+            <div>
+              <span>Certificate</span>
+              <strong id="certificateStatus">
+                Not Available
+              </strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- NOTES -->
+
+      <section class="content-card">
+
+        <div class="section-header">
+
+          <div>
+            <span class="section-number">06</span>
+
+            <div>
+              <h3>Additional Information</h3>
+              <p>Notes stored with the student record.</p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="notes-box" id="infoNotes">
+          No additional notes.
+        </div>
+
+      </section>
+
+
+      <div class="profile-footer">
+
+        <button
+          type="button"
+          class="secondary-btn"
+          id="clearProfileBtn"
+        >
+          Clear Profile
+        </button>
+
+        <button
+          type="button"
+          class="primary-btn"
+          id="printProfileBtn"
+        >
+          Print Profile
+        </button>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <div id="toast" class="toast"></div>
+
+
+  <script src="js/student-profile.js"></script>
+
+</body>
+</html>
