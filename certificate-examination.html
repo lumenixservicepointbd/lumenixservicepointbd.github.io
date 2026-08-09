@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LUMENIX - Certificate & Examination</title>
+
+  <link rel="stylesheet" href="css/certificate-examination.css">
+</head>
+
+<body>
+
+  <main class="ce-page">
+
+    <!-- HEADER -->
+    <header class="ce-header">
+
+      <div>
+        <span class="eyebrow">LUMENIX TRAINING SYSTEM</span>
+
+        <h1>Certificate & Examination</h1>
+
+        <p>
+          Manage examinations, results, certificates
+          and student certification records.
+        </p>
+      </div>
+
+      <div class="header-actions">
+
+        <button
+          class="btn btn-primary"
+          id="addExamBtn"
+        >
+          + New Examination
+        </button>
+
+        <button
+          class="btn btn-secondary"
+          id="issueCertificateBtn"
+        >
+          + Issue Certificate
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- SUMMARY -->
+    <section class="summary-grid">
+
+      <div class="summary-card">
+        <div class="summary-icon blue">📝</div>
+
+        <div>
+          <span>Total Exams</span>
+          <strong id="totalExams">0</strong>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="summary-icon green">✓</div>
+
+        <div>
+          <span>Passed</span>
+          <strong id="totalPassed">0</strong>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="summary-icon orange">🎓</div>
+
+        <div>
+          <span>Certificates</span>
+          <strong id="totalCertificates">0</strong>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="summary-icon purple">👨‍🎓</div>
+
+        <div>
+          <span>Students</span>
+          <strong id="totalStudents">0</strong>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- TABS -->
+    <nav class="module-tabs">
+
+      <button
+        class="tab-btn active"
+        data-tab="examinations"
+      >
+        Examinations
+      </button>
+
+
+      <button
+        class="tab-btn"
+        data-tab="results"
+      >
+        Results
+      </button>
+
+
+      <button
+        class="tab-btn"
+        data-tab="certificates"
+      >
+        Certificates
+      </button>
+
+
+      <button
+        class="tab-btn"
+        data-tab="verification"
+      >
+        Verification
+      </button>
+
+    </nav>
+
+
+    <!-- =====================================================
+         EXAMINATIONS
+    ====================================================== -->
+
+    <section
+      class="tab-content active"
+      id="examinations"
+    >
+
+      <div class="section-header">
+
+        <div>
+          <h2>Examination Management</h2>
+
+          <p>
+            Create and manage training examinations.
+          </p>
+        </div>
+
+
+        <div class="filters">
+
+          <input
+            type="search"
+            id="examSearch"
+            placeholder="Search examination..."
+          >
+
+          <select id="examStatusFilter">
+
+            <option value="all">
+              All Status
+            </option>
+
+            <option value="Scheduled">
+              Scheduled
+            </option>
+
+            <option value="Completed">
+              Completed
+            </option>
+
+            <option value="Cancelled">
+              Cancelled
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="table-card">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Exam ID</th>
+              <th>Exam</th>
+              <th>Course</th>
+              <th>Date</th>
+              <th>Total Marks</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="examTableBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RESULTS
+    ====================================================== -->
+
+    <section
+      class="tab-content"
+      id="results"
+    >
+
+      <div class="section-header">
+
+        <div>
+          <h2>Examination Results</h2>
+
+          <p>
+            Record and manage student examination results.
+          </p>
+        </div>
+
+
+        <div class="filters">
+
+          <input
+            type="search"
+            id="resultSearch"
+            placeholder="Search student..."
+          >
+
+          <select id="resultFilter">
+
+            <option value="all">
+              All Results
+            </option>
+
+            <option value="Passed">
+              Passed
+            </option>
+
+            <option value="Failed">
+              Failed
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="table-card">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Result ID</th>
+              <th>Student</th>
+              <th>Course</th>
+              <th>Exam</th>
+              <th>Marks</th>
+              <th>Grade</th>
+              <th>Result</th>
+              <th>Action</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="resultTableBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CERTIFICATES
+    ====================================================== -->
+
+    <section
+      class="tab-content"
+      id="certificates"
+    >
+
+      <div class="section-header">
+
+        <div>
+          <h2>Certificate Management</h2>
+
+          <p>
+            Issue, manage and track student certificates.
+          </p>
+        </div>
+
+
+        <div class="filters">
+
+          <input
+            type="search"
+            id="certificateSearch"
+            placeholder="Search certificate..."
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="table-card">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Certificate No.</th>
+              <th>Student</th>
+              <th>Course</th>
+              <th>Issue Date</th>
+              <th>Result</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="certificateTableBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         VERIFICATION
+    ====================================================== -->
+
+    <section
+      class="tab-content"
+      id="verification"
+    >
+
+      <div class="verification-box">
+
+        <div class="verification-icon">
+          ✓
+        </div>
+
+        <h2>Certificate Verification</h2>
+
+        <p>
+          Enter a certificate number to verify
+          its authenticity.
+        </p>
+
+
+        <div class="verification-form">
+
+          <input
+            type="text"
+            id="verificationNumber"
+            placeholder="Enter certificate number"
+          >
+
+          <button
+            class="btn btn-primary"
+            id="verifyCertificateBtn"
+          >
+            Verify
+          </button>
+
+        </div>
+
+
+        <div
+          class="verification-result"
+          id="verificationResult"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- =====================================================
+       EXAM MODAL
+  ====================================================== -->
+
+  <div
+    class="modal-overlay"
+    id="examModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="eyebrow">
+            EXAMINATION
+          </span>
+
+          <h2>New Examination</h2>
+        </div>
+
+        <button
+          class="close-btn"
+          data-close="examModal"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="examForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label>
+              Examination Name *
+            </label>
+
+            <input
+              type="text"
+              id="examName"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Course *
+            </label>
+
+            <input
+              type="text"
+              id="examCourse"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Examination Date *
+            </label>
+
+            <input
+              type="date"
+              id="examDate"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Total Marks *
+            </label>
+
+            <input
+              type="number"
+              id="examTotalMarks"
+              min="1"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Pass Marks *
+            </label>
+
+            <input
+              type="number"
+              id="examPassMarks"
+              min="1"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Status
+            </label>
+
+            <select id="examStatus">
+
+              <option value="Scheduled">
+                Scheduled
+              </option>
+
+              <option value="Completed">
+                Completed
+              </option>
+
+              <option value="Cancelled">
+                Cancelled
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-close="examModal"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save Examination
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       RESULT MODAL
+  ====================================================== -->
+
+  <div
+    class="modal-overlay"
+    id="resultModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="eyebrow">
+            EXAM RESULT
+          </span>
+
+          <h2>Add Result</h2>
+        </div>
+
+        <button
+          class="close-btn"
+          data-close="resultModal"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="resultForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label>
+              Student Name *
+            </label>
+
+            <input
+              type="text"
+              id="resultStudent"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Student ID
+            </label>
+
+            <input
+              type="text"
+              id="resultStudentId"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Course *
+            </label>
+
+            <input
+              type="text"
+              id="resultCourse"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Examination *
+            </label>
+
+            <input
+              type="text"
+              id="resultExam"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Obtained Marks *
+            </label>
+
+            <input
+              type="number"
+              id="resultMarks"
+              min="0"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Total Marks *
+            </label>
+
+            <input
+              type="number"
+              id="resultTotalMarks"
+              min="1"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="result-preview">
+
+          <span>Calculated Result</span>
+
+          <strong id="resultPreview">
+            —
+          </strong>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-close="resultModal"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save Result
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CERTIFICATE MODAL
+  ====================================================== -->
+
+  <div
+    class="modal-overlay"
+    id="certificateModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="eyebrow">
+            CERTIFICATE
+          </span>
+
+          <h2>Issue Certificate</h2>
+        </div>
+
+        <button
+          class="close-btn"
+          data-close="certificateModal"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="certificateForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label>
+              Student Name *
+            </label>
+
+            <input
+              type="text"
+              id="certificateStudent"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Student ID
+            </label>
+
+            <input
+              type="text"
+              id="certificateStudentId"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Course *
+            </label>
+
+            <input
+              type="text"
+              id="certificateCourse"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Result
+            </label>
+
+            <select id="certificateResult">
+
+              <option value="Passed">
+                Passed
+              </option>
+
+              <option value="Distinction">
+                Distinction
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Issue Date *
+            </label>
+
+            <input
+              type="date"
+              id="certificateIssueDate"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Status
+            </label>
+
+            <select id="certificateStatus">
+
+              <option value="Valid">
+                Valid
+              </option>
+
+              <option value="Revoked">
+                Revoked
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-close="certificateModal"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Issue Certificate
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <script src="js/certificate-examination.js"></script>
+
+</body>
+</html>
