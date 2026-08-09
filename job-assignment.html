@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMENIX Job Assignment</title>
+  <link rel="stylesheet" href="job-assignment.css">
+</head>
+
+<body>
+
+<main class="assignment-page">
+
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">LUMENIX V5.1</span>
+      <h1>Job Assignment</h1>
+      <p>Match service requests with technicians by area, skill and availability.</p>
+    </div>
+
+    <button class="primary-btn" id="refreshBtn">
+      ↻ Refresh
+    </button>
+  </header>
+
+
+  <!-- SUMMARY -->
+
+  <section class="summary-grid">
+
+    <div class="summary-card blue">
+      <span>Pending Requests</span>
+      <strong id="pendingCount">0</strong>
+      <small>Waiting for assignment</small>
+    </div>
+
+    <div class="summary-card green">
+      <span>Assigned</span>
+      <strong id="assignedCount">0</strong>
+      <small>Technicians assigned</small>
+    </div>
+
+    <div class="summary-card orange">
+      <span>In Progress</span>
+      <strong id="progressCount">0</strong>
+      <small>Active jobs</small>
+    </div>
+
+    <div class="summary-card purple">
+      <span>Completed</span>
+      <strong id="completedCount">0</strong>
+      <small>Finished jobs</small>
+    </div>
+
+  </section>
+
+
+  <!-- REQUESTS -->
+
+  <section class="content-card">
+
+    <div class="section-header">
+
+      <div>
+        <h2>Service Requests</h2>
+        <p>Select a request to find matching technicians.</p>
+      </div>
+
+      <div class="filters">
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search booking, customer or area..."
+        >
+
+        <select id="statusFilter">
+          <option value="all">All Status</option>
+          <option value="Pending">Pending</option>
+          <option value="Assigned">Assigned</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Customer</th>
+            <th>Service</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Technician</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody id="requestTableBody"></tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+
+  <!-- ASSIGNMENT MODAL -->
+
+  <div class="modal-overlay" id="assignmentModal">
+
+    <div class="modal large-modal">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="eyebrow">TECHNICIAN MATCHING</span>
+          <h2 id="assignmentTitle">Assign Technician</h2>
+        </div>
+
+        <button class="close-btn" data-close="assignmentModal">
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="request-summary" id="requestSummary"></div>
+
+
+      <div class="matching-header">
+
+        <div>
+          <h3>Recommended Technicians</h3>
+          <p>
+            Matching priority:
+            <strong>Area → Skill → Availability</strong>
+          </p>
+        </div>
+
+        <span class="match-count" id="matchCount">
+          0 matches
+        </span>
+
+      </div>
+
+
+      <div id="technicianMatches" class="technician-matches"></div>
+
+
+      <div class="modal-actions">
+
+        <button
+          class="secondary-btn"
+          data-close="assignmentModal">
+          Cancel
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- JOB DETAIL MODAL -->
+
+  <div class="modal-overlay" id="jobModal">
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="eyebrow">JOB DETAILS</span>
+          <h2 id="jobTitle">Service Job</h2>
+        </div>
+
+        <button class="close-btn" data-close="jobModal">
+          ×
+        </button>
+
+      </div>
+
+      <div class="job-detail" id="jobDetail"></div>
+
+    </div>
+
+  </div>
+
+
+  <div class="toast" id="toast"></div>
+
+  <script src="job-assignment.js"></script>
+
+</main>
+
+</body>
+</html>
