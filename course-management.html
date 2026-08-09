@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LUMINEX | Course Management</title>
+
+  <link rel="stylesheet" href="css/course-management.css">
+</head>
+
+<body>
+
+  <div class="page-shell">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+      <div class="brand-area">
+        <div class="brand">LUMINEX</div>
+        <div class="sub-brand">Technical Training Centre</div>
+      </div>
+
+      <a href="student-profile.html" class="back-btn">
+        ← Student Profile
+      </a>
+
+    </header>
+
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+
+      <div>
+        <span class="eyebrow">TRAINING CENTRE</span>
+
+        <h1>Course Management</h1>
+
+        <p>
+          Create, manage and maintain training courses.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="primary-btn"
+        id="addCourseBtn"
+      >
+        + Add New Course
+      </button>
+
+    </section>
+
+
+    <!-- SUMMARY -->
+    <section class="summary-grid">
+
+      <div class="summary-card">
+        <div class="summary-icon blue">📚</div>
+
+        <div>
+          <span>Total Courses</span>
+          <strong id="totalCourses">0</strong>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="summary-icon green">✓</div>
+
+        <div>
+          <span>Active Courses</span>
+          <strong id="activeCourses">0</strong>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="summary-icon orange">⏸</div>
+
+        <div>
+          <span>Inactive Courses</span>
+          <strong id="inactiveCourses">0</strong>
+        </div>
+      </div>
+
+
+      <div class="summary-card">
+        <div class="summary-icon purple">🎓</div>
+
+        <div>
+          <span>Categories</span>
+          <strong id="totalCategories">0</strong>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- FILTER BAR -->
+    <section class="filter-card">
+
+      <div class="search-field">
+
+        <label for="courseSearch">
+          Search Course
+        </label>
+
+        <input
+          type="text"
+          id="courseSearch"
+          placeholder="Search by Course ID, name or category..."
+        >
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label for="categoryFilter">
+          Category
+        </label>
+
+        <select id="categoryFilter">
+
+          <option value="">All Categories</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label for="statusFilter">
+          Status
+        </label>
+
+        <select id="statusFilter">
+
+          <option value="">All Status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+
+        </select>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="reset-btn"
+        id="resetFilterBtn"
+      >
+        Reset
+      </button>
+
+    </section>
+
+
+    <!-- COURSE TABLE -->
+    <section class="table-card">
+
+      <div class="table-header">
+
+        <div>
+          <h2>Course List</h2>
+
+          <p>
+            Manage all Training Centre courses from here.
+          </p>
+        </div>
+
+        <span
+          class="record-count"
+          id="recordCount"
+        >
+          0 Courses
+        </span>
+
+      </div>
+
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Course ID</th>
+
+              <th>Course Name</th>
+
+              <th>Category</th>
+
+              <th>Duration</th>
+
+              <th>Fee</th>
+
+              <th>Status</th>
+
+              <th>Created</th>
+
+              <th>Action</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="courseTableBody">
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <div
+        id="emptyState"
+        class="empty-state hidden"
+      >
+
+        <div class="empty-icon">📚</div>
+
+        <h3>No Courses Found</h3>
+
+        <p>
+          Add your first training course to get started.
+        </p>
+
+        <button
+          type="button"
+          class="primary-btn"
+          id="emptyAddBtn"
+        >
+          + Add Course
+        </button>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- COURSE MODAL -->
+
+  <div
+    class="modal-overlay hidden"
+    id="courseModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <div>
+
+          <span class="eyebrow">
+            COURSE MASTER
+          </span>
+
+          <h2 id="modalTitle">
+            Add New Course
+          </h2>
+
+        </div>
+
+        <button
+          type="button"
+          class="close-btn"
+          id="closeModalBtn"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="courseForm">
+
+        <input
+          type="hidden"
+          id="courseEditId"
+        >
+
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label for="courseName">
+              Course Name
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              id="courseName"
+              required
+              placeholder="Enter course name"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="courseCategory">
+              Category
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              id="courseCategory"
+              required
+              placeholder="Example: Electrical"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="courseDuration">
+              Duration
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              id="courseDuration"
+              required
+              placeholder="Example: 3 Months"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="courseFee">
+              Course Fee
+              <span>*</span>
+            </label>
+
+            <input
+              type="number"
+              id="courseFee"
+              min="0"
+              step="0.01"
+              required
+              placeholder="Enter course fee"
+            >
+
+          </div>
+
+
+          <div class="form-group full">
+
+            <label for="courseDescription">
+              Course Description
+            </label>
+
+            <textarea
+              id="courseDescription"
+              rows="4"
+              placeholder="Write course description..."
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="courseStatus">
+              Status
+            </label>
+
+            <select id="courseStatus">
+
+              <option value="Active">
+                Active
+              </option>
+
+              <option value="Inactive">
+                Inactive
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+          <button
+            type="button"
+            class="secondary-btn"
+            id="cancelBtn"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="primary-btn"
+          >
+            Save Course
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+
+  <div
+    id="toast"
+    class="toast"
+  ></div>
+
+
+  <script src="js/course-management.js"></script>
+
+</body>
+</html>
