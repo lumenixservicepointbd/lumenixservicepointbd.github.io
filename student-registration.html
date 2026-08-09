@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Luminex Technical Training Centre | Student Registration</title>
+
+  <link rel="stylesheet" href="css/student-registration.css">
+</head>
+
+<body>
+
+  <div class="page-shell">
+
+    <!-- Header -->
+    <header class="topbar">
+      <div>
+        <div class="brand">LUMINEX</div>
+        <div class="sub-brand">Technical Training Centre</div>
+      </div>
+
+      <div class="header-actions">
+        <a href="dashboard.html" class="back-btn">← Dashboard</a>
+      </div>
+    </header>
+
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div>
+        <span class="eyebrow">TRAINING CENTRE</span>
+        <h1>Student Registration</h1>
+        <p>Create and manage technical training student profiles.</p>
+      </div>
+
+      <div class="student-id-box">
+        <span>Next Student ID</span>
+        <strong id="nextStudentId">LUM-ST-00001</strong>
+      </div>
+    </section>
+
+
+    <!-- Statistics -->
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon blue">👨‍🎓</div>
+        <div>
+          <span>Total Students</span>
+          <strong id="totalStudents">0</strong>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon green">✓</div>
+        <div>
+          <span>Active Students</span>
+          <strong id="activeStudents">0</strong>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon orange">⏳</div>
+        <div>
+          <span>Pending</span>
+          <strong id="pendingStudents">0</strong>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon purple">🎓</div>
+        <div>
+          <span>Graduated</span>
+          <strong id="graduatedStudents">0</strong>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- Registration Form -->
+    <section class="content-card">
+
+      <div class="card-title">
+        <div>
+          <h2>Register New Student</h2>
+          <p>Enter the student's basic and training information.</p>
+        </div>
+      </div>
+
+
+      <form id="studentForm">
+
+        <!-- Personal Information -->
+        <div class="section-title">
+          <span>01</span>
+          <div>
+            <h3>Personal Information</h3>
+            <p>Student identity and contact information</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="studentName">Student Name *</label>
+            <input
+              type="text"
+              id="studentName"
+              name="studentName"
+              placeholder="Enter full name"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="fatherName">Father's Name</label>
+            <input
+              type="text"
+              id="fatherName"
+              name="fatherName"
+              placeholder="Enter father's name"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="motherName">Mother's Name</label>
+            <input
+              type="text"
+              id="motherName"
+              name="motherName"
+              placeholder="Enter mother's name"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="mobile">Mobile Number *</label>
+            <input
+              type="tel"
+              id="mobile"
+              name="mobile"
+              placeholder="01XXXXXXXXX"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="alternativeMobile">Alternative Mobile</label>
+            <input
+              type="tel"
+              id="alternativeMobile"
+              name="alternativeMobile"
+              placeholder="01XXXXXXXXX"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="student@example.com"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input
+              type="date"
+              id="dateOfBirth"
+              name="dateOfBirth"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+        </div>
+
+
+        <!-- Address -->
+        <div class="section-title">
+          <span>02</span>
+          <div>
+            <h3>Address Information</h3>
+            <p>Student location and working area</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="division">Division</label>
+            <select id="division" name="division">
+              <option value="">Select Division</option>
+              <option>Dhaka</option>
+              <option>Chattogram</option>
+              <option>Rajshahi</option>
+              <option>Khulna</option>
+              <option>Barishal</option>
+              <option>Sylhet</option>
+              <option>Rangpur</option>
+              <option>Mymensingh</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="district">District</label>
+            <input
+              type="text"
+              id="district"
+              name="district"
+              placeholder="Enter district"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="area">Area</label>
+            <input
+              type="text"
+              id="area"
+              name="area"
+              placeholder="Enter area"
+            >
+          </div>
+
+          <div class="form-group full-width">
+            <label for="address">Full Address</label>
+            <textarea
+              id="address"
+              name="address"
+              rows="3"
+              placeholder="Enter full address"
+            ></textarea>
+          </div>
+
+        </div>
+
+
+        <!-- Training Information -->
+        <div class="section-title">
+          <span>03</span>
+          <div>
+            <h3>Training Information</h3>
+            <p>Course and student admission information</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="course">Course *</label>
+            <select id="course" name="course" required>
+              <option value="">Select Course</option>
+              <option>Electrical Installation</option>
+              <option>AC & Refrigeration</option>
+              <option>CCTV Installation</option>
+              <option>Solar System</option>
+              <option>Generator Maintenance</option>
+              <option>IPS & Inverter</option>
+              <option>Motor & Pump</option>
+              <option>Plumbing</option>
+              <option>Interior Electrical Solution</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="batch">Batch</label>
+            <input
+              type="text"
+              id="batch"
+              name="batch"
+              placeholder="Example: Batch-01"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="admissionDate">Admission Date</label>
+            <input
+              type="date"
+              id="admissionDate"
+              name="admissionDate"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="education">Educational Qualification</label>
+            <select id="education" name="education">
+              <option value="">Select Qualification</option>
+              <option>Primary</option>
+              <option>JSC / Equivalent</option>
+              <option>SSC / Equivalent</option>
+              <option>HSC / Equivalent</option>
+              <option>Diploma</option>
+              <option>Graduate</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="previousExperience">Previous Experience</label>
+            <select id="previousExperience" name="previousExperience">
+              <option value="">Select</option>
+              <option>No Experience</option>
+              <option>Less than 1 Year</option>
+              <option>1–3 Years</option>
+              <option>3–5 Years</option>
+              <option>5+ Years</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="studentStatus">Student Status</label>
+            <select id="studentStatus" name="studentStatus">
+              <option value="Pending">Pending</option>
+              <option value="Active">Active</option>
+              <option value="Completed">Completed</option>
+              <option value="Graduated">Graduated</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+
+        </div>
+
+
+        <!-- Emergency Contact -->
+        <div class="section-title">
+          <span>04</span>
+          <div>
+            <h3>Emergency Contact</h3>
+            <p>Emergency contact information</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="emergencyName">Contact Name</label>
+            <input
+              type="text"
+              id="emergencyName"
+              name="emergencyName"
+              placeholder="Emergency contact name"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="emergencyRelation">Relationship</label>
+            <input
+              type="text"
+              id="emergencyRelation"
+              name="emergencyRelation"
+              placeholder="Example: Father"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="emergencyMobile">Contact Mobile</label>
+            <input
+              type="tel"
+              id="emergencyMobile"
+              name="emergencyMobile"
+              placeholder="01XXXXXXXXX"
+            >
+          </div>
+
+        </div>
+
+
+        <!-- Notes -->
+        <div class="section-title">
+          <span>05</span>
+          <div>
+            <h3>Additional Information</h3>
+            <p>Optional notes</p>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="notes">Notes</label>
+          <textarea
+            id="notes"
+            name="notes"
+            rows="4"
+            placeholder="Additional information about the student..."
+          ></textarea>
+        </div>
+
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="button" class="secondary-btn" id="resetBtn">
+            Reset
+          </button>
+
+          <button type="submit" class="primary-btn">
+            + Register Student
+          </button>
+        </div>
+
+      </form>
+
+    </section>
+
+
+    <!-- Student List -->
+    <section class="content-card">
+
+      <div class="list-header">
+
+        <div>
+          <h2>Registered Students</h2>
+          <p>Manage training centre student records.</p>
+        </div>
+
+        <div class="list-tools">
+
+          <input
+            type="search"
+            id="searchStudent"
+            placeholder="Search student..."
+          >
+
+          <select id="filterStatus">
+            <option value="All">All Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Active">Active</option>
+            <option value="Completed">Completed</option>
+            <option value="Graduated">Graduated</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Student</th>
+              <th>Mobile</th>
+              <th>Course</th>
+              <th>Batch</th>
+              <th>Admission</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="studentTableBody">
+            <!-- JS generated -->
+          </tbody>
+
+        </table>
+
+        <div id="emptyState" class="empty-state">
+          <div>👨‍🎓</div>
+          <h3>No Student Records</h3>
+          <p>Register your first training centre student.</p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- Student Details Modal -->
+  <div class="modal-overlay" id="studentModal">
+
+    <div class="modal">
+
+      <div class="modal-header">
+        <div>
+          <span class="eyebrow">STUDENT PROFILE</span>
+          <h2 id="modalStudentName">Student Details</h2>
+        </div>
+
+        <button class="modal-close" id="closeModal">×</button>
+      </div>
+
+      <div class="profile-grid" id="modalContent">
+        <!-- JS generated -->
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div id="toast" class="toast"></div>
+
+
+  <script src="js/student-registration.js"></script>
+
+</body>
+</html>
