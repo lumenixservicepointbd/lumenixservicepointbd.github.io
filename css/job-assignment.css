@@ -28,7 +28,8 @@ body {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -309,15 +310,11 @@ tbody tr:hover {
 .modal-overlay {
   position: fixed;
   inset: 0;
-
   display: none;
   align-items: center;
   justify-content: center;
-
   padding: 20px;
-
   background: rgba(15, 23, 42, .55);
-
   z-index: 9999;
 }
 
@@ -329,10 +326,8 @@ tbody tr:hover {
   width: min(720px, 100%);
   max-height: 90vh;
   overflow-y: auto;
-
   background: #fff;
   border-radius: 16px;
-
   box-shadow: 0 25px 70px rgba(0, 0, 0, .2);
 }
 
@@ -344,9 +339,7 @@ tbody tr:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 22px;
-
   border-bottom: 1px solid var(--border);
 }
 
@@ -357,12 +350,9 @@ tbody tr:hover {
 .close-btn {
   width: 36px;
   height: 36px;
-
   border: 0;
   border-radius: 50%;
-
   background: #f1f5f9;
-
   font-size: 22px;
 }
 
@@ -371,9 +361,7 @@ tbody tr:hover {
 
 .request-summary {
   margin: 20px 22px;
-
   padding: 17px;
-
   background: #f8fafc;
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -388,7 +376,6 @@ tbody tr:hover {
 .summary-item span {
   display: block;
   margin-bottom: 4px;
-
   color: var(--muted);
   font-size: 11px;
   text-transform: uppercase;
@@ -405,7 +392,6 @@ tbody tr:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 0 22px 15px;
 }
 
@@ -415,19 +401,15 @@ tbody tr:hover {
 
 .matching-header p {
   margin: 0;
-
   color: var(--muted);
   font-size: 12px;
 }
 
 .match-count {
   padding: 7px 10px;
-
   color: var(--primary);
   background: #eff6ff;
-
   border-radius: 20px;
-
   font-size: 12px;
   font-weight: 800;
 }
@@ -441,15 +423,11 @@ tbody tr:hover {
 .technician-card {
   display: grid;
   grid-template-columns: 55px 1fr auto;
-
   align-items: center;
   gap: 14px;
-
   padding: 15px;
-
   border: 1px solid var(--border);
   border-radius: 12px;
-
   background: #fff;
 }
 
@@ -462,19 +440,11 @@ tbody tr:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 50px;
   height: 50px;
-
   border-radius: 13px;
-
   color: #fff;
-  background: linear-gradient(
-    135deg,
-    #2563eb,
-    #7c3aed
-  );
-
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
   font-weight: 800;
   font-size: 18px;
 }
@@ -485,7 +455,6 @@ tbody tr:hover {
 
 .tech-info p {
   margin: 2px 0;
-
   color: var(--muted);
   font-size: 12px;
 }
@@ -499,12 +468,9 @@ tbody tr:hover {
 
 .match-tag {
   padding: 4px 7px;
-
   color: #334155;
   background: #f1f5f9;
-
   border-radius: 5px;
-
   font-size: 10px;
   font-weight: 700;
 }
@@ -529,7 +495,6 @@ tbody tr:hover {
 
 .detail-box {
   padding: 14px;
-
   background: #f8fafc;
   border-radius: 10px;
 }
@@ -540,9 +505,7 @@ tbody tr:hover {
 
 .detail-box span {
   display: block;
-
   margin-bottom: 5px;
-
   color: var(--muted);
   font-size: 11px;
   text-transform: uppercase;
@@ -556,10 +519,254 @@ tbody tr:hover {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-
   padding: 18px 22px;
-
   border-top: 1px solid var(--border);
+}
+
+
+/* =========================================================
+   TECHNICIAN JOB OPERATIONS
+   ========================================================= */
+
+.technician-job-panel {
+  margin: 0 22px 22px;
+  padding: 20px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.technician-job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.technician-job-header h3 {
+  margin: 5px 0;
+  font-size: 19px;
+}
+
+.technician-job-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.job-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  color: #1d4ed8;
+  background: #dbeafe;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+
+/* FLOW */
+
+.technician-status-flow {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+.tech-status-step {
+  min-width: 125px;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.tech-status-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 7px;
+  background: #e2e8f0;
+  border-radius: 50%;
+  font-weight: 800;
+}
+
+.tech-status-step strong,
+.tech-status-step small {
+  display: block;
+}
+
+.tech-status-step strong {
+  font-size: 12px;
+}
+
+.tech-status-step small {
+  margin-top: 3px;
+  font-size: 10px;
+}
+
+.tech-status-step.active {
+  color: var(--primary);
+}
+
+.tech-status-step.active .tech-status-circle {
+  color: #fff;
+  background: var(--primary);
+}
+
+.tech-status-step.done {
+  color: var(--green);
+}
+
+.tech-status-step.done .tech-status-circle {
+  color: #fff;
+  background: var(--green);
+}
+
+.tech-status-line {
+  height: 2px;
+  flex: 1;
+  min-width: 35px;
+  background: #e2e8f0;
+}
+
+
+/* ACTION */
+
+.technician-action-box {
+  margin-top: 20px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.technician-action-box h4,
+.technician-completion-box h4,
+.technician-timeline-box h4 {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+.technician-action-message {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.technician-accept-btn,
+.technician-complete-btn {
+  border: 0;
+  padding: 10px 16px;
+  color: #fff;
+  background: var(--green);
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.technician-accept-btn:hover,
+.technician-complete-btn:hover {
+  background: #15803d;
+}
+
+
+/* COMPLETION */
+
+.technician-completion-box {
+  margin-top: 18px;
+  padding: 17px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+}
+
+.technician-form-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 14px;
+}
+
+.technician-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.technician-form-group label {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.technician-form-group textarea,
+.technician-form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d7dce5;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  resize: vertical;
+}
+
+.technician-form-group textarea:focus,
+.technician-form-group select:focus {
+  border-color: var(--primary);
+}
+
+.technician-complete-btn {
+  margin-top: 14px;
+}
+
+
+/* TIMELINE */
+
+.technician-timeline-box {
+  margin-top: 18px;
+  padding: 17px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.technician-timeline-item {
+  display: grid;
+  grid-template-columns: 15px 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.technician-timeline-dot {
+  width: 10px;
+  height: 10px;
+  margin-top: 4px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+
+.technician-timeline-content {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.technician-timeline-content strong {
+  display: block;
+  font-size: 12px;
+}
+
+.technician-timeline-content small {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.technician-timeline-content p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 11px;
 }
 
 
@@ -567,24 +774,16 @@ tbody tr:hover {
 
 .toast {
   position: fixed;
-
   right: 25px;
   bottom: 25px;
-
   padding: 13px 18px;
-
   color: #fff;
   background: #172033;
-
   border-radius: 9px;
-
   opacity: 0;
   transform: translateY(15px);
-
   pointer-events: none;
-
   transition: .25s;
-
   z-index: 10000;
 }
 
@@ -642,7 +841,8 @@ tbody tr:hover {
 
   .summary-grid,
   .request-summary-grid,
-  .detail-grid {
+  .detail-grid,
+  .technician-form-grid {
     grid-template-columns: 1fr;
   }
 
@@ -657,6 +857,15 @@ tbody tr:hover {
   .technician-card .assign-btn {
     grid-column: 1 / -1;
     width: 100%;
+  }
+
+  .technician-job-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .technician-status-flow {
+    min-width: 470px;
   }
 
 }
