@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMENIX Technician Network</title>
+  <link rel="stylesheet" href="technician.css">
+</head>
+
+<body>
+
+<main class="technician-page">
+
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">LUMENIX V5.1</span>
+      <h1>Technician Network</h1>
+      <p>Manage technicians, skills, locations, verification and service assignments.</p>
+    </div>
+
+    <button class="primary-btn" id="addTechnicianBtn">
+      + Register Technician
+    </button>
+  </header>
+
+
+  <!-- SUMMARY -->
+
+  <section class="summary-grid">
+
+    <div class="summary-card blue">
+      <span>Total Technicians</span>
+      <strong id="totalTechnicians">0</strong>
+      <small>Registered technicians</small>
+    </div>
+
+    <div class="summary-card green">
+      <span>Verified</span>
+      <strong id="verifiedTechnicians">0</strong>
+      <small>Verified technicians</small>
+    </div>
+
+    <div class="summary-card orange">
+      <span>Available</span>
+      <strong id="availableTechnicians">0</strong>
+      <small>Currently available</small>
+    </div>
+
+    <div class="summary-card purple">
+      <span>Assigned Jobs</span>
+      <strong id="assignedJobs">0</strong>
+      <small>Active service assignments</small>
+    </div>
+
+  </section>
+
+
+  <!-- SKILL CATEGORIES -->
+
+  <section class="content-card">
+
+    <div class="section-header">
+      <div>
+        <h2>Skill Categories</h2>
+        <p>Filter technicians by service skill.</p>
+      </div>
+    </div>
+
+    <div class="skill-grid">
+
+      <button class="skill-box" data-skill="Electrical">
+        <span>⚡</span>
+        <strong>Electrical</strong>
+      </button>
+
+      <button class="skill-box" data-skill="AC">
+        <span>❄</span>
+        <strong>AC</strong>
+      </button>
+
+      <button class="skill-box" data-skill="CCTV">
+        <span>◉</span>
+        <strong>CCTV</strong>
+      </button>
+
+      <button class="skill-box" data-skill="Plumbing">
+        <span>⌁</span>
+        <strong>Plumbing</strong>
+      </button>
+
+      <button class="skill-box" data-skill="Solar">
+        <span>☀</span>
+        <strong>Solar</strong>
+      </button>
+
+      <button class="skill-box" data-skill="Generator">
+        <span>▣</span>
+        <strong>Generator</strong>
+      </button>
+
+      <button class="skill-box" data-skill="IPS">
+        <span>▰</span>
+        <strong>IPS</strong>
+      </button>
+
+      <button class="skill-box" data-skill="Motor">
+        <span>⚙</span>
+        <strong>Motor</strong>
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- TECHNICIAN DIRECTORY -->
+
+  <section class="content-card">
+
+    <div class="section-header">
+
+      <div>
+        <h2>Technician Directory</h2>
+        <p>Search, filter and manage technicians.</p>
+      </div>
+
+      <div class="filters">
+
+        <input
+          type="search"
+          id="technicianSearch"
+          placeholder="Search ID, name or mobile..."
+        >
+
+        <select id="skillFilter">
+          <option value="all">All Skills</option>
+          <option value="Electrical">Electrical</option>
+          <option value="AC">AC</option>
+          <option value="CCTV">CCTV</option>
+          <option value="Plumbing">Plumbing</option>
+          <option value="Solar">Solar</option>
+          <option value="Generator">Generator</option>
+          <option value="IPS">IPS</option>
+          <option value="Motor">Motor</option>
+        </select>
+
+        <select id="verificationFilter">
+          <option value="all">All Verification</option>
+          <option value="Pending">Pending</option>
+          <option value="Verified">Verified</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+
+        <select id="availabilityFilter">
+          <option value="all">All Availability</option>
+          <option value="Available">Available</option>
+          <option value="Busy">Busy</option>
+          <option value="Offline">Offline</option>
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Technician ID</th>
+            <th>Technician</th>
+            <th>Mobile</th>
+            <th>Skill</th>
+            <th>Area</th>
+            <th>Verification</th>
+            <th>Availability</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody id="technicianTableBody"></tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+
+  <!-- REGISTER TECHNICIAN MODAL -->
+
+  <div class="modal-overlay" id="technicianModal">
+
+    <div class="modal large-modal">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="eyebrow">TECHNICIAN</span>
+          <h2>Register Technician</h2>
+        </div>
+
+        <button
+          class="close-btn"
+          data-close="technicianModal">
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="technicianForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Technician Name *</label>
+            <input id="technicianName" required>
+          </div>
+
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input id="technicianMobile" type="tel" required>
+          </div>
+
+          <div class="form-group">
+            <label>Alternative Mobile</label>
+            <input id="technicianAltMobile" type="tel">
+          </div>
+
+          <div class="form-group">
+            <label>Experience (Years)</label>
+            <input
+              id="technicianExperience"
+              type="number"
+              min="0"
+              max="60"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Primary Skill *</label>
+
+            <select id="technicianSkill" required>
+              <option value="">Select Skill</option>
+              <option value="Electrical">Electrical</option>
+              <option value="AC">AC</option>
+              <option value="CCTV">CCTV</option>
+              <option value="Plumbing">Plumbing</option>
+              <option value="Solar">Solar</option>
+              <option value="Generator">Generator</option>
+              <option value="IPS">IPS</option>
+              <option value="Motor">Motor</option>
+            </select>
+
+          </div>
+
+          <div class="form-group">
+            <label>Secondary Skill</label>
+
+            <select id="technicianSecondarySkill">
+              <option value="">None</option>
+              <option value="Electrical">Electrical</option>
+              <option value="AC">AC</option>
+              <option value="CCTV">CCTV</option>
+              <option value="Plumbing">Plumbing</option>
+              <option value="Solar">Solar</option>
+              <option value="Generator">Generator</option>
+              <option value="IPS">IPS</option>
+              <option value="Motor">Motor</option>
+            </select>
+
+          </div>
+
+          <div class="form-group">
+            <label>Division</label>
+            <input id="technicianDivision">
+          </div>
+
+          <div class="form-group">
+            <label>District</label>
+            <input id="technicianDistrict">
+          </div>
+
+          <div class="form-group">
+            <label>Area</label>
+            <input id="technicianArea">
+          </div>
+
+          <div class="form-group">
+            <label>Availability</label>
+
+            <select id="technicianAvailability">
+              <option value="Available">Available</option>
+              <option value="Busy">Busy</option>
+              <option value="Offline">Offline</option>
+            </select>
+
+          </div>
+
+          <div class="form-group full">
+            <label>Address</label>
+            <textarea id="technicianAddress" rows="3"></textarea>
+          </div>
+
+          <div class="form-group full">
+            <label>Skills / Experience Details</label>
+            <textarea
+              id="technicianNotes"
+              rows="4"
+              placeholder="Describe additional skills, certifications or experience..."></textarea>
+          </div>
+
+          <div class="agreement-box full">
+
+            <label>
+              <input
+                type="checkbox"
+                id="technicianAgreement"
+                required
+              >
+
+              I agree to the LUMENIX Technician Terms,
+              Privacy Consent and verification process.
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="secondary-btn"
+            data-close="technicianModal">
+            Cancel
+          </button>
+
+          <button type="submit" class="primary-btn">
+            Register Technician
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- PROFILE MODAL -->
+
+  <div class="modal-overlay" id="profileModal">
+
+    <div class="modal large-modal">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="eyebrow">TECHNICIAN PROFILE</span>
+          <h2 id="profileTitle">Technician</h2>
+        </div>
+
+        <button
+          class="close-btn"
+          data-close="profileModal">
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="profile-body">
+
+        <div class="profile-top">
+
+          <div class="avatar" id="profileAvatar">
+            T
+          </div>
+
+          <div>
+            <h2 id="profileName">Technician</h2>
+            <p id="profileId">LSP-T-00001</p>
+          </div>
+
+          <div class="profile-badges">
+
+            <span
+              class="badge verified"
+              id="profileVerification">
+              Pending
+            </span>
+
+            <span
+              class="badge available"
+              id="profileAvailability">
+              Available
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="profile-grid">
+
+          <div class="profile-card">
+            <span>Mobile</span>
+            <strong id="profileMobile">-</strong>
+          </div>
+
+          <div class="profile-card">
+            <span>Alternative Mobile</span>
+            <strong id="profileAltMobile">-</strong>
+          </div>
+
+          <div class="profile-card">
+            <span>Primary Skill</span>
+            <strong id="profileSkill">-</strong>
+          </div>
+
+          <div class="profile-card">
+            <span>Secondary Skill</span>
+            <strong id="profileSecondarySkill">-</strong>
+          </div>
+
+          <div class="profile-card">
+            <span>Experience</span>
+            <strong id="profileExperience">-</strong>
+          </div>
+
+          <div class="profile-card">
+            <span>Division</span>
+            <strong id="profileDivision">-</strong>
+          </div>
+
+          <div class="profile-card">
+            <span>District</span>
+            <strong id="profileDistrict">-</strong>
+          </div>
+
+          <div class="profile-card">
+            <span>Area</span>
+            <strong id="profileArea">-</strong>
+          </div>
+
+          <div class="profile-card full">
+            <span>Address</span>
+            <strong id="profileAddress">-</strong>
+          </div>
+
+          <div class="profile-card full">
+            <span>Skills / Experience Details</span>
+            <strong id="profileNotes">-</strong>
+          </div>
+
+        </div>
+
+
+        <!-- JOB HISTORY -->
+
+        <section class="history-section">
+
+          <div class="section-title">
+            <h3>Job History</h3>
+            <span id="jobCount">0 jobs</span>
+          </div>
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Customer</th>
+                  <th>Service</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody id="jobHistoryBody"></tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+
+        <div class="privacy-box">
+
+          <strong>Technician Agreement</strong>
+
+          <p>
+            Technician registration requires acceptance of
+            LUMENIX terms and verification before official
+            service assignment.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="toast" id="toast"></div>
+
+
+  <script src="technician.js"></script>
+
+</main>
+
+</body>
+</html>
