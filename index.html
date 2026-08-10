@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -12,7 +11,7 @@
 
     <meta
         name="description"
-        content="LUMENIX ecosystem platform by MS FARDIN ELECTRIC."
+        content="LUMENIX - MS FARDIN ELECTRIC ecosystem platform for lighting, accessories, service and technical training."
     >
 
     <title>LUMENIX | MS FARDIN ELECTRIC</title>
@@ -21,70 +20,64 @@
         rel="stylesheet"
         href="css/index.css"
     >
-
 </head>
-
 
 <body>
 
-
-<!-- =====================================
+<!-- =========================================
 HEADER
-===================================== -->
+========================================= -->
 
 <header class="main-header">
 
-    <div class="header-inner">
+    <div class="brand-area">
 
-        <div class="brand-area">
+        <a
+            href="#home"
+            class="brand-logo"
+        >
+            LUMENIX
+        </a>
 
-            <h1 class="main-logo">
-                LUMENIX
-            </h1>
+        <p class="brand-tagline">
+            Premium Ecosystem Platform
+        </p>
 
-            <p class="main-tagline">
-                Premium Ecosystem Platform
-            </p>
-
-        </div>
-
-
-        <div class="header-actions">
-
-            <button
-                type="button"
-                class="header-btn"
-                id="loginBtn"
-            >
-                Login
-            </button>
+    </div>
 
 
-            <button
-                type="button"
-                class="header-btn"
-                id="menuBtn"
-                aria-label="Open menu"
-                aria-expanded="false"
-            >
-                ☰ Menu
-            </button>
+    <div class="header-actions">
 
-        </div>
+        <button
+            type="button"
+            class="header-btn"
+            id="loginBtn"
+        >
+            Login
+        </button>
+
+        <button
+            type="button"
+            class="header-btn menu-btn"
+            id="menuBtn"
+            aria-label="Open menu"
+            aria-expanded="false"
+        >
+            ☰ Menu
+        </button>
 
     </div>
 
 </header>
 
 
-<!-- =====================================
-NAVIGATION
-===================================== -->
+<!-- =========================================
+MOBILE / MAIN MENU
+========================================= -->
 
 <nav
     class="mobile-menu"
     id="mobileMenu"
-    aria-label="Main navigation"
 >
 
     <a href="#home">
@@ -118,9 +111,9 @@ NAVIGATION
 </nav>
 
 
-<!-- =====================================
-HOME / HERO
-===================================== -->
+<!-- =========================================
+HERO
+========================================= -->
 
 <main>
 
@@ -131,15 +124,19 @@ HOME / HERO
 
     <div class="hero-content">
 
-        <h1>
+        <p class="hero-small">
             MS FARDIN ELECTRIC
+        </p>
+
+        <h1>
+            LUMENIX
         </h1>
 
         <h2>
             LUMENIX BRAND
         </h2>
 
-        <p>
+        <p class="hero-description">
             One Platform For Complete Business Management
         </p>
 
@@ -156,59 +153,66 @@ HOME / HERO
 </section>
 
 
-<!-- =====================================
+<!-- =========================================
 ECOSYSTEM
-===================================== -->
+========================================= -->
 
 <section
     class="section"
     id="ecosystem"
 >
 
-    <h2 class="section-title">
-        Our Ecosystem
-    </h2>
+    <div class="section-heading">
+
+        <p class="section-label">
+            LUMENIX PLATFORM
+        </p>
+
+        <h2>
+            Our Ecosystem
+        </h2>
+
+    </div>
 
 
     <div class="ecosystem-grid">
 
 
         <!-- =================================
-        LIGHTING & ACCESSORIES
+        LIGHTING
         ================================= -->
 
-        <article class="ecosystem-card">
+        <article class="ecosystem-card lighting-card">
 
-            <div class="card-image-wrap">
-
-                <img
-                    src="images/lumenix-led.png"
-                    alt="LUMENIX Lighting and Accessories"
-                    loading="lazy"
-                >
-
+            <div class="card-icon">
+                💡
             </div>
 
+            <div class="card-content">
 
-            <h3>
-                LUMENIX Lighting & Accessories
-            </h3>
+                <span class="card-tag">
+                    LIGHTING & ACCESSORIES
+                </span>
 
+                <h3>
+                    LUMENIX Lighting & Accessories
+                </h3>
 
-            <p>
-                LED lighting products,
-                electrical accessories and
-                lighting business management.
-            </p>
+                <p>
+                    LED lighting products,
+                    electrical accessories and
+                    lighting business management.
+                </p>
 
+                <button
+                    type="button"
+                    class="card-btn primary-btn"
+                    id="lightingBtn"
+                >
+                    Explore Lighting
+                </button>
 
-            <button
-                type="button"
-                class="card-btn"
-                id="lightingBtn"
-            >
-                Explore Lighting
-            </button>
+            </div>
 
         </article>
 
@@ -217,38 +221,37 @@ ECOSYSTEM
         SERVICE POINT
         ================================= -->
 
-        <article class="ecosystem-card">
+        <article class="ecosystem-card service-card">
 
-            <div class="card-image-wrap">
-
-                <img
-                    src="images/lumenix-service-point.png"
-                    alt="LUMENIX Service Point BD"
-                    loading="lazy"
-                >
-
+            <div class="card-icon">
+                🔧
             </div>
 
+            <div class="card-content">
 
-            <h3>
-                LUMENIX Service Point BD
-            </h3>
+                <span class="card-tag">
+                    SERVICE POINT
+                </span>
 
+                <h3>
+                    LUMENIX Service Point BD
+                </h3>
 
-            <p>
-                Customer service platform,
-                technician network and
-                service management.
-            </p>
+                <p>
+                    Customer service platform,
+                    technician network and
+                    service management.
+                </p>
 
+                <button
+                    type="button"
+                    class="card-btn"
+                    id="servicePointBtn"
+                >
+                    Open Service Point
+                </button>
 
-            <button
-                type="button"
-                class="card-btn"
-                id="servicePointBtn"
-            >
-                Open Service Point
-            </button>
+            </div>
 
         </article>
 
@@ -257,37 +260,36 @@ ECOSYSTEM
         TRAINING
         ================================= -->
 
-        <article class="ecosystem-card">
+        <article class="ecosystem-card training-card">
 
-            <div class="card-image-wrap">
-
-                <img
-                    src="images/lumenix-training.png"
-                    alt="LUMENIX Technical Training Centre"
-                    loading="lazy"
-                >
-
+            <div class="card-icon">
+                🛠️
             </div>
 
+            <div class="card-content">
 
-            <h3>
-                LUMENIX Technical Training Centre
-            </h3>
+                <span class="card-tag">
+                    TECHNICAL TRAINING
+                </span>
 
+                <h3>
+                    LUMENIX Technical Training Centre
+                </h3>
 
-            <p>
-                Skill development, training
-                and career network.
-            </p>
+                <p>
+                    Skill development, training
+                    and technical career network.
+                </p>
 
+                <button
+                    type="button"
+                    class="card-btn"
+                    id="trainingBtn"
+                >
+                    Open Training
+                </button>
 
-            <button
-                type="button"
-                class="card-btn"
-                id="trainingBtn"
-            >
-                Open Training
-            </button>
+            </div>
 
         </article>
 
@@ -297,24 +299,32 @@ ECOSYSTEM
 </section>
 
 
-<!-- =====================================
+<!-- =========================================
 SERVICES
-===================================== -->
+========================================= -->
 
 <section
-    class="section"
+    class="section light-section"
     id="services"
 >
 
-    <h2 class="section-title">
-        Our Services
-    </h2>
+    <div class="section-heading">
+
+        <p class="section-label">
+            SERVICE NETWORK
+        </p>
+
+        <h2>
+            Our Services
+        </h2>
+
+    </div>
 
 
     <div class="service-grid">
 
 
-        <article class="service-card">
+        <article class="service-box">
 
             <div class="service-icon">
                 ⚡
@@ -326,15 +336,14 @@ SERVICES
 
             <p>
                 Electrical repair,
-                installation and maintenance
-                services.
+                installation and
+                maintenance services.
             </p>
-
 
             <button
                 type="button"
-                class="card-btn"
-                id="serviceBookBtn"
+                class="small-btn"
+                id="electricalServiceBtn"
             >
                 Open Service Point
             </button>
@@ -342,7 +351,7 @@ SERVICES
         </article>
 
 
-        <article class="service-card">
+        <article class="service-box">
 
             <div class="service-icon">
                 🔧
@@ -360,7 +369,7 @@ SERVICES
         </article>
 
 
-        <article class="service-card">
+        <article class="service-box">
 
             <div class="service-icon">
                 🏠
@@ -383,27 +392,35 @@ SERVICES
 </section>
 
 
-<!-- =====================================
+<!-- =========================================
 TRAINING
-===================================== -->
+========================================= -->
 
 <section
     class="section"
     id="training"
 >
 
-    <h2 class="section-title">
-        Technical Training
-    </h2>
+    <div class="section-heading">
+
+        <p class="section-label">
+            EDUCATION & SKILLS
+        </p>
+
+        <h2>
+            Technical Training
+        </h2>
+
+    </div>
 
 
     <div class="service-grid">
 
 
-        <article class="service-card">
+        <article class="service-box">
 
             <div class="service-icon">
-                🛠
+                🛠️
             </div>
 
             <h3>
@@ -418,7 +435,7 @@ TRAINING
         </article>
 
 
-        <article class="service-card">
+        <article class="service-box">
 
             <div class="service-icon">
                 📚
@@ -441,71 +458,90 @@ TRAINING
 </section>
 
 
-<!-- =====================================
+<!-- =========================================
 DEALER
-===================================== -->
+========================================= -->
 
 <section
-    class="section"
+    class="section light-section"
     id="dealer"
 >
 
-    <h2 class="section-title">
-        Dealer Network
-    </h2>
+    <div class="section-heading">
+
+        <p class="section-label">
+            BUSINESS NETWORK
+        </p>
+
+        <h2>
+            Dealer Network
+        </h2>
+
+    </div>
 
 
-    <article class="service-card dealer-card">
+    <article class="dealer-card">
 
-        <div class="service-icon">
+        <div class="dealer-icon">
             🏪
         </div>
 
-        <h3>
-            LUMENIX Dealer Network
-        </h3>
+        <div>
 
-        <p>
-            Product distribution,
-            dealer management and
-            business network support.
-        </p>
+            <h3>
+                LUMENIX Dealer Network
+            </h3>
 
+            <p>
+                Product distribution,
+                dealer management and
+                business network support.
+            </p>
 
-        <button
-            type="button"
-            class="card-btn"
-            id="dealerBtn"
-        >
-            Dealer Information
-        </button>
+            <button
+                type="button"
+                class="card-btn"
+                id="dealerBtn"
+            >
+                Dealer Information
+            </button>
+
+        </div>
 
     </article>
 
 </section>
 
 
-<!-- =====================================
+<!-- =========================================
 PROJECTS
-===================================== -->
+========================================= -->
 
 <section
     class="section"
     id="projects"
 >
 
-    <h2 class="section-title">
-        Projects
-    </h2>
+    <div class="section-heading">
+
+        <p class="section-label">
+            MANAGEMENT
+        </p>
+
+        <h2>
+            Projects
+        </h2>
+
+    </div>
 
 
-    <div class="service-grid">
+    <article class="project-card">
 
-        <article class="service-card">
+        <div class="project-icon">
+            📁
+        </div>
 
-            <div class="service-icon">
-                📁
-            </div>
+        <div>
 
             <h3>
                 Project Management
@@ -517,7 +553,6 @@ PROJECTS
                 project information.
             </p>
 
-
             <button
                 type="button"
                 class="card-btn"
@@ -526,23 +561,27 @@ PROJECTS
                 Project Management
             </button>
 
-        </article>
+        </div>
 
-    </div>
+    </article>
 
 </section>
 
 
-<!-- =====================================
+<!-- =========================================
 CONTACT
-===================================== -->
+========================================= -->
 
 <section
-    class="cta-section"
+    class="contact-section"
     id="contact"
 >
 
-    <div class="cta-content">
+    <div class="contact-content">
+
+        <p class="section-label contact-label">
+            GET IN TOUCH
+        </p>
 
         <h2>
             Contact LUMENIX
@@ -552,10 +591,9 @@ CONTACT
             Get in touch with MS FARDIN ELECTRIC.
         </p>
 
-
         <button
             type="button"
-            class="cta-btn"
+            class="contact-btn"
             id="contactBtn"
         >
             Contact Us
@@ -568,11 +606,15 @@ CONTACT
 </main>
 
 
-<!-- =====================================
+<!-- =========================================
 FOOTER
-===================================== -->
+========================================= -->
 
 <footer class="footer">
+
+    <div class="footer-logo">
+        LUMENIX
+    </div>
 
     <p>
         © 2026 LUMENIX V5.1 Premium
@@ -589,12 +631,23 @@ FOOTER
 </footer>
 
 
+<!-- =========================================
+TOAST
+========================================= -->
+
+<div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+></div>
+
+
 <script
     src="js/index.js"
     defer
 ></script>
 
-
 </body>
-
 </html>
+
