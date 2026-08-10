@@ -71,81 +71,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const defaultProducts = [
 
-        {
+    {
+        id: "7W",
+        name: "7 Watt",
+        brand: "LUMENIX™",
+        image: "images/7watt.png",
+        packageImage: "images/7watt-package.png",
+        description:
+            "দৈনন্দিন আলো ব্যবহারের জন্য উপযোগী LUMENIX™ 7 Watt লাইট।",
+        details:
+            "LUMENIX™ 7 Watt লাইটের বিস্তারিত তথ্য ও বৈশিষ্ট্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
+        active: true
+    },
 
-            id: "SHAK",
+    {
+        id: "12W",
+        name: "12 Watt",
+        brand: "LUMENIX™",
+        image: "images/12watt.png",
+        packageImage: "images/12watt-package.png",
+        description:
+            "বাড়ি, দোকান ও প্রয়োজনীয় বিভিন্ন স্থানে ব্যবহারের জন্য উপযোগী LUMENIX™ 12 Watt লাইট।",
+        details:
+            "LUMENIX™ 12 Watt লাইটের বিস্তারিত তথ্য ও বৈশিষ্ট্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
+        active: true
+    },
 
-            name: "SHAK",
+    {
+        id: "20W",
+        name: "20 Watt",
+        brand: "LUMENIX™",
+        image: "images/20watt.png",
+        packageImage: "images/20watt-package.png",
+        description:
+            "বেশি আলোর প্রয়োজনের জন্য উপযোগী LUMENIX™ 20 Watt লাইট।",
+        details:
+            "LUMENIX™ 20 Watt লাইটের বিস্তারিত তথ্য ও বৈশিষ্ট্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
+        active: true
+    }
 
-            brand: "LUMENIX™",
-
-            image:
-                "images/shak.png",
-
-            packageImage:
-                "images/shak-package.png",
-
-            description:
-                "দৈনন্দিন আলো ব্যবহারের জন্য উপযোগী একটি LUMENIX™ লাইটিং পণ্য।",
-
-            details:
-                "এই পণ্যের বিস্তারিত তথ্য, বৈশিষ্ট্য ও ব্যবহার সম্পর্কিত তথ্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
-
-            active: true
-
-        },
-
-
-        {
-
-            id: "BARO",
-
-            name: "BARO",
-
-            brand: "LUMENIX™",
-
-            image:
-                "images/baro.png",
-
-            packageImage:
-                "images/baro-package.png",
-
-            description:
-                "বাড়ি, দোকান ও প্রয়োজনীয় বিভিন্ন স্থানে ব্যবহারের জন্য তৈরি LUMENIX™ লাইটিং পণ্য।",
-
-            details:
-                "এই পণ্যের বিস্তারিত তথ্য, বৈশিষ্ট্য ও ব্যবহার সম্পর্কিত তথ্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
-
-            active: true
-
-        },
-
-
-        {
-
-            id: "BESH",
-
-            name: "BESH",
-
-            brand: "LUMENIX™",
-
-            image:
-                "images/besh.png",
-
-            packageImage:
-                "images/besh-package.png",
-
-            description:
-                "আধুনিক লাইটিং ব্যবহারের জন্য LUMENIX™-এর আরেকটি নির্বাচিত পণ্য।",
-
-            details:
-                "এই পণ্যের বিস্তারিত তথ্য, বৈশিষ্ট্য ও ব্যবহার সম্পর্কিত তথ্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
-
-            active: true
-
-        }
-
-    ];
+];
 
 
     /* =====================================================
