@@ -1,342 +1,898 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LUMENIX - Project Accounts</title>
-  <link rel="stylesheet" href="project-accounts.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LUMENIX V5.1 - Project Accounts</title>
+
+    <!-- Correct CSS Path -->
+    <link rel="stylesheet" href="css/project-accounts.css">
 </head>
 
 <body>
 
-  <main class="accounts-page">
+    <!-- =====================================
+    PAGE WRAPPER
+    ===================================== -->
 
-    <header class="page-header">
-      <div>
-        <span class="eyebrow">LUMENIX V5.1</span>
-        <h1>Project Accounts</h1>
-        <p>Manage project income, expenses, payments and profitability.</p>
-      </div>
+    <main class="accounts-page">
 
-      <div class="header-actions">
-        <button class="secondary-btn" id="openPaymentModal">
-          + Payment
-        </button>
-        <button class="primary-btn" id="openTransactionModal">
-          + Add Transaction
-        </button>
-      </div>
-    </header>
+        <!-- =====================================
+        HEADER
+        ===================================== -->
 
-    <!-- Project Selector -->
-    <section class="project-selector">
-      <div>
-        <label for="projectSelect">Select Project</label>
-        <select id="projectSelect"></select>
-      </div>
+        <header class="page-header">
 
-      <div class="project-meta">
-        <span>Project Status</span>
-        <strong id="projectStatus">-</strong>
-      </div>
+            <div class="page-title">
 
-      <div class="project-meta">
-        <span>Project Value</span>
-        <strong id="projectValue">৳0</strong>
-      </div>
-    </section>
+                <span class="eyebrow">
+                    LUMENIX V5.1
+                </span>
 
-    <!-- Financial Cards -->
-    <section class="summary-grid">
+                <h1>
+                    Project Accounts
+                </h1>
 
-      <div class="summary-card income">
-        <span>Total Income</span>
-        <strong id="totalIncome">৳0</strong>
-        <small>Project income / collection</small>
-      </div>
+                <p>
+                    Manage project income, expenses, payments and profitability.
+                </p>
 
-      <div class="summary-card expense">
-        <span>Total Expense</span>
-        <strong id="totalExpense">৳0</strong>
-        <small>All project expenses</small>
-      </div>
+            </div>
 
-      <div class="summary-card balance">
-        <span>Current Balance</span>
-        <strong id="currentBalance">৳0</strong>
-        <small>Income − Expense</small>
-      </div>
+            <div class="header-actions">
 
-      <div class="summary-card profit">
-        <span>Profit / Loss</span>
-        <strong id="profitLoss">৳0</strong>
-        <small>Project financial result</small>
-      </div>
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    id="openPaymentModal"
+                >
+                    + Payment
+                </button>
 
-    </section>
+                <button
+                    type="button"
+                    class="primary-btn"
+                    id="openTransactionModal"
+                >
+                    + Add Transaction
+                </button>
 
-    <!-- Cost Breakdown -->
-    <section class="cost-grid">
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    id="backDashboardBtn"
+                >
+                    ← Dashboard
+                </button>
 
-      <div class="cost-card">
-        <span>Material Cost</span>
-        <strong id="materialCost">৳0</strong>
-      </div>
+            </div>
 
-      <div class="cost-card">
-        <span>Labour Cost</span>
-        <strong id="labourCost">৳0</strong>
-      </div>
+        </header>
 
-      <div class="cost-card">
-        <span>Other Expense</span>
-        <strong id="otherExpense">৳0</strong>
-      </div>
 
-      <div class="cost-card">
-        <span>Payment Collected</span>
-        <strong id="paymentCollected">৳0</strong>
-      </div>
+        <!-- =====================================
+        PROJECT SELECTOR
+        ===================================== -->
 
-    </section>
+        <section class="project-selector">
 
-    <!-- Transactions -->
-    <section class="content-card">
+            <div class="project-select-box">
 
-      <div class="section-header">
-        <div>
-          <h2>Project Transactions</h2>
-          <p>Income and expense records for the selected project.</p>
+                <label for="projectSelect">
+                    Select Project
+                </label>
+
+                <select id="projectSelect">
+                    <option value="">
+                        Select Project
+                    </option>
+                </select>
+
+            </div>
+
+            <div class="project-meta">
+
+                <span>
+                    Project Status
+                </span>
+
+                <strong id="projectStatus">
+                    -
+                </strong>
+
+            </div>
+
+            <div class="project-meta">
+
+                <span>
+                    Project Value
+                </span>
+
+                <strong id="projectValue">
+                    ৳0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+        FINANCIAL SUMMARY
+        ===================================== -->
+
+        <section class="summary-grid">
+
+            <div class="summary-card income">
+
+                <span>
+                    Total Income
+                </span>
+
+                <strong id="totalIncome">
+                    ৳0
+                </strong>
+
+                <small>
+                    Project income / collection
+                </small>
+
+            </div>
+
+
+            <div class="summary-card expense">
+
+                <span>
+                    Total Expense
+                </span>
+
+                <strong id="totalExpense">
+                    ৳0
+                </strong>
+
+                <small>
+                    All project expenses
+                </small>
+
+            </div>
+
+
+            <div class="summary-card balance">
+
+                <span>
+                    Current Balance
+                </span>
+
+                <strong id="currentBalance">
+                    ৳0
+                </strong>
+
+                <small>
+                    Income − Expense
+                </small>
+
+            </div>
+
+
+            <div class="summary-card profit">
+
+                <span>
+                    Profit / Loss
+                </span>
+
+                <strong id="profitLoss">
+                    ৳0
+                </strong>
+
+                <small>
+                    Project financial result
+                </small>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+        COST BREAKDOWN
+        ===================================== -->
+
+        <section class="cost-grid">
+
+            <div class="cost-card">
+
+                <span>
+                    Material Cost
+                </span>
+
+                <strong id="materialCost">
+                    ৳0
+                </strong>
+
+            </div>
+
+
+            <div class="cost-card">
+
+                <span>
+                    Labour Cost
+                </span>
+
+                <strong id="labourCost">
+                    ৳0
+                </strong>
+
+            </div>
+
+
+            <div class="cost-card">
+
+                <span>
+                    Other Expense
+                </span>
+
+                <strong id="otherExpense">
+                    ৳0
+                </strong>
+
+            </div>
+
+
+            <div class="cost-card">
+
+                <span>
+                    Payment Collected
+                </span>
+
+                <strong id="paymentCollected">
+                    ৳0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+        PROJECT TRANSACTIONS
+        ===================================== -->
+
+        <section class="content-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        FINANCIAL RECORDS
+                    </span>
+
+                    <h2>
+                        Project Transactions
+                    </h2>
+
+                    <p>
+                        Income and expense records for the selected project.
+                    </p>
+
+                </div>
+
+
+                <div class="filters">
+
+                    <select id="transactionTypeFilter">
+
+                        <option value="all">
+                            All Transactions
+                        </option>
+
+                        <option value="income">
+                            Income
+                        </option>
+
+                        <option value="expense">
+                            Expense
+                        </option>
+
+                    </select>
+
+
+                    <select id="expenseCategoryFilter">
+
+                        <option value="all">
+                            All Categories
+                        </option>
+
+                        <option value="Material">
+                            Material
+                        </option>
+
+                        <option value="Labour">
+                            Labour
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Type
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Description
+                            </th>
+
+                            <th>
+                                Reference
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="transactionTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="empty-state"
+                            >
+                                No transaction found.
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+        PAYMENT COLLECTION
+        ===================================== -->
+
+        <section class="content-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        CUSTOMER PAYMENTS
+                    </span>
+
+                    <h2>
+                        Payment Collection
+                    </h2>
+
+                    <p>
+                        Customer payments received against this project.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Method
+                            </th>
+
+                            <th>
+                                Reference
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="paymentTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="empty-state"
+                            >
+                                No payment found.
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================
+    TRANSACTION MODAL
+    ===================================== -->
+
+    <div
+        class="modal-overlay"
+        id="transactionModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal"
+            role="dialog"
+            aria-modal="true"
+        >
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        PROJECT ACCOUNT
+                    </span>
+
+                    <h2>
+                        Add Transaction
+                    </h2>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="close-btn"
+                    data-close="transactionModal"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="transactionForm">
+
+                <div class="form-grid">
+
+                    <!-- Transaction Type -->
+
+                    <div class="form-group">
+
+                        <label for="transactionType">
+                            Transaction Type *
+                        </label>
+
+                        <select
+                            id="transactionType"
+                            required
+                        >
+
+                            <option value="">
+                                Select Type
+                            </option>
+
+                            <option value="income">
+                                Income
+                            </option>
+
+                            <option value="expense">
+                                Expense
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Category -->
+
+                    <div class="form-group">
+
+                        <label for="transactionCategory">
+                            Category *
+                        </label>
+
+                        <select
+                            id="transactionCategory"
+                            required
+                        >
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            <option value="Project Income">
+                                Project Income
+                            </option>
+
+                            <option value="Material">
+                                Material
+                            </option>
+
+                            <option value="Labour">
+                                Labour
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Date -->
+
+                    <div class="form-group">
+
+                        <label for="transactionDate">
+                            Date *
+                        </label>
+
+                        <input
+                            type="date"
+                            id="transactionDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Amount -->
+
+                    <div class="form-group">
+
+                        <label for="transactionAmount">
+                            Amount *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="transactionAmount"
+                            min="0"
+                            step="0.01"
+                            placeholder="0"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Description -->
+
+                    <div class="form-group full">
+
+                        <label for="transactionDescription">
+                            Description
+                        </label>
+
+                        <input
+                            type="text"
+                            id="transactionDescription"
+                            placeholder="Enter description"
+                        >
+
+                    </div>
+
+
+                    <!-- Reference -->
+
+                    <div class="form-group full">
+
+                        <label for="transactionReference">
+                            Reference
+                        </label>
+
+                        <input
+                            type="text"
+                            id="transactionReference"
+                            placeholder="Invoice / Voucher / Reference"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-btn"
+                        data-close="transactionModal"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Save Transaction
+                    </button>
+
+                </div>
+
+            </form>
+
         </div>
-
-        <div class="filters">
-          <select id="transactionTypeFilter">
-            <option value="all">All Transactions</option>
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
-          </select>
-
-          <select id="expenseCategoryFilter">
-            <option value="all">All Categories</option>
-            <option value="Material">Material</option>
-            <option value="Labour">Labour</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="table-wrapper">
-
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Type</th>
-              <th>Category</th>
-              <th>Description</th>
-              <th>Reference</th>
-              <th>Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-
-          <tbody id="transactionTableBody"></tbody>
-        </table>
-
-      </div>
-
-    </section>
-
-    <!-- Payment Collection -->
-    <section class="content-card">
-
-      <div class="section-header">
-        <div>
-          <h2>Payment Collection</h2>
-          <p>Customer payments received against this project.</p>
-        </div>
-      </div>
-
-      <div class="table-wrapper">
-
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Customer</th>
-              <th>Method</th>
-              <th>Reference</th>
-              <th>Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-
-          <tbody id="paymentTableBody"></tbody>
-        </table>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- Transaction Modal -->
-
-  <div class="modal-overlay" id="transactionModal">
-
-    <div class="modal">
-
-      <div class="modal-header">
-        <div>
-          <span class="eyebrow">PROJECT ACCOUNT</span>
-          <h2>Add Transaction</h2>
-        </div>
-
-        <button class="close-btn" data-close="transactionModal">×</button>
-      </div>
-
-      <form id="transactionForm">
-
-        <div class="form-grid">
-
-          <div class="form-group">
-            <label>Transaction Type *</label>
-
-            <select id="transactionType" required>
-              <option value="">Select Type</option>
-              <option value="income">Income</option>
-              <option value="expense">Expense</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Category *</label>
-
-            <select id="transactionCategory" required>
-              <option value="">Select Category</option>
-              <option value="Project Income">Project Income</option>
-              <option value="Material">Material</option>
-              <option value="Labour">Labour</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Date *</label>
-            <input type="date" id="transactionDate" required>
-          </div>
-
-          <div class="form-group">
-            <label>Amount *</label>
-            <input type="number" id="transactionAmount" min="0" required>
-          </div>
-
-          <div class="form-group full">
-            <label>Description</label>
-            <input type="text" id="transactionDescription">
-          </div>
-
-          <div class="form-group full">
-            <label>Reference</label>
-            <input type="text" id="transactionReference">
-          </div>
-
-        </div>
-
-        <div class="modal-actions">
-          <button type="button" class="secondary-btn" data-close="transactionModal">
-            Cancel
-          </button>
-
-          <button type="submit" class="primary-btn">
-            Save Transaction
-          </button>
-        </div>
-
-      </form>
 
     </div>
 
-  </div>
+
+    <!-- =====================================
+    PAYMENT MODAL
+    ===================================== -->
+
+    <div
+        class="modal-overlay"
+        id="paymentModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal"
+            role="dialog"
+            aria-modal="true"
+        >
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        PAYMENT COLLECTION
+                    </span>
+
+                    <h2>
+                        Record Payment
+                    </h2>
+
+                </div>
 
 
-  <!-- Payment Modal -->
+                <button
+                    type="button"
+                    class="close-btn"
+                    data-close="paymentModal"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
 
-  <div class="modal-overlay" id="paymentModal">
+            </div>
 
-    <div class="modal">
 
-      <div class="modal-header">
-        <div>
-          <span class="eyebrow">PAYMENT COLLECTION</span>
-          <h2>Record Payment</h2>
+            <form id="paymentForm">
+
+                <div class="form-grid">
+
+                    <!-- Customer -->
+
+                    <div class="form-group">
+
+                        <label for="paymentCustomer">
+                            Customer Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="paymentCustomer"
+                            placeholder="Customer name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Method -->
+
+                    <div class="form-group">
+
+                        <label for="paymentMethod">
+                            Payment Method *
+                        </label>
+
+                        <select
+                            id="paymentMethod"
+                            required
+                        >
+
+                            <option value="">
+                                Select Method
+                            </option>
+
+                            <option value="Cash">
+                                Cash
+                            </option>
+
+                            <option value="bKash">
+                                bKash
+                            </option>
+
+                            <option value="Nagad">
+                                Nagad
+                            </option>
+
+                            <option value="Rocket">
+                                Rocket
+                            </option>
+
+                            <option value="Bank">
+                                Bank
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Date -->
+
+                    <div class="form-group">
+
+                        <label for="paymentDate">
+                            Payment Date *
+                        </label>
+
+                        <input
+                            type="date"
+                            id="paymentDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Amount -->
+
+                    <div class="form-group">
+
+                        <label for="paymentAmount">
+                            Amount *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="paymentAmount"
+                            min="0"
+                            step="0.01"
+                            placeholder="0"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Reference -->
+
+                    <div class="form-group full">
+
+                        <label for="paymentReference">
+                            Reference
+                        </label>
+
+                        <input
+                            type="text"
+                            id="paymentReference"
+                            placeholder="Transaction / Bank / Receipt reference"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-btn"
+                        data-close="paymentModal"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Save Payment
+                    </button>
+
+                </div>
+
+            </form>
+
         </div>
-
-        <button class="close-btn" data-close="paymentModal">×</button>
-      </div>
-
-      <form id="paymentForm">
-
-        <div class="form-grid">
-
-          <div class="form-group">
-            <label>Customer Name *</label>
-            <input type="text" id="paymentCustomer" required>
-          </div>
-
-          <div class="form-group">
-            <label>Payment Method *</label>
-
-            <select id="paymentMethod" required>
-              <option value="">Select Method</option>
-              <option value="Cash">Cash</option>
-              <option value="bKash">bKash</option>
-              <option value="Nagad">Nagad</option>
-              <option value="Rocket">Rocket</option>
-              <option value="Bank">Bank</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Payment Date *</label>
-            <input type="date" id="paymentDate" required>
-          </div>
-
-          <div class="form-group">
-            <label>Amount *</label>
-            <input type="number" id="paymentAmount" min="0" required>
-          </div>
-
-          <div class="form-group full">
-            <label>Reference</label>
-            <input type="text" id="paymentReference">
-          </div>
-
-        </div>
-
-        <div class="modal-actions">
-
-          <button type="button" class="secondary-btn" data-close="paymentModal">
-            Cancel
-          </button>
-
-          <button type="submit" class="primary-btn">
-            Save Payment
-          </button>
-
-        </div>
-
-      </form>
 
     </div>
 
-  </div>
+
+    <!-- =====================================
+    TOAST
+    ===================================== -->
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
 
 
-  <div class="toast" id="toast"></div>
-
-  <script src="project-accounts.js"></script>
+    <!-- Correct JS Path -->
+    <script src="js/project-accounts.js"></script>
 
 </body>
 </html>
