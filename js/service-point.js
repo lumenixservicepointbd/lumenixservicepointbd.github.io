@@ -1,57 +1,39 @@
-/* =========================================
-   LUMENIX SERVICE POINT BD
-   V5.1 PREMIUM
-   Service Point Controller
-   ========================================= */
+/* =========================================================
+   LUMENIX V5.1
+   SERVICE POINT BD
+   COMPLETE JAVASCRIPT
+   ========================================================= */
 
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* =========================================
+    /* =====================================================
        STORAGE
-       ========================================= */
+       ===================================================== */
 
-    const PROJECT_STORAGE_KEY = "lumenixProjects";
-    const SERVICE_STORAGE_KEY = "lumenixServiceRequests";
-    const CUSTOMER_STORAGE_KEY = "lumenixCustomers";
-    const TECHNICIAN_STORAGE_KEY = "lumenixTechnicians";
+    const CUSTOMER_KEY = "lumenixServiceCustomers";
+    const BOOKING_KEY = "lumenixServiceBookings";
 
 
-    /* =========================================
-       HELPERS
-       ========================================= */
-
-    function readStorage(key, fallback = []) {
+    function getData(key) {
 
         try {
 
-            const saved = localStorage.getItem(key);
-
-            if (!saved) {
-                return fallback;
-            }
-
-            const parsed = JSON.parse(saved);
-
-            return parsed ?? fallback;
+            return JSON.parse(
+                localStorage.getItem(key)
+            ) || [];
 
         } catch (error) {
 
-            console.warn(
-                "Storage read error:",
-                key,
-                error
-            );
-
-            return fallback;
+            return [];
 
         }
 
     }
 
 
-    function saveStorage(key, data) {
+    function saveData(key, data) {
 
         localStorage.setItem(
             key,
@@ -61,17 +43,887 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    function formatMoney(value) {
+    /* =====================================================
+       DATA
+       ===================================================== */
 
-        const amount = Number(value) || 0;
+    let customers = getData(CUSTOMER_KEY);
 
-        return (
-            "৳" +
-            amount.toLocaleString("en-BD")
+    let bookings = getData(BOOKING_KEY);
+
+
+    /* =====================================================
+       ELEMENT HELPERS
+       ===================================================== */
+
+    function find(...selectors) {
+
+        for (const selector of selectors) {
+
+            const element =
+                document.querySelector(selector);
+
+            if (element) return element;
+
+        }
+
+        return null;
+
+    }
+
+
+    function findAll(selector) {
+
+        return document.querySelectorAll(selector);
+
+    }
+
+
+    /* =====================================================
+       TOAST
+       ===================================================== */
+
+    function showToast(message) {
+
+        let toast =
+            find(
+                "#spToast",
+                ".sp-toast",
+                "#toast"
+            );
+
+
+        if (!toast) {
+
+            toast =
+                document.createElement("div");
+
+            toast.className = "sp-toast";
+
+            toast.id = "spToast";
+
+            document.body.appendChild(toast);
+
+        }
+
+
+        toast.textContent = message;
+
+        toast.classList.add("show");
+
+
+        clearTimeout(
+            window.lumenixToastTimer
+        );
+
+
+        window.lumenixToastTimer =
+            setTimeout(function () {
+
+                toast.classList.remove("show");
+
+            }, 2500);
+
+    }
+
+
+    /* =====================================================
+       DASHBOARD BUTTON
+       ===================================================== */
+
+    const dashboardButtons =
+        findAll(
+            "#dashboardBtn, #dashboardButton, .sp-dashboard-btn"
+        );
+
+
+    dashboardButtons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                window.location.href =
+                    "dashboard.html";
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       BUSINESS DIVISION BUTTONS
+       ===================================================== */
+
+    const divisionButtons =
+        findAll(
+            ".business-action"
+        );
+
+
+    divisionButtons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function (event) {
+
+                const href =
+                    button.getAttribute("href");
+
+
+                if (href && href !== "#") {
+
+                    return;
+
+                }
+
+
+                event.preventDefault();
+
+                showToast(
+                    "This business division is selected."
+                );
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       SERVICE CATEGORY
+       ===================================================== */
+
+    const categoryButtons =
+        findAll(
+            ".category-card"
+        );
+
+
+    categoryButtons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const service =
+                    button.dataset.service ||
+                    button.querySelector("strong")?.textContent ||
+                    "Service";
+
+
+                const serviceSelect =
+                    find(
+                        "#bookingService",
+                        "#serviceFilter"
+                    );
+
+
+                if (serviceSelect) {
+
+                    const option =
+                        Array.from(
+                            serviceSelect.options
+                        ).find(function (option) {
+
+                            return (
+                                option.value === service ||
+                                option.textContent.trim() === service
+                            );
+
+                        });
+
+
+                    if (option) {
+
+                        serviceSelect.value =
+                            option.value;
+
+                    }
+
+                }
+
+
+                showToast(
+                    service + " selected."
+                );
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       CUSTOMER MODAL
+       ===================================================== */
+
+    const modal =
+        find(
+            "#customerModal",
+            ".sp-modal-overlay"
+        );
+
+
+    const openCustomerButtons =
+        findAll(
+            "#openCustomerModal",
+            "#addCustomerBtn",
+            "#customerBtn",
+            ".customer-action"
+        );
+
+
+    function openCustomerModal() {
+
+        if (!modal) return;
+
+        modal.classList.add("active");
+
+        modal.style.display = "flex";
+
+    }
+
+
+    function closeCustomerModal() {
+
+        if (!modal) return;
+
+        modal.classList.remove("active");
+
+        modal.style.display = "none";
+
+    }
+
+
+    openCustomerButtons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                openCustomerModal();
+
+            }
+        );
+
+    });
+
+
+    const closeModalButtons =
+        findAll(
+            "#closeCustomerModal",
+            ".sp-modal-close",
+            "[data-close='customerModal']"
+        );
+
+
+    closeModalButtons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                closeCustomerModal();
+
+            }
+        );
+
+    });
+
+
+    if (modal) {
+
+        modal.addEventListener(
+            "click",
+            function (event) {
+
+                if (event.target === modal) {
+
+                    closeCustomerModal();
+
+                }
+
+            }
         );
 
     }
 
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+
+                closeCustomerModal();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CUSTOMER FORM
+       ===================================================== */
+
+    const customerForm =
+        find(
+            "#customerForm"
+        );
+
+
+    if (customerForm) {
+
+        customerForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const name =
+                    find(
+                        "#customerName",
+                        "#customer_name"
+                    )?.value.trim() || "";
+
+
+                const phone =
+                    find(
+                        "#customerPhone",
+                        "#customer_phone"
+                    )?.value.trim() || "";
+
+
+                const address =
+                    find(
+                        "#customerAddress",
+                        "#customer_address"
+                    )?.value.trim() || "";
+
+
+                if (!name || !phone) {
+
+                    showToast(
+                        "Customer name and phone are required."
+                    );
+
+                    return;
+
+                }
+
+
+                const customer = {
+
+                    id:
+                        "CUS-" +
+                        Date.now(),
+
+                    name: name,
+
+                    phone: phone,
+
+                    address: address,
+
+                    createdAt:
+                        new Date().toISOString()
+
+                };
+
+
+                customers.push(customer);
+
+                saveData(
+                    CUSTOMER_KEY,
+                    customers
+                );
+
+
+                customerForm.reset();
+
+                closeCustomerModal();
+
+                updateDashboard();
+
+                showToast(
+                    "Customer registered successfully."
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       BOOKING
+       ===================================================== */
+
+    const bookingForm =
+        find(
+            "#bookingForm"
+        );
+
+
+    if (bookingForm) {
+
+        bookingForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const customer =
+                    find(
+                        "#bookingCustomer",
+                        "#booking_customer"
+                    )?.value.trim() || "";
+
+
+                const service =
+                    find(
+                        "#bookingService",
+                        "#booking_service"
+                    )?.value || "";
+
+
+                const area =
+                    find(
+                        "#bookingArea",
+                        "#booking_area"
+                    )?.value.trim() || "";
+
+
+                const date =
+                    find(
+                        "#bookingDate",
+                        "#booking_date"
+                    )?.value || "";
+
+
+                const technician =
+                    find(
+                        "#bookingTechnician",
+                        "#booking_technician"
+                    )?.value.trim() || "";
+
+
+                if (!customer || !service || !date) {
+
+                    showToast(
+                        "Customer, service and date are required."
+                    );
+
+                    return;
+
+                }
+
+
+                const booking = {
+
+                    id:
+                        "BK-" +
+                        Date.now(),
+
+                    customer: customer,
+
+                    service: service,
+
+                    area: area,
+
+                    date: date,
+
+                    technician: technician,
+
+                    status: "Pending",
+
+                    createdAt:
+                        new Date().toISOString()
+
+                };
+
+
+                bookings.push(booking);
+
+                saveData(
+                    BOOKING_KEY,
+                    bookings
+                );
+
+
+                bookingForm.reset();
+
+                updateDashboard();
+
+                renderBookings();
+
+                showToast(
+                    "New service booking added."
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       BOOKING FILTER
+       ===================================================== */
+
+    const searchInput =
+        find(
+            "#bookingSearch",
+            "#searchBooking",
+            "#searchCustomer"
+        );
+
+
+    const statusFilter =
+        find(
+            "#bookingStatusFilter",
+            "#statusFilter"
+        );
+
+
+    const serviceFilter =
+        find(
+            "#bookingServiceFilter",
+            "#serviceFilter"
+        );
+
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            renderBookings
+        );
+
+    }
+
+
+    if (statusFilter) {
+
+        statusFilter.addEventListener(
+            "change",
+            renderBookings
+        );
+
+    }
+
+
+    if (serviceFilter) {
+
+        serviceFilter.addEventListener(
+            "change",
+            renderBookings
+        );
+
+    }
+
+
+    /* =====================================================
+       BOOKING TABLE
+       ===================================================== */
+
+    function renderBookings() {
+
+        const tableBody =
+            find(
+                "#bookingTableBody",
+                "#serviceBookingBody",
+                "#bookingsBody"
+            );
+
+
+        if (!tableBody) return;
+
+
+        const search =
+            searchInput?.value
+                .trim()
+                .toLowerCase() || "";
+
+
+        const status =
+            statusFilter?.value || "all";
+
+
+        const service =
+            serviceFilter?.value || "all";
+
+
+        let filtered =
+            bookings.filter(function (booking) {
+
+                const searchMatch =
+
+                    !search ||
+
+                    String(booking.id || "")
+                        .toLowerCase()
+                        .includes(search) ||
+
+                    String(booking.customer || "")
+                        .toLowerCase()
+                        .includes(search);
+
+
+                const statusMatch =
+
+                    status === "all" ||
+
+                    booking.status === status;
+
+
+                const serviceMatch =
+
+                    service === "all" ||
+
+                    booking.service === service;
+
+
+                return (
+                    searchMatch &&
+                    statusMatch &&
+                    serviceMatch
+                );
+
+            });
+
+
+        tableBody.innerHTML = "";
+
+
+        if (filtered.length === 0) {
+
+            tableBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        class="empty-state"
+                    >
+                        No service booking found.
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        filtered
+            .slice()
+            .reverse()
+            .forEach(function (booking) {
+
+                const row =
+                    document.createElement("tr");
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${escapeHTML(booking.id)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(booking.customer)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(booking.service)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(booking.area || "-")}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(booking.date || "-")}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(booking.technician || "-")}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(booking.status || "Pending")}
+                    </td>
+
+                `;
+
+
+                tableBody.appendChild(row);
+
+            });
+
+    }
+
+
+    /* =====================================================
+       UPDATE SUMMARY
+       ===================================================== */
+
+    function updateDashboard() {
+
+        const totalCustomers =
+            find(
+                "#totalCustomers"
+            );
+
+
+        const totalBookings =
+            find(
+                "#totalBookings"
+            );
+
+
+        const completedServices =
+            find(
+                "#completedServices"
+            );
+
+
+        const pendingServices =
+            find(
+                "#pendingServices"
+            );
+
+
+        if (totalCustomers) {
+
+            totalCustomers.textContent =
+                customers.length;
+
+        }
+
+
+        if (totalBookings) {
+
+            totalBookings.textContent =
+                bookings.length;
+
+        }
+
+
+        const completed =
+            bookings.filter(function (item) {
+
+                return (
+                    String(item.status)
+                        .toLowerCase() ===
+                    "completed"
+                );
+
+            }).length;
+
+
+        const pending =
+            bookings.filter(function (item) {
+
+                return (
+                    String(item.status)
+                        .toLowerCase() ===
+                    "pending"
+                );
+
+            }).length;
+
+
+        if (completedServices) {
+
+            completedServices.textContent =
+                completed;
+
+        }
+
+
+        if (pendingServices) {
+
+            pendingServices.textContent =
+                pending;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       STATUS UPDATE
+       ===================================================== */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const button =
+                event.target.closest(
+                    "[data-booking-status]"
+                );
+
+
+            if (!button) return;
+
+
+            const bookingId =
+                button.dataset.bookingId;
+
+
+            const newStatus =
+                button.dataset.bookingStatus;
+
+
+            const booking =
+                bookings.find(function (item) {
+
+                    return item.id === bookingId;
+
+                });
+
+
+            if (!booking) return;
+
+
+            booking.status =
+                newStatus;
+
+
+            saveData(
+                BOOKING_KEY,
+                bookings
+            );
+
+
+            renderBookings();
+
+            updateDashboard();
+
+            showToast(
+                "Booking status updated."
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       SAFE HTML
+       ===================================================== */
 
     function escapeHTML(value) {
 
@@ -85,670 +937,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    function today() {
+    /* =====================================================
+       INITIAL LOAD
+       ===================================================== */
 
-        const date = new Date();
+    updateDashboard();
 
-        return date.toISOString()
-            .split("T")[0];
+    renderBookings();
 
-    }
-
-
-    function showToast(message) {
-
-        const toast =
-            document.getElementById("toast");
-
-        if (!toast) return;
-
-        toast.textContent = message;
-
-        toast.classList.add("show");
-
-        clearTimeout(
-            showToast.timer
-        );
-
-        showToast.timer =
-            setTimeout(function () {
-
-                toast.classList.remove("show");
-
-            }, 2500);
-
-    }
-
-
-    /* =========================================
-       LOGIN SECURITY
-       ========================================= */
-
-    const loggedIn =
-        localStorage.getItem(
-            "adminLoggedIn"
-        );
-
-    if (loggedIn !== "true") {
-
-        window.location.href =
-            "admin.html";
-
-        return;
-
-    }
-
-
-    /* =========================================
-       BRAND LOGOS
-       ========================================= */
-
-    const brandCards =
-        document.querySelectorAll(
-            ".brand-card"
-        );
-
-
-    brandCards.forEach(function (card) {
-
-        card.addEventListener(
-            "click",
-            function () {
-
-                brandCards.forEach(
-                    function (item) {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-                card.classList.add(
-                    "active"
-                );
-
-            }
-        );
-
-    });
-
-
-    /* =========================================
-       LOAD DATA
-       ========================================= */
-
-    let projects =
-        readStorage(
-            PROJECT_STORAGE_KEY,
-            []
-        );
-
-    let serviceRequests =
-        readStorage(
-            SERVICE_STORAGE_KEY,
-            []
-        );
-
-    let customers =
-        readStorage(
-            CUSTOMER_STORAGE_KEY,
-            []
-        );
-
-    let technicians =
-        readStorage(
-            TECHNICIAN_STORAGE_KEY,
-            []
-        );
-
-
-    /* =========================================
-       ELEMENTS
-       ========================================= */
-
-    const totalProjects =
-        document.getElementById(
-            "totalProjects"
-        );
-
-    const totalIncome =
-        document.getElementById(
-            "totalIncome"
-        );
-
-    const totalExpense =
-        document.getElementById(
-            "totalExpense"
-        );
-
-    const totalCustomers =
-        document.getElementById(
-            "totalCustomers"
-        );
-
-    const serviceTableBody =
-        document.getElementById(
-            "serviceRequestBody"
-        );
-
-    const projectTableBody =
-        document.getElementById(
-            "latestProjectsBody"
-        );
-
-
-    /* =========================================
-       PROJECT SUMMARY
-       ========================================= */
-
-    function calculateProjectSummary() {
-
-        let income = 0;
-
-        let expense = 0;
-
-
-        projects.forEach(
-            function (project) {
-
-                income +=
-                    Number(
-                        project.income ||
-                        project.amount ||
-                        0
-                    );
-
-                expense +=
-                    Number(
-                        project.expense ||
-                        0
-                    );
-
-            }
-        );
-
-
-        if (totalProjects) {
-
-            totalProjects.textContent =
-                projects.length;
-
-        }
-
-
-        if (totalIncome) {
-
-            totalIncome.textContent =
-                formatMoney(income);
-
-        }
-
-
-        if (totalExpense) {
-
-            totalExpense.textContent =
-                formatMoney(expense);
-
-        }
-
-
-        if (totalCustomers) {
-
-            totalCustomers.textContent =
-                customers.length;
-
-        }
-
-    }
-
-
-    /* =========================================
-       PROJECT TABLE
-       ========================================= */
-
-    function renderProjects() {
-
-        if (!projectTableBody) return;
-
-
-        projectTableBody.innerHTML = "";
-
-
-        if (
-            !projects ||
-            projects.length === 0
-        ) {
-
-            projectTableBody.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="4"
-                        class="empty-state"
-                    >
-                        No Project Found
-                    </td>
-
-                </tr>
-
-            `;
-
-            return;
-
-        }
-
-
-        const latest =
-            projects
-                .slice(-5)
-                .reverse();
-
-
-        latest.forEach(
-            function (project) {
-
-                const row =
-                    document.createElement(
-                        "tr"
-                    );
-
-
-                row.innerHTML = `
-
-                    <td>
-                        ${escapeHTML(
-                            project.id ||
-                            project.projectId ||
-                            "-"
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            project.customer ||
-                            project.customerName ||
-                            "-"
-                        )}
-                    </td>
-
-                    <td>
-
-                        <span class="status-badge status-active">
-
-                            ${escapeHTML(
-                                project.status ||
-                                "Active"
-                            )}
-
-                        </span>
-
-                    </td>
-
-                    <td>
-                        ${formatMoney(
-                            project.amount ||
-                            project.value ||
-                            0
-                        )}
-                    </td>
-
-                `;
-
-
-                projectTableBody.appendChild(
-                    row
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =========================================
-       SERVICE REQUEST TABLE
-       ========================================= */
-
-    function renderServiceRequests() {
-
-        if (!serviceTableBody) return;
-
-
-        serviceTableBody.innerHTML = "";
-
-
-        if (
-            !serviceRequests ||
-            serviceRequests.length === 0
-        ) {
-
-            serviceTableBody.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="4"
-                        class="empty-state"
-                    >
-                        No Service Request Found
-                    </td>
-
-                </tr>
-
-            `;
-
-            return;
-
-        }
-
-
-        serviceRequests
-            .slice(-10)
-            .reverse()
-            .forEach(
-                function (request) {
-
-                    const row =
-                        document.createElement(
-                            "tr"
-                        );
-
-
-                    const status =
-                        String(
-                            request.status ||
-                            "Pending"
-                        );
-
-
-                    let statusClass =
-                        "status-pending";
-
-
-                    if (
-                        status.toLowerCase()
-                            .includes("complete")
-                    ) {
-
-                        statusClass =
-                            "status-completed";
-
-                    }
-
-
-                    if (
-                        status.toLowerCase()
-                            .includes("cancel")
-                    ) {
-
-                        statusClass =
-                            "status-cancelled";
-
-                    }
-
-
-                    row.innerHTML = `
-
-                        <td>
-                            ${escapeHTML(
-                                request.id ||
-                                request.requestId ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                request.customer ||
-                                request.customerName ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                request.service ||
-                                request.serviceType ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-
-                            <span
-                                class="status-badge ${statusClass}"
-                            >
-                                ${escapeHTML(status)}
-                            </span>
-
-                        </td>
-
-                    `;
-
-
-                    serviceTableBody.appendChild(
-                        row
-                    );
-
-                }
-            );
-
-    }
-
-
-    /* =========================================
-       QUICK ACTIONS
-       ========================================= */
-
-    const quickActionButtons =
-        document.querySelectorAll(
-            ".quick-action-btn"
-        );
-
-
-    quickActionButtons.forEach(
-        function (button) {
-
-            button.addEventListener(
-                "click",
-                function () {
-
-                    const target =
-                        button.dataset.target;
-
-
-                    if (!target) {
-                        return;
-                    }
-
-
-                    window.location.href =
-                        target;
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =========================================
-       COMMON NAVIGATION BUTTONS
-       ========================================= */
-
-    const navigationMap = {
-
-        dashboardBtn:
-            "dashboard.html",
-
-        projectBtn:
-            "project.html",
-
-        accountsBtn:
-            "project-accounts.html",
-
-        inventoryBtn:
-            "inventory.html",
-
-        attendanceBtn:
-            "attendance.html",
-
-        reportsBtn:
-            "reports.html",
-
-        settingsBtn:
-            "settings.html"
-
-    };
-
-
-    Object.keys(
-        navigationMap
-    ).forEach(
-        function (id) {
-
-            const button =
-                document.getElementById(id);
-
-
-            if (!button) return;
-
-
-            button.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
-
-                    window.location.href =
-                        navigationMap[id];
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =========================================
-       BACK / DASHBOARD
-       ========================================= */
-
-    const backDashboardBtn =
-        document.getElementById(
-            "backDashboardBtn"
-        );
-
-
-    if (backDashboardBtn) {
-
-        backDashboardBtn.addEventListener(
-            "click",
-            function () {
-
-                window.location.href =
-                    "dashboard.html";
-
-            }
-        );
-
-    }
-
-
-    /* =========================================
-       LOGOUT
-       ========================================= */
-
-    const logoutBtn =
-        document.getElementById(
-            "logoutBtn"
-        );
-
-
-    if (logoutBtn) {
-
-        logoutBtn.addEventListener(
-            "click",
-            function () {
-
-                const confirmed =
-                    confirm(
-                        "Are you sure you want to logout?"
-                    );
-
-
-                if (!confirmed) {
-                    return;
-                }
-
-
-                localStorage.removeItem(
-                    "adminLoggedIn"
-                );
-
-                localStorage.removeItem(
-                    "adminRole"
-                );
-
-                localStorage.removeItem(
-                    "currentUserRole"
-                );
-
-
-                window.location.href =
-                    "admin.html";
-
-            }
-        );
-
-    }
-
-
-    /* =========================================
-       LOGO IMAGE ERROR HANDLING
-       ========================================= */
-
-    document
-        .querySelectorAll(
-            ".brand-logo img, .service-point-brand img"
-        )
-        .forEach(
-            function (image) {
-
-                image.addEventListener(
-                    "error",
-                    function () {
-
-                        image.style.display =
-                            "none";
-
-                    }
-                );
-
-            }
-        );
-
-
-    /* =========================================
-       INITIAL RENDER
-       ========================================= */
-
-    calculateProjectSummary();
-
-    renderProjects();
-
-    renderServiceRequests();
-
-
-    /* =========================================
-       SYSTEM LOG
-       ========================================= */
 
     console.log(
-        "LUMENIX Service Point V5.1 loaded successfully."
+        "LUMENIX V5.1 Service Point loaded successfully."
     );
 
 });
