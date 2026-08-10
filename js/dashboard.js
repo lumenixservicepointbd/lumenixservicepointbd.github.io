@@ -1,8 +1,8 @@
-/* =========================================================
-   LUMENIX V5.1
-   Dashboard Controller
-   RBAC + Super Admin
-   ========================================================= */
+/* =====================================
+LUMENIX V5.1 PREMIUM
+Dashboard Controller
+RBAC + Super Admin Foundation
+===================================== */
 
 "use strict";
 
@@ -12,38 +12,24 @@ document.addEventListener(
     function () {
 
 
-        /* =================================================
-           SECURITY
-           ================================================= */
+        /* =====================================
+        DJ1
+        SESSION + ROLE SECURITY
+        ===================================== */
 
-        if (
-            !window.LumenixRBAC
-        ) {
-
-            window.location.href =
-                "admin.html";
-
-            return;
-
-        }
+        const isLoggedIn =
+            localStorage.getItem(
+                "adminLoggedIn"
+            );
 
 
-        if (
-            !LumenixRBAC.requireLogin(
-                "admin.html"
-            )
-        ) {
-
-            return;
-
-        }
+        const role =
+            localStorage.getItem(
+                "adminRole"
+            );
 
 
-        const user =
-            LumenixRBAC.currentUser();
-
-
-        if (!user) {
+        if (isLoggedIn !== "true") {
 
             window.location.href =
                 "admin.html";
@@ -53,9 +39,42 @@ document.addEventListener(
         }
 
 
-        /* =================================================
-           USER INFORMATION
-           ================================================= */
+        if (!role) {
+
+            localStorage.removeItem(
+                "adminLoggedIn"
+            );
+
+            window.location.href =
+                "admin.html";
+
+            return;
+
+        }
+
+
+        /*
+        SUPER ADMIN
+        Full System Access
+        */
+
+        const isSuperAdmin =
+            role === "super_admin";
+
+
+        if (isSuperAdmin) {
+
+            console.log(
+                "LUMENIX Super Admin: Full Access Granted"
+            );
+
+        }
+
+
+        /* =====================================
+        DJ2
+        LOGGED USER DISPLAY
+        ===================================== */
 
         const dashboardUser =
             document.querySelector(
@@ -65,58 +84,25 @@ document.addEventListener(
 
         if (dashboardUser) {
 
-            dashboardUser.textContent =
-                `${user.name} • ${formatRole(user.role)}`;
+            if (isSuperAdmin) {
+
+                dashboardUser.textContent =
+                    "Super Administrator";
+
+            } else {
+
+                dashboardUser.textContent =
+                    "Administrator";
+
+            }
 
         }
 
 
-        /* =================================================
-           ROLE FORMAT
-           ================================================= */
-
-        function formatRole(role) {
-
-            const roles = {
-
-                super_admin:
-                    "Super Admin",
-
-                admin:
-                    "Admin",
-
-                manager:
-                    "Manager",
-
-                supervisor:
-                    "Supervisor",
-
-                technician:
-                    "Technician",
-
-                partner:
-                    "Partner",
-
-                dealer:
-                    "Dealer",
-
-                customer:
-                    "Customer"
-
-            };
-
-
-            return (
-                roles[role] ||
-                role
-            );
-
-        }
-
-
-        /* =================================================
-           LOGOUT
-           ================================================= */
+        /* =====================================
+        DJ3
+        LOGOUT
+        ===================================== */
 
         const logoutBtn =
             document.getElementById(
@@ -130,7 +116,6 @@ document.addEventListener(
                 "click",
                 function () {
 
-
                     const confirmLogout =
                         confirm(
                             "Are you sure you want to logout?"
@@ -142,8 +127,14 @@ document.addEventListener(
                     }
 
 
-                    LumenixRBAC
-                        .clearSession();
+                    localStorage.removeItem(
+                        "adminLoggedIn"
+                    );
+
+
+                    localStorage.removeItem(
+                        "adminRole"
+                    );
 
 
                     window.location.href =
@@ -155,31 +146,12 @@ document.addEventListener(
         }
 
 
-        /* =================================================
-           NAVIGATION
-           ================================================= */
+        /* =====================================
+        DJ4
+        NAVIGATION
+        ===================================== */
 
-        function navigateTo(
-            page,
-            module
-        ) {
-
-
-            if (
-                !LumenixRBAC
-                    .hasPermission(
-                        module
-                    )
-            ) {
-
-                alert(
-                    "আপনার এই module ব্যবহারের permission নেই।"
-                );
-
-                return;
-
-            }
-
+        function navigateTo(page) {
 
             window.location.href =
                 page;
@@ -187,217 +159,132 @@ document.addEventListener(
         }
 
 
-        /* =================================================
-           MODULE MAP
-           ================================================= */
-
         const navigation = {
 
-            dashboardHomeBtn: {
-                page: "dashboard.html",
-                module:
-                    LumenixRBAC.MODULES.DASHBOARD
-            },
+            dashboardHomeBtn:
+                "dashboard.html",
 
-            projectBtn: {
-                page: "project.html",
-                module:
-                    LumenixRBAC.MODULES.PROJECTS
-            },
+            projectBtn:
+                "project.html",
 
-            accountsBtn: {
-                page: "accounts.html",
-                module:
-                    LumenixRBAC.MODULES.ACCOUNTS
-            },
+            accountsBtn:
+                "accounts.html",
 
-            inventoryBtn: {
-                page: "inventory.html",
-                module:
-                    LumenixRBAC.MODULES.INVENTORY
-            },
+            inventoryBtn:
+                "inventory.html",
 
-            attendanceBtn: {
-                page: "attendance.html",
-                module:
-                    LumenixRBAC.MODULES.ATTENDANCE
-            },
+            attendanceBtn:
+                "attendance.html",
 
-            reportsBtn: {
-                page: "reports.html",
-                module:
-                    LumenixRBAC.MODULES.REPORTS
-            },
+            reportsBtn:
+                "reports.html",
 
-            settingsBtn: {
-                page: "settings.html",
-                module:
-                    LumenixRBAC.MODULES.SETTINGS
-            }
+            settingsBtn:
+                "settings.html"
 
         };
 
 
-        Object.keys(
-            navigation
-        ).forEach(
-            function (id) {
+        Object.keys(navigation)
+            .forEach(
+                function (buttonId) {
+
+                    const button =
+                        document.getElementById(
+                            buttonId
+                        );
 
 
-                const element =
-                    document.getElementById(
-                        id
+                    if (!button) {
+                        return;
+                    }
+
+
+                    button.addEventListener(
+                        "click",
+                        function (event) {
+
+                            event.preventDefault();
+
+                            navigateTo(
+                                navigation[
+                                    buttonId
+                                ]
+                            );
+
+                        }
                     );
 
-
-                if (!element) {
-                    return;
                 }
+            );
 
 
-                const config =
-                    navigation[id];
-
-
-                if (
-                    !LumenixRBAC
-                        .hasPermission(
-                            config.module
-                        )
-                ) {
-
-                    element.parentElement
-                        ?.classList
-                        .add(
-                            "rbac-hidden"
-                        );
-
-                    return;
-
-                }
-
-
-                element.addEventListener(
-                    "click",
-                    function (event) {
-
-                        event.preventDefault();
-
-                        navigateTo(
-                            config.page,
-                            config.module
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-        /* =================================================
-           QUICK ACTIONS
-           ================================================= */
+        /* =====================================
+        DJ5
+        QUICK ACTIONS
+        ===================================== */
 
         const quickActions = {
 
-            goProjectBtn: {
-                page: "project.html",
-                module:
-                    LumenixRBAC.MODULES.PROJECTS
-            },
+            goProjectBtn:
+                "project.html",
 
-            goAccountsBtn: {
-                page: "accounts.html",
-                module:
-                    LumenixRBAC.MODULES.ACCOUNTS
-            },
+            goAccountsBtn:
+                "accounts.html",
 
-            goInventoryBtn: {
-                page: "inventory.html",
-                module:
-                    LumenixRBAC.MODULES.INVENTORY
-            },
+            goInventoryBtn:
+                "inventory.html",
 
-            goAttendanceBtn: {
-                page: "attendance.html",
-                module:
-                    LumenixRBAC.MODULES.ATTENDANCE
-            },
+            goAttendanceBtn:
+                "attendance.html",
 
-            goReportsBtn: {
-                page: "reports.html",
-                module:
-                    LumenixRBAC.MODULES.REPORTS
-            },
+            goReportsBtn:
+                "reports.html",
 
-            goSettingsBtn: {
-                page: "settings.html",
-                module:
-                    LumenixRBAC.MODULES.SETTINGS
-            }
+            goSettingsBtn:
+                "settings.html"
 
         };
 
 
-        Object.keys(
-            quickActions
-        ).forEach(
-            function (id) {
+        Object.keys(quickActions)
+            .forEach(
+                function (buttonId) {
 
-
-                const element =
-                    document.getElementById(
-                        id
-                    );
-
-
-                if (!element) {
-                    return;
-                }
-
-
-                const config =
-                    quickActions[id];
-
-
-                if (
-                    !LumenixRBAC
-                        .hasPermission(
-                            config.module
-                        )
-                ) {
-
-                    element.classList.add(
-                        "rbac-hidden"
-                    );
-
-                    return;
-
-                }
-
-
-                element.addEventListener(
-                    "click",
-                    function () {
-
-                        navigateTo(
-                            config.page,
-                            config.module
+                    const button =
+                        document.getElementById(
+                            buttonId
                         );
 
+
+                    if (!button) {
+                        return;
                     }
-                );
-
-            }
-        );
 
 
-        /* =================================================
-           DASHBOARD SUMMARY
-           ================================================= */
+                    button.addEventListener(
+                        "click",
+                        function () {
 
-        const dashboardData = {
+                            navigateTo(
+                                quickActions[
+                                    buttonId
+                                ]
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =====================================
+        DJ6
+        DASHBOARD DATA
+        ===================================== */
+
+        const defaultDashboardData = {
 
             projects: 0,
 
@@ -408,35 +295,55 @@ document.addEventListener(
             inventory: 0,
 
             lastUpdate:
-                new Date()
-                    .toLocaleString()
+                new Date().toISOString()
 
         };
 
 
-        let currentData;
+        let currentData =
+            defaultDashboardData;
 
 
-        try {
+        const savedDashboardData =
+            localStorage.getItem(
+                "lumenixDashboard"
+            );
 
-            const savedData =
-                localStorage.getItem(
-                    "lumenixDashboard"
+
+        if (savedDashboardData) {
+
+            try {
+
+                const parsedData =
+                    JSON.parse(
+                        savedDashboardData
+                    );
+
+
+                if (
+                    parsedData &&
+                    typeof parsedData ===
+                    "object"
+                ) {
+
+                    currentData = {
+
+                        ...defaultDashboardData,
+
+                        ...parsedData
+
+                    };
+
+                }
+
+            } catch (error) {
+
+                console.warn(
+                    "Dashboard data could not be loaded.",
+                    error
                 );
 
-
-            currentData =
-                savedData
-                    ? JSON.parse(
-                        savedData
-                    )
-                    : dashboardData;
-
-
-        } catch (error) {
-
-            currentData =
-                dashboardData;
+            }
 
         }
 
@@ -448,6 +355,11 @@ document.addEventListener(
             )
         );
 
+
+        /* =====================================
+        DJ7
+        SUMMARY CARDS
+        ===================================== */
 
         const totalProjects =
             document.getElementById(
@@ -476,7 +388,9 @@ document.addEventListener(
         if (totalProjects) {
 
             totalProjects.textContent =
-                currentData.projects || 0;
+                Number(
+                    currentData.projects || 0
+                );
 
         }
 
@@ -485,9 +399,8 @@ document.addEventListener(
 
             totalIncome.textContent =
                 "৳" +
-                (
-                    currentData.income ||
-                    0
+                Number(
+                    currentData.income || 0
                 );
 
         }
@@ -497,9 +410,8 @@ document.addEventListener(
 
             totalExpense.textContent =
                 "৳" +
-                (
-                    currentData.expense ||
-                    0
+                Number(
+                    currentData.expense || 0
                 );
 
         }
@@ -508,14 +420,254 @@ document.addEventListener(
         if (totalInventory) {
 
             totalInventory.textContent =
-                currentData.inventory || 0;
+                Number(
+                    currentData.inventory || 0
+                );
 
         }
 
 
-        /* =================================================
-           MONTHLY FINANCIAL
-           ================================================= */
+        /* =====================================
+        DJ8
+        RECENT ACTIVITY
+        ===================================== */
+
+        const activityList =
+            document.querySelector(
+                ".activity-list"
+            );
+
+
+        if (activityList) {
+
+            const activityData = [
+
+                {
+                    icon: "📁",
+                    text:
+                        "Project Management Module Ready."
+                },
+
+                {
+                    icon: "💰",
+                    text:
+                        "Income & Expense Module Ready."
+                },
+
+                {
+                    icon: "📦",
+                    text:
+                        "Inventory Module Ready."
+                },
+
+                {
+                    icon: "👥",
+                    text:
+                        "Attendance Module Ready."
+                }
+
+            ];
+
+
+            activityList.innerHTML = "";
+
+
+            activityData.forEach(
+                function (item) {
+
+                    const activityItem =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    activityItem.className =
+                        "activity-item";
+
+
+                    const icon =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    icon.textContent =
+                        item.icon;
+
+
+                    const text =
+                        document.createElement(
+                            "p"
+                        );
+
+
+                    text.textContent =
+                        item.text;
+
+
+                    activityItem.appendChild(
+                        icon
+                    );
+
+
+                    activityItem.appendChild(
+                        text
+                    );
+
+
+                    activityList.appendChild(
+                        activityItem
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================
+        DJ9
+        LATEST PROJECTS
+        ===================================== */
+
+        const projectTable =
+            document.getElementById(
+                "latestProjectsBody"
+            );
+
+
+        if (projectTable) {
+
+            let savedProjects = [];
+
+
+            try {
+
+                savedProjects =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "lumenixProjects"
+                        )
+                    ) || [];
+
+            } catch (error) {
+
+                savedProjects = [];
+
+            }
+
+
+            projectTable.innerHTML = "";
+
+
+            if (
+                !Array.isArray(
+                    savedProjects
+                ) ||
+                savedProjects.length === 0
+            ) {
+
+                projectTable.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="4"
+                            style="text-align:center;"
+                        >
+                            No Project Found
+                        </td>
+
+                    </tr>
+
+                `;
+
+            } else {
+
+                savedProjects
+                    .slice()
+                    .reverse()
+                    .slice(0, 5)
+                    .forEach(
+                        function (project) {
+
+                            const row =
+                                document.createElement(
+                                    "tr"
+                                );
+
+
+                            const id =
+                                document.createElement(
+                                    "td"
+                                );
+
+                            id.textContent =
+                                project.id || "-";
+
+
+                            const customer =
+                                document.createElement(
+                                    "td"
+                                );
+
+                            customer.textContent =
+                                project.customer ||
+                                "-";
+
+
+                            const status =
+                                document.createElement(
+                                    "td"
+                                );
+
+                            status.textContent =
+                                project.status ||
+                                "-";
+
+
+                            const amount =
+                                document.createElement(
+                                    "td"
+                                );
+
+                            amount.textContent =
+                                "৳" +
+                                Number(
+                                    project.amount ||
+                                    0
+                                );
+
+
+                            row.appendChild(id);
+
+                            row.appendChild(
+                                customer
+                            );
+
+                            row.appendChild(status);
+
+                            row.appendChild(
+                                amount
+                            );
+
+
+                            projectTable.appendChild(
+                                row
+                            );
+
+                        }
+                    );
+
+            }
+
+        }
+
+
+        /* =====================================
+        DJ10
+        INCOME + EXPENSE
+        ===================================== */
 
         const monthlyIncome =
             document.getElementById(
@@ -579,22 +731,10 @@ document.addEventListener(
         }
 
 
-        /* =================================================
-           INVENTORY
-           ================================================= */
-
-        const inventoryData = {
-
-            products: 0,
-
-            lowStock: 0,
-
-            outOfStock: 0,
-
-            value: 0
-
-        };
-
+        /* =====================================
+        DJ11
+        INVENTORY OVERVIEW
+        ===================================== */
 
         const totalProducts =
             document.getElementById(
@@ -618,6 +758,19 @@ document.addEventListener(
             document.getElementById(
                 "inventoryValue"
             );
+
+
+        const inventoryData = {
+
+            products: 0,
+
+            lowStock: 0,
+
+            outOfStock: 0,
+
+            value: 0
+
+        };
 
 
         if (totalProducts) {
@@ -653,9 +806,34 @@ document.addEventListener(
         }
 
 
-        /* =================================================
-           ATTENDANCE
-           ================================================= */
+        /* =====================================
+        DJ12
+        ATTENDANCE OVERVIEW
+        ===================================== */
+
+        const presentEmployees =
+            document.getElementById(
+                "presentEmployees"
+            );
+
+
+        const absentEmployees =
+            document.getElementById(
+                "absentEmployees"
+            );
+
+
+        const leaveEmployees =
+            document.getElementById(
+                "leaveEmployees"
+            );
+
+
+        const lateEmployees =
+            document.getElementById(
+                "lateEmployees"
+            );
+
 
         const attendanceData = {
 
@@ -670,48 +848,66 @@ document.addEventListener(
         };
 
 
-        const attendanceElements = {
+        if (presentEmployees) {
 
-            present:
-                "presentEmployees",
+            presentEmployees.textContent =
+                attendanceData.present;
 
-            absent:
-                "absentEmployees",
-
-            leave:
-                "leaveEmployees",
-
-            late:
-                "lateEmployees"
-
-        };
+        }
 
 
-        Object.keys(
-            attendanceElements
-        ).forEach(
-            function (key) {
+        if (absentEmployees) {
 
-                const element =
-                    document.getElementById(
-                        attendanceElements[key]
-                    );
+            absentEmployees.textContent =
+                attendanceData.absent;
+
+        }
 
 
-                if (element) {
+        if (leaveEmployees) {
 
-                    element.textContent =
-                        attendanceData[key];
+            leaveEmployees.textContent =
+                attendanceData.leave;
 
-                }
-
-            }
-        );
+        }
 
 
-        /* =================================================
-           TECHNICIANS
-           ================================================= */
+        if (lateEmployees) {
+
+            lateEmployees.textContent =
+                attendanceData.late;
+
+        }
+
+
+        /* =====================================
+        DJ13
+        TECHNICIAN STATUS
+        ===================================== */
+
+        const availableTechnicians =
+            document.getElementById(
+                "availableTechnicians"
+            );
+
+
+        const workingTechnicians =
+            document.getElementById(
+                "workingTechnicians"
+            );
+
+
+        const offlineTechnicians =
+            document.getElementById(
+                "offlineTechnicians"
+            );
+
+
+        const totalTechnicians =
+            document.getElementById(
+                "totalTechnicians"
+            );
+
 
         const technicianData = {
 
@@ -730,46 +926,28 @@ document.addEventListener(
             technicianData.offline;
 
 
-        const technicianElements = {
+        if (availableTechnicians) {
 
-            available:
-                "availableTechnicians",
+            availableTechnicians.textContent =
+                technicianData.available;
 
-            working:
-                "workingTechnicians",
-
-            offline:
-                "offlineTechnicians"
-
-        };
+        }
 
 
-        Object.keys(
-            technicianElements
-        ).forEach(
-            function (key) {
+        if (workingTechnicians) {
 
-                const element =
-                    document.getElementById(
-                        technicianElements[key]
-                    );
+            workingTechnicians.textContent =
+                technicianData.working;
+
+        }
 
 
-                if (element) {
+        if (offlineTechnicians) {
 
-                    element.textContent =
-                        technicianData[key];
+            offlineTechnicians.textContent =
+                technicianData.offline;
 
-                }
-
-            }
-        );
-
-
-        const totalTechnicians =
-            document.getElementById(
-                "totalTechnicians"
-            );
+        }
 
 
         if (totalTechnicians) {
@@ -780,101 +958,12 @@ document.addEventListener(
         }
 
 
-        /* =================================================
-           RECENT ACTIVITY
-           ================================================= */
+        /* =====================================
+        DJ14
+        CUSTOMER SERVICE REQUESTS
 
-        const activityList =
-            document.querySelector(
-                ".activity-list"
-            );
-
-
-        if (activityList) {
-
-            activityList.innerHTML = `
-
-                <div class="activity-item">
-
-                    <span>🔐</span>
-
-                    <p>
-                        Logged in as
-                        ${escapeHTML(
-                            formatRole(
-                                user.role
-                            )
-                        )}
-                    </p>
-
-                </div>
-
-                <div class="activity-item">
-
-                    <span>🏢</span>
-
-                    <p>
-                        LUMENIX ecosystem ready.
-                    </p>
-
-                </div>
-
-                <div class="activity-item">
-
-                    <span>⚡</span>
-
-                    <p>
-                        RBAC permission system active.
-                    </p>
-
-                </div>
-
-            `;
-
-        }
-
-
-        /* =================================================
-           HELPERS
-           ================================================= */
-
-        function escapeHTML(value) {
-
-            return String(
-                value ?? ""
-            )
-
-                .replace(
-                    /&/g,
-                    "&amp;"
-                )
-
-                .replace(
-                    /</g,
-                    "&lt;"
-                )
-
-                .replace(
-                    />/g,
-                    "&gt;"
-                )
-
-                .replace(
-                    /"/g,
-                    "&quot;"
-                )
-
-                .replace(
-                    /'/g,
-                    "&#039;"
-                );
-
-        }
-
-
-        /* =================================================
-           SERVICE REQUEST
-           ================================================= */
+        Loads Service Point bookings
+        ===================================== */
 
         const serviceRequestBody =
             document.getElementById(
@@ -884,28 +973,159 @@ document.addEventListener(
 
         if (serviceRequestBody) {
 
-            serviceRequestBody.innerHTML = `
+            let serviceBookings = [];
 
-                <tr>
 
-                    <td
-                        colspan="4"
-                        style="text-align:center;"
-                    >
-                        Service Point data
-                        will appear here.
-                    </td>
+            try {
 
-                </tr>
+                serviceBookings =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "lumenix_service_bookings"
+                        )
+                    ) || [];
 
-            `;
+            } catch (error) {
+
+                serviceBookings = [];
+
+            }
+
+
+            serviceRequestBody.innerHTML = "";
+
+
+            if (
+                !Array.isArray(
+                    serviceBookings
+                ) ||
+                serviceBookings.length === 0
+            ) {
+
+                serviceRequestBody.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="4"
+                            style="text-align:center;"
+                        >
+                            No Service Request Found
+                        </td>
+
+                    </tr>
+
+                `;
+
+            } else {
+
+                const customers =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "lumenix_service_customers"
+                        ) || "[]"
+                    );
+
+
+                serviceBookings
+                    .slice()
+                    .reverse()
+                    .slice(0, 5)
+                    .forEach(
+                        function (booking) {
+
+                            const customer =
+                                customers.find(
+                                    function (
+                                        item
+                                    ) {
+
+                                        return (
+                                            item.id ===
+                                            booking.customerId
+                                        );
+
+                                    }
+                                );
+
+
+                            const row =
+                                document.createElement(
+                                    "tr"
+                                );
+
+
+                            const id =
+                                document.createElement(
+                                    "td"
+                                );
+
+                            id.textContent =
+                                booking.id ||
+                                "-";
+
+
+                            const customerCell =
+                                document.createElement(
+                                    "td"
+                                );
+
+                            customerCell.textContent =
+                                customer?.name ||
+                                "Unknown";
+
+
+                            const service =
+                                document.createElement(
+                                    "td"
+                                );
+
+                            service.textContent =
+                                booking.service ||
+                                "-";
+
+
+                            const status =
+                                document.createElement(
+                                    "td"
+                                );
+
+                            status.textContent =
+                                booking.status ||
+                                "-";
+
+
+                            row.appendChild(id);
+
+                            row.appendChild(
+                                customerCell
+                            );
+
+                            row.appendChild(
+                                service
+                            );
+
+                            row.appendChild(
+                                status
+                            );
+
+
+                            serviceRequestBody.appendChild(
+                                row
+                            );
+
+                        }
+                    );
+
+            }
 
         }
 
 
-        /* =================================================
-           NOTIFICATIONS
-           ================================================= */
+        /* =====================================
+        DJ15
+        NOTIFICATIONS
+        ===================================== */
 
         const notificationList =
             document.getElementById(
@@ -915,37 +1135,69 @@ document.addEventListener(
 
         if (notificationList) {
 
-            notificationList.innerHTML = `
+            const notifications = [
 
-                <li>
-                    🔐 RBAC Security Active
-                </li>
+                {
+                    icon: "🔔",
+                    text:
+                        "LUMENIX system is ready."
+                },
 
-                <li>
-                    🏢 LUMENIX Ecosystem Ready
-                </li>
+                {
+                    icon: "📁",
+                    text:
+                        "Project Management available."
+                },
 
-                <li>
-                    👤 Role:
-                    ${escapeHTML(
-                        formatRole(
-                            user.role
-                        )
-                    )}
-                </li>
+                {
+                    icon: "📦",
+                    text:
+                        "Inventory module ready."
+                },
 
-                <li>
-                    🟢 System Running
-                </li>
+                {
+                    icon: "👥",
+                    text:
+                        "Attendance module ready."
+                }
 
-            `;
+            ];
+
+
+            notificationList.innerHTML = "";
+
+
+            notifications.forEach(
+                function (
+                    notification
+                ) {
+
+                    const item =
+                        document.createElement(
+                            "li"
+                        );
+
+
+                    item.textContent =
+                        notification.icon +
+                        " " +
+                        notification.text;
+
+
+                    notificationList.appendChild(
+                        item
+                    );
+
+                }
+            );
 
         }
 
 
-        /* =================================================
-           SYSTEM STATUS
-           ================================================= */
+        /* =====================================
+        DJ16
+        SYSTEM STATUS
+        ===================================== */
 
         const databaseStatus =
             document.getElementById(
@@ -968,7 +1220,7 @@ document.addEventListener(
         if (databaseStatus) {
 
             databaseStatus.textContent =
-                "🟢 Local Data Ready";
+                "🟢 Connected";
 
         }
 
@@ -976,7 +1228,7 @@ document.addEventListener(
         if (serverStatus) {
 
             serverStatus.textContent =
-                "🟢 Application Online";
+                "🟢 Online";
 
         }
 
@@ -984,14 +1236,92 @@ document.addEventListener(
         if (backupStatus) {
 
             backupStatus.textContent =
-                "🟢 Local Storage Active";
+                "🟢 Updated";
 
         }
 
 
+        /* =====================================
+        DJ17
+        RBAC FOUNDATION
+
+        These permissions will be expanded
+        when staff/manager accounts are added.
+        ===================================== */
+
+        const permissions = {
+
+            super_admin: {
+
+                dashboard: true,
+
+                projects: true,
+
+                accounts: true,
+
+                inventory: true,
+
+                attendance: true,
+
+                reports: true,
+
+                settings: true,
+
+                customers: true,
+
+                technicians: true,
+
+                dealers: true,
+
+                servicePoint: true,
+
+                lighting: true,
+
+                callCenter: true,
+
+                msFardinElectric: true
+
+            }
+
+        };
+
+
+        const currentPermissions =
+            permissions[role] || {};
+
+
+        window.LUMENIX_ACCESS = {
+
+            role: role,
+
+            isSuperAdmin:
+                isSuperAdmin,
+
+            permissions:
+                currentPermissions
+
+        };
+
+
+        /* =====================================
+        DJ18
+        DASHBOARD READY
+        ===================================== */
+
         console.log(
-            "LUMENIX V5.1 RBAC Dashboard Loaded",
-            user
+            "LUMENIX V5.1 Dashboard Loaded Successfully"
+        );
+
+
+        console.log(
+            "Current Role:",
+            role
+        );
+
+
+        console.log(
+            "Access:",
+            currentPermissions
         );
 
 
