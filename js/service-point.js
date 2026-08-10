@@ -1,65 +1,75 @@
-/* =====================================
-   LUMENIX SERVICE POINT
-   V5.1 — Service Point Controller
-   ===================================== */
+/* =========================================
+   LUMENIX SERVICE POINT BD
+   V5.1 PREMIUM
+   Service Point Controller
+   ========================================= */
 
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* =====================================
-       SECURITY
-       ===================================== */
+    /* =========================================
+       STORAGE
+       ========================================= */
 
-    const loggedIn =
-        localStorage.getItem("adminLoggedIn");
-
-    if (loggedIn !== "true") {
-        window.location.href = "admin.html";
-        return;
-    }
+    const PROJECT_STORAGE_KEY = "lumenixProjects";
+    const SERVICE_STORAGE_KEY = "lumenixServiceRequests";
+    const CUSTOMER_STORAGE_KEY = "lumenixCustomers";
+    const TECHNICIAN_STORAGE_KEY = "lumenixTechnicians";
 
 
-    /* =====================================
+    /* =========================================
        HELPERS
-       ===================================== */
+       ========================================= */
 
-    function getData(key, fallback = []) {
+    function readStorage(key, fallback = []) {
 
         try {
 
-            const saved =
-                localStorage.getItem(key);
+            const saved = localStorage.getItem(key);
 
             if (!saved) {
                 return fallback;
             }
 
-            const parsed =
-                JSON.parse(saved);
+            const parsed = JSON.parse(saved);
 
             return parsed ?? fallback;
 
         } catch (error) {
 
             console.warn(
-                "Could not load:",
+                "Storage read error:",
                 key,
                 error
             );
 
             return fallback;
+
         }
+
     }
 
 
-    function money(value) {
+    function saveStorage(key, data) {
 
-        const amount =
-            Number(value) || 0;
+        localStorage.setItem(
+            key,
+            JSON.stringify(data)
+        );
 
-        return "৳" +
-            amount.toLocaleString("en-BD");
+    }
+
+
+    function formatMoney(value) {
+
+        const amount = Number(value) || 0;
+
+        return (
+            "৳" +
+            amount.toLocaleString("en-BD")
+        );
+
     }
 
 
@@ -75,19 +85,582 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================
-       HEADER BUTTONS
-       ===================================== */
+    function today() {
 
-    const dashboardBtn =
-        document.getElementById(
-            "dashboardBtn"
+        const date = new Date();
+
+        return date.toISOString()
+            .split("T")[0];
+
+    }
+
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById("toast");
+
+        if (!toast) return;
+
+        toast.textContent = message;
+
+        toast.classList.add("show");
+
+        clearTimeout(
+            showToast.timer
         );
+
+        showToast.timer =
+            setTimeout(function () {
+
+                toast.classList.remove("show");
+
+            }, 2500);
+
+    }
+
+
+    /* =========================================
+       LOGIN SECURITY
+       ========================================= */
+
+    const loggedIn =
+        localStorage.getItem(
+            "adminLoggedIn"
+        );
+
+    if (loggedIn !== "true") {
+
+        window.location.href =
+            "admin.html";
+
+        return;
+
+    }
+
+
+    /* =========================================
+       BRAND LOGOS
+       ========================================= */
+
+    const brandCards =
+        document.querySelectorAll(
+            ".brand-card"
+        );
+
+
+    brandCards.forEach(function (card) {
+
+        card.addEventListener(
+            "click",
+            function () {
+
+                brandCards.forEach(
+                    function (item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+                card.classList.add(
+                    "active"
+                );
+
+            }
+        );
+
+    });
+
+
+    /* =========================================
+       LOAD DATA
+       ========================================= */
+
+    let projects =
+        readStorage(
+            PROJECT_STORAGE_KEY,
+            []
+        );
+
+    let serviceRequests =
+        readStorage(
+            SERVICE_STORAGE_KEY,
+            []
+        );
+
+    let customers =
+        readStorage(
+            CUSTOMER_STORAGE_KEY,
+            []
+        );
+
+    let technicians =
+        readStorage(
+            TECHNICIAN_STORAGE_KEY,
+            []
+        );
+
+
+    /* =========================================
+       ELEMENTS
+       ========================================= */
+
+    const totalProjects =
+        document.getElementById(
+            "totalProjects"
+        );
+
+    const totalIncome =
+        document.getElementById(
+            "totalIncome"
+        );
+
+    const totalExpense =
+        document.getElementById(
+            "totalExpense"
+        );
+
+    const totalCustomers =
+        document.getElementById(
+            "totalCustomers"
+        );
+
+    const serviceTableBody =
+        document.getElementById(
+            "serviceRequestBody"
+        );
+
+    const projectTableBody =
+        document.getElementById(
+            "latestProjectsBody"
+        );
+
+
+    /* =========================================
+       PROJECT SUMMARY
+       ========================================= */
+
+    function calculateProjectSummary() {
+
+        let income = 0;
+
+        let expense = 0;
+
+
+        projects.forEach(
+            function (project) {
+
+                income +=
+                    Number(
+                        project.income ||
+                        project.amount ||
+                        0
+                    );
+
+                expense +=
+                    Number(
+                        project.expense ||
+                        0
+                    );
+
+            }
+        );
+
+
+        if (totalProjects) {
+
+            totalProjects.textContent =
+                projects.length;
+
+        }
+
+
+        if (totalIncome) {
+
+            totalIncome.textContent =
+                formatMoney(income);
+
+        }
+
+
+        if (totalExpense) {
+
+            totalExpense.textContent =
+                formatMoney(expense);
+
+        }
+
+
+        if (totalCustomers) {
+
+            totalCustomers.textContent =
+                customers.length;
+
+        }
+
+    }
+
+
+    /* =========================================
+       PROJECT TABLE
+       ========================================= */
+
+    function renderProjects() {
+
+        if (!projectTableBody) return;
+
+
+        projectTableBody.innerHTML = "";
+
+
+        if (
+            !projects ||
+            projects.length === 0
+        ) {
+
+            projectTableBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="4"
+                        class="empty-state"
+                    >
+                        No Project Found
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        const latest =
+            projects
+                .slice(-5)
+                .reverse();
+
+
+        latest.forEach(
+            function (project) {
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${escapeHTML(
+                            project.id ||
+                            project.projectId ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            project.customer ||
+                            project.customerName ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+
+                        <span class="status-badge status-active">
+
+                            ${escapeHTML(
+                                project.status ||
+                                "Active"
+                            )}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+                        ${formatMoney(
+                            project.amount ||
+                            project.value ||
+                            0
+                        )}
+                    </td>
+
+                `;
+
+
+                projectTableBody.appendChild(
+                    row
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================================
+       SERVICE REQUEST TABLE
+       ========================================= */
+
+    function renderServiceRequests() {
+
+        if (!serviceTableBody) return;
+
+
+        serviceTableBody.innerHTML = "";
+
+
+        if (
+            !serviceRequests ||
+            serviceRequests.length === 0
+        ) {
+
+            serviceTableBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="4"
+                        class="empty-state"
+                    >
+                        No Service Request Found
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        serviceRequests
+            .slice(-10)
+            .reverse()
+            .forEach(
+                function (request) {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    const status =
+                        String(
+                            request.status ||
+                            "Pending"
+                        );
+
+
+                    let statusClass =
+                        "status-pending";
+
+
+                    if (
+                        status.toLowerCase()
+                            .includes("complete")
+                    ) {
+
+                        statusClass =
+                            "status-completed";
+
+                    }
+
+
+                    if (
+                        status.toLowerCase()
+                            .includes("cancel")
+                    ) {
+
+                        statusClass =
+                            "status-cancelled";
+
+                    }
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            ${escapeHTML(
+                                request.id ||
+                                request.requestId ||
+                                "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                request.customer ||
+                                request.customerName ||
+                                "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                request.service ||
+                                request.serviceType ||
+                                "-"
+                            )}
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="status-badge ${statusClass}"
+                            >
+                                ${escapeHTML(status)}
+                            </span>
+
+                        </td>
+
+                    `;
+
+
+                    serviceTableBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* =========================================
+       QUICK ACTIONS
+       ========================================= */
+
+    const quickActionButtons =
+        document.querySelectorAll(
+            ".quick-action-btn"
+        );
+
+
+    quickActionButtons.forEach(
+        function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const target =
+                        button.dataset.target;
+
+
+                    if (!target) {
+                        return;
+                    }
+
+
+                    window.location.href =
+                        target;
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =========================================
+       COMMON NAVIGATION BUTTONS
+       ========================================= */
+
+    const navigationMap = {
+
+        dashboardBtn:
+            "dashboard.html",
+
+        projectBtn:
+            "project.html",
+
+        accountsBtn:
+            "project-accounts.html",
+
+        inventoryBtn:
+            "inventory.html",
+
+        attendanceBtn:
+            "attendance.html",
+
+        reportsBtn:
+            "reports.html",
+
+        settingsBtn:
+            "settings.html"
+
+    };
+
+
+    Object.keys(
+        navigationMap
+    ).forEach(
+        function (id) {
+
+            const button =
+                document.getElementById(id);
+
+
+            if (!button) return;
+
+
+            button.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    window.location.href =
+                        navigationMap[id];
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =========================================
+       BACK / DASHBOARD
+       ========================================= */
 
     const backDashboardBtn =
         document.getElementById(
             "backDashboardBtn"
         );
+
+
+    if (backDashboardBtn) {
+
+        backDashboardBtn.addEventListener(
+            "click",
+            function () {
+
+                window.location.href =
+                    "dashboard.html";
+
+            }
+        );
+
+    }
+
+
+    /* =========================================
+       LOGOUT
+       ========================================= */
 
     const logoutBtn =
         document.getElementById(
@@ -95,42 +668,22 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-    function goDashboard(event) {
-
-        if (event) {
-            event.preventDefault();
-        }
-
-        window.location.href =
-            "dashboard.html";
-    }
-
-
-    if (dashboardBtn) {
-
-        dashboardBtn.addEventListener(
-            "click",
-            goDashboard
-        );
-
-    }
-
-
-    if (backDashboardBtn) {
-
-        backDashboardBtn.addEventListener(
-            "click",
-            goDashboard
-        );
-
-    }
-
-
     if (logoutBtn) {
 
         logoutBtn.addEventListener(
             "click",
             function () {
+
+                const confirmed =
+                    confirm(
+                        "Are you sure you want to logout?"
+                    );
+
+
+                if (!confirmed) {
+                    return;
+                }
+
 
                 localStorage.removeItem(
                     "adminLoggedIn"
@@ -144,6 +697,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     "currentUserRole"
                 );
 
+
                 window.location.href =
                     "admin.html";
 
@@ -153,700 +707,48 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================
-       BRAND / PROJECT DATA
-       ===================================== */
-
-    const brands = [
-
-        {
-            id: "lighting",
-            name:
-                "LUMENIX Lighting & Accessories",
-            description:
-                "Lighting products, accessories and dealer network.",
-            logo:
-                "images/lumenix-led-logo-white.png"
-        },
-
-        {
-            id: "service_point",
-            name:
-                "LUMENIX Service Point BD",
-            description:
-                "Customer service, repair and technical support.",
-            logo:
-                "images/lumenix-service-logo-white.png"
-        },
-
-        {
-            id: "training",
-            name:
-                "LUMENIX Technical Training Center",
-            description:
-                "Technical training and skill development.",
-            logo:
-                "images/lumenix-training-logo.png"
-        }
-
-    ];
-
-
-    /* =====================================
-       BRAND CARD RENDER
-       ===================================== */
-
-    const brandGrid =
-        document.getElementById(
-            "brandGrid"
-        );
-
-
-    function renderBrands() {
-
-        if (!brandGrid) {
-            return;
-        }
-
-        brandGrid.innerHTML = "";
-
-        brands.forEach(function (brand, index) {
-
-            const card =
-                document.createElement("div");
-
-            card.className =
-                "brand-card";
-
-            if (index === 0) {
-                card.classList.add("active");
-            }
-
-            card.dataset.project =
-                brand.id;
-
-            card.innerHTML = `
-
-                <div class="brand-logo">
-
-                    <img
-                        src="${escapeHTML(brand.logo)}"
-                        alt="${escapeHTML(brand.name)}"
-                    >
-
-                </div>
-
-                <div class="brand-info">
-
-                    <h3>
-                        ${escapeHTML(brand.name)}
-                    </h3>
-
-                    <p>
-                        ${escapeHTML(brand.description)}
-                    </p>
-
-                </div>
-
-            `;
-
-            card.addEventListener(
-                "click",
-                function () {
-
-                    document
-                        .querySelectorAll(
-                            ".brand-card"
-                        )
-                        .forEach(function (item) {
-
-                            item.classList.remove(
-                                "active"
-                            );
-
-                        });
-
-                    card.classList.add(
-                        "active"
-                    );
-
-                    localStorage.setItem(
-                        "lumenixSelectedProject",
-                        brand.id
-                    );
-
-                    updateDashboard(
-                        brand.id
-                    );
-
-                }
-            );
-
-            brandGrid.appendChild(card);
-
-        });
-
-    }
-
-
-    /* =====================================
-       PROJECT DATA
-       ===================================== */
-
-    const projects =
-        getData(
-            "lumenixProjects",
-            []
-        );
-
-
-    const transactions =
-        getData(
-            "lumenixTransactions",
-            []
-        );
-
-
-    const payments =
-        getData(
-            "lumenixPayments",
-            []
-        );
-
-
-    /* =====================================
-       SUMMARY ELEMENTS
-       ===================================== */
-
-    const totalProjects =
-        document.getElementById(
-            "totalProjects"
-        );
-
-    const totalCustomers =
-        document.getElementById(
-            "totalCustomers"
-        );
-
-    const totalServices =
-        document.getElementById(
-            "totalServices"
-        );
-
-    const pendingServices =
-        document.getElementById(
-            "pendingServices"
-        );
-
-
-    /* =====================================
-       DASHBOARD UPDATE
-       ===================================== */
-
-    function updateDashboard(projectId) {
-
-        const projectTransactions =
-            transactions.filter(
-                function (item) {
-
-                    return (
-                        item.projectId ===
-                        projectId
-                    );
-
-                }
-            );
-
-
-        const projectPayments =
-            payments.filter(
-                function (item) {
-
-                    return (
-                        item.projectId ===
-                        projectId
-                    );
-
-                }
-            );
-
-
-        let income = 0;
-        let expense = 0;
-
-
-        projectTransactions.forEach(
-            function (item) {
-
-                const amount =
-                    Number(item.amount) || 0;
-
-                if (
-                    item.type ===
-                    "income"
-                ) {
-
-                    income += amount;
-
-                } else if (
-                    item.type ===
-                    "expense"
-                ) {
-
-                    expense += amount;
-
-                }
-
-            }
-        );
-
-
-        const customerCount =
-            new Set(
-                projectPayments.map(
-                    function (item) {
-
-                        return item.customer;
-
-                    }
-                )
-            ).size;
-
-
-        if (totalProjects) {
-
-            totalProjects.textContent =
-                projects.filter(
-                    function (project) {
-
-                        return (
-                            project.projectType ===
-                            projectId ||
-                            project.projectId ===
-                            projectId
-                        );
-
-                    }
-                ).length;
-
-        }
-
-
-        if (totalCustomers) {
-
-            totalCustomers.textContent =
-                customerCount;
-
-        }
-
-
-        if (totalServices) {
-
-            totalServices.textContent =
-                projectTransactions.length;
-
-        }
-
-
-        if (pendingServices) {
-
-            pendingServices.textContent =
-                projectTransactions.filter(
-                    function (item) {
-
-                        return (
-                            String(
-                                item.status || ""
-                            ).toLowerCase() ===
-                            "pending"
-                        );
-
-                    }
-                ).length;
-
-        }
-
-
-        renderTransactions(
-            projectTransactions
-        );
-
-        renderPayments(
-            projectPayments
-        );
-
-        updateFinancialCards(
-            income,
-            expense
-        );
-
-    }
-
-
-    /* =====================================
-       FINANCIAL CARDS
-       ===================================== */
-
-    function updateFinancialCards(
-        income,
-        expense
-    ) {
-
-        const totalIncome =
-            document.getElementById(
-                "totalIncome"
-            );
-
-        const totalExpense =
-            document.getElementById(
-                "totalExpense"
-            );
-
-        const currentBalance =
-            document.getElementById(
-                "currentBalance"
-            );
-
-        const profitLoss =
-            document.getElementById(
-                "profitLoss"
-            );
-
-
-        const balance =
-            income - expense;
-
-
-        if (totalIncome) {
-
-            totalIncome.textContent =
-                money(income);
-
-        }
-
-
-        if (totalExpense) {
-
-            totalExpense.textContent =
-                money(expense);
-
-        }
-
-
-        if (currentBalance) {
-
-            currentBalance.textContent =
-                money(balance);
-
-        }
-
-
-        if (profitLoss) {
-
-            profitLoss.textContent =
-                money(balance);
-
-        }
-
-    }
-
-
-    /* =====================================
-       TRANSACTIONS
-       ===================================== */
-
-    const transactionBody =
-        document.getElementById(
-            "transactionTableBody"
-        );
-
-
-    function renderTransactions(items) {
-
-        if (!transactionBody) {
-            return;
-        }
-
-
-        transactionBody.innerHTML = "";
-
-
-        if (
-            !items ||
-            items.length === 0
-        ) {
-
-            transactionBody.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="7"
-                        style="text-align:center;padding:28px;"
-                    >
-                        No transaction found.
-                    </td>
-
-                </tr>
-
-            `;
-
-            return;
-
-        }
-
-
-        items
-            .slice()
-            .reverse()
-            .slice(0, 10)
-            .forEach(
-                function (item) {
-
-                    const row =
-                        document.createElement("tr");
-
-
-                    row.innerHTML = `
-
-                        <td>
-                            ${escapeHTML(
-                                item.date || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                item.type || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                item.category || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                item.description || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                item.reference || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${money(
-                                item.amount
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                item.status ||
-                                "Completed"
-                            )}
-                        </td>
-
-                    `;
-
-                    transactionBody.appendChild(
-                        row
-                    );
-
-                }
-            );
-
-    }
-
-
-    /* =====================================
-       PAYMENTS
-       ===================================== */
-
-    const paymentBody =
-        document.getElementById(
-            "paymentTableBody"
-        );
-
-
-    function renderPayments(items) {
-
-        if (!paymentBody) {
-            return;
-        }
-
-
-        paymentBody.innerHTML = "";
-
-
-        if (
-            !items ||
-            items.length === 0
-        ) {
-
-            paymentBody.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="6"
-                        style="text-align:center;padding:28px;"
-                    >
-                        No payment record found.
-                    </td>
-
-                </tr>
-
-            `;
-
-            return;
-
-        }
-
-
-        items
-            .slice()
-            .reverse()
-            .slice(0, 10)
-            .forEach(
-                function (item) {
-
-                    const row =
-                        document.createElement("tr");
-
-
-                    row.innerHTML = `
-
-                        <td>
-                            ${escapeHTML(
-                                item.date || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                item.customer || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                item.method || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                item.reference || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${money(
-                                item.amount
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                item.status ||
-                                "Completed"
-                            )}
-                        </td>
-
-                    `;
-
-                    paymentBody.appendChild(
-                        row
-                    );
-
-                }
-            );
-
-    }
-
-
-    /* =====================================
-       SELECTED PROJECT
-       ===================================== */
-
-    const savedProject =
-        localStorage.getItem(
-            "lumenixSelectedProject"
-        );
-
-
-    const selectedProject =
-        brands.some(
-            function (brand) {
-
-                return (
-                    brand.id ===
-                    savedProject
-                );
-
-            }
-        )
-            ? savedProject
-            : brands[0].id;
-
-
-    /* =====================================
-       INITIAL LOAD
-       ===================================== */
-
-    renderBrands();
-
-    updateDashboard(
-        selectedProject
-    );
-
-
-    /* =====================================
-       RESTORE ACTIVE BRAND
-       ===================================== */
+    /* =========================================
+       LOGO IMAGE ERROR HANDLING
+       ========================================= */
 
     document
-        .querySelectorAll(".brand-card")
-        .forEach(function (card) {
+        .querySelectorAll(
+            ".brand-logo img, .service-point-brand img"
+        )
+        .forEach(
+            function (image) {
 
-            if (
-                card.dataset.project ===
-                selectedProject
-            ) {
+                image.addEventListener(
+                    "error",
+                    function () {
 
-                document
-                    .querySelectorAll(
-                        ".brand-card"
-                    )
-                    .forEach(function (item) {
+                        image.style.display =
+                            "none";
 
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    });
-
-                card.classList.add(
-                    "active"
+                    }
                 );
 
             }
+        );
 
-        });
+
+    /* =========================================
+       INITIAL RENDER
+       ========================================= */
+
+    calculateProjectSummary();
+
+    renderProjects();
+
+    renderServiceRequests();
 
 
-    /* =====================================
-       READY
-       ===================================== */
+    /* =========================================
+       SYSTEM LOG
+       ========================================= */
 
     console.log(
-        "LUMENIX Service Point V5.1 loaded."
+        "LUMENIX Service Point V5.1 loaded successfully."
     );
 
 });
