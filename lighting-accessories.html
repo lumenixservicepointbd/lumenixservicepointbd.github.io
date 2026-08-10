@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>LUMENIX Lighting & Accessories</title>
+
+    <link
+        rel="stylesheet"
+        href="css/lighting-accessories.css"
+    >
+</head>
+
+<body>
+
+<header class="la-header">
+
+    <div>
+        <h1>LUMENIX</h1>
+        <p>Lighting & Accessories</p>
+    </div>
+
+    <button
+        type="button"
+        id="homeBtn"
+        class="top-btn"
+    >
+        Home
+    </button>
+
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+
+    <section class="la-hero">
+
+        <h2>
+            LUMENIX Lighting & Accessories
+        </h2>
+
+        <p>
+            Lighting products and electrical accessories
+            management platform.
+        </p>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section class="la-section">
+
+        <div class="section-head">
+
+            <h2>Lighting & Accessories</h2>
+
+            <input
+                type="search"
+                id="productSearch"
+                placeholder="Search..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <!-- CATEGORY -->
+
+        <div class="category-row">
+
+            <button
+                type="button"
+                class="category-btn active"
+                data-category="all"
+            >
+                All
+            </button>
+
+            <button
+                type="button"
+                class="category-btn"
+                data-category="lighting"
+            >
+                Lighting
+            </button>
+
+            <button
+                type="button"
+                class="category-btn"
+                data-category="accessories"
+            >
+                Accessories
+            </button>
+
+        </div>
+
+
+        <!-- PRODUCT GRID -->
+
+        <div
+            class="product-grid"
+            id="productGrid"
+        ></div>
+
+
+        <div
+            class="empty-state"
+            id="emptyState"
+            hidden
+        >
+            No matching item found.
+        </div>
+
+    </section>
+
+
+    <!-- QUICK INFO -->
+
+    <section class="la-section">
+
+        <div class="info-box">
+
+            <h2>Product Management</h2>
+
+            <p>
+                Lighting and accessory items can be
+                organized by category for easier
+                management.
+            </p>
+
+            <button
+                type="button"
+                id="adminBtn"
+                class="primary-btn"
+            >
+                Management Login
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- BACK -->
+
+    <section class="back-section">
+
+        <button
+            type="button"
+            id="backBtn"
+            class="back-btn"
+        >
+            ← Back to LUMENIX
+        </button>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 LUMENIX
+    </p>
+
+    <p>
+        Lighting & Accessories
+    </p>
+
+</footer>
+
+
+<script
+    src="js/lighting-accessories.js"
+></script>
+
+</body>
+</html>
