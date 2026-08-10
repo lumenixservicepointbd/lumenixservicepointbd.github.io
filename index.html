@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -14,15 +15,23 @@
         content="LUMENIX - MS FARDIN ELECTRIC ecosystem platform for lighting, accessories, service and technical training."
     >
 
+    <meta
+        name="theme-color"
+        content="#174b99"
+    >
+
     <title>LUMENIX | MS FARDIN ELECTRIC</title>
 
     <link
         rel="stylesheet"
         href="css/index.css"
     >
+
 </head>
 
+
 <body>
+
 
 <!-- =========================================
 HEADER
@@ -35,6 +44,7 @@ HEADER
         <a
             href="#home"
             class="brand-logo"
+            aria-label="LUMENIX Home"
         >
             LUMENIX
         </a>
@@ -72,12 +82,13 @@ HEADER
 
 
 <!-- =========================================
-MOBILE / MAIN MENU
+NAVIGATION
 ========================================= -->
 
 <nav
     class="mobile-menu"
     id="mobileMenu"
+    aria-label="Main navigation"
 >
 
     <a href="#home">
@@ -112,10 +123,15 @@ MOBILE / MAIN MENU
 
 
 <!-- =========================================
-HERO
+MAIN
 ========================================= -->
 
 <main>
+
+
+<!-- =========================================
+HERO
+========================================= -->
 
 <section
     class="hero"
@@ -172,6 +188,11 @@ ECOSYSTEM
             Our Ecosystem
         </h2>
 
+        <p class="section-description">
+            Explore the main services and business
+            systems of the LUMENIX ecosystem.
+        </p>
+
     </div>
 
 
@@ -179,14 +200,28 @@ ECOSYSTEM
 
 
         <!-- =================================
-        LIGHTING
+        LIGHTING & ACCESSORIES
         ================================= -->
 
-        <article class="ecosystem-card lighting-card">
+        <article
+            class="ecosystem-card lighting-card"
+        >
 
-            <div class="card-icon">
-                💡
+            <div class="card-logo-area">
+
+                <img
+                    src="images/lumenix-led-logo-white.png"
+                    alt="LUMENIX Lighting & Accessories"
+                    class="ecosystem-logo"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('image-error');"
+                >
+
+                <span class="image-fallback">
+                    LUMENIX
+                </span>
+
             </div>
+
 
             <div class="card-content">
 
@@ -221,11 +256,25 @@ ECOSYSTEM
         SERVICE POINT
         ================================= -->
 
-        <article class="ecosystem-card service-card">
+        <article
+            class="ecosystem-card service-card"
+        >
 
-            <div class="card-icon">
-                🔧
+            <div class="card-logo-area">
+
+                <img
+                    src="images/lumenix-service-logo-white.png"
+                    alt="LUMENIX Service Point BD"
+                    class="ecosystem-logo"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('image-error');"
+                >
+
+                <span class="image-fallback">
+                    LUMENIX SERVICE
+                </span>
+
             </div>
+
 
             <div class="card-content">
 
@@ -260,11 +309,25 @@ ECOSYSTEM
         TRAINING
         ================================= -->
 
-        <article class="ecosystem-card training-card">
+        <article
+            class="ecosystem-card training-card"
+        >
 
-            <div class="card-icon">
-                🛠️
+            <div class="card-logo-area training-logo-area">
+
+                <img
+                    src="images/lumenix-training-logo.png"
+                    alt="LUMENIX Technical Training Centre"
+                    class="ecosystem-logo training-logo"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('image-error');"
+                >
+
+                <span class="image-fallback">
+                    LUMENIX TRAINING
+                </span>
+
             </div>
+
 
             <div class="card-content">
 
@@ -366,6 +429,14 @@ SERVICES
                 and technical support.
             </p>
 
+            <button
+                type="button"
+                class="small-btn"
+                id="maintenanceBtn"
+            >
+                Service Point
+            </button>
+
         </article>
 
 
@@ -383,6 +454,14 @@ SERVICES
                 Smart home setup and
                 electrical automation.
             </p>
+
+            <button
+                type="button"
+                class="small-btn"
+                id="smartHomeBtn"
+            >
+                Service Point
+            </button>
 
         </article>
 
@@ -432,6 +511,14 @@ TRAINING
                 and practical learning.
             </p>
 
+            <button
+                type="button"
+                class="small-btn"
+                id="skillsTrainingBtn"
+            >
+                Open Training
+            </button>
+
         </article>
 
 
@@ -449,6 +536,14 @@ TRAINING
                 Training and career
                 development programs.
             </p>
+
+            <button
+                type="button"
+                class="small-btn"
+                id="professionalTrainingBtn"
+            >
+                Open Training
+            </button>
 
         </article>
 
@@ -603,6 +698,7 @@ CONTACT
 
 </section>
 
+
 </main>
 
 
@@ -621,7 +717,13 @@ FOOTER
     </p>
 
     <p>
-        Developed By MS FARDIN ELECTRIC
+        Developed By
+        <strong>MS FARDIN ELECTRIC</strong>
+    </p>
+
+    <p>
+        Design By
+        <strong>Md Limon Chowdhury</strong>
     </p>
 
     <p>
@@ -648,6 +750,7 @@ TOAST
     defer
 ></script>
 
-</body>
-</html>
 
+</body>
+
+</html>
