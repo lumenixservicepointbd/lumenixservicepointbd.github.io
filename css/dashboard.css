@@ -1241,3 +1241,27 @@ Final Responsive Dashboard Design
 /* =====================================
 DC14 END
 ===================================== */
+/* =====================================================
+   LUMENIX RBAC
+   ===================================================== */
+
+.rbac-hidden {
+    display: none !important;
+}
+
+
+.dashboard-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.dashboard-user span {
+    font-weight: 700;
+}
+
+
+#logoutBtn {
+    cursor: pointer;
+}
