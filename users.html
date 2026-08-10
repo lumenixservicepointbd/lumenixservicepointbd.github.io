@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>LUMENIX User & Access Management</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/users.css">
+
+</head>
+
+<body>
+
+<header class="users-header">
+
+    <div>
+
+        <h1>LUMENIX</h1>
+
+        <p>User & Access Management</p>
+
+    </div>
+
+    <div class="header-actions">
+
+        <span id="currentUserLabel">
+            Super Administrator
+        </span>
+
+        <button id="backDashboardBtn">
+            Dashboard
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="users-container">
+
+    <!-- =====================================
+    PAGE INTRO
+    ====================================== -->
+
+    <section class="page-intro">
+
+        <div>
+
+            <span class="section-label">
+                ACCESS CONTROL
+            </span>
+
+            <h2>
+                Users & RBAC
+            </h2>
+
+            <p>
+                Manage users, roles, projects and
+                module permissions from one place.
+            </p>
+
+        </div>
+
+        <button
+            id="addUserBtn"
+            class="primary-btn"
+        >
+            + Add User
+        </button>
+
+    </section>
+
+
+    <!-- =====================================
+    SUMMARY
+    ====================================== -->
+
+    <section class="user-summary-grid">
+
+        <div class="summary-card">
+
+            <span>Total Users</span>
+
+            <strong id="totalUsers">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>Super Admins</span>
+
+            <strong id="totalSuperAdmins">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>Active Users</span>
+
+            <strong id="totalActiveUsers">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>Restricted Users</span>
+
+            <strong id="totalRestrictedUsers">
+                0
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+    USERS TABLE
+    ====================================== -->
+
+    <section class="users-panel">
+
+        <div class="panel-heading">
+
+            <div>
+
+                <h2>
+                    System Users
+                </h2>
+
+                <p>
+                    Review and manage user access.
+                </p>
+
+            </div>
+
+            <input
+                type="search"
+                id="userSearch"
+                placeholder="Search user..."
+            >
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table class="users-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>User ID</th>
+
+                        <th>Name</th>
+
+                        <th>Username</th>
+
+                        <th>Role</th>
+
+                        <th>Projects</th>
+
+                        <th>Status</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="usersTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================
+USER MODAL
+====================================== -->
+
+<div
+    id="userModal"
+    class="modal-overlay"
+    aria-hidden="true"
+>
+
+    <div class="user-modal">
+
+        <button
+            type="button"
+            id="closeUserModal"
+            class="modal-close"
+        >
+            ×
+        </button>
+
+
+        <h2 id="modalTitle">
+            Add User
+        </h2>
+
+        <p class="modal-subtitle">
+            Create a user and define their access.
+        </p>
+
+
+        <form id="userForm">
+
+            <input
+                type="hidden"
+                id="editingUserId"
+            >
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="userName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="userName"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="userUsername">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="userUsername"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="userPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="userPassword"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="userRole">
+                        Role
+                    </label>
+
+                    <select id="userRole">
+
+                        <option value="admin">
+                            Admin
+                        </option>
+
+                        <option value="manager">
+                            Manager
+                        </option>
+
+                        <option value="supervisor">
+                            Supervisor
+                        </option>
+
+                        <option value="technician">
+                            Technician
+                        </option>
+
+                        <option value="staff">
+                            Staff
+                        </option>
+
+                        <option value="dealer">
+                            Dealer / Partner
+                        </option>
+
+                        <option value="customer">
+                            Customer
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+            PROJECT ACCESS
+            ================================== -->
+
+            <div class="permission-section">
+
+                <h3>
+                    Project Access
+                </h3>
+
+                <p>
+                    Select which LUMENIX / MS Fardin
+                    project this user can access.
+                </p>
+
+
+                <div class="permission-grid">
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="projectAccess"
+                            value="lighting"
+                        >
+
+                        <span>
+                            LUMENIX Lighting & Accessories
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="projectAccess"
+                            value="service_point"
+                        >
+
+                        <span>
+                            LUMENIX Service Point BD
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="projectAccess"
+                            value="call_center"
+                        >
+
+                        <span>
+                            LUMENIX Call Center BD
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="projectAccess"
+                            value="training"
+                        >
+
+                        <span>
+                            LUMENIX Training
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="projectAccess"
+                            value="contractor"
+                        >
+
+                        <span>
+                            MS Fardin Electric /
+                            Contractor
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+            MODULE ACCESS
+            ================================== -->
+
+            <div class="permission-section">
+
+                <h3>
+                    Module Access
+                </h3>
+
+                <p>
+                    Select the modules this user can use.
+                </p>
+
+
+                <div class="permission-grid">
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="moduleAccess"
+                            value="dashboard"
+                        >
+
+                        <span>
+                            Dashboard
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="moduleAccess"
+                            value="customers"
+                        >
+
+                        <span>
+                            Customer Profiles
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="moduleAccess"
+                            value="dealers"
+                        >
+
+                        <span>
+                            Dealer / Shopkeeper
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="moduleAccess"
+                            value="technicians"
+                        >
+
+                        <span>
+                            Technician Profiles
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="moduleAccess"
+                            value="services"
+                        >
+
+                        <span>
+                            Service Management
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="moduleAccess"
+                            value="inventory"
+                        >
+
+                        <span>
+                            Inventory
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="moduleAccess"
+                            value="accounts"
+                        >
+
+                        <span>
+                            Income & Expense
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="moduleAccess"
+                            value="attendance"
+                        >
+
+                        <span>
+                            Attendance
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="moduleAccess"
+                            value="projects"
+                        >
+
+                        <span>
+                            Project Management
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="moduleAccess"
+                            value="reports"
+                        >
+
+                        <span>
+                            Reports
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-card">
+
+                        <input
+                            type="checkbox"
+                            name="moduleAccess"
+                            value="settings"
+                        >
+
+                        <span>
+                            Settings
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+            STATUS
+            ================================== -->
+
+            <div class="form-group">
+
+                <label for="userStatus">
+                    Account Status
+                </label>
+
+                <select id="userStatus">
+
+                    <option value="Active">
+                        Active
+                    </option>
+
+                    <option value="Inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelUserBtn"
+                    class="secondary-btn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Save User
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast"
+>
+</div>
+
+
+<script src="js/users.js"></script>
+
+</body>
+
+</html>
