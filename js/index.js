@@ -1,57 +1,58 @@
-/* =====================================================
+/* =========================================================
    LUMENIX
-   INDEX / HOME PAGE JAVASCRIPT
-   ===================================================== */
+   INDEX / HOME PAGE
+   Lightweight Navigation System
+   ========================================================= */
 
 "use strict";
 
-
-/* =========================================
-HELPERS
-========================================= */
-
-function goToPage(page) {
-
-    window.location.href = page;
-
-}
-
-
-function scrollToSection(id) {
-
-    const section =
-        document.getElementById(id);
-
-    if (!section) {
-        return;
-    }
-
-    section.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
-
-}
-
-
-/* =========================================
-DOM READY
-========================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
 
-        /* =================================
-        MENU
-        ================================= */
+        /* ================================================
+           HELPER
+        ================================================ */
+
+        function goToPage(page) {
+
+            window.location.href = page;
+
+        }
+
+
+        function scrollToSection(id) {
+
+            const section =
+                document.getElementById(id);
+
+            if (!section) {
+                return;
+            }
+
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
+
+        /* ================================================
+           MENU
+        ================================================ */
 
         const menuBtn =
-            document.getElementById("menuBtn");
+            document.getElementById(
+                "menuBtn"
+            );
 
         const mobileMenu =
-            document.getElementById("mobileMenu");
+            document.getElementById(
+                "mobileMenu"
+            );
 
 
         if (menuBtn && mobileMenu) {
@@ -65,10 +66,17 @@ document.addEventListener(
                             "active"
                         );
 
+
                     menuBtn.setAttribute(
                         "aria-expanded",
-                        isOpen
+                        String(isOpen)
                     );
+
+
+                    menuBtn.textContent =
+                        isOpen
+                            ? "✕ Close"
+                            : "☰ Menu";
 
                 }
             );
@@ -76,9 +84,9 @@ document.addEventListener(
         }
 
 
-        /* =================================
-        MENU LINKS
-        ================================= */
+        /* ================================================
+           MENU LINKS
+        ================================================ */
 
         const menuLinks =
             document.querySelectorAll(
@@ -93,20 +101,22 @@ document.addEventListener(
                     "click",
                     function () {
 
-                        if (mobileMenu) {
+                        if (
+                            mobileMenu &&
+                            menuBtn
+                        ) {
 
                             mobileMenu.classList.remove(
                                 "active"
                             );
 
-                        }
-
-                        if (menuBtn) {
-
                             menuBtn.setAttribute(
                                 "aria-expanded",
                                 "false"
                             );
+
+                            menuBtn.textContent =
+                                "☰ Menu";
 
                         }
 
@@ -117,9 +127,9 @@ document.addEventListener(
         );
 
 
-        /* =================================
-        LOGIN
-        ================================= */
+        /* ================================================
+           LOGIN
+        ================================================ */
 
         const loginBtn =
             document.getElementById(
@@ -143,9 +153,9 @@ document.addEventListener(
         }
 
 
-        /* =================================
-        EXPLORE ECOSYSTEM
-        ================================= */
+        /* ================================================
+           EXPLORE ECOSYSTEM
+        ================================================ */
 
         const exploreBtn =
             document.getElementById(
@@ -169,10 +179,9 @@ document.addEventListener(
         }
 
 
-        /* =================================
-        LIGHTING
-        IMPORTANT
-        ================================= */
+        /* ================================================
+           LIGHTING & ACCESSORIES
+        ================================================ */
 
         const lightingBtn =
             document.getElementById(
@@ -196,9 +205,9 @@ document.addEventListener(
         }
 
 
-        /* =================================
-        SERVICE POINT
-        ================================= */
+        /* ================================================
+           SERVICE POINT
+        ================================================ */
 
         const servicePointBtn =
             document.getElementById(
@@ -222,9 +231,35 @@ document.addEventListener(
         }
 
 
-        /* =================================
-        ELECTRICAL SERVICE
-        ================================= */
+        /* ================================================
+           TRAINING
+        ================================================ */
+
+        const trainingBtn =
+            document.getElementById(
+                "trainingBtn"
+            );
+
+
+        if (trainingBtn) {
+
+            trainingBtn.addEventListener(
+                "click",
+                function () {
+
+                    goToPage(
+                        "training-program.html"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ================================================
+           ELECTRICAL SERVICE
+        ================================================ */
 
         const electricalServiceBtn =
             document.getElementById(
@@ -248,31 +283,24 @@ document.addEventListener(
         }
 
 
-        /* =================================
-        TRAINING
-        ================================= */
+        /* ================================================
+           MAINTENANCE
+        ================================================ */
 
-        const trainingBtn =
+        const maintenanceBtn =
             document.getElementById(
-                "trainingBtn"
+                "maintenanceBtn"
             );
 
 
-        if (trainingBtn) {
+        if (maintenanceBtn) {
 
-            trainingBtn.addEventListener(
+            maintenanceBtn.addEventListener(
                 "click",
                 function () {
 
-                    /*
-                     * Training module page.
-                     * Change this filename later
-                     * if your main training page
-                     * has another name.
-                     */
-
                     goToPage(
-                        "training.html"
+                        "service-point.html"
                     );
 
                 }
@@ -281,9 +309,87 @@ document.addEventListener(
         }
 
 
-        /* =================================
-        DEALER
-        ================================= */
+        /* ================================================
+           SMART HOME
+        ================================================ */
+
+        const smartHomeBtn =
+            document.getElementById(
+                "smartHomeBtn"
+            );
+
+
+        if (smartHomeBtn) {
+
+            smartHomeBtn.addEventListener(
+                "click",
+                function () {
+
+                    goToPage(
+                        "service-point.html"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ================================================
+           TRAINING - ELECTRICAL SKILLS
+        ================================================ */
+
+        const skillsTrainingBtn =
+            document.getElementById(
+                "skillsTrainingBtn"
+            );
+
+
+        if (skillsTrainingBtn) {
+
+            skillsTrainingBtn.addEventListener(
+                "click",
+                function () {
+
+                    goToPage(
+                        "training-program.html"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ================================================
+           TRAINING - PROFESSIONAL
+        ================================================ */
+
+        const professionalTrainingBtn =
+            document.getElementById(
+                "professionalTrainingBtn"
+            );
+
+
+        if (professionalTrainingBtn) {
+
+            professionalTrainingBtn.addEventListener(
+                "click",
+                function () {
+
+                    goToPage(
+                        "training-program.html"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ================================================
+           DEALER
+        ================================================ */
 
         const dealerBtn =
             document.getElementById(
@@ -298,8 +404,7 @@ document.addEventListener(
                 function () {
 
                     showToast(
-                        "Dealer Network module is ready.",
-                        "success"
+                        "Dealer module will be connected here."
                     );
 
                 }
@@ -308,9 +413,9 @@ document.addEventListener(
         }
 
 
-        /* =================================
-        PROJECT
-        ================================= */
+        /* ================================================
+           PROJECT MANAGEMENT
+        ================================================ */
 
         const projectBtn =
             document.getElementById(
@@ -334,9 +439,9 @@ document.addEventListener(
         }
 
 
-        /* =================================
-        CONTACT
-        ================================= */
+        /* ================================================
+           CONTACT
+        ================================================ */
 
         const contactBtn =
             document.getElementById(
@@ -350,13 +455,8 @@ document.addEventListener(
                 "click",
                 function () {
 
-                    scrollToSection(
-                        "contact"
-                    );
-
                     showToast(
-                        "Contact section opened.",
-                        "success"
+                        "Contact module is ready."
                     );
 
                 }
@@ -365,108 +465,95 @@ document.addEventListener(
         }
 
 
-        /* =================================
-        CLOSE MENU WHEN CLICKING OUTSIDE
-        ================================= */
+        /* ================================================
+           TOAST
+        ================================================ */
 
-        document.addEventListener(
-            "click",
-            function (event) {
+        const toast =
+            document.getElementById(
+                "toast"
+            );
 
-                if (
-                    !mobileMenu ||
-                    !menuBtn
-                ) {
-                    return;
-                }
+        let toastTimer = null;
 
 
-                const clickedInsideMenu =
-                    mobileMenu.contains(
-                        event.target
-                    );
+        function showToast(message) {
+
+            if (!toast) {
+                return;
+            }
 
 
-                const clickedMenuButton =
-                    menuBtn.contains(
-                        event.target
-                    );
+            clearTimeout(
+                toastTimer
+            );
 
 
-                if (
-                    mobileMenu.classList.contains(
-                        "active"
-                    ) &&
-                    !clickedInsideMenu &&
-                    !clickedMenuButton
-                ) {
+            toast.textContent =
+                message;
 
-                    mobileMenu.classList.remove(
-                        "active"
-                    );
 
-                    menuBtn.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
+            toast.classList.add(
+                "show"
+            );
 
-                }
+
+            toastTimer =
+                setTimeout(
+                    function () {
+
+                        toast.classList.remove(
+                            "show"
+                        );
+
+                    },
+                    2500
+                );
+
+        }
+
+
+        /* ================================================
+           IMAGE FALLBACK
+        ================================================ */
+
+        const images =
+            document.querySelectorAll(
+                ".ecosystem-logo"
+            );
+
+
+        images.forEach(
+            function (image) {
+
+                image.addEventListener(
+                    "error",
+                    function () {
+
+                        image.style.display =
+                            "none";
+
+                        const parent =
+                            image.parentElement;
+
+                        if (parent) {
+
+                            parent.classList.add(
+                                "image-error"
+                            );
+
+                        }
+
+                    }
+                );
 
             }
         );
 
 
-        /* =================================
-        TOAST
-        ================================= */
-
-        window.showToast =
-            function (
-                message,
-                type = "success"
-            ) {
-
-                const toast =
-                    document.getElementById(
-                        "toast"
-                    );
-
-
-                if (!toast) {
-                    return;
-                }
-
-
-                toast.textContent =
-                    message;
-
-
-                toast.className =
-                    "toast show " + type;
-
-
-                clearTimeout(
-                    window.lumenixToastTimer
-                );
-
-
-                window.lumenixToastTimer =
-                    setTimeout(
-                        function () {
-
-                            toast.className =
-                                "toast";
-
-                        },
-                        2500
-                    );
-
-            };
-
-
-        /* =================================
-        PAGE LOADED
-        ================================= */
+        /* ================================================
+           HOME PAGE READY
+        ================================================ */
 
         console.log(
             "LUMENIX Home Page loaded successfully."
