@@ -1,605 +1,890 @@
-/* =====================================
-LUMENIX V5.1
-Dashboard Controller
-===================================== */
+/* =========================================================
+   LUMENIX V5.1
+   Dashboard Controller
+   RBAC + Super Admin
+   ========================================================= */
 
 "use strict";
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    /* =====================================
-    DJ1
-    Dashboard Security + Logout
-    ===================================== */
-
-    const isLoggedIn =
-        localStorage.getItem("adminLoggedIn");
-
-    if (isLoggedIn !== "true") {
-
-        window.location.href = "admin.html";
-
-        return;
-
-    }
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
 
-    const logoutBtn =
-        document.getElementById("logoutBtn");
+        /* =================================================
+           SECURITY
+           ================================================= */
+
+        if (
+            !window.LumenixRBAC
+        ) {
+
+            window.location.href =
+                "admin.html";
+
+            return;
+
+        }
 
 
-    if (logoutBtn) {
+        if (
+            !LumenixRBAC.requireLogin(
+                "admin.html"
+            )
+        ) {
 
-        logoutBtn.addEventListener(
-            "click",
-            function () {
+            return;
 
-                const confirmLogout =
-                    confirm(
-                        "Are you sure you want to logout?"
-                    );
+        }
 
 
-                if (confirmLogout) {
+        const user =
+            LumenixRBAC.currentUser();
 
-                    localStorage.removeItem(
-                        "adminLoggedIn"
-                    );
+
+        if (!user) {
+
+            window.location.href =
+                "admin.html";
+
+            return;
+
+        }
+
+
+        /* =================================================
+           USER INFORMATION
+           ================================================= */
+
+        const dashboardUser =
+            document.querySelector(
+                ".dashboard-user span"
+            );
+
+
+        if (dashboardUser) {
+
+            dashboardUser.textContent =
+                `${user.name} • ${formatRole(user.role)}`;
+
+        }
+
+
+        /* =================================================
+           ROLE FORMAT
+           ================================================= */
+
+        function formatRole(role) {
+
+            const roles = {
+
+                super_admin:
+                    "Super Admin",
+
+                admin:
+                    "Admin",
+
+                manager:
+                    "Manager",
+
+                supervisor:
+                    "Supervisor",
+
+                technician:
+                    "Technician",
+
+                partner:
+                    "Partner",
+
+                dealer:
+                    "Dealer",
+
+                customer:
+                    "Customer"
+
+            };
+
+
+            return (
+                roles[role] ||
+                role
+            );
+
+        }
+
+
+        /* =================================================
+           LOGOUT
+           ================================================= */
+
+        const logoutBtn =
+            document.getElementById(
+                "logoutBtn"
+            );
+
+
+        if (logoutBtn) {
+
+            logoutBtn.addEventListener(
+                "click",
+                function () {
+
+
+                    const confirmLogout =
+                        confirm(
+                            "Are you sure you want to logout?"
+                        );
+
+
+                    if (!confirmLogout) {
+                        return;
+                    }
+
+
+                    LumenixRBAC
+                        .clearSession();
+
 
                     window.location.href =
                         "admin.html";
 
                 }
+            );
+
+        }
+
+
+        /* =================================================
+           NAVIGATION
+           ================================================= */
+
+        function navigateTo(
+            page,
+            module
+        ) {
+
+
+            if (
+                !LumenixRBAC
+                    .hasPermission(
+                        module
+                    )
+            ) {
+
+                alert(
+                    "আপনার এই module ব্যবহারের permission নেই।"
+                );
+
+                return;
+
+            }
+
+
+            window.location.href =
+                page;
+
+        }
+
+
+        /* =================================================
+           MODULE MAP
+           ================================================= */
+
+        const navigation = {
+
+            dashboardHomeBtn: {
+                page: "dashboard.html",
+                module:
+                    LumenixRBAC.MODULES.DASHBOARD
+            },
+
+            projectBtn: {
+                page: "project.html",
+                module:
+                    LumenixRBAC.MODULES.PROJECTS
+            },
+
+            accountsBtn: {
+                page: "accounts.html",
+                module:
+                    LumenixRBAC.MODULES.ACCOUNTS
+            },
+
+            inventoryBtn: {
+                page: "inventory.html",
+                module:
+                    LumenixRBAC.MODULES.INVENTORY
+            },
+
+            attendanceBtn: {
+                page: "attendance.html",
+                module:
+                    LumenixRBAC.MODULES.ATTENDANCE
+            },
+
+            reportsBtn: {
+                page: "reports.html",
+                module:
+                    LumenixRBAC.MODULES.REPORTS
+            },
+
+            settingsBtn: {
+                page: "settings.html",
+                module:
+                    LumenixRBAC.MODULES.SETTINGS
+            }
+
+        };
+
+
+        Object.keys(
+            navigation
+        ).forEach(
+            function (id) {
+
+
+                const element =
+                    document.getElementById(
+                        id
+                    );
+
+
+                if (!element) {
+                    return;
+                }
+
+
+                const config =
+                    navigation[id];
+
+
+                if (
+                    !LumenixRBAC
+                        .hasPermission(
+                            config.module
+                        )
+                ) {
+
+                    element.parentElement
+                        ?.classList
+                        .add(
+                            "rbac-hidden"
+                        );
+
+                    return;
+
+                }
+
+
+                element.addEventListener(
+                    "click",
+                    function (event) {
+
+                        event.preventDefault();
+
+                        navigateTo(
+                            config.page,
+                            config.module
+                        );
+
+                    }
+                );
 
             }
         );
 
-    }
+
+        /* =================================================
+           QUICK ACTIONS
+           ================================================= */
+
+        const quickActions = {
+
+            goProjectBtn: {
+                page: "project.html",
+                module:
+                    LumenixRBAC.MODULES.PROJECTS
+            },
+
+            goAccountsBtn: {
+                page: "accounts.html",
+                module:
+                    LumenixRBAC.MODULES.ACCOUNTS
+            },
+
+            goInventoryBtn: {
+                page: "inventory.html",
+                module:
+                    LumenixRBAC.MODULES.INVENTORY
+            },
+
+            goAttendanceBtn: {
+                page: "attendance.html",
+                module:
+                    LumenixRBAC.MODULES.ATTENDANCE
+            },
+
+            goReportsBtn: {
+                page: "reports.html",
+                module:
+                    LumenixRBAC.MODULES.REPORTS
+            },
+
+            goSettingsBtn: {
+                page: "settings.html",
+                module:
+                    LumenixRBAC.MODULES.SETTINGS
+            }
+
+        };
 
 
-    /* =====================================
-    DJ2
-    Dashboard Navigation
-    ===================================== */
-
-    function navigateTo(page) {
-
-        window.location.href = page;
-
-    }
+        Object.keys(
+            quickActions
+        ).forEach(
+            function (id) {
 
 
-    /*
-    Sidebar Navigation
-    */
-
-    const dashboardHomeBtn =
-        document.getElementById(
-            "dashboardHomeBtn"
-        );
+                const element =
+                    document.getElementById(
+                        id
+                    );
 
 
-    const projectBtn =
-        document.getElementById(
-            "projectBtn"
-        );
+                if (!element) {
+                    return;
+                }
 
 
-    const accountsBtn =
-        document.getElementById(
-            "accountsBtn"
-        );
+                const config =
+                    quickActions[id];
 
 
-    const inventoryBtn =
-        document.getElementById(
-            "inventoryBtn"
-        );
+                if (
+                    !LumenixRBAC
+                        .hasPermission(
+                            config.module
+                        )
+                ) {
+
+                    element.classList.add(
+                        "rbac-hidden"
+                    );
+
+                    return;
+
+                }
 
 
-    const attendanceBtn =
-        document.getElementById(
-            "attendanceBtn"
-        );
+                element.addEventListener(
+                    "click",
+                    function () {
 
+                        navigateTo(
+                            config.page,
+                            config.module
+                        );
 
-    const reportsBtn =
-        document.getElementById(
-            "reportsBtn"
-        );
-
-
-    const settingsBtn =
-        document.getElementById(
-            "settingsBtn"
-        );
-
-
-    if (dashboardHomeBtn) {
-
-        dashboardHomeBtn.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                navigateTo("dashboard.html");
+                    }
+                );
 
             }
         );
 
-    }
+
+        /* =================================================
+           DASHBOARD SUMMARY
+           ================================================= */
+
+        const dashboardData = {
+
+            projects: 0,
+
+            income: 0,
+
+            expense: 0,
+
+            inventory: 0,
+
+            lastUpdate:
+                new Date()
+                    .toLocaleString()
+
+        };
 
 
-    if (projectBtn) {
+        let currentData;
 
-        projectBtn.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                navigateTo("project.html");
-
-            }
-        );
-
-    }
-
-
-    if (accountsBtn) {
-
-        accountsBtn.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                navigateTo("accounts.html");
-
-            }
-        );
-
-    }
-
-
-    if (inventoryBtn) {
-
-        inventoryBtn.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                navigateTo("inventory.html");
-
-            }
-        );
-
-    }
-
-
-    if (attendanceBtn) {
-
-        attendanceBtn.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                navigateTo("attendance.html");
-
-            }
-        );
-
-    }
-
-
-    if (reportsBtn) {
-
-        reportsBtn.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                navigateTo("reports.html");
-
-            }
-        );
-
-    }
-
-
-    if (settingsBtn) {
-
-        settingsBtn.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                navigateTo("settings.html");
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    DJ3
-    Dashboard Summary Data
-    ===================================== */
-
-    const dashboardData = {
-
-        projects: 0,
-
-        income: 0,
-
-        expense: 0,
-
-        inventory: 0,
-
-        lastUpdate:
-            new Date().toLocaleString()
-
-    };
-
-
-    let currentData;
-
-
-    const savedData =
-        localStorage.getItem(
-            "lumenixDashboard"
-        );
-
-
-    if (savedData) {
 
         try {
 
+            const savedData =
+                localStorage.getItem(
+                    "lumenixDashboard"
+                );
+
+
             currentData =
-                JSON.parse(savedData);
+                savedData
+                    ? JSON.parse(
+                        savedData
+                    )
+                    : dashboardData;
+
 
         } catch (error) {
 
             currentData =
                 dashboardData;
 
-            localStorage.setItem(
-                "lumenixDashboard",
-                JSON.stringify(
-                    dashboardData
-                )
-            );
-
         }
 
-    } else {
-
-        currentData =
-            dashboardData;
 
         localStorage.setItem(
             "lumenixDashboard",
             JSON.stringify(
-                dashboardData
+                currentData
             )
         );
 
-    }
+
+        const totalProjects =
+            document.getElementById(
+                "totalProjects"
+            );
 
 
-    const totalProjects =
-        document.getElementById(
-            "totalProjects"
-        );
+        const totalIncome =
+            document.getElementById(
+                "totalIncome"
+            );
 
 
-    const totalIncome =
-        document.getElementById(
-            "totalIncome"
-        );
+        const totalExpense =
+            document.getElementById(
+                "totalExpense"
+            );
 
 
-    const totalExpense =
-        document.getElementById(
-            "totalExpense"
-        );
+        const totalInventory =
+            document.getElementById(
+                "totalInventory"
+            );
 
 
-    const totalInventory =
-        document.getElementById(
-            "totalInventory"
-        );
+        if (totalProjects) {
+
+            totalProjects.textContent =
+                currentData.projects || 0;
+
+        }
 
 
-    if (totalProjects) {
+        if (totalIncome) {
 
-        totalProjects.textContent =
-            currentData.projects || 0;
-
-    }
-
-
-    if (totalIncome) {
-
-        totalIncome.textContent =
-            "৳" +
-            (currentData.income || 0);
-
-    }
-
-
-    if (totalExpense) {
-
-        totalExpense.textContent =
-            "৳" +
-            (currentData.expense || 0);
-
-    }
-
-
-    if (totalInventory) {
-
-        totalInventory.textContent =
-            currentData.inventory || 0;
-
-    }
-
-
-    /* =====================================
-    DJ4
-    Quick Action Navigation
-    ===================================== */
-
-    const goProjectBtn =
-        document.getElementById(
-            "goProjectBtn"
-        );
-
-
-    const goAccountsBtn =
-        document.getElementById(
-            "goAccountsBtn"
-        );
-
-
-    const goInventoryBtn =
-        document.getElementById(
-            "goInventoryBtn"
-        );
-
-
-    const goAttendanceBtn =
-        document.getElementById(
-            "goAttendanceBtn"
-        );
-
-
-    const goReportsBtn =
-        document.getElementById(
-            "goReportsBtn"
-        );
-
-
-    const goSettingsBtn =
-        document.getElementById(
-            "goSettingsBtn"
-        );
-
-
-    if (goProjectBtn) {
-
-        goProjectBtn.addEventListener(
-            "click",
-            function () {
-
-                navigateTo(
-                    "project.html"
+            totalIncome.textContent =
+                "৳" +
+                (
+                    currentData.income ||
+                    0
                 );
 
-            }
-        );
-
-    }
+        }
 
 
-    if (goAccountsBtn) {
+        if (totalExpense) {
 
-        goAccountsBtn.addEventListener(
-            "click",
-            function () {
-
-                navigateTo(
-                    "accounts.html"
+            totalExpense.textContent =
+                "৳" +
+                (
+                    currentData.expense ||
+                    0
                 );
 
-            }
-        );
-
-    }
+        }
 
 
-    if (goInventoryBtn) {
+        if (totalInventory) {
 
-        goInventoryBtn.addEventListener(
-            "click",
-            function () {
+            totalInventory.textContent =
+                currentData.inventory || 0;
 
-                navigateTo(
-                    "inventory.html"
-                );
-
-            }
-        );
-
-    }
+        }
 
 
-    if (goAttendanceBtn) {
+        /* =================================================
+           MONTHLY FINANCIAL
+           ================================================= */
 
-        goAttendanceBtn.addEventListener(
-            "click",
-            function () {
-
-                navigateTo(
-                    "attendance.html"
-                );
-
-            }
-        );
-
-    }
+        const monthlyIncome =
+            document.getElementById(
+                "monthlyIncome"
+            );
 
 
-    if (goReportsBtn) {
-
-        goReportsBtn.addEventListener(
-            "click",
-            function () {
-
-                navigateTo(
-                    "reports.html"
-                );
-
-            }
-        );
-
-    }
+        const monthlyExpense =
+            document.getElementById(
+                "monthlyExpense"
+            );
 
 
-    if (goSettingsBtn) {
-
-        goSettingsBtn.addEventListener(
-            "click",
-            function () {
-
-                navigateTo(
-                    "settings.html"
-                );
-
-            }
-        );
-
-    }
+        const netProfit =
+            document.getElementById(
+                "netProfit"
+            );
 
 
-    /* =====================================
-    DJ5
-    Recent Activity
-    ===================================== */
-
-    const activityList =
-        document.querySelector(
-            ".activity-list"
-        );
+        const incomeValue =
+            Number(
+                currentData.income || 0
+            );
 
 
-    if (activityList) {
-
-        const activityData = [
-
-            {
-                icon: "📁",
-                text: "System Ready."
-            },
-
-            {
-                icon: "💰",
-                text:
-                    "Income & Expense Module Ready."
-            },
-
-            {
-                icon: "📦",
-                text:
-                    "Inventory Module Ready."
-            },
-
-            {
-                icon: "👥",
-                text:
-                    "Attendance Module Ready."
-            }
-
-        ];
+        const expenseValue =
+            Number(
+                currentData.expense || 0
+            );
 
 
-        activityList.innerHTML = "";
+        const profitValue =
+            incomeValue -
+            expenseValue;
 
 
-        activityData.forEach(
-            function (item) {
+        if (monthlyIncome) {
 
-                const activityItem =
-                    document.createElement(
-                        "div"
+            monthlyIncome.textContent =
+                "৳" +
+                incomeValue;
+
+        }
+
+
+        if (monthlyExpense) {
+
+            monthlyExpense.textContent =
+                "৳" +
+                expenseValue;
+
+        }
+
+
+        if (netProfit) {
+
+            netProfit.textContent =
+                "৳" +
+                profitValue;
+
+        }
+
+
+        /* =================================================
+           INVENTORY
+           ================================================= */
+
+        const inventoryData = {
+
+            products: 0,
+
+            lowStock: 0,
+
+            outOfStock: 0,
+
+            value: 0
+
+        };
+
+
+        const totalProducts =
+            document.getElementById(
+                "totalProducts"
+            );
+
+
+        const lowStockItems =
+            document.getElementById(
+                "lowStockItems"
+            );
+
+
+        const outOfStockItems =
+            document.getElementById(
+                "outOfStockItems"
+            );
+
+
+        const inventoryValue =
+            document.getElementById(
+                "inventoryValue"
+            );
+
+
+        if (totalProducts) {
+
+            totalProducts.textContent =
+                inventoryData.products;
+
+        }
+
+
+        if (lowStockItems) {
+
+            lowStockItems.textContent =
+                inventoryData.lowStock;
+
+        }
+
+
+        if (outOfStockItems) {
+
+            outOfStockItems.textContent =
+                inventoryData.outOfStock;
+
+        }
+
+
+        if (inventoryValue) {
+
+            inventoryValue.textContent =
+                "৳" +
+                inventoryData.value;
+
+        }
+
+
+        /* =================================================
+           ATTENDANCE
+           ================================================= */
+
+        const attendanceData = {
+
+            present: 0,
+
+            absent: 0,
+
+            leave: 0,
+
+            late: 0
+
+        };
+
+
+        const attendanceElements = {
+
+            present:
+                "presentEmployees",
+
+            absent:
+                "absentEmployees",
+
+            leave:
+                "leaveEmployees",
+
+            late:
+                "lateEmployees"
+
+        };
+
+
+        Object.keys(
+            attendanceElements
+        ).forEach(
+            function (key) {
+
+                const element =
+                    document.getElementById(
+                        attendanceElements[key]
                     );
 
 
-                activityItem.className =
-                    "activity-item";
+                if (element) {
 
+                    element.textContent =
+                        attendanceData[key];
 
-                activityItem.innerHTML = `
-
-                    <span>
-                        ${item.icon}
-                    </span>
-
-                    <p>
-                        ${item.text}
-                    </p>
-
-                `;
-
-
-                activityList.appendChild(
-                    activityItem
-                );
+                }
 
             }
         );
 
-    }
+
+        /* =================================================
+           TECHNICIANS
+           ================================================= */
+
+        const technicianData = {
+
+            available: 0,
+
+            working: 0,
+
+            offline: 0
+
+        };
 
 
-    /* =====================================
-    DJ6
-    Latest Projects
-    ===================================== */
+        const technicianTotal =
+            technicianData.available +
+            technicianData.working +
+            technicianData.offline;
 
-    const projectTable =
-        document.getElementById(
-            "latestProjectsBody"
+
+        const technicianElements = {
+
+            available:
+                "availableTechnicians",
+
+            working:
+                "workingTechnicians",
+
+            offline:
+                "offlineTechnicians"
+
+        };
+
+
+        Object.keys(
+            technicianElements
+        ).forEach(
+            function (key) {
+
+                const element =
+                    document.getElementById(
+                        technicianElements[key]
+                    );
+
+
+                if (element) {
+
+                    element.textContent =
+                        technicianData[key];
+
+                }
+
+            }
         );
 
 
-    if (projectTable) {
+        const totalTechnicians =
+            document.getElementById(
+                "totalTechnicians"
+            );
 
-        /*
-        Project data is loaded from
-        lumenixProjects if available.
-        */
 
-        const savedProjects =
-            JSON.parse(
-                localStorage.getItem(
-                    "lumenixProjects"
+        if (totalTechnicians) {
+
+            totalTechnicians.textContent =
+                technicianTotal;
+
+        }
+
+
+        /* =================================================
+           RECENT ACTIVITY
+           ================================================= */
+
+        const activityList =
+            document.querySelector(
+                ".activity-list"
+            );
+
+
+        if (activityList) {
+
+            activityList.innerHTML = `
+
+                <div class="activity-item">
+
+                    <span>🔐</span>
+
+                    <p>
+                        Logged in as
+                        ${escapeHTML(
+                            formatRole(
+                                user.role
+                            )
+                        )}
+                    </p>
+
+                </div>
+
+                <div class="activity-item">
+
+                    <span>🏢</span>
+
+                    <p>
+                        LUMENIX ecosystem ready.
+                    </p>
+
+                </div>
+
+                <div class="activity-item">
+
+                    <span>⚡</span>
+
+                    <p>
+                        RBAC permission system active.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =================================================
+           HELPERS
+           ================================================= */
+
+        function escapeHTML(value) {
+
+            return String(
+                value ?? ""
+            )
+
+                .replace(
+                    /&/g,
+                    "&amp;"
                 )
-            ) || [];
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
 
 
-        projectTable.innerHTML = "";
+        /* =================================================
+           SERVICE REQUEST
+           ================================================= */
+
+        const serviceRequestBody =
+            document.getElementById(
+                "serviceRequestBody"
+            );
 
 
-        if (savedProjects.length === 0) {
+        if (serviceRequestBody) {
 
-            projectTable.innerHTML = `
+            serviceRequestBody.innerHTML = `
 
                 <tr>
 
@@ -607,568 +892,108 @@ document.addEventListener("DOMContentLoaded", function () {
                         colspan="4"
                         style="text-align:center;"
                     >
-                        No Project Found
+                        Service Point data
+                        will appear here.
                     </td>
 
                 </tr>
 
             `;
 
-        } else {
-
-            /*
-            Show latest 5 projects.
-            */
-
-            const latestProjects =
-                savedProjects.slice(-5).reverse();
+        }
 
 
-            latestProjects.forEach(
-                function (project) {
+        /* =================================================
+           NOTIFICATIONS
+           ================================================= */
 
-                    const row =
-                        document.createElement(
-                            "tr"
-                        );
-
-
-                    row.innerHTML = `
-
-                        <td>
-                            ${project.id}
-                        </td>
-
-                        <td>
-                            ${project.customer}
-                        </td>
-
-                        <td>
-                            ${project.status}
-                        </td>
-
-                        <td>
-                            ৳${project.amount}
-                        </td>
-
-                    `;
-
-
-                    projectTable.appendChild(
-                        row
-                    );
-
-                }
+        const notificationList =
+            document.getElementById(
+                "notificationList"
             );
+
+
+        if (notificationList) {
+
+            notificationList.innerHTML = `
+
+                <li>
+                    🔐 RBAC Security Active
+                </li>
+
+                <li>
+                    🏢 LUMENIX Ecosystem Ready
+                </li>
+
+                <li>
+                    👤 Role:
+                    ${escapeHTML(
+                        formatRole(
+                            user.role
+                        )
+                    )}
+                </li>
+
+                <li>
+                    🟢 System Running
+                </li>
+
+            `;
 
         }
 
-    }
+
+        /* =================================================
+           SYSTEM STATUS
+           ================================================= */
+
+        const databaseStatus =
+            document.getElementById(
+                "databaseStatus"
+            );
 
 
-    /* =====================================
-    DJ7
-    Income & Expense Overview
-    ===================================== */
+        const serverStatus =
+            document.getElementById(
+                "serverStatus"
+            );
 
-    const monthlyIncome =
-        document.getElementById(
-            "monthlyIncome"
+
+        const backupStatus =
+            document.getElementById(
+                "backupStatus"
+            );
+
+
+        if (databaseStatus) {
+
+            databaseStatus.textContent =
+                "🟢 Local Data Ready";
+
+        }
+
+
+        if (serverStatus) {
+
+            serverStatus.textContent =
+                "🟢 Application Online";
+
+        }
+
+
+        if (backupStatus) {
+
+            backupStatus.textContent =
+                "🟢 Local Storage Active";
+
+        }
+
+
+        console.log(
+            "LUMENIX V5.1 RBAC Dashboard Loaded",
+            user
         );
 
-
-    const monthlyExpense =
-        document.getElementById(
-            "monthlyExpense"
-        );
-
-
-    const netProfit =
-        document.getElementById(
-            "netProfit"
-        );
-
-
-    const incomeValue =
-        Number(
-            currentData.income || 0
-        );
-
-
-    const expenseValue =
-        Number(
-            currentData.expense || 0
-        );
-
-
-    const profitValue =
-        incomeValue -
-        expenseValue;
-
-
-    if (monthlyIncome) {
-
-        monthlyIncome.textContent =
-            "৳" +
-            incomeValue;
-
-    }
-
-
-    if (monthlyExpense) {
-
-        monthlyExpense.textContent =
-            "৳" +
-            expenseValue;
 
     }
-
-
-    if (netProfit) {
-
-        netProfit.textContent =
-            "৳" +
-            profitValue;
-
-    }
-
-
-    /* =====================================
-    DJ8
-    Inventory Overview
-    ===================================== */
-
-    const totalProducts =
-        document.getElementById(
-            "totalProducts"
-        );
-
-
-    const lowStockItems =
-        document.getElementById(
-            "lowStockItems"
-        );
-
-
-    const outOfStockItems =
-        document.getElementById(
-            "outOfStockItems"
-        );
-
-
-    const inventoryValue =
-        document.getElementById(
-            "inventoryValue"
-        );
-
-
-    const inventoryData = {
-
-        products: 120,
-
-        lowStock: 8,
-
-        outOfStock: 3,
-
-        value: 250000
-
-    };
-
-
-    if (totalProducts) {
-
-        totalProducts.textContent =
-            inventoryData.products;
-
-    }
-
-
-    if (lowStockItems) {
-
-        lowStockItems.textContent =
-            inventoryData.lowStock;
-
-    }
-
-
-    if (outOfStockItems) {
-
-        outOfStockItems.textContent =
-            inventoryData.outOfStock;
-
-    }
-
-
-    if (inventoryValue) {
-
-        inventoryValue.textContent =
-            "৳" +
-            inventoryData.value;
-
-    }
-
-
-    /* =====================================
-    DJ9
-    Attendance Overview
-    ===================================== */
-
-    const presentEmployees =
-        document.getElementById(
-            "presentEmployees"
-        );
-
-
-    const absentEmployees =
-        document.getElementById(
-            "absentEmployees"
-        );
-
-
-    const leaveEmployees =
-        document.getElementById(
-            "leaveEmployees"
-        );
-
-
-    const lateEmployees =
-        document.getElementById(
-            "lateEmployees"
-        );
-
-
-    const attendanceData = {
-
-        present: 25,
-
-        absent: 3,
-
-        leave: 2,
-
-        late: 1
-
-    };
-
-
-    if (presentEmployees) {
-
-        presentEmployees.textContent =
-            attendanceData.present;
-
-    }
-
-
-    if (absentEmployees) {
-
-        absentEmployees.textContent =
-            attendanceData.absent;
-
-    }
-
-
-    if (leaveEmployees) {
-
-        leaveEmployees.textContent =
-            attendanceData.leave;
-
-    }
-
-
-    if (lateEmployees) {
-
-        lateEmployees.textContent =
-            attendanceData.late;
-
-    }
-
-
-    /* =====================================
-    DJ10
-    Technician Status
-    ===================================== */
-
-    const availableTechnicians =
-        document.getElementById(
-            "availableTechnicians"
-        );
-
-
-    const workingTechnicians =
-        document.getElementById(
-            "workingTechnicians"
-        );
-
-
-    const offlineTechnicians =
-        document.getElementById(
-            "offlineTechnicians"
-        );
-
-
-    const totalTechnicians =
-        document.getElementById(
-            "totalTechnicians"
-        );
-
-
-    const technicianData = {
-
-        available: 15,
-
-        working: 8,
-
-        offline: 2
-
-    };
-
-
-    const technicianTotal =
-        technicianData.available +
-        technicianData.working +
-        technicianData.offline;
-
-
-    if (availableTechnicians) {
-
-        availableTechnicians.textContent =
-            technicianData.available;
-
-    }
-
-
-    if (workingTechnicians) {
-
-        workingTechnicians.textContent =
-            technicianData.working;
-
-    }
-
-
-    if (offlineTechnicians) {
-
-        offlineTechnicians.textContent =
-            technicianData.offline;
-
-    }
-
-
-    if (totalTechnicians) {
-
-        totalTechnicians.textContent =
-            technicianTotal;
-
-    }
-
-
-    /* =====================================
-    DJ11
-    Customer Service Requests
-    ===================================== */
-
-    const serviceRequestBody =
-        document.getElementById(
-            "serviceRequestBody"
-        );
-
-
-    if (serviceRequestBody) {
-
-        const serviceRequests = [
-
-            {
-                id: "SR-001",
-                customer: "Customer A",
-                service:
-                    "Electrical Repair",
-                status: "Pending"
-            },
-
-            {
-                id: "SR-002",
-                customer: "Customer B",
-                service:
-                    "Maintenance",
-                status: "Completed"
-            },
-
-            {
-                id: "SR-003",
-                customer: "Customer C",
-                service:
-                    "Installation",
-                status: "Running"
-            }
-
-        ];
-
-
-        serviceRequestBody.innerHTML = "";
-
-
-        serviceRequests.forEach(
-            function (request) {
-
-                const row =
-                    document.createElement(
-                        "tr"
-                    );
-
-
-                row.innerHTML = `
-
-                    <td>
-                        ${request.id}
-                    </td>
-
-                    <td>
-                        ${request.customer}
-                    </td>
-
-                    <td>
-                        ${request.service}
-                    </td>
-
-                    <td>
-                        ${request.status}
-                    </td>
-
-                `;
-
-
-                serviceRequestBody.appendChild(
-                    row
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    DJ12
-    Notifications
-    ===================================== */
-
-    const notificationList =
-        document.getElementById(
-            "notificationList"
-        );
-
-
-    if (notificationList) {
-
-        const notifications = [
-
-            {
-                icon: "🔔",
-                text:
-                    "New service request received"
-            },
-
-            {
-                icon: "📁",
-                text:
-                    "Project management system updated"
-            },
-
-            {
-                icon: "📦",
-                text:
-                    "Inventory check completed"
-            },
-
-            {
-                icon: "✅",
-                text:
-                    "All dashboard modules are running"
-            }
-
-        ];
-
-
-        notificationList.innerHTML = "";
-
-
-        notifications.forEach(
-            function (notification) {
-
-                const item =
-                    document.createElement(
-                        "li"
-                    );
-
-
-                item.textContent =
-                    notification.icon +
-                    " " +
-                    notification.text;
-
-
-                notificationList.appendChild(
-                    item
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    DJ13
-    System Status
-    ===================================== */
-
-    const databaseStatus =
-        document.getElementById(
-            "databaseStatus"
-        );
-
-
-    const serverStatus =
-        document.getElementById(
-            "serverStatus"
-        );
-
-
-    const backupStatus =
-        document.getElementById(
-            "backupStatus"
-        );
-
-
-    if (databaseStatus) {
-
-        databaseStatus.textContent =
-            "🟢 Connected";
-
-    }
-
-
-    if (serverStatus) {
-
-        serverStatus.textContent =
-            "🟢 Online";
-
-    }
-
-
-    if (backupStatus) {
-
-        backupStatus.textContent =
-            "🟢 Updated";
-
-    }
-
-
-    /* =====================================
-    DJ14
-    Dashboard Ready
-    ===================================== */
-
-    console.log(
-        "LUMENIX V5.1 Dashboard Loaded Successfully"
-    );
-
-});
+);
