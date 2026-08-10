@@ -1,6 +1,6 @@
 /* =====================================
    LUMENIX V5.1
-   ROLE & PERMISSION CONTROL
+   ROLE + PERMISSION + TECHNICIAN CONTROL
 ===================================== */
 
 "use strict";
@@ -12,6 +12,7 @@
 
 const ROLE_STORAGE = "lumenixRoles";
 const USER_STORAGE = "lumenixUsers";
+const TECHNICIAN_STORAGE = "lumenixTechnicians";
 
 
 /* =====================================
@@ -19,6 +20,7 @@ const USER_STORAGE = "lumenixUsers";
 ===================================== */
 
 const MODULES = [
+
     "Dashboard",
     "Projects",
     "Accounts",
@@ -31,14 +33,18 @@ const MODULES = [
     "Dealers",
     "Reports",
     "Settings"
+
 ];
 
+
 const ACTIONS = [
+
     "view",
     "add",
     "edit",
     "delete",
     "manage"
+
 ];
 
 
@@ -61,20 +67,7 @@ const DEFAULT_ROLES = [
         name: "Admin",
         description: "Administrative management access.",
         protected: true,
-        permissions: createPermissionSet([
-            "Dashboard",
-            "Projects",
-            "Accounts",
-            "Inventory",
-            "Attendance",
-            "Customers",
-            "Technicians",
-            "Training",
-            "Products",
-            "Dealers",
-            "Reports",
-            "Settings"
-        ])
+        permissions: createPermissionSet(MODULES)
     },
 
     {
@@ -117,7 +110,7 @@ const DEFAULT_ROLES = [
     {
         id: "technician",
         name: "Technician",
-        description: "Technician network access.",
+        description: "Technician network and service access.",
         protected: true,
         permissions: createPermissionSet([
             "Dashboard",
@@ -184,16 +177,24 @@ const DEFAULT_USERS = [
 
 
 /* =====================================
+   DEFAULT TECHNICIANS
+===================================== */
+
+const DEFAULT_TECHNICIANS = [];
+
+
+/* =====================================
    STATE
 ===================================== */
 
 let roles = [];
 let users = [];
+let technicians = [];
 let selectedRoleId = null;
 
 
 /* =====================================
-   HELPERS
+   PERMISSION HELPERS
 ===================================== */
 
 function createFullPermissions() {
@@ -205,12 +206,15 @@ function createFullPermissions() {
         permissions[module] = {};
 
         ACTIONS.forEach(action => {
+
             permissions[module][action] = true;
+
         });
 
     });
 
     return permissions;
+
 }
 
 
@@ -232,8 +236,13 @@ function createPermissionSet(allowedModules = []) {
     });
 
     return permissions;
+
 }
 
+
+/* =====================================
+   ID GENERATOR
+===================================== */
 
 function generateId(prefix) {
 
@@ -254,11 +263,16 @@ function loadData() {
     const storedUsers =
         localStorage.getItem(USER_STORAGE);
 
+    const storedTechnicians =
+        localStorage.getItem(TECHNICIAN_STORAGE);
+
 
     if (storedRoles) {
 
         try {
+
             roles = JSON.parse(storedRoles);
+
         } catch {
 
             roles = JSON.parse(
@@ -279,7 +293,9 @@ function loadData() {
     if (storedUsers) {
 
         try {
+
             users = JSON.parse(storedUsers);
+
         } catch {
 
             users = JSON.parse(
@@ -297,12 +313,90 @@ function loadData() {
     }
 
 
-    if (!selectedRoleId && roles.length) {
-        selectedRoleId = roles[0].id;
+    if (storedTechnicians) {
+
+        try {
+
+            technicians =
+                JSON.parse(storedTechnicians);
+
+        } catch {
+
+            technicians =
+                JSON.parse(
+                    JSON.stringify(DEFAULT_TECHNICIANS)
+                );
+
+        }
+
+    } else {
+
+        technicians =
+            JSON.parse(
+                JSON.stringify(DEFAULT_TECHNICIANS)
+            );
+
+    }
+
+
+    /*
+    Compatibility protection.
+    If an older role record is missing
+    permission fields, rebuild them.
+    */
+
+    roles.forEach(role => {
+
+        if (!role.permissions) {
+
+            role.permissions =
+                createPermissionSet();
+
+        }
+
+        MODULES.forEach(module => {
+
+            if (!role.permissions[module]) {
+
+                role.permissions[module] = {};
+
+            }
+
+            ACTIONS.forEach(action => {
+
+                if (
+                    typeof role.permissions[module][action]
+                    !== "boolean"
+                ) {
+
+                    role.permissions[module][action] =
+                        false;
+
+                }
+
+            });
+
+        });
+
+    });
+
+
+    if (
+        !selectedRoleId &&
+        roles.length
+    ) {
+
+        selectedRoleId =
+            roles[0].id;
+
     }
 
 }
 
+
+/* =====================================
+   SAVE
+===================================== */
 
 function saveData() {
 
@@ -316,6 +410,11 @@ function saveData() {
         JSON.stringify(users)
     );
 
+    localStorage.setItem(
+        TECHNICIAN_STORAGE,
+        JSON.stringify(technicians)
+    );
+
 }
 
 
@@ -323,15 +422,18 @@ function saveData() {
    INITIALIZE
 ===================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    loadData();
+        loadData();
 
-    bindEvents();
+        bindEvents();
 
-    renderAll();
+        renderAll();
 
-});
+    }
+);
 
 
 /* =====================================
@@ -340,79 +442,231 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function bindEvents() {
 
-    document
-        .getElementById("addUserBtn")
-        .addEventListener("click", openAddUserModal);
+    const addUserBtn =
+        document.getElementById(
+            "addUserBtn"
+        );
+
+    const addRoleBtn =
+        document.getElementById(
+            "addRoleBtn"
+        );
+
+    const addTechnicianBtn =
+        document.getElementById(
+            "addTechnicianBtn"
+        );
+
+    const saveAllBtn =
+        document.getElementById(
+            "saveAllBtn"
+        );
+
+    const selectAllBtn =
+        document.getElementById(
+            "selectAllBtn"
+        );
+
+    const userForm =
+        document.getElementById(
+            "userForm"
+        );
+
+    const roleForm =
+        document.getElementById(
+            "roleForm"
+        );
+
+    const technicianForm =
+        document.getElementById(
+            "technicianForm"
+        );
 
 
-    document
-        .getElementById("addRoleBtn")
-        .addEventListener("click", openAddRoleModal);
+    if (addUserBtn) {
+
+        addUserBtn.addEventListener(
+            "click",
+            openAddUserModal
+        );
+
+    }
 
 
-    document
-        .getElementById("saveAllBtn")
-        .addEventListener("click", () => {
+    if (addRoleBtn) {
 
-            saveData();
+        addRoleBtn.addEventListener(
+            "click",
+            openAddRoleModal
+        );
 
-            showMessage(
-                "Role & Permission changes saved successfully."
-            );
-
-        });
+    }
 
 
-    document
-        .getElementById("selectAllBtn")
-        .addEventListener("click", toggleAllPermissions);
+    if (addTechnicianBtn) {
+
+        addTechnicianBtn.addEventListener(
+            "click",
+            openAddTechnicianModal
+        );
+
+    }
 
 
-    document
-        .getElementById("userForm")
-        .addEventListener("submit", handleUserSubmit);
+    if (saveAllBtn) {
+
+        saveAllBtn.addEventListener(
+            "click",
+            function () {
+
+                saveData();
+
+                showMessage(
+                    "All LUMENIX changes saved successfully."
+                );
+
+            }
+        );
+
+    }
 
 
-    document
-        .getElementById("roleForm")
-        .addEventListener("submit", handleRoleSubmit);
+    if (selectAllBtn) {
+
+        selectAllBtn.addEventListener(
+            "click",
+            toggleAllPermissions
+        );
+
+    }
+
+
+    if (userForm) {
+
+        userForm.addEventListener(
+            "submit",
+            handleUserSubmit
+        );
+
+    }
+
+
+    if (roleForm) {
+
+        roleForm.addEventListener(
+            "submit",
+            handleRoleSubmit
+        );
+
+    }
+
+
+    if (technicianForm) {
+
+        technicianForm.addEventListener(
+            "submit",
+            handleTechnicianSubmit
+        );
+
+    }
 
 
     document
         .querySelectorAll("[data-close]")
         .forEach(button => {
 
-            button.addEventListener("click", () => {
+            button.addEventListener(
+                "click",
+                function () {
 
-                closeModal(
-                    button.dataset.close
-                );
+                    closeModal(
+                        button.dataset.close
+                    );
 
-            });
+                }
+            );
 
         });
 
 
-    document
-        .getElementById("userModal")
-        .addEventListener("click", event => {
+    const userModal =
+        document.getElementById(
+            "userModal"
+        );
 
-            if (event.target.id === "userModal") {
-                closeModal("userModal");
+    if (userModal) {
+
+        userModal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target.id ===
+                    "userModal"
+                ) {
+
+                    closeModal("userModal");
+
+                }
+
             }
+        );
 
-        });
+    }
 
 
-    document
-        .getElementById("roleModal")
-        .addEventListener("click", event => {
+    const roleModal =
+        document.getElementById(
+            "roleModal"
+        );
 
-            if (event.target.id === "roleModal") {
-                closeModal("roleModal");
+    if (roleModal) {
+
+        roleModal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target.id ===
+                    "roleModal"
+                ) {
+
+                    closeModal("roleModal");
+
+                }
+
             }
+        );
 
-        });
+    }
+
+
+    const technicianModal =
+        document.getElementById(
+            "technicianModal"
+        );
+
+    if (technicianModal) {
+
+        technicianModal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target.id ===
+                    "technicianModal"
+                ) {
+
+                    closeModal(
+                        "technicianModal"
+                    );
+
+                }
+
+            }
+        );
+
+    }
 
 }
 
@@ -426,6 +680,8 @@ function renderAll() {
     renderSummary();
 
     renderUsers();
+
+    renderTechnicians();
 
     renderRoles();
 
@@ -442,20 +698,56 @@ function renderAll() {
 
 function renderSummary() {
 
-    document.getElementById("totalUsers")
-        .textContent = users.length;
+    const totalUsers =
+        document.getElementById(
+            "totalUsers"
+        );
 
-    document.getElementById("totalRoles")
-        .textContent = roles.length;
+    const totalRoles =
+        document.getElementById(
+            "totalRoles"
+        );
 
-    document.getElementById("activeUsers")
-        .textContent =
-        users.filter(
-            user => user.status === "Active"
-        ).length;
+    const activeUsers =
+        document.getElementById(
+            "activeUsers"
+        );
+
+    const permissionCount =
+        document.getElementById(
+            "permissionCount"
+        );
+
+
+    if (totalUsers) {
+
+        totalUsers.textContent =
+            users.length;
+
+    }
+
+
+    if (totalRoles) {
+
+        totalRoles.textContent =
+            roles.length;
+
+    }
+
+
+    if (activeUsers) {
+
+        activeUsers.textContent =
+            users.filter(
+                user =>
+                    user.status === "Active"
+            ).length;
+
+    }
 
 
     let count = 0;
+
 
     roles.forEach(role => {
 
@@ -466,7 +758,9 @@ function renderSummary() {
                 if (
                     role.permissions?.[module]?.[action]
                 ) {
+
                     count++;
+
                 }
 
             });
@@ -476,20 +770,30 @@ function renderSummary() {
     });
 
 
-    document.getElementById("permissionCount")
-        .textContent = count;
+    if (permissionCount) {
+
+        permissionCount.textContent =
+            count;
+
+    }
 
 }
 
 
 /* =====================================
-   USERS
+   USER MANAGEMENT
 ===================================== */
 
 function renderUsers() {
 
     const tbody =
-        document.getElementById("usersTableBody");
+        document.getElementById(
+            "usersTableBody"
+        );
+
+
+    if (!tbody) return;
+
 
     tbody.innerHTML = "";
 
@@ -497,11 +801,19 @@ function renderUsers() {
     if (!users.length) {
 
         tbody.innerHTML = `
+
             <tr>
-                <td colspan="6" style="text-align:center;">
+
+                <td
+                    colspan="6"
+                    style="text-align:center;">
+
                     No users found.
+
                 </td>
+
             </tr>
+
         `;
 
         return;
@@ -513,7 +825,9 @@ function renderUsers() {
 
         const role =
             roles.find(
-                item => item.id === user.roleId
+                item =>
+                    item.id ===
+                    user.roleId
             );
 
 
@@ -523,7 +837,9 @@ function renderUsers() {
 
         tr.innerHTML = `
 
-            <td>${escapeHTML(user.id)}</td>
+            <td>
+                ${escapeHTML(user.id)}
+            </td>
 
             <td>
                 <strong>
@@ -537,7 +853,9 @@ function renderUsers() {
 
             <td>
                 ${escapeHTML(
-                    role ? role.name : "Unknown"
+                    role
+                        ? role.name
+                        : "Unknown"
                 )}
             </td>
 
@@ -545,11 +863,17 @@ function renderUsers() {
 
                 <span class="
                     status
-                    ${user.status === "Active"
-                        ? "status-active"
-                        : "status-inactive"}
+                    ${
+                        user.status === "Active"
+                            ? "status-active"
+                            : "status-inactive"
+                    }
                 ">
-                    ${escapeHTML(user.status)}
+
+                    ${escapeHTML(
+                        user.status
+                    )}
+
                 </span>
 
             </td>
@@ -558,17 +882,23 @@ function renderUsers() {
 
                 <button
                     class="action-btn edit-btn"
-                    data-edit-user="${user.id}">
+                    data-edit-user="${escapeHTML(user.id)}">
+
                     Edit
+
                 </button>
+
 
                 <button
                     class="action-btn delete-btn"
-                    data-delete-user="${user.id}">
+                    data-delete-user="${escapeHTML(user.id)}">
+
                     Delete
+
                 </button>
 
             </td>
+
         `;
 
 
@@ -578,28 +908,243 @@ function renderUsers() {
 
 
     tbody
-        .querySelectorAll("[data-edit-user]")
+        .querySelectorAll(
+            "[data-edit-user]"
+        )
         .forEach(button => {
 
             button.addEventListener(
                 "click",
-                () => editUser(
-                    button.dataset.editUser
-                )
+                function () {
+
+                    editUser(
+                        button.dataset.editUser
+                    );
+
+                }
             );
 
         });
 
 
     tbody
-        .querySelectorAll("[data-delete-user]")
+        .querySelectorAll(
+            "[data-delete-user]"
+        )
         .forEach(button => {
 
             button.addEventListener(
                 "click",
-                () => deleteUser(
-                    button.dataset.deleteUser
-                )
+                function () {
+
+                    deleteUser(
+                        button.dataset.deleteUser
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =====================================
+   TECHNICIAN MANAGEMENT
+===================================== */
+
+function renderTechnicians() {
+
+    const tbody =
+        document.getElementById(
+            "techniciansTableBody"
+        );
+
+
+    if (!tbody) return;
+
+
+    tbody.innerHTML = "";
+
+
+    if (!technicians.length) {
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="7"
+                    style="text-align:center;">
+
+                    No Technician Profile Found
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    technicians.forEach(technician => {
+
+        const tr =
+            document.createElement("tr");
+
+
+        const verification =
+            technician.verified === true
+                ? `
+                    <span class="status status-active">
+                        ✓ Verified
+                    </span>
+                  `
+                : `
+                    <span class="status status-inactive">
+                        Not Verified
+                    </span>
+                  `;
+
+
+        tr.innerHTML = `
+
+            <td>
+
+                <strong>
+                    ${escapeHTML(
+                        technician.name
+                    )}
+                </strong>
+
+                <br>
+
+                <small>
+                    ${escapeHTML(
+                        technician.username
+                    )}
+                </small>
+
+            </td>
+
+
+            <td>
+                ${escapeHTML(
+                    technician.department || "-"
+                )}
+            </td>
+
+
+            <td>
+                ${escapeHTML(
+                    technician.district || "-"
+                )}
+            </td>
+
+
+            <td>
+                ${escapeHTML(
+                    technician.area || "-"
+                )}
+            </td>
+
+
+            <td>
+                ${verification}
+            </td>
+
+
+            <td>
+
+                <span class="
+                    status
+                    ${
+                        technician.status === "Active"
+                            ? "status-active"
+                            : "status-inactive"
+                    }
+                ">
+
+                    ${escapeHTML(
+                        technician.status
+                    )}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <button
+                    class="action-btn edit-btn"
+                    data-edit-technician="${escapeHTML(
+                        technician.id
+                    )}">
+
+                    Edit
+
+                </button>
+
+
+                <button
+                    class="action-btn delete-btn"
+                    data-delete-technician="${escapeHTML(
+                        technician.id
+                    )}">
+
+                    Delete
+
+                </button>
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(tr);
+
+    });
+
+
+    tbody
+        .querySelectorAll(
+            "[data-edit-technician]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    editTechnician(
+                        button.dataset.editTechnician
+                    );
+
+                }
+            );
+
+        });
+
+
+    tbody
+        .querySelectorAll(
+            "[data-delete-technician]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    deleteTechnician(
+                        button.dataset.deleteTechnician
+                    );
+
+                }
             );
 
         });
@@ -614,7 +1159,13 @@ function renderUsers() {
 function renderRoles() {
 
     const container =
-        document.getElementById("roleList");
+        document.getElementById(
+            "roleList"
+        );
+
+
+    if (!container) return;
+
 
     container.innerHTML = "";
 
@@ -624,10 +1175,12 @@ function renderRoles() {
         const item =
             document.createElement("div");
 
+
         item.className =
             "role-item" +
             (
-                role.id === selectedRoleId
+                role.id ===
+                selectedRoleId
                     ? " active"
                     : ""
             );
@@ -636,11 +1189,15 @@ function renderRoles() {
         item.innerHTML = `
 
             <strong>
-                ${escapeHTML(role.name)}
+                ${escapeHTML(
+                    role.name
+                )}
             </strong>
 
             <small>
-                ${escapeHTML(role.description || "")}
+                ${escapeHTML(
+                    role.description || ""
+                )}
             </small>
 
         `;
@@ -648,11 +1205,13 @@ function renderRoles() {
 
         item.addEventListener(
             "click",
-            () => {
+            function () {
 
-                selectedRoleId = role.id;
+                selectedRoleId =
+                    role.id;
 
                 renderRoles();
+
                 renderPermissions();
 
             }
@@ -673,7 +1232,13 @@ function renderRoles() {
 function renderRoleSelect() {
 
     const select =
-        document.getElementById("userRole");
+        document.getElementById(
+            "userRole"
+        );
+
+
+    if (!select) return;
+
 
     select.innerHTML = "";
 
@@ -681,11 +1246,18 @@ function renderRoleSelect() {
     roles.forEach(role => {
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
-        option.value = role.id;
 
-        option.textContent = role.name;
+        option.value =
+            role.id;
+
+
+        option.textContent =
+            role.name;
+
 
         select.appendChild(option);
 
@@ -702,7 +1274,9 @@ function renderPermissions() {
 
     const role =
         roles.find(
-            item => item.id === selectedRoleId
+            item =>
+                item.id ===
+                selectedRoleId
         );
 
 
@@ -710,6 +1284,9 @@ function renderPermissions() {
         document.getElementById(
             "permissionTableBody"
         );
+
+
+    if (!tbody) return;
 
 
     if (!role) {
@@ -721,15 +1298,33 @@ function renderPermissions() {
     }
 
 
-    document.getElementById(
-        "selectedRoleName"
-    ).textContent = role.name;
+    const selectedRoleName =
+        document.getElementById(
+            "selectedRoleName"
+        );
 
 
-    document.getElementById(
-        "selectedRoleDescription"
-    ).textContent =
-        role.description || "No description.";
+    const selectedRoleDescription =
+        document.getElementById(
+            "selectedRoleDescription"
+        );
+
+
+    if (selectedRoleName) {
+
+        selectedRoleName.textContent =
+            role.name;
+
+    }
+
+
+    if (selectedRoleDescription) {
+
+        selectedRoleDescription.textContent =
+            role.description ||
+            "No description.";
+
+    }
 
 
     tbody.innerHTML = "";
@@ -742,7 +1337,11 @@ function renderPermissions() {
 
 
         let cells = `
-            <td>${escapeHTML(module)}</td>
+
+            <td>
+                ${escapeHTML(module)}
+            </td>
+
         `;
 
 
@@ -774,13 +1373,16 @@ function renderPermissions() {
 
         tr.innerHTML = cells;
 
+
         tbody.appendChild(tr);
 
     });
 
 
     tbody
-        .querySelectorAll("input[type='checkbox']")
+        .querySelectorAll(
+            "input[type='checkbox']"
+        )
         .forEach(input => {
 
             input.addEventListener(
@@ -801,7 +1403,9 @@ function updatePermission(event) {
 
     const role =
         roles.find(
-            item => item.id === selectedRoleId
+            item =>
+                item.id ===
+                selectedRoleId
         );
 
 
@@ -811,12 +1415,15 @@ function updatePermission(event) {
     const module =
         event.target.dataset.module;
 
+
     const action =
         event.target.dataset.action;
 
 
     if (!role.permissions[module]) {
+
         role.permissions[module] = {};
+
     }
 
 
@@ -839,7 +1446,9 @@ function toggleAllPermissions() {
 
     const role =
         roles.find(
-            item => item.id === selectedRoleId
+            item =>
+                item.id ===
+                selectedRoleId
         );
 
 
@@ -847,17 +1456,27 @@ function toggleAllPermissions() {
 
 
     const allEnabled =
-        MODULES.every(module =>
-            ACTIONS.every(action =>
-                role.permissions?.[module]?.[action]
-            )
+        MODULES.every(
+            module =>
+                ACTIONS.every(
+                    action =>
+                        role.permissions
+                            ?.[
+                                module
+                            ]
+                            ?.[
+                                action
+                            ]
+                )
         );
 
 
     MODULES.forEach(module => {
 
         if (!role.permissions[module]) {
+
             role.permissions[module] = {};
+
         }
 
 
@@ -886,14 +1505,23 @@ function toggleAllPermissions() {
 
 function openAddUserModal() {
 
+    const form =
+        document.getElementById(
+            "userForm"
+        );
+
+
+    if (form) {
+
+        form.reset();
+
+    }
+
+
     document.getElementById(
         "userModalTitle"
-    ).textContent = "Add User";
-
-
-    document.getElementById(
-        "userForm"
-    ).reset();
+    ).textContent =
+        "Add User";
 
 
     document.getElementById(
@@ -919,7 +1547,9 @@ function editUser(userId) {
 
     const user =
         users.find(
-            item => item.id === userId
+            item =>
+                item.id ===
+                userId
         );
 
 
@@ -928,22 +1558,26 @@ function editUser(userId) {
 
     document.getElementById(
         "userModalTitle"
-    ).textContent = "Edit User";
+    ).textContent =
+        "Edit User";
 
 
     document.getElementById(
         "editUserId"
-    ).value = user.id;
+    ).value =
+        user.id;
 
 
     document.getElementById(
         "userName"
-    ).value = user.name;
+    ).value =
+        user.name;
 
 
     document.getElementById(
         "userUsername"
-    ).value = user.username;
+    ).value =
+        user.username;
 
 
     renderRoleSelect();
@@ -951,12 +1585,14 @@ function editUser(userId) {
 
     document.getElementById(
         "userRole"
-    ).value = user.roleId;
+    ).value =
+        user.roleId;
 
 
     document.getElementById(
         "userStatus"
-    ).value = user.status;
+    ).value =
+        user.status;
 
 
     document.getElementById(
@@ -967,7 +1603,7 @@ function editUser(userId) {
 
 
 /* =====================================
-   USER SAVE
+   SAVE USER
 ===================================== */
 
 function handleUserSubmit(event) {
@@ -1005,7 +1641,11 @@ function handleUserSubmit(event) {
         ).value;
 
 
-    if (!name || !username || !roleId) {
+    if (
+        !name ||
+        !username ||
+        !roleId
+    ) {
 
         showMessage(
             "Please complete all required fields."
@@ -1040,16 +1680,25 @@ function handleUserSubmit(event) {
 
         const user =
             users.find(
-                item => item.id === editId
+                item =>
+                    item.id ===
+                    editId
             );
 
 
         if (user) {
 
-            user.name = name;
-            user.username = username;
-            user.roleId = roleId;
-            user.status = status;
+            user.name =
+                name;
+
+            user.username =
+                username;
+
+            user.roleId =
+                roleId;
+
+            user.status =
+                status;
 
         }
 
@@ -1072,6 +1721,12 @@ function handleUserSubmit(event) {
     }
 
 
+    /*
+    If the user is assigned
+    Technician role, keep technician
+    profile connection possible.
+    */
+
     saveData();
 
     renderAll();
@@ -1089,14 +1744,19 @@ function deleteUser(userId) {
 
     const user =
         users.find(
-            item => item.id === userId
+            item =>
+                item.id ===
+                userId
         );
 
 
     if (!user) return;
 
 
-    if (user.username === "admin") {
+    if (
+        user.username ===
+        "admin"
+    ) {
 
         showMessage(
             "The primary administrator cannot be deleted."
@@ -1118,7 +1778,482 @@ function deleteUser(userId) {
 
     users =
         users.filter(
-            item => item.id !== userId
+            item =>
+                item.id !==
+                userId
+        );
+
+
+    saveData();
+
+    renderAll();
+
+}
+
+
+/* =====================================
+   ADD TECHNICIAN
+===================================== */
+
+function openAddTechnicianModal() {
+
+    const form =
+        document.getElementById(
+            "technicianForm"
+        );
+
+
+    if (form) {
+
+        form.reset();
+
+    }
+
+
+    document.getElementById(
+        "technicianModalTitle"
+    ).textContent =
+        "Add Technician Profile";
+
+
+    document.getElementById(
+        "editTechnicianId"
+    ).value = "";
+
+
+    document.getElementById(
+        "technicianStatus"
+    ).value =
+        "Active";
+
+
+    document.getElementById(
+        "technicianVerified"
+    ).value =
+        "true";
+
+
+    document.getElementById(
+        "technicianModal"
+    ).classList.add("show");
+
+}
+
+
+/* =====================================
+   EDIT TECHNICIAN
+===================================== */
+
+function editTechnician(
+    technicianId
+) {
+
+    const technician =
+        technicians.find(
+            item =>
+                item.id ===
+                technicianId
+        );
+
+
+    if (!technician) return;
+
+
+    document.getElementById(
+        "technicianModalTitle"
+    ).textContent =
+        "Edit Technician Profile";
+
+
+    document.getElementById(
+        "editTechnicianId"
+    ).value =
+        technician.id;
+
+
+    document.getElementById(
+        "technicianName"
+    ).value =
+        technician.name || "";
+
+
+    document.getElementById(
+        "technicianUsername"
+    ).value =
+        technician.username || "";
+
+
+    document.getElementById(
+        "technicianPhone"
+    ).value =
+        technician.phone || "";
+
+
+    document.getElementById(
+        "technicianEmail"
+    ).value =
+        technician.email || "";
+
+
+    document.getElementById(
+        "technicianDepartment"
+    ).value =
+        technician.department || "";
+
+
+    document.getElementById(
+        "technicianDistrict"
+    ).value =
+        technician.district || "";
+
+
+    document.getElementById(
+        "technicianArea"
+    ).value =
+        technician.area || "";
+
+
+    document.getElementById(
+        "technicianExperience"
+    ).value =
+        technician.experience || "";
+
+
+    document.getElementById(
+        "technicianPhoto"
+    ).value =
+        technician.photo || "";
+
+
+    document.getElementById(
+        "technicianStatus"
+    ).value =
+        technician.status || "Active";
+
+
+    document.getElementById(
+        "technicianVerified"
+    ).value =
+        technician.verified
+            ? "true"
+            : "false";
+
+
+    document.getElementById(
+        "technicianWorkDescription"
+    ).value =
+        technician.workDescription || "";
+
+
+    document.getElementById(
+        "technicianServices"
+    ).value =
+        technician.services || "";
+
+
+    document.getElementById(
+        "technicianBio"
+    ).value =
+        technician.bio || "";
+
+
+    document.getElementById(
+        "technicianModal"
+    ).classList.add("show");
+
+}
+
+
+/* =====================================
+   SAVE TECHNICIAN
+===================================== */
+
+function handleTechnicianSubmit(
+    event
+) {
+
+    event.preventDefault();
+
+
+    const editId =
+        document.getElementById(
+            "editTechnicianId"
+        ).value;
+
+
+    const name =
+        document.getElementById(
+            "technicianName"
+        ).value.trim();
+
+
+    const username =
+        document.getElementById(
+            "technicianUsername"
+        ).value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "technicianPhone"
+        ).value.trim();
+
+
+    const email =
+        document.getElementById(
+            "technicianEmail"
+        ).value.trim();
+
+
+    const department =
+        document.getElementById(
+            "technicianDepartment"
+        ).value.trim();
+
+
+    const district =
+        document.getElementById(
+            "technicianDistrict"
+        ).value.trim();
+
+
+    const area =
+        document.getElementById(
+            "technicianArea"
+        ).value.trim();
+
+
+    const experience =
+        document.getElementById(
+            "technicianExperience"
+        ).value.trim();
+
+
+    const photo =
+        document.getElementById(
+            "technicianPhoto"
+        ).value.trim();
+
+
+    const status =
+        document.getElementById(
+            "technicianStatus"
+        ).value;
+
+
+    const verified =
+        document.getElementById(
+            "technicianVerified"
+        ).value ===
+        "true";
+
+
+    const workDescription =
+        document.getElementById(
+            "technicianWorkDescription"
+        ).value.trim();
+
+
+    const services =
+        document.getElementById(
+            "technicianServices"
+        ).value.trim();
+
+
+    const bio =
+        document.getElementById(
+            "technicianBio"
+        ).value.trim();
+
+
+    if (
+        !name ||
+        !username
+    ) {
+
+        showMessage(
+            "Technician name and username are required."
+        );
+
+        return;
+
+    }
+
+
+    const duplicate =
+        technicians.some(
+            technician =>
+                technician.username
+                    .toLowerCase() ===
+                username.toLowerCase() &&
+                technician.id !== editId
+        );
+
+
+    if (duplicate) {
+
+        showMessage(
+            "A technician profile with this username already exists."
+        );
+
+        return;
+
+    }
+
+
+    const profileData = {
+
+        id:
+            editId ||
+            generateId("TECH"),
+
+        name,
+
+        username,
+
+        phone,
+
+        email,
+
+        department,
+
+        district,
+
+        area,
+
+        experience,
+
+        photo,
+
+        status,
+
+        verified,
+
+        workDescription,
+
+        services,
+
+        bio,
+
+        updatedAt:
+            new Date().toISOString()
+
+    };
+
+
+    if (editId) {
+
+        const index =
+            technicians.findIndex(
+                technician =>
+                    technician.id ===
+                    editId
+            );
+
+
+        if (index !== -1) {
+
+            technicians[index] =
+                profileData;
+
+        }
+
+    } else {
+
+        technicians.push(
+            profileData
+        );
+
+    }
+
+
+    /*
+    Automatically make sure a Technician
+    role user can be connected later.
+    */
+
+    const technicianUser =
+        users.find(
+            user =>
+                user.username.toLowerCase() ===
+                username.toLowerCase()
+        );
+
+
+    if (
+        technicianUser &&
+        !technicianUser.roleId
+    ) {
+
+        const technicianRole =
+            roles.find(
+                role =>
+                    role.id ===
+                    "technician"
+            );
+
+
+        if (technicianRole) {
+
+            technicianUser.roleId =
+                technicianRole.id;
+
+        }
+
+    }
+
+
+    saveData();
+
+    renderAll();
+
+    closeModal(
+        "technicianModal"
+    );
+
+
+    showMessage(
+        verified
+            ? "Verified technician profile saved successfully."
+            : "Technician profile saved. Verification is currently disabled."
+    );
+
+}
+
+
+/* =====================================
+   DELETE TECHNICIAN
+===================================== */
+
+function deleteTechnician(
+    technicianId
+) {
+
+    const technician =
+        technicians.find(
+            item =>
+                item.id ===
+                technicianId
+        );
+
+
+    if (!technician) return;
+
+
+    const confirmed =
+        confirm(
+            `Delete technician profile "${technician.name}"?`
+        );
+
+
+    if (!confirmed) return;
+
+
+    technicians =
+        technicians.filter(
+            item =>
+                item.id !==
+                technicianId
         );
 
 
@@ -1135,9 +2270,17 @@ function deleteUser(userId) {
 
 function openAddRoleModal() {
 
-    document.getElementById(
-        "roleForm"
-    ).reset();
+    const form =
+        document.getElementById(
+            "roleForm"
+        );
+
+
+    if (form) {
+
+        form.reset();
+
+    }
 
 
     document.getElementById(
@@ -1151,7 +2294,9 @@ function openAddRoleModal() {
    ROLE SAVE
 ===================================== */
 
-function handleRoleSubmit(event) {
+function handleRoleSubmit(
+    event
+) {
 
     event.preventDefault();
 
@@ -1200,7 +2345,8 @@ function handleRoleSubmit(event) {
 
     const role = {
 
-        id: generateId("ROLE"),
+        id:
+            generateId("ROLE"),
 
         name,
 
@@ -1208,21 +2354,25 @@ function handleRoleSubmit(event) {
 
         protected: false,
 
-        permissions: createPermissionSet()
+        permissions:
+            createPermissionSet()
 
     };
 
 
     roles.push(role);
 
-    selectedRoleId = role.id;
+    selectedRoleId =
+        role.id;
 
 
     saveData();
 
     renderAll();
 
-    closeModal("roleModal");
+    closeModal(
+        "roleModal"
+    );
 
 }
 
@@ -1236,8 +2386,13 @@ function closeModal(id) {
     const modal =
         document.getElementById(id);
 
+
     if (modal) {
-        modal.classList.remove("show");
+
+        modal.classList.remove(
+            "show"
+        );
+
     }
 
 }
@@ -1260,19 +2415,85 @@ function showMessage(message) {
 
 function escapeHTML(value) {
 
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    return String(value ?? "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
 /* =====================================
-   PUBLIC ACCESS CHECK HELPER
-   Future modules can use this.
+   PUBLIC TECHNICIAN API
+   Homepage can use this later.
+===================================== */
+
+function getVerifiedTechnicians() {
+
+    return technicians.filter(
+        technician =>
+            technician.status ===
+                "Active" &&
+            technician.verified ===
+                true
+    );
+
+}
+
+
+function getTechniciansByDistrict(
+    district
+) {
+
+    return getVerifiedTechnicians()
+        .filter(
+            technician =>
+                technician.district
+                    .toLowerCase() ===
+                String(
+                    district
+                ).toLowerCase()
+        );
+
+}
+
+
+function getTechniciansByArea(
+    area
+) {
+
+    return getVerifiedTechnicians()
+        .filter(
+            technician =>
+                technician.area
+                    .toLowerCase() ===
+                String(
+                    area
+                ).toLowerCase()
+        );
+
+}
+
+
+/* =====================================
+   RBAC HELPER
 ===================================== */
 
 function hasPermission(
@@ -1283,7 +2504,9 @@ function hasPermission(
 
     const role =
         roles.find(
-            item => item.id === roleId
+            item =>
+                item.id ===
+                roleId
         );
 
 
@@ -1291,31 +2514,68 @@ function hasPermission(
 
 
     return Boolean(
-        role.permissions?.[moduleName]?.[actionName]
+        role.permissions
+            ?.[
+                moduleName
+            ]
+            ?.[
+                actionName
+            ]
     );
 
 }
 
 
 /* =====================================
-   GLOBAL API
-   Future LUMENIX modules can access
-   permission checker through window.
+   GLOBAL LUMENIX API
 ===================================== */
 
 window.LumenixRBAC = {
 
-    getRoles: () => roles,
+    getRoles: function () {
 
-    getUsers: () => users,
+        return roles;
 
-    getRole: roleId =>
-        roles.find(
-            role => role.id === roleId
-        ),
+    },
+
+
+    getUsers: function () {
+
+        return users;
+
+    },
+
+
+    getRole: function (roleId) {
+
+        return roles.find(
+            role =>
+                role.id ===
+                roleId
+        );
+
+    },
+
 
     hasPermission,
 
-    save: saveData
+
+    save: saveData,
+
+
+    getTechnicians: function () {
+
+        return technicians;
+
+    },
+
+
+    getVerifiedTechnicians,
+
+
+    getTechniciansByDistrict,
+
+
+    getTechniciansByArea
 
 };
