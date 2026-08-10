@@ -12,7 +12,7 @@
 
     <meta
         name="description"
-        content="LUMENIX Service Point BD"
+        content="LUMENIX Service Point BD Management System"
     >
 
     <title>
@@ -34,31 +34,37 @@
 
 <body>
 
-<!-- =====================================
-HEADER
-===================================== -->
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header class="service-header">
 
     <div class="header-brand">
 
-        <div class="brand-mark">
+        <div class="header-logo-wrap">
 
             <img
                 src="images/lumenix-service-logo-white.png"
                 alt="LUMENIX Service Point BD"
+                class="header-logo"
             >
 
         </div>
 
-        <div class="brand-text">
+        <div class="header-title">
+
+            <span class="header-eyebrow">
+                LUMENIX
+            </span>
 
             <h1>
-                LUMENIX
+                Service Point BD
             </h1>
 
             <p>
-                Service Point BD
+                Service & Technical Support Management
             </p>
 
         </div>
@@ -68,27 +74,12 @@ HEADER
 
     <div class="header-actions">
 
-        <span
-            id="currentUserLabel"
-            class="current-user"
-        >
-            Administrator
-        </span>
-
         <button
             type="button"
-            id="dashboardBtn"
+            id="backDashboardBtn"
             class="header-btn"
         >
-            Dashboard
-        </button>
-
-        <button
-            type="button"
-            id="logoutBtn"
-            class="header-btn danger-btn"
-        >
-            Logout
+            ← Dashboard
         </button>
 
     </div>
@@ -96,321 +87,284 @@ HEADER
 </header>
 
 
-<!-- =====================================
-MAIN
-===================================== -->
 
-<main class="service-page">
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-    <!-- =================================
-    HERO
-    ================================== -->
+<main class="service-container">
 
-    <section class="service-hero">
 
-        <div class="hero-content">
+    <!-- =================================================
+         BRAND / LOGO SECTION
+    ================================================== -->
 
-            <span class="eyebrow">
-                LUMENIX SERVICE NETWORK
+    <section class="brand-section">
+
+        <div class="section-intro">
+
+            <span class="section-eyebrow">
+                LUMENIX BUSINESS NETWORK
             </span>
 
             <h2>
-                Service Point BD
+                Our Business Divisions
             </h2>
 
             <p>
-                Manage service operations, customers,
-                technicians, service requests and
-                support activities from one place.
+                Explore the LUMENIX business divisions
+                and their dedicated management systems.
             </p>
 
         </div>
 
 
-        <div class="hero-logo">
-
-            <img
-                src="images/lumenix-service-logo-white.png"
-                alt="LUMENIX Service Point BD Logo"
-            >
-
-        </div>
-
-    </section>
+        <div class="brand-grid">
 
 
-    <!-- =================================
-    BUSINESS NETWORK
-    ================================== -->
-
-    <section class="business-section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <span class="section-label">
-                    LUMENIX NETWORK
-                </span>
-
-                <h2>
-                    Our Business Platforms
-                </h2>
-
-                <p>
-                    Access the LUMENIX business platforms
-                    from one connected system.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="business-grid">
-
-
-            <!-- =================================
-            LIGHTING
-            ================================== -->
+            <!-- =========================================
+                 LIGHTING
+            ========================================== -->
 
             <article
-                class="business-card lighting-card"
-                data-platform="lighting"
+                class="brand-card brand-card-lighting"
             >
 
-                <div class="business-card-top">
+                <div class="brand-card-top">
 
-                    <span class="business-number">
+                    <span class="brand-number">
                         01
                     </span>
 
-                    <span class="business-status">
-                        ACTIVE
+                    <span class="brand-type">
+                        LIGHTING
                     </span>
 
                 </div>
 
 
-                <div class="business-logo">
+                <div class="brand-logo-area">
 
                     <img
                         src="images/lumenix-led-logo-white.png"
                         alt="LUMENIX Lighting & Accessories"
+                        class="brand-logo brand-logo-lighting"
                     >
 
                 </div>
 
 
-                <div class="business-content">
-
-                    <span class="business-label">
-                        LIGHTING & ACCESSORIES
-                    </span>
+                <div class="brand-content">
 
                     <h3>
                         LUMENIX Lighting & Accessories
                     </h3>
 
                     <p>
-                        Lighting products, accessories,
-                        dealers, shopkeepers and
-                        distribution management.
+                        Lighting products, electrical
+                        accessories and related business
+                        operations.
                     </p>
 
+                    <button
+                        type="button"
+                        class="brand-action"
+                        id="lightingBtn"
+                    >
+                        Open Division
+                        <span>→</span>
+                    </button>
+
                 </div>
-
-
-                <button
-                    type="button"
-                    class="business-btn"
-                    data-target="lighting"
-                >
-                    Open Platform
-                    <span>→</span>
-                </button>
 
             </article>
 
 
-            <!-- =================================
-            SERVICE POINT
-            ================================== -->
+
+            <!-- =========================================
+                 SERVICE POINT
+            ========================================== -->
 
             <article
-                class="business-card service-card active-card"
-                data-platform="service"
+                class="brand-card brand-card-service"
             >
 
-                <div class="business-card-top">
+                <div class="brand-card-top">
 
-                    <span class="business-number">
+                    <span class="brand-number">
                         02
                     </span>
 
-                    <span class="business-status">
-                        ACTIVE
+                    <span class="brand-type">
+                        SERVICE
                     </span>
 
                 </div>
 
 
-                <div class="business-logo">
+                <div class="brand-logo-area">
 
                     <img
                         src="images/lumenix-service-logo-white.png"
                         alt="LUMENIX Service Point BD"
+                        class="brand-logo brand-logo-service"
                     >
 
                 </div>
 
 
-                <div class="business-content">
-
-                    <span class="business-label">
-                        SERVICE NETWORK
-                    </span>
+                <div class="brand-content">
 
                     <h3>
                         LUMENIX Service Point BD
                     </h3>
 
                     <p>
-                        Customer service, technician
-                        management, service requests,
-                        repair and support operations.
+                        Customer service, technical support,
+                        repair and maintenance management.
                     </p>
 
+                    <button
+                        type="button"
+                        class="brand-action"
+                        id="serviceDivisionBtn"
+                    >
+                        Current Division
+                        <span>✓</span>
+                    </button>
+
                 </div>
-
-
-                <button
-                    type="button"
-                    class="business-btn"
-                    data-target="service"
-                >
-                    Current Platform
-                    <span>→</span>
-                </button>
 
             </article>
 
 
-            <!-- =================================
-            TRAINING
-            ================================== -->
+
+            <!-- =========================================
+                 TRAINING CENTER
+            ========================================== -->
 
             <article
-                class="business-card training-card"
-                data-platform="training"
+                class="brand-card brand-card-training"
             >
 
-                <div class="business-card-top">
+                <div class="brand-card-top">
 
-                    <span class="business-number">
+                    <span class="brand-number">
                         03
                     </span>
 
-                    <span class="business-status">
-                        ACTIVE
+                    <span class="brand-type">
+                        TRAINING
                     </span>
 
                 </div>
 
 
-                <div class="business-logo training-logo">
+                <div class="brand-logo-area">
 
                     <img
                         src="images/lumenix-training-logo.png"
                         alt="LUMENIX Technical Training Center"
+                        class="brand-logo brand-logo-training"
                     >
 
                 </div>
 
 
-                <div class="business-content">
-
-                    <span class="business-label">
-                        TECHNICAL TRAINING
-                    </span>
+                <div class="brand-content">
 
                     <h3>
                         LUMENIX Technical Training Center
                     </h3>
 
                     <p>
-                        Technical training, technician
-                        development, learning programs
-                        and skill management.
+                        Technical education, practical training
+                        and professional skill development.
                     </p>
+
+                    <button
+                        type="button"
+                        class="brand-action"
+                        id="trainingBtn"
+                    >
+                        Open Division
+                        <span>→</span>
+                    </button>
 
                 </div>
 
-
-                <button
-                    type="button"
-                    class="business-btn"
-                    data-target="training"
-                >
-                    Open Platform
-                    <span>→</span>
-                </button>
-
             </article>
+
 
         </div>
 
     </section>
 
 
-    <!-- =================================
-    SERVICE DASHBOARD
-    ================================== -->
 
-    <section class="service-dashboard">
+    <!-- =================================================
+         PAGE INTRO / DASHBOARD
+    ================================================== -->
 
-        <div class="section-heading">
+    <section class="page-intro">
 
-            <div>
+        <div>
 
-                <span class="section-label">
-                    SERVICE OPERATIONS
-                </span>
+            <span class="section-eyebrow">
+                SERVICE POINT CONTROL
+            </span>
 
-                <h2>
-                    Service Point Dashboard
-                </h2>
+            <h2>
+                Service Point Dashboard
+            </h2>
 
-                <p>
-                    Monitor the current service operation
-                    at a glance.
-                </p>
-
-            </div>
+            <p>
+                Manage customers, technicians,
+                service requests and reports.
+            </p>
 
         </div>
 
+    </section>
 
-        <div class="service-summary-grid">
 
-            <div class="service-summary-card">
+
+    <!-- =================================================
+         SUMMARY CARDS
+    ================================================== -->
+
+    <section class="service-summary-grid">
+
+
+        <div class="service-summary-card">
+
+            <div class="summary-icon">
+                👥
+            </div>
+
+            <div>
 
                 <span>
-                    Customers
+                    Total Customers
                 </span>
 
                 <strong id="customerCount">
                     0
                 </strong>
 
-                <small>
-                    Customer profiles
-                </small>
-
             </div>
 
+        </div>
 
-            <div class="service-summary-card">
+
+
+        <div class="service-summary-card">
+
+            <div class="summary-icon">
+                🔧
+            </div>
+
+            <div>
 
                 <span>
                     Technicians
@@ -420,54 +374,62 @@ MAIN
                     0
                 </strong>
 
-                <small>
-                    Registered technicians
-                </small>
-
             </div>
 
+        </div>
 
-            <div class="service-summary-card">
+
+
+        <div class="service-summary-card">
+
+            <div class="summary-icon">
+                ⏳
+            </div>
+
+            <div>
 
                 <span>
-                    Pending Requests
+                    Pending Services
                 </span>
 
                 <strong id="pendingServiceCount">
                     0
                 </strong>
 
-                <small>
-                    Service requests
-                </small>
-
             </div>
 
+        </div>
 
-            <div class="service-summary-card">
+
+
+        <div class="service-summary-card">
+
+            <div class="summary-icon">
+                ✓
+            </div>
+
+            <div>
 
                 <span>
-                    Completed
+                    Completed Services
                 </span>
 
                 <strong id="completedServiceCount">
                     0
                 </strong>
 
-                <small>
-                    Completed services
-                </small>
-
             </div>
 
         </div>
 
+
     </section>
 
 
-    <!-- =================================
-    QUICK ACTIONS
-    ================================== -->
+
+    <!-- =================================================
+         QUICK ACTIONS
+    ================================================== -->
 
     <section class="quick-actions-section">
 
@@ -475,96 +437,93 @@ MAIN
 
             <div>
 
-                <span class="section-label">
-                    QUICK ACTIONS
+                <span class="section-eyebrow">
+                    MANAGEMENT
                 </span>
 
                 <h2>
-                    Service Management
+                    Quick Actions
                 </h2>
-
-                <p>
-                    Quickly access the main Service Point
-                    management modules.
-                </p>
 
             </div>
 
         </div>
 
 
-        <div class="quick-actions-grid">
+        <div class="quick-action-grid">
 
 
             <button
                 type="button"
-                class="quick-action-card"
                 id="customersBtn"
+                class="quick-action-card"
             >
 
-                <span class="action-icon">
-                    👤
+                <span class="quick-action-icon">
+                    👥
                 </span>
 
-                <span class="action-text">
+                <span class="quick-action-text">
 
                     <strong>
-                        Customer Profiles
+                        Customers
                     </strong>
 
                     <small>
-                        Manage customer information
+                        Manage customer profiles
                     </small>
 
                 </span>
 
-                <span class="action-arrow">
+                <span class="quick-arrow">
                     →
                 </span>
 
             </button>
 
 
+
             <button
                 type="button"
-                class="quick-action-card"
                 id="techniciansBtn"
-            >
-
-                <span class="action-icon">
-                    🛠️
-                </span>
-
-                <span class="action-text">
-
-                    <strong>
-                        Technician Profiles
-                    </strong>
-
-                    <small>
-                        Manage technician information
-                    </small>
-
-                </span>
-
-                <span class="action-arrow">
-                    →
-                </span>
-
-            </button>
-
-
-            <button
-                type="button"
                 class="quick-action-card"
-                id="servicesBtn"
             >
 
-                <span class="action-icon">
+                <span class="quick-action-icon">
                     🔧
                 </span>
 
-                <span class="action-text">
+                <span class="quick-action-text">
+
+                    <strong>
+                        Technicians
+                    </strong>
+
+                    <small>
+                        Manage technician profiles
+                    </small>
+
+                </span>
+
+                <span class="quick-arrow">
+                    →
+                </span>
+
+            </button>
+
+
+
+            <button
+                type="button"
+                id="servicesBtn"
+                class="quick-action-card"
+            >
+
+                <span class="quick-action-icon">
+                    🛠
+                </span>
+
+                <span class="quick-action-text">
 
                     <strong>
                         Service Management
@@ -576,27 +535,28 @@ MAIN
 
                 </span>
 
-                <span class="action-arrow">
+                <span class="quick-arrow">
                     →
                 </span>
 
             </button>
 
 
+
             <button
                 type="button"
-                class="quick-action-card"
                 id="reportsBtn"
+                class="quick-action-card"
             >
 
-                <span class="action-icon">
+                <span class="quick-action-icon">
                     📊
                 </span>
 
-                <span class="action-text">
+                <span class="quick-action-text">
 
                     <strong>
-                        Service Reports
+                        Reports
                     </strong>
 
                     <small>
@@ -605,62 +565,53 @@ MAIN
 
                 </span>
 
-                <span class="action-arrow">
+                <span class="quick-arrow">
                     →
                 </span>
 
             </button>
 
+
         </div>
 
     </section>
 
 
-    <!-- =================================
-    RECENT SERVICE ACTIVITY
-    ================================== -->
 
-    <section class="recent-service-section">
+    <!-- =================================================
+         SYSTEM INFORMATION
+    ================================================== -->
 
-        <div class="section-heading">
+    <section class="system-info-section">
+
+        <div class="system-info-card">
 
             <div>
 
-                <span class="section-label">
-                    ACTIVITY
+                <span class="section-eyebrow">
+                    SYSTEM
                 </span>
 
                 <h2>
-                    Recent Service Activity
+                    LUMENIX Service Point BD
                 </h2>
+
+                <p>
+                    Service management module is ready
+                    for customer, technician and service
+                    operations.
+                </p>
 
             </div>
 
-        </div>
 
+            <div class="system-status">
 
-        <div
-            class="activity-list"
-            id="serviceActivityList"
-        >
-
-            <div class="empty-activity">
+                <span class="status-dot"></span>
 
                 <span>
-                    ✓
+                    System Ready
                 </span>
-
-                <div>
-
-                    <strong>
-                        Service Point Ready
-                    </strong>
-
-                    <p>
-                        No recent service activity found.
-                    </p>
-
-                </div>
 
             </div>
 
@@ -668,58 +619,32 @@ MAIN
 
     </section>
 
-
-    <!-- =================================
-    FOOTER
-    ================================== -->
-
-    <footer class="service-footer">
-
-        <div>
-
-            <strong>
-                LUMENIX Service Point BD
-            </strong>
-
-            <p>
-                Part of the LUMENIX business network.
-            </p>
-
-        </div>
-
-
-        <div>
-
-            <p>
-                © 2026 LUMENIX V5.1 Premium
-            </p>
-
-            <p>
-                Developed by MS FARDIN ELECTRIC
-            </p>
-
-        </div>
-
-    </footer>
 
 </main>
 
 
-<!-- =====================================
-TOAST
-===================================== -->
 
-<div
-    id="toast"
-    class="toast"
-    aria-live="polite"
->
-</div>
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="service-footer">
+
+    <p>
+        © 2026 LUMENIX V5.1 Premium
+    </p>
+
+    <p>
+        Developed by MS FARDIN ELECTRIC
+    </p>
+
+</footer>
 
 
-<!-- =====================================
-JAVASCRIPT
-===================================== -->
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script src="js/service-point.js"></script>
 
