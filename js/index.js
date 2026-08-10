@@ -1,563 +1,920 @@
 /* =========================================================
-   LUMENIX
-   INDEX / HOME PAGE
-   Lightweight Navigation System
+   LUMENIX™
+   HOME PAGE CONTROLLER
+   Lightweight / Mobile First
    ========================================================= */
 
 "use strict";
 
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+document.addEventListener("DOMContentLoaded", function () {
 
 
-        /* ================================================
-           HELPER
-        ================================================ */
+    /* =====================================================
+       CONFIG
+    ===================================================== */
 
-        function goToPage(page) {
+    const WHATSAPP_NUMBER =
+        "8801710897732";
 
-            window.location.href = page;
+    const PRODUCT_STORAGE_KEY =
+        "lumenix_lighting_products";
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const menuBtn =
+        document.getElementById("menuBtn");
+
+    const mobileMenu =
+        document.getElementById("mobileMenu");
+
+    const exploreBtn =
+        document.getElementById("exploreBtn");
+
+    const productGrid =
+        document.getElementById(
+            "lightingProductGrid"
+        );
+
+    const productModal =
+        document.getElementById(
+            "productModal"
+        );
+
+    const modalClose =
+        document.getElementById(
+            "modalClose"
+        );
+
+    const modalContent =
+        document.getElementById(
+            "modalProductContent"
+        );
+
+    const toast =
+        document.getElementById("toast");
+
+
+    /* =====================================================
+       DEFAULT PRODUCT DATA
+
+       এই data structure রাখা হয়েছে যাতে ভবিষ্যতে
+       Admin section থেকে product data replace/update
+       করা সহজ হয়।
+
+       Product name English.
+       Description/details বাংলা।
+       ===================================================== */
+
+    const defaultProducts = [
+
+        {
+
+            id: "SHAK",
+
+            name: "SHAK",
+
+            brand: "LUMENIX™",
+
+            image:
+                "images/shak.png",
+
+            packageImage:
+                "images/shak-package.png",
+
+            description:
+                "দৈনন্দিন আলো ব্যবহারের জন্য উপযোগী একটি LUMENIX™ লাইটিং পণ্য।",
+
+            details:
+                "এই পণ্যের বিস্তারিত তথ্য, বৈশিষ্ট্য ও ব্যবহার সম্পর্কিত তথ্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
+
+            active: true
+
+        },
+
+
+        {
+
+            id: "BARO",
+
+            name: "BARO",
+
+            brand: "LUMENIX™",
+
+            image:
+                "images/baro.png",
+
+            packageImage:
+                "images/baro-package.png",
+
+            description:
+                "বাড়ি, দোকান ও প্রয়োজনীয় বিভিন্ন স্থানে ব্যবহারের জন্য তৈরি LUMENIX™ লাইটিং পণ্য।",
+
+            details:
+                "এই পণ্যের বিস্তারিত তথ্য, বৈশিষ্ট্য ও ব্যবহার সম্পর্কিত তথ্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
+
+            active: true
+
+        },
+
+
+        {
+
+            id: "BESH",
+
+            name: "BESH",
+
+            brand: "LUMENIX™",
+
+            image:
+                "images/besh.png",
+
+            packageImage:
+                "images/besh-package.png",
+
+            description:
+                "আধুনিক লাইটিং ব্যবহারের জন্য LUMENIX™-এর আরেকটি নির্বাচিত পণ্য।",
+
+            details:
+                "এই পণ্যের বিস্তারিত তথ্য, বৈশিষ্ট্য ও ব্যবহার সম্পর্কিত তথ্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
+
+            active: true
 
         }
 
+    ];
 
-        function scrollToSection(id) {
 
-            const section =
-                document.getElementById(id);
+    /* =====================================================
+       HELPERS
+    ===================================================== */
 
-            if (!section) {
-                return;
-            }
+    function escapeHTML(value) {
 
-            section.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
+        return String(value ?? "")
 
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+    }
+
+
+    function showToast(message) {
+
+        if (!toast) {
+            return;
         }
 
+        toast.textContent =
+            message;
 
-        /* ================================================
-           MENU
-        ================================================ */
+        toast.classList.add(
+            "show"
+        );
 
-        const menuBtn =
-            document.getElementById(
-                "menuBtn"
-            );
+        clearTimeout(
+            showToast.timer
+        );
 
-        const mobileMenu =
-            document.getElementById(
-                "mobileMenu"
-            );
-
-
-        if (menuBtn && mobileMenu) {
-
-            menuBtn.addEventListener(
-                "click",
+        showToast.timer =
+            setTimeout(
                 function () {
 
-                    const isOpen =
-                        mobileMenu.classList.toggle(
-                            "active"
-                        );
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                2400
+            );
+    }
 
 
-                    menuBtn.setAttribute(
-                        "aria-expanded",
-                        String(isOpen)
+    function getStoredProducts() {
+
+        try {
+
+            const saved =
+                localStorage.getItem(
+                    PRODUCT_STORAGE_KEY
+                );
+
+            if (!saved) {
+
+                return defaultProducts;
+            }
+
+
+            const parsed =
+                JSON.parse(saved);
+
+
+            if (
+                !Array.isArray(parsed)
+            ) {
+
+                return defaultProducts;
+            }
+
+
+            return parsed;
+
+        } catch (error) {
+
+            console.warn(
+                "LUMENIX product data could not be loaded.",
+                error
+            );
+
+            return defaultProducts;
+        }
+    }
+
+
+    /* =====================================================
+       MENU
+    ===================================================== */
+
+    if (
+        menuBtn &&
+        mobileMenu
+    ) {
+
+        menuBtn.addEventListener(
+            "click",
+            function () {
+
+                const active =
+                    mobileMenu.classList.toggle(
+                        "active"
                     );
 
 
-                    menuBtn.textContent =
-                        isOpen
-                            ? "✕ Close"
-                            : "☰ Menu";
+                menuBtn.setAttribute(
+                    "aria-expanded",
+                    active
+                        ? "true"
+                        : "false"
+                );
 
-                }
-            );
+            }
+        );
 
-        }
-
-
-        /* ================================================
-           MENU LINKS
-        ================================================ */
-
-        const menuLinks =
-            document.querySelectorAll(
-                ".mobile-menu a"
-            );
+    }
 
 
-        menuLinks.forEach(
-            function (link) {
+    /* =====================================================
+       CLOSE MENU AFTER NAVIGATION
+    ===================================================== */
 
-                link.addEventListener(
-                    "click",
-                    function () {
+    if (mobileMenu) {
 
-                        if (
-                            mobileMenu &&
-                            menuBtn
-                        ) {
+        mobileMenu
+            .querySelectorAll("a")
+            .forEach(
+                function (link) {
+
+                    link.addEventListener(
+                        "click",
+                        function () {
 
                             mobileMenu.classList.remove(
                                 "active"
                             );
 
-                            menuBtn.setAttribute(
-                                "aria-expanded",
-                                "false"
-                            );
+                            if (menuBtn) {
 
-                            menuBtn.textContent =
-                                "☰ Menu";
+                                menuBtn.setAttribute(
+                                    "aria-expanded",
+                                    "false"
+                                );
+
+                            }
 
                         }
-
-                    }
-                );
-
-            }
-        );
-
-
-        /* ================================================
-           LOGIN
-        ================================================ */
-
-        const loginBtn =
-            document.getElementById(
-                "loginBtn"
-            );
-
-
-        if (loginBtn) {
-
-            loginBtn.addEventListener(
-                "click",
-                function () {
-
-                    goToPage(
-                        "admin.html"
                     );
 
                 }
             );
 
-        }
+    }
 
 
-        /* ================================================
-           EXPLORE ECOSYSTEM
-        ================================================ */
+    /* =====================================================
+       EXPLORE
+    ===================================================== */
 
-        const exploreBtn =
-            document.getElementById(
-                "exploreBtn"
-            );
+    if (exploreBtn) {
 
+        exploreBtn.addEventListener(
+            "click",
+            function () {
 
-        if (exploreBtn) {
-
-            exploreBtn.addEventListener(
-                "click",
-                function () {
-
-                    scrollToSection(
+                const ecosystem =
+                    document.getElementById(
                         "ecosystem"
                     );
 
-                }
-            );
 
-        }
+                if (ecosystem) {
 
-
-        /* ================================================
-           LIGHTING & ACCESSORIES
-        ================================================ */
-
-        const lightingBtn =
-            document.getElementById(
-                "lightingBtn"
-            );
-
-
-        if (lightingBtn) {
-
-            lightingBtn.addEventListener(
-                "click",
-                function () {
-
-                    goToPage(
-                        "lighting-accessories.html"
-                    );
+                    ecosystem.scrollIntoView({
+                        behavior:
+                            "smooth",
+                        block:
+                            "start"
+                    });
 
                 }
-            );
 
-        }
-
-
-        /* ================================================
-           SERVICE POINT
-        ================================================ */
-
-        const servicePointBtn =
-            document.getElementById(
-                "servicePointBtn"
-            );
-
-
-        if (servicePointBtn) {
-
-            servicePointBtn.addEventListener(
-                "click",
-                function () {
-
-                    goToPage(
-                        "service-point.html"
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ================================================
-           TRAINING
-        ================================================ */
-
-        const trainingBtn =
-            document.getElementById(
-                "trainingBtn"
-            );
-
-
-        if (trainingBtn) {
-
-            trainingBtn.addEventListener(
-                "click",
-                function () {
-
-                    goToPage(
-                        "training-program.html"
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ================================================
-           ELECTRICAL SERVICE
-        ================================================ */
-
-        const electricalServiceBtn =
-            document.getElementById(
-                "electricalServiceBtn"
-            );
-
-
-        if (electricalServiceBtn) {
-
-            electricalServiceBtn.addEventListener(
-                "click",
-                function () {
-
-                    goToPage(
-                        "service-point.html"
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ================================================
-           MAINTENANCE
-        ================================================ */
-
-        const maintenanceBtn =
-            document.getElementById(
-                "maintenanceBtn"
-            );
-
-
-        if (maintenanceBtn) {
-
-            maintenanceBtn.addEventListener(
-                "click",
-                function () {
-
-                    goToPage(
-                        "service-point.html"
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ================================================
-           SMART HOME
-        ================================================ */
-
-        const smartHomeBtn =
-            document.getElementById(
-                "smartHomeBtn"
-            );
-
-
-        if (smartHomeBtn) {
-
-            smartHomeBtn.addEventListener(
-                "click",
-                function () {
-
-                    goToPage(
-                        "service-point.html"
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ================================================
-           TRAINING - ELECTRICAL SKILLS
-        ================================================ */
-
-        const skillsTrainingBtn =
-            document.getElementById(
-                "skillsTrainingBtn"
-            );
-
-
-        if (skillsTrainingBtn) {
-
-            skillsTrainingBtn.addEventListener(
-                "click",
-                function () {
-
-                    goToPage(
-                        "training-program.html"
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ================================================
-           TRAINING - PROFESSIONAL
-        ================================================ */
-
-        const professionalTrainingBtn =
-            document.getElementById(
-                "professionalTrainingBtn"
-            );
-
-
-        if (professionalTrainingBtn) {
-
-            professionalTrainingBtn.addEventListener(
-                "click",
-                function () {
-
-                    goToPage(
-                        "training-program.html"
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ================================================
-           DEALER
-        ================================================ */
-
-        const dealerBtn =
-            document.getElementById(
-                "dealerBtn"
-            );
-
-
-        if (dealerBtn) {
-
-            dealerBtn.addEventListener(
-                "click",
-                function () {
-
-                    showToast(
-                        "Dealer module will be connected here."
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ================================================
-           PROJECT MANAGEMENT
-        ================================================ */
-
-        const projectBtn =
-            document.getElementById(
-                "projectBtn"
-            );
-
-
-        if (projectBtn) {
-
-            projectBtn.addEventListener(
-                "click",
-                function () {
-
-                    goToPage(
-                        "project.html"
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ================================================
-           CONTACT
-        ================================================ */
-
-        const contactBtn =
-            document.getElementById(
-                "contactBtn"
-            );
-
-
-        if (contactBtn) {
-
-            contactBtn.addEventListener(
-                "click",
-                function () {
-
-                    showToast(
-                        "Contact module is ready."
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* ================================================
-           TOAST
-        ================================================ */
-
-        const toast =
-            document.getElementById(
-                "toast"
-            );
-
-        let toastTimer = null;
-
-
-        function showToast(message) {
-
-            if (!toast) {
-                return;
             }
+        );
+
+    }
 
 
-            clearTimeout(
-                toastTimer
-            );
+    /* =====================================================
+       PRODUCT IMAGE FALLBACK
+    ===================================================== */
 
+    function addImageFallbacks() {
 
-            toast.textContent =
-                message;
-
-
-            toast.classList.add(
-                "show"
-            );
-
-
-            toastTimer =
-                setTimeout(
-                    function () {
-
-                        toast.classList.remove(
-                            "show"
-                        );
-
-                    },
-                    2500
-                );
-
+        if (!productGrid) {
+            return;
         }
 
 
-        /* ================================================
-           IMAGE FALLBACK
-        ================================================ */
+        productGrid
+            .querySelectorAll(
+                "img"
+            )
+            .forEach(
+                function (image) {
 
-        const images =
-            document.querySelectorAll(
-                ".ecosystem-logo"
+                    image.addEventListener(
+                        "error",
+                        function () {
+
+                            image.style.display =
+                                "none";
+
+                            const parent =
+                                image.parentElement;
+
+
+                            if (
+                                parent &&
+                                !parent.querySelector(
+                                    ".image-fallback"
+                                )
+                            ) {
+
+                                const fallback =
+                                    document.createElement(
+                                        "div"
+                                    );
+
+                                fallback.className =
+                                    "image-fallback";
+
+                                fallback.textContent =
+                                    "ছবি যোগ করা হয়নি";
+
+                                fallback.style.cssText =
+                                    `
+                                    color:#667085;
+                                    font-size:13px;
+                                    text-align:center;
+                                    `;
+
+                                parent.appendChild(
+                                    fallback
+                                );
+
+                            }
+
+                        },
+                        {
+                            once: true
+                        }
+                    );
+
+                }
             );
 
+    }
 
-        images.forEach(
-            function (image) {
 
-                image.addEventListener(
-                    "error",
-                    function () {
+    /* =====================================================
+       RENDER PRODUCTS
+    ===================================================== */
 
-                        image.style.display =
-                            "none";
+    function renderProducts() {
 
-                        const parent =
-                            image.parentElement;
+        if (!productGrid) {
+            return;
+        }
 
-                        if (parent) {
 
-                            parent.classList.add(
-                                "image-error"
-                            );
+        const products =
+            getStoredProducts()
+                .filter(
+                    function (product) {
 
-                        }
+                        return (
+                            product &&
+                            product.active !== false
+                        );
 
                     }
                 );
 
+
+        if (!products.length) {
+
+            productGrid.innerHTML = `
+
+                <div
+                    style="
+                        grid-column:1/-1;
+                        text-align:center;
+                        padding:30px;
+                        color:#667085;
+                    "
+                >
+                    বর্তমানে কোনো পণ্য প্রদর্শনের জন্য নেই।
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        productGrid.innerHTML =
+            products
+                .map(
+                    function (product) {
+
+                        return `
+
+                            <article
+                                class="product-card"
+                                data-product-id="${escapeHTML(
+                                    product.id
+                                )}"
+                            >
+
+                                <div
+                                    class="product-image-wrap"
+                                >
+
+                                    <img
+                                        src="${escapeHTML(
+                                            product.image
+                                        )}"
+                                        alt="${escapeHTML(
+                                            product.name
+                                        )}"
+                                        class="product-image"
+                                        loading="lazy"
+                                    >
+
+                                </div>
+
+
+                                <div class="product-info">
+
+                                    <span
+                                        class="product-brand"
+                                    >
+                                        ${escapeHTML(
+                                            product.brand ||
+                                            "LUMENIX™"
+                                        )}
+                                    </span>
+
+
+                                    <h3
+                                        class="product-name"
+                                    >
+                                        ${escapeHTML(
+                                            product.name
+                                        )}
+                                    </h3>
+
+
+                                    <p
+                                        class="product-description"
+                                    >
+                                        ${escapeHTML(
+                                            product.description
+                                        )}
+                                    </p>
+
+
+                                    <button
+                                        type="button"
+                                        class="product-view-btn"
+                                        data-product-view="${escapeHTML(
+                                            product.id
+                                        )}"
+                                    >
+                                        View Details
+                                    </button>
+
+                                </div>
+
+                            </article>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+
+        addImageFallbacks();
+
+    }
+
+
+    /* =====================================================
+       OPEN PRODUCT DETAILS
+    ===================================================== */
+
+    function openProductDetails(
+        productId
+    ) {
+
+        const products =
+            getStoredProducts();
+
+
+        const product =
+            products.find(
+                function (item) {
+
+                    return (
+                        item.id ===
+                        productId
+                    );
+
+                }
+            );
+
+
+        if (!product) {
+
+            showToast(
+                "পণ্যের তথ্য পাওয়া যায়নি।"
+            );
+
+            return;
+        }
+
+
+        if (!modalContent) {
+            return;
+        }
+
+
+        const packageImage =
+            product.packageImage;
+
+
+        modalContent.innerHTML = `
+
+            <div>
+
+                <img
+                    src="${escapeHTML(
+                        product.image
+                    )}"
+                    alt="${escapeHTML(
+                        product.name
+                    )}"
+                    class="modal-product-image"
+                    id="modalProductImage"
+                >
+
+
+                <span
+                    style="
+                        color:#F58220;
+                        font-size:11px;
+                        font-weight:900;
+                    "
+                >
+                    ${escapeHTML(
+                        product.brand ||
+                        "LUMENIX™"
+                    )}
+                </span>
+
+
+                <h2>
+                    ${escapeHTML(
+                        product.name
+                    )}
+                </h2>
+
+
+                <p>
+                    ${escapeHTML(
+                        product.details ||
+                        product.description ||
+                        ""
+                    )}
+                </p>
+
+
+                ${
+                    packageImage
+                        ? `
+                            <button
+                                type="button"
+                                id="showPackageBtn"
+                                class="small-btn"
+                            >
+                                প্যাকেটের ছবি দেখুন
+                            </button>
+                          `
+                        : ""
+                }
+
+
+                <a
+                    href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                        "আমি LUMENIX™ " +
+                        product.name +
+                        " সম্পর্কে জানতে চাই।"
+                    )}"
+                    target="_blank"
+                    rel="noopener"
+                    class="whatsapp-large"
+                    style="
+                        width:100%;
+                        margin-top:10px;
+                    "
+                >
+                    <span class="wa-symbol">
+                        ◉
+                    </span>
+
+                    WhatsApp-এ জানতে চাই
+
+                </a>
+
+            </div>
+
+        `;
+
+
+        if (productModal) {
+
+            productModal.classList.add(
+                "active"
+            );
+
+            productModal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+
+
+        const packageBtn =
+            document.getElementById(
+                "showPackageBtn"
+            );
+
+
+        if (packageBtn) {
+
+            packageBtn.addEventListener(
+                "click",
+                function () {
+
+                    const image =
+                        document.getElementById(
+                            "modalProductImage"
+                        );
+
+
+                    if (!image) {
+                        return;
+                    }
+
+
+                    if (
+                        image.dataset.package !==
+                        "true"
+                    ) {
+
+                        image.src =
+                            product.packageImage;
+
+                        image.dataset.package =
+                            "true";
+
+                        packageBtn.textContent =
+                            "লাইটের ছবি দেখুন";
+
+                    } else {
+
+                        image.src =
+                            product.image;
+
+                        image.dataset.package =
+                            "false";
+
+                        packageBtn.textContent =
+                            "প্যাকেটের ছবি দেখুন";
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       PRODUCT CLICK
+    ===================================================== */
+
+    if (productGrid) {
+
+        productGrid.addEventListener(
+            "click",
+            function (event) {
+
+                const button =
+                    event.target.closest(
+                        "[data-product-view]"
+                    );
+
+
+                if (!button) {
+                    return;
+                }
+
+
+                openProductDetails(
+                    button.dataset.productView
+                );
+
             }
         );
 
+    }
 
-        /* ================================================
-           HOME PAGE READY
-        ================================================ */
 
-        console.log(
-            "LUMENIX Home Page loaded successfully."
+    /* =====================================================
+       CLOSE MODAL
+    ===================================================== */
+
+    function closeProductModal() {
+
+        if (!productModal) {
+            return;
+        }
+
+
+        productModal.classList.remove(
+            "active"
+        );
+
+        productModal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.style.overflow =
+            "";
+
+    }
+
+
+    if (modalClose) {
+
+        modalClose.addEventListener(
+            "click",
+            closeProductModal
         );
 
     }
-);
+
+
+    if (productModal) {
+
+        const backdrop =
+            productModal.querySelector(
+                ".modal-backdrop"
+            );
+
+
+        if (backdrop) {
+
+            backdrop.addEventListener(
+                "click",
+                closeProductModal
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ESCAPE
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                productModal &&
+                productModal.classList.contains(
+                    "active"
+                )
+            ) {
+
+                closeProductModal();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       ADMIN DATA SYNC
+
+       অন্য module থেকে localStorage-এ
+       product update হলে Home Page refresh
+       করতে পারবে।
+    ===================================================== */
+
+    window.addEventListener(
+        "storage",
+        function (event) {
+
+            if (
+                event.key ===
+                PRODUCT_STORAGE_KEY
+            ) {
+
+                renderProducts();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       INITIALIZE
+    ===================================================== */
+
+    renderProducts();
+
+
+    console.log(
+        "LUMENIX™ Home Page loaded successfully."
+    );
+
+});
