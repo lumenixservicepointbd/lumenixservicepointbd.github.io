@@ -1,131 +1,300 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>LUMENIX Service Point BD</title>
-  <link rel="stylesheet" href="service-point.css">
+
+  <!-- IMPORTANT: Correct CSS Path -->
+  <link rel="stylesheet" href="css/service-point.css">
 </head>
 
 <body>
 
   <main class="service-page">
 
+    <!-- ================================
+         HEADER
+    ================================= -->
+
     <header class="page-header">
+
       <div>
         <span class="eyebrow">LUMENIX V5.1</span>
+
         <h1>Service Point BD</h1>
-        <p>Customer service requests, bookings and service operations.</p>
+
+        <p>
+          Customer service requests, bookings and service operations.
+        </p>
       </div>
 
       <div class="header-actions">
-        <button class="secondary-btn" id="newCustomerBtn">
+
+        <button
+          type="button"
+          class="secondary-btn"
+          id="newCustomerBtn">
           + Customer
         </button>
-        <button class="primary-btn" id="newBookingBtn">
+
+        <button
+          type="button"
+          class="primary-btn"
+          id="newBookingBtn">
           + New Booking
         </button>
+
       </div>
+
     </header>
 
 
-    <!-- DASHBOARD SUMMARY -->
+    <!-- ================================
+         DASHBOARD SUMMARY
+    ================================= -->
 
     <section class="summary-grid">
 
       <div class="summary-card blue">
+
         <span>Total Customers</span>
+
         <strong id="totalCustomers">0</strong>
-        <small>Registered customers</small>
+
+        <small>
+          Registered customers
+        </small>
+
       </div>
+
 
       <div class="summary-card orange">
+
         <span>Total Bookings</span>
+
         <strong id="totalBookings">0</strong>
-        <small>All service requests</small>
+
+        <small>
+          All service requests
+        </small>
+
       </div>
+
 
       <div class="summary-card green">
+
         <span>Completed</span>
+
         <strong id="completedBookings">0</strong>
-        <small>Completed services</small>
+
+        <small>
+          Completed services
+        </small>
+
       </div>
 
+
       <div class="summary-card red">
+
         <span>Pending</span>
+
         <strong id="pendingBookings">0</strong>
-        <small>Awaiting service</small>
+
+        <small>
+          Awaiting service
+        </small>
+
       </div>
 
     </section>
 
 
-    <!-- SERVICE CATEGORIES -->
+    <!-- ================================
+         SERVICE CATEGORIES
+    ================================= -->
 
     <section class="content-card">
 
       <div class="section-header">
+
         <div>
-          <h2>Service Categories</h2>
-          <p>Available LUMENIX Service Point services.</p>
+
+          <h2>
+            Service Categories
+          </h2>
+
+          <p>
+            Available LUMENIX Service Point services.
+          </p>
+
         </div>
+
       </div>
+
 
       <div class="service-grid">
 
-        <button class="service-box" data-service="Electrical">
+        <button
+          type="button"
+          class="service-box"
+          data-service="Electrical">
+
           <span class="service-icon">⚡</span>
-          <strong>Electrical</strong>
-          <small>Electrical service</small>
+
+          <strong>
+            Electrical
+          </strong>
+
+          <small>
+            Electrical service
+          </small>
+
         </button>
 
-        <button class="service-box" data-service="AC">
+
+        <button
+          type="button"
+          class="service-box"
+          data-service="AC">
+
           <span class="service-icon">❄</span>
-          <strong>AC</strong>
-          <small>AC service</small>
+
+          <strong>
+            AC
+          </strong>
+
+          <small>
+            AC service
+          </small>
+
         </button>
 
-        <button class="service-box" data-service="CCTV">
+
+        <button
+          type="button"
+          class="service-box"
+          data-service="CCTV">
+
           <span class="service-icon">◉</span>
-          <strong>CCTV</strong>
-          <small>Security camera</small>
+
+          <strong>
+            CCTV
+          </strong>
+
+          <small>
+            Security camera
+          </small>
+
         </button>
 
-        <button class="service-box" data-service="Plumbing">
+
+        <button
+          type="button"
+          class="service-box"
+          data-service="Plumbing">
+
           <span class="service-icon">⌁</span>
-          <strong>Plumbing</strong>
-          <small>Plumbing service</small>
+
+          <strong>
+            Plumbing
+          </strong>
+
+          <small>
+            Plumbing service
+          </small>
+
         </button>
 
-        <button class="service-box" data-service="Solar">
+
+        <button
+          type="button"
+          class="service-box"
+          data-service="Solar">
+
           <span class="service-icon">☀</span>
-          <strong>Solar</strong>
-          <small>Solar solutions</small>
+
+          <strong>
+            Solar
+          </strong>
+
+          <small>
+            Solar solutions
+          </small>
+
         </button>
 
-        <button class="service-box" data-service="Generator">
+
+        <button
+          type="button"
+          class="service-box"
+          data-service="Generator">
+
           <span class="service-icon">▣</span>
-          <strong>Generator</strong>
-          <small>Generator service</small>
+
+          <strong>
+            Generator
+          </strong>
+
+          <small>
+            Generator service
+          </small>
+
         </button>
 
-        <button class="service-box" data-service="IPS">
+
+        <button
+          type="button"
+          class="service-box"
+          data-service="IPS">
+
           <span class="service-icon">▰</span>
-          <strong>IPS</strong>
-          <small>IPS service</small>
+
+          <strong>
+            IPS
+          </strong>
+
+          <small>
+            IPS service
+          </small>
+
         </button>
 
-        <button class="service-box" data-service="Motor">
+
+        <button
+          type="button"
+          class="service-box"
+          data-service="Motor">
+
           <span class="service-icon">⚙</span>
-          <strong>Motor</strong>
-          <small>Motor service</small>
+
+          <strong>
+            Motor
+          </strong>
+
+          <small>
+            Motor service
+          </small>
+
         </button>
 
-        <button class="service-box" data-service="Interior Solution">
+
+        <button
+          type="button"
+          class="service-box"
+          data-service="Interior Solution">
+
           <span class="service-icon">⌂</span>
-          <strong>Interior Solution</strong>
-          <small>Interior electrical solutions</small>
+
+          <strong>
+            Interior Solution
+          </strong>
+
+          <small>
+            Interior electrical solutions
+          </small>
+
         </button>
 
       </div>
@@ -133,16 +302,26 @@
     </section>
 
 
-    <!-- BOOKINGS -->
+    <!-- ================================
+         SERVICE BOOKINGS
+    ================================= -->
 
     <section class="content-card">
 
       <div class="section-header">
 
         <div>
-          <h2>Service Bookings</h2>
-          <p>Manage customer service requests.</p>
+
+          <h2>
+            Service Bookings
+          </h2>
+
+          <p>
+            Manage customer service requests.
+          </p>
+
         </div>
+
 
         <div class="filters">
 
@@ -152,27 +331,82 @@
             placeholder="Search customer, booking ID..."
           >
 
+
           <select id="statusFilter">
-            <option value="all">All Status</option>
-            <option value="Pending">Pending</option>
-            <option value="Confirmed">Confirmed</option>
-            <option value="Assigned">Assigned</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
-            <option value="Cancelled">Cancelled</option>
+
+            <option value="all">
+              All Status
+            </option>
+
+            <option value="Pending">
+              Pending
+            </option>
+
+            <option value="Confirmed">
+              Confirmed
+            </option>
+
+            <option value="Assigned">
+              Assigned
+            </option>
+
+            <option value="In Progress">
+              In Progress
+            </option>
+
+            <option value="Completed">
+              Completed
+            </option>
+
+            <option value="Cancelled">
+              Cancelled
+            </option>
+
           </select>
 
+
           <select id="serviceFilter">
-            <option value="all">All Services</option>
-            <option value="Electrical">Electrical</option>
-            <option value="AC">AC</option>
-            <option value="CCTV">CCTV</option>
-            <option value="Plumbing">Plumbing</option>
-            <option value="Solar">Solar</option>
-            <option value="Generator">Generator</option>
-            <option value="IPS">IPS</option>
-            <option value="Motor">Motor</option>
-            <option value="Interior Solution">Interior Solution</option>
+
+            <option value="all">
+              All Services
+            </option>
+
+            <option value="Electrical">
+              Electrical
+            </option>
+
+            <option value="AC">
+              AC
+            </option>
+
+            <option value="CCTV">
+              CCTV
+            </option>
+
+            <option value="Plumbing">
+              Plumbing
+            </option>
+
+            <option value="Solar">
+              Solar
+            </option>
+
+            <option value="Generator">
+              Generator
+            </option>
+
+            <option value="IPS">
+              IPS
+            </option>
+
+            <option value="Motor">
+              Motor
+            </option>
+
+            <option value="Interior Solution">
+              Interior Solution
+            </option>
+
           </select>
 
         </div>
@@ -185,17 +419,45 @@
         <table>
 
           <thead>
+
             <tr>
-              <th>Booking ID</th>
-              <th>Customer</th>
-              <th>Service</th>
-              <th>Area</th>
-              <th>Date</th>
-              <th>Technician</th>
-              <th>Status</th>
-              <th>Action</th>
+
+              <th>
+                Booking ID
+              </th>
+
+              <th>
+                Customer
+              </th>
+
+              <th>
+                Service
+              </th>
+
+              <th>
+                Area
+              </th>
+
+              <th>
+                Date
+              </th>
+
+              <th>
+                Technician
+              </th>
+
+              <th>
+                Status
+              </th>
+
+              <th>
+                Action
+              </th>
+
             </tr>
+
           </thead>
+
 
           <tbody id="bookingTableBody"></tbody>
 
@@ -208,20 +470,37 @@
   </main>
 
 
-  <!-- CUSTOMER MODAL -->
+  <!-- ================================
+       CUSTOMER MODAL
+  ================================= -->
 
-  <div class="modal-overlay" id="customerModal">
+  <div
+    class="modal-overlay"
+    id="customerModal">
 
     <div class="modal">
 
       <div class="modal-header">
 
         <div>
-          <span class="eyebrow">CUSTOMER</span>
-          <h2>Register Customer</h2>
+
+          <span class="eyebrow">
+            CUSTOMER
+          </span>
+
+          <h2>
+            Register Customer
+          </h2>
+
         </div>
 
-        <button class="close-btn" data-close="customerModal">×</button>
+
+        <button
+          type="button"
+          class="close-btn"
+          data-close="customerModal">
+          ×
+        </button>
 
       </div>
 
@@ -231,49 +510,120 @@
         <div class="form-grid">
 
           <div class="form-group">
-            <label>Customer Name *</label>
-            <input id="customerName" required>
+
+            <label for="customerName">
+              Customer Name *
+            </label>
+
+            <input
+              id="customerName"
+              type="text"
+              required>
+
           </div>
 
-          <div class="form-group">
-            <label>Mobile Number *</label>
-            <input id="customerMobile" type="tel" required>
-          </div>
 
           <div class="form-group">
-            <label>Alternative Mobile</label>
-            <input id="customerAltMobile" type="tel">
+
+            <label for="customerMobile">
+              Mobile Number *
+            </label>
+
+            <input
+              id="customerMobile"
+              type="tel"
+              required>
+
           </div>
 
+
           <div class="form-group">
-            <label>Customer Type</label>
+
+            <label for="customerAltMobile">
+              Alternative Mobile
+            </label>
+
+            <input
+              id="customerAltMobile"
+              type="tel">
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="customerType">
+              Customer Type
+            </label>
 
             <select id="customerType">
-              <option value="Individual">Individual</option>
-              <option value="Business">Business</option>
-              <option value="Organization">Organization</option>
+
+              <option value="Individual">
+                Individual
+              </option>
+
+              <option value="Business">
+                Business
+              </option>
+
+              <option value="Organization">
+                Organization
+              </option>
+
             </select>
 
           </div>
 
-          <div class="form-group">
-            <label>Division</label>
-            <input id="customerDivision">
-          </div>
 
           <div class="form-group">
-            <label>District</label>
-            <input id="customerDistrict">
+
+            <label for="customerDivision">
+              Division
+            </label>
+
+            <input
+              id="customerDivision"
+              type="text">
+
           </div>
 
+
           <div class="form-group">
-            <label>Area</label>
-            <input id="customerArea">
+
+            <label for="customerDistrict">
+              District
+            </label>
+
+            <input
+              id="customerDistrict"
+              type="text">
+
           </div>
+
+
+          <div class="form-group">
+
+            <label for="customerArea">
+              Area
+            </label>
+
+            <input
+              id="customerArea"
+              type="text">
+
+          </div>
+
 
           <div class="form-group full">
-            <label>Address</label>
-            <textarea id="customerAddress" rows="3"></textarea>
+
+            <label for="customerAddress">
+              Address
+            </label>
+
+            <textarea
+              id="customerAddress"
+              rows="3"></textarea>
+
           </div>
 
         </div>
@@ -288,7 +638,10 @@
             Cancel
           </button>
 
-          <button type="submit" class="primary-btn">
+
+          <button
+            type="submit"
+            class="primary-btn">
             Register Customer
           </button>
 
@@ -301,20 +654,37 @@
   </div>
 
 
-  <!-- BOOKING MODAL -->
+  <!-- ================================
+       NEW BOOKING MODAL
+  ================================= -->
 
-  <div class="modal-overlay" id="bookingModal">
+  <div
+    class="modal-overlay"
+    id="bookingModal">
 
     <div class="modal large-modal">
 
       <div class="modal-header">
 
         <div>
-          <span class="eyebrow">SERVICE REQUEST</span>
-          <h2>New Service Booking</h2>
+
+          <span class="eyebrow">
+            SERVICE REQUEST
+          </span>
+
+          <h2>
+            New Service Booking
+          </h2>
+
         </div>
 
-        <button class="close-btn" data-close="bookingModal">×</button>
+
+        <button
+          type="button"
+          class="close-btn"
+          data-close="bookingModal">
+          ×
+        </button>
 
       </div>
 
@@ -324,29 +694,70 @@
         <div class="form-grid">
 
           <div class="form-group full">
-            <label>Customer *</label>
 
-            <select id="bookingCustomer" required>
-              <option value="">Select Customer</option>
+            <label for="bookingCustomer">
+              Customer *
+            </label>
+
+            <select
+              id="bookingCustomer"
+              required>
+
+              <option value="">
+                Select Customer
+              </option>
+
             </select>
 
           </div>
 
 
           <div class="form-group">
-            <label>Service Category *</label>
 
-            <select id="bookingService" required>
+            <label for="bookingService">
+              Service Category *
+            </label>
 
-              <option value="">Select Service</option>
-              <option value="Electrical">Electrical</option>
-              <option value="AC">AC</option>
-              <option value="CCTV">CCTV</option>
-              <option value="Plumbing">Plumbing</option>
-              <option value="Solar">Solar</option>
-              <option value="Generator">Generator</option>
-              <option value="IPS">IPS</option>
-              <option value="Motor">Motor</option>
+            <select
+              id="bookingService"
+              required>
+
+              <option value="">
+                Select Service
+              </option>
+
+              <option value="Electrical">
+                Electrical
+              </option>
+
+              <option value="AC">
+                AC
+              </option>
+
+              <option value="CCTV">
+                CCTV
+              </option>
+
+              <option value="Plumbing">
+                Plumbing
+              </option>
+
+              <option value="Solar">
+                Solar
+              </option>
+
+              <option value="Generator">
+                Generator
+              </option>
+
+              <option value="IPS">
+                IPS
+              </option>
+
+              <option value="Motor">
+                Motor
+              </option>
+
               <option value="Interior Solution">
                 Interior Solution
               </option>
@@ -357,46 +768,90 @@
 
 
           <div class="form-group">
-            <label>Preferred Date *</label>
-            <input type="date" id="bookingDate" required>
+
+            <label for="bookingDate">
+              Preferred Date *
+            </label>
+
+            <input
+              type="date"
+              id="bookingDate"
+              required>
+
           </div>
 
 
           <div class="form-group">
-            <label>Preferred Time</label>
-            <input type="time" id="bookingTime">
+
+            <label for="bookingTime">
+              Preferred Time
+            </label>
+
+            <input
+              type="time"
+              id="bookingTime">
+
           </div>
 
 
           <div class="form-group">
-            <label>Division</label>
-            <input id="bookingDivision">
+
+            <label for="bookingDivision">
+              Division
+            </label>
+
+            <input
+              id="bookingDivision"
+              type="text">
+
           </div>
 
 
           <div class="form-group">
-            <label>District</label>
-            <input id="bookingDistrict">
+
+            <label for="bookingDistrict">
+              District
+            </label>
+
+            <input
+              id="bookingDistrict"
+              type="text">
+
           </div>
 
 
           <div class="form-group">
-            <label>Area</label>
-            <input id="bookingArea">
+
+            <label for="bookingArea">
+              Area
+            </label>
+
+            <input
+              id="bookingArea"
+              type="text">
+
           </div>
 
 
           <div class="form-group full">
-            <label>Service Address *</label>
+
+            <label for="bookingAddress">
+              Service Address *
+            </label>
+
             <textarea
               id="bookingAddress"
               rows="3"
               required></textarea>
+
           </div>
 
 
           <div class="form-group full">
-            <label>Problem / Service Description</label>
+
+            <label for="bookingDescription">
+              Problem / Service Description
+            </label>
 
             <textarea
               id="bookingDescription"
@@ -409,14 +864,18 @@
           <div class="form-group full consent-box">
 
             <label>
+
               <input
                 type="checkbox"
                 id="termsAccepted"
-                required
-              >
+                required>
 
-              I accept the LUMENIX Service Point
-              Terms & Conditions and consent to service processing.
+              <span>
+                I accept the LUMENIX Service Point
+                Terms & Conditions and consent to
+                service processing.
+              </span>
+
             </label>
 
           </div>
@@ -433,7 +892,10 @@
             Cancel
           </button>
 
-          <button type="submit" class="primary-btn">
+
+          <button
+            type="submit"
+            class="primary-btn">
             Create Booking
           </button>
 
@@ -446,34 +908,63 @@
   </div>
 
 
-  <!-- BOOKING DETAILS MODAL -->
+  <!-- ================================
+       BOOKING DETAILS MODAL
+  ================================= -->
 
-  <div class="modal-overlay" id="detailsModal">
+  <div
+    class="modal-overlay"
+    id="detailsModal">
 
     <div class="modal">
 
       <div class="modal-header">
 
         <div>
-          <span class="eyebrow">BOOKING DETAILS</span>
-          <h2 id="detailsTitle">Booking</h2>
+
+          <span class="eyebrow">
+            BOOKING DETAILS
+          </span>
+
+          <h2 id="detailsTitle">
+            Booking
+          </h2>
+
         </div>
 
-        <button class="close-btn" data-close="detailsModal">×</button>
+
+        <button
+          type="button"
+          class="close-btn"
+          data-close="detailsModal">
+          ×
+        </button>
 
       </div>
 
-      <div class="details-content" id="bookingDetails"></div>
+
+      <div
+        class="details-content"
+        id="bookingDetails">
+      </div>
 
     </div>
 
   </div>
 
 
-  <div class="toast" id="toast"></div>
+  <!-- ================================
+       TOAST
+  ================================= -->
+
+  <div
+    class="toast"
+    id="toast">
+  </div>
 
 
-  <script src="service-point.js"></script>
+  <!-- IMPORTANT: Correct JS Path -->
+  <script src="js/service-point.js"></script>
 
 </body>
 </html>
