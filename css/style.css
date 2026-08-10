@@ -1,12 +1,15 @@
-/* ================================
-C1 START
-Basic Reset & Global Style
-================================ */
+/* =========================================================
+   LUMENIX
+   HOMEPAGE STYLE
+   Lightweight / Mobile Friendly
+   ========================================================= */
 
+
+/* =========================
+   RESET
+========================= */
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
@@ -17,2455 +20,733 @@ html {
 
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f5f7fb;
-    color: #1a1a1a;
-    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f5f7fb;
+
+    color: #173f7a;
+
+    -webkit-text-size-adjust: 100%;
 }
 
 
+button,
 a {
-    text-decoration: none;
-    color: inherit;
-}
-
-
-ul {
-    list-style: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 
 button {
-    border: none;
-    cursor: pointer;
     font-family: inherit;
 }
 
 
-img {
-    max-width: 100%;
+/* =========================
+   HEADER
+========================= */
+
+.main-header {
+
+    background: #ffffff;
+
+    padding: 15px;
+
+    box-shadow:
+        0 2px 10px
+        rgba(0, 0, 0, 0.08);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+}
+
+
+.header-inner {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+
+.brand-area {
+    text-align: left;
+}
+
+
+.main-logo {
+
+    margin: 0;
+
+    color: #17458b;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+
+.main-tagline {
+
+    margin: 5px 0 0;
+
+    color: #666;
+
+    font-size: 13px;
+}
+
+
+.header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.header-btn {
+
+    border: none;
+
+    background: #164b99;
+
+    color: #ffffff;
+
+    padding: 10px 18px;
+
+    border-radius: 24px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    min-height: 40px;
+}
+
+
+.header-btn:hover {
+
+    background: #0d3979;
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.mobile-menu {
+
+    display: none;
+
+    background: #174a96;
+
+    padding: 8px 12px;
+}
+
+
+.mobile-menu.active {
+
     display: block;
 }
 
 
-/* C1 END */
-/* ================================
+.mobile-menu a {
 
-C2 START
-Header & Navigation Design
-================================ */
-
-
-.main-header {
-
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 20px 5%;
-
-    background: #ffffff;
-
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-
-}
-
-
-
-.brand-area h1 {
-
-    color: #0b3d91;
-
-    font-size: 32px;
-
-    font-weight: 700;
-
-}
-
-
-
-.brand-area p {
-
-    color: #555;
-
-    font-size: 14px;
-
-}
-
-
-
-.menu-area button {
-
-    background: #0b3d91;
+    display: block;
 
     color: #ffffff;
 
-    padding: 12px 25px;
+    text-decoration: none;
 
-    border-radius: 25px;
+    text-align: center;
 
-    transition: 0.3s;
-
-}
-
-
-
-.menu-area button:hover {
-
-    background: #06275f;
-
-}
-
-
-
-/* Navigation */
-
-.navigation {
-
-    width: 100%;
-
-    background: #0b3d91;
-
-}
-
-
-
-.navigation ul {
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 25px;
-
-    padding: 15px;
-
-}
-
-
-
-.navigation ul li {
-
-    color: #ffffff;
+    padding: 10px;
 
     font-size: 15px;
 
+    border-radius: 5px;
 }
 
 
+.mobile-menu a:hover {
 
-.navigation ul li:hover {
-
-    color: #ffd700;
-
+    background:
+        rgba(255, 255, 255, 0.12);
 }
 
 
+/* =========================
+   HERO
+========================= */
 
-/* C2 END */
-/* ================================
-C3 START
-Hero Section Design
-================================ */
+.hero {
 
-
-.hero-section {
-
-    width: 100%;
-
-    min-height: 500px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
-    text-align: center;
-
-    padding: 60px 5%;
-
-    background: linear-gradient(
-        135deg,
-        #0b3d91,
-        #1b73e8
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #174c9c,
+            #126dd4
+        );
 
     color: #ffffff;
 
+    text-align: center;
+
+    padding: 65px 18px;
 }
 
 
+.hero-content {
 
-.hero-section h2 {
+    max-width: 700px;
 
-    font-size: 42px;
-
-    font-weight: 700;
-
-    margin-bottom: 10px;
-
+    margin: auto;
 }
 
 
+.hero h1 {
 
-.hero-section h3 {
+    margin: 0;
 
-    font-size: 28px;
+    font-size: 34px;
 
-    color: #ffd700;
-
-    margin-bottom: 15px;
-
+    line-height: 1.2;
 }
 
 
+.hero h2 {
 
-.hero-section p {
+    color: #ffd900;
 
-    max-width: 600px;
+    margin: 12px 0;
 
-    font-size: 18px;
-
-    margin-bottom: 30px;
-
+    font-size: 24px;
 }
 
 
+.hero p {
 
-.hero-section button {
+    max-width: 650px;
 
-    background: #ffd700;
+    margin: 15px auto 25px;
+
+    line-height: 1.7;
+
+    font-size: 15px;
+}
+
+
+.hero-btn {
+
+    border: none;
+
+    background: #ffd400;
 
     color: #111111;
 
-    padding: 14px 35px;
+    padding: 13px 28px;
 
     border-radius: 30px;
 
-    font-size: 16px;
+    font-size: 15px;
 
     font-weight: bold;
 
-    transition: 0.3s;
+    cursor: pointer;
 
+    min-height: 46px;
 }
 
 
+.hero-btn:hover {
 
-.hero-section button:hover {
-
-    background: #ffffff;
-
-    transform: translateY(-3px);
-
+    background: #ffbf00;
 }
 
 
+/* =========================
+   SECTION
+========================= */
 
-/* C3 END */
+.section {
 
-/* ================================
-C4 START
-Ecosystem Main Project Card Design
-================================ */
+    padding: 48px 15px;
 
-.ecosystem-logo{
+    max-width: 1100px;
 
-    width:120px;
-    height:auto;
-    margin:0 auto 20px;
-    display:block;
-    object-fit:contain;
-
+    margin: auto;
 }
 
-.ecosystem-section {
 
-    width: 100%;
-
-    padding: 60px 5%;
+.section-title {
 
     text-align: center;
 
-    background: #ffffff;
+    color: #17458b;
 
+    margin:
+        0 0 28px;
+
+    font-size: 28px;
 }
 
 
+/* =========================
+   ECOSYSTEM
+========================= */
 
-.ecosystem-section h2 {
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 15px;
-
-}
-
-
-
-.ecosystem-container {
+.ecosystem-grid {
 
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px, 1fr)
+        );
 
-    gap: 25px;
-
-    margin-top: 40px;
-
+    gap: 18px;
 }
-
 
 
 .ecosystem-card {
 
-    background: #f8faff;
+    background: #ffffff;
 
-    padding: 30px 20px;
+    padding: 22px 18px;
 
     border-radius: 15px;
 
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    text-align: center;
 
-    transition: 0.3s;
+    box-shadow:
+        0 5px 20px
+        rgba(0, 0, 0, 0.07);
 
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
-
 
 
 .ecosystem-card:hover {
 
-    transform: translateY(-8px);
+    transform: translateY(-3px);
 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.10);
 }
 
+
+.card-image-wrap {
+
+    min-height: 100px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.ecosystem-card img {
+
+    width: 120px;
+
+    height: 100px;
+
+    object-fit: contain;
+
+    margin-bottom: 12px;
+}
 
 
 .ecosystem-card h3 {
 
-    color: #0b3d91;
+    margin: 7px 0 10px;
 
-    font-size: 22px;
+    color: #17458b;
 
-    margin-bottom: 15px;
+    font-size: 18px;
 
+    line-height: 1.35;
 }
-
 
 
 .ecosystem-card p {
 
-    color: #555;
+    color: #666;
 
-    font-size: 15px;
+    line-height: 1.6;
 
-    margin-bottom: 20px;
+    font-size: 14px;
 
+    margin: 0 0 8px;
 }
 
 
+/* =========================
+   SERVICE GRID
+========================= */
 
-.ecosystem-card button {
-
-    background: #0b3d91;
-
-    color: #ffffff;
-
-    padding: 10px 25px;
-
-    border-radius: 20px;
-
-}
-
-
-
-.ecosystem-card button:hover {
-
-    background: #06275f;
-
-}
-
-
-
-/* C4 END */
-
-/* ================================
-C5 START
-User Panel Section Design
-================================ */
-
-
-.user-panel {
-
-    width: 100%;
-
-    padding: 60px 5%;
-
-    text-align: center;
-
-    background: #f5f7fb;
-
-}
-
-
-
-.user-panel h2 {
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 35px;
-
-}
-
-
-
-.panel-box {
+.service-grid {
 
     display: grid;
 
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(210px, 1fr)
+        );
 
-    gap: 20px;
-
+    gap: 18px;
 }
 
 
-
-.panel-box div {
+.service-card {
 
     background: #ffffff;
 
-    padding: 25px 15px;
+    padding: 24px 18px;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
-    color: #0b3d91;
+    box-shadow:
+        0 4px 15px
+        rgba(0, 0, 0, 0.06);
 
-    font-weight: 600;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-
-    transition: 0.3s;
-
+    text-align: center;
 }
 
 
+.service-icon {
 
-.panel-box div:hover {
+    font-size: 30px;
 
-    background: #0b3d91;
+    margin-bottom: 8px;
+}
+
+
+.service-card h3 {
+
+    color: #17458b;
+
+    margin:
+        8px 0 10px;
+
+    font-size: 18px;
+}
+
+
+.service-card p {
+
+    color: #666;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+
+    margin: 0 0 12px;
+}
+
+
+.dealer-card {
+
+    max-width: 600px;
+
+    margin: auto;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.card-btn {
+
+    border: none;
+
+    background: #164b99;
 
     color: #ffffff;
 
-    transform: translateY(-5px);
+    padding: 10px 20px;
 
+    border-radius: 22px;
+
+    cursor: pointer;
+
+    margin-top: 8px;
+
+    min-height: 40px;
+
+    font-size: 14px;
 }
 
 
+.card-btn:hover {
 
-/* C5 END */
+    background: #0c3979;
+}
 
 
-/* ================================
-C6 START
-Premium Footer Design
-================================ */
+.card-btn:active,
+.header-btn:active,
+.hero-btn:active,
+.cta-btn:active {
 
+    transform: scale(0.98);
+}
+
+
+/* =========================
+   CTA
+========================= */
+
+.cta-section {
+
+    background: #174a96;
+
+    color: #ffffff;
+
+    text-align: center;
+
+    padding: 50px 18px;
+}
+
+
+.cta-content {
+
+    max-width: 600px;
+
+    margin: auto;
+}
+
+
+.cta-section h2 {
+
+    margin:
+        0 0 10px;
+
+    font-size: 26px;
+}
+
+
+.cta-section p {
+
+    margin:
+        0 0 20px;
+
+    line-height: 1.6;
+}
+
+
+.cta-btn {
+
+    border: none;
+
+    background: #ffd400;
+
+    color: #111111;
+
+    padding: 12px 26px;
+
+    border-radius: 25px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    min-height: 44px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
 
 .footer {
 
-    width: 100%;
-
-    background: #0b1f3a;
+    background: #102c55;
 
     color: #ffffff;
 
-    padding: 60px 5% 25px;
+    text-align: center;
 
+    padding: 28px 15px;
 }
-
-
-
-.footer-container {
-
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 30px;
-
-    margin-bottom: 35px;
-
-}
-
-
-
-.footer h3 {
-
-    color: #ffd700;
-
-    margin-bottom: 15px;
-
-    font-size: 24px;
-
-}
-
-
-
-.footer h4 {
-
-    color: #ffffff;
-
-    margin-bottom: 15px;
-
-    font-size: 18px;
-
-}
-
 
 
 .footer p {
 
-    color: #d6d6d6;
-
-    margin-bottom: 10px;
-
-    font-size: 15px;
-
-}
-
-
-
-.footer-links ul li {
-
-    margin-bottom: 10px;
-
-    color: #d6d6d6;
-
-    transition: 0.3s;
-
-    cursor: pointer;
-
-}
-
-
-
-.footer-links ul li:hover {
-
-    color: #ffd700;
-
-}
-
-
-
-.footer-bottom {
-
-    text-align: center;
-
-    border-top: 1px solid rgba(255,255,255,0.15);
-
-    padding-top: 20px;
-
-    margin-top: 15px;
-
-}
-
-
-
-.developer-credit {
-
-    text-align: center;
-
-    margin-top: 25px;
-
-}
-
-
-
-.developer-credit strong {
-
-    color: #ffd700;
-
-}
-
-
-
-.developer-credit p {
-
-    margin-bottom: 8px;
-
-}
-
-
-/* C6 END */
-
-/* ================================
-C7 START
-Mobile Responsive Design
-(Header, Navigation & Hero)
-================================ */
-
-
-@media (max-width: 768px) {
-
-
-.main-header{
-
-    flex-direction: column;
-
-    text-align: center;
-
-    padding: 15px;
-
-}
-
-
-
-.brand-area h1{
-
-    font-size: 28px;
-
-}
-
-
-
-.brand-area p{
+    margin: 6px 0;
 
     font-size: 13px;
 
-    margin-bottom: 12px;
-
-}
-
-
-
-.menu-area{
-
-    width: 100%;
-
-}
-
-
-
-.menu-area button{
-
-    width: 100%;
-
-}
-
-
-
-.navigation ul{
-
-    flex-direction: column;
-
-    gap: 10px;
-
-    padding: 15px;
-
-}
-
-
-
-.navigation ul li{
-
-    width: 100%;
-
-    text-align: center;
-
-}
-
-
-
-.hero-section{
-
-    min-height: auto;
-
-    padding: 50px 20px;
-
-}
-
-
-
-.hero-section h2{
-
-    font-size: 28px;
-
-}
-
-
-
-.hero-section h3{
-
-    font-size: 22px;
-
-}
-
-
-
-.hero-section p{
-
-    font-size: 15px;
-
-}
-
-
-
-.hero-section button{
-
-    width: 100%;
-
-    max-width: 300px;
-
-}
-
-
-}
-
-
-/* C7 END */
-
-/* ================================
-C8 START
-Responsive Grid Design
-================================ */
-
-
-@media (max-width: 768px) {
-
-
-.ecosystem-container,
-.panel-box,
-.service-container,
-.technician-info,
-.dealer-container,
-.training-container,
-.growth-flow,
-.trust-container,
-.booking-container,
-.registration-container,
-.product-container,
-.stats-container,
-.contact-box,
-.footer-container {
-
-    display: grid;
-
-    grid-template-columns: 1fr;
-
-    gap: 20px;
-
-}
-
-
-
-.ecosystem-card,
-.service-card,
-.dealer-card,
-.training-card,
-.growth-card,
-.trust-card,
-.booking-card,
-.registration-card,
-.product-card,
-.stats-card {
-
-    width: 100%;
-
-}
-
-
-
-.flow-arrow{
-
-    font-size: 28px;
-
-    text-align: center;
-
-}
-
-
-
-.footer{
-
-    text-align: center;
-
-}
-
-
-
-.footer-links ul{
-
-    padding: 0;
-
-}
-
-
-
-.footer-links ul li{
-
-    margin-bottom: 12px;
-
-}
-
-
-}
-
-
-/* C8 END */
-
-/* ================================
-C9 START
-Login Section Design
-================================ */
-
-
-.login-section{
-
-    width: 100%;
-
-    padding: 70px 5%;
-
-    background: #ffffff;
-
-    text-align: center;
-
-}
-
-
-
-.login-section h2{
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.login-section p{
-
-    color: #666666;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.login-options{
-
-    display: grid;
-
-    grid-template-columns: repeat(5, 1fr);
-
-    gap: 20px;
-
-}
-
-
-
-.login-card{
-
-    background: #f8faff;
-
-    padding: 30px 20px;
-
-    border-radius: 15px;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-
-    transition: 0.3s;
-
-}
-
-
-
-.login-card:hover{
-
-    transform: translateY(-8px);
-
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-
-}
-
-
-
-.login-card h3{
-
-    color: #0b3d91;
-
-    font-size: 20px;
-
-    margin-bottom: 20px;
-
-}
-
-
-
-.login-card button{
-
-    width: 100%;
-
-    background: #0b3d91;
-
-    color: #ffffff;
-
-    padding: 12px;
-
-    border-radius: 8px;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
-    transition: 0.3s;
-
-}
-
-
-
-.login-card button:hover{
-
-    background: #06275f;
-
-}
-
-
-/* C9 END */
-
-/* ================================
-C10 START
-Service Category Section Design
-================================ */
-
-
-.service-section{
-
-    width: 100%;
-
-    padding: 70px 5%;
-
-    background: #f5f7fb;
-
-    text-align: center;
-
-}
-
-
-
-.service-section h2{
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.service-section p{
-
-    color: #666666;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.service-container{
-
-    display: grid;
-
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-
-    gap: 20px;
-
-}
-
-
-
-.service-card{
-
-    background: #ffffff;
-
-    padding: 22px;
-
-    border-radius: 12px;
-
-    border-left: 5px solid #0b3d91;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-
-    font-size: 16px;
-
-    font-weight: 600;
-
-    color: #333333;
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.service-card:hover{
-
-    background: #0b3d91;
-
-    color: #ffffff;
-
-    transform: translateY(-5px);
-
-    border-left-color: #ffd700;
-
-}
-
-
-/* C10 END */
-
-/* ================================
-C11 START
-Technician Network Section Design
-================================ */
-
-
-.section-logo{
-
-    width:130px;
-    height:auto;
-    display:block;
-    margin:0 auto 25px;
-
-}
-
-.technician-section{
-
-    width: 100%;
-
-    padding: 70px 5%;
-
-    background: #ffffff;
-
-    text-align: center;
-
-}
-
-
-
-.technician-section h2{
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.technician-section p{
-
-    color: #666666;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.technician-info{
-
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 20px;
-
-    margin-bottom: 35px;
-
-}
-
-
-
-.technician-info div{
-
-    background: #f8faff;
-
-    padding: 25px 20px;
-
-    border-radius: 12px;
-
-    border-top: 5px solid #0b3d91;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-
-    font-weight: 600;
-
-    color: #333333;
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.technician-info div:hover{
-
-    background: #0b3d91;
-
-    color: #ffffff;
-
-    transform: translateY(-5px);
-
-}
-
-
-
-.technician-section button{
-
-    background: #0b3d91;
-
-    color: #ffffff;
-
-    padding: 12px 30px;
-
-    border-radius: 30px;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.technician-section button:hover{
-
-    background: #06275f;
-
-    transform: translateY(-3px);
-
-}
-
-
-/* C11 END */
-
-/* ================================
-C12 START
-Dealer Network Section Design
-================================ */
-
-
-.dealer-section{
-
-    width: 100%;
-
-    padding: 70px 5%;
-
-    background: #f5f7fb;
-
-    text-align: center;
-
-}
-
-
-
-.dealer-section h2{
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.dealer-section p{
-
-    color: #666666;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.dealer-container{
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 25px;
-
-}
-
-
-
-.dealer-card{
-
-    background: #ffffff;
-
-    padding: 30px 25px;
-
-    border-radius: 15px;
-
-    border-top: 5px solid #0b3d91;
-
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.dealer-card:hover{
-
-    transform: translateY(-8px);
-
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-
-}
-
-
-
-.dealer-card h3{
-
-    color: #0b3d91;
-
-    margin-bottom: 15px;
-
-    font-size: 22px;
-
-}
-
-
-
-.dealer-card p{
-
-    color: #555555;
-
-    margin-bottom: 20px;
-
-}
-
-
-
-.dealer-card button{
-
-    background: #0b3d91;
-
-    color: #ffffff;
-
-    padding: 12px 25px;
-
-    border-radius: 8px;
-
-    font-weight: 600;
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.dealer-card button:hover{
-
-    background: #06275f;
-
-}
-
-
-/* C12 END */
-
-/* ================================
-C13 START
-Technical Training Centre Section Design
-================================ */
-
-
-.training-section{
-
-    width: 100%;
-
-    padding: 70px 5%;
-
-    background: #ffffff;
-
-    text-align: center;
-
-}
-
-
-
-.training-section h2{
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.training-section p{
-
-    color: #666666;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.training-container{
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 25px;
-
-}
-
-
-
-.training-card{
-
-    background: #f8faff;
-
-    padding: 30px 25px;
-
-    border-radius: 15px;
-
-    border-bottom: 5px solid #0b3d91;
-
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.training-card:hover{
-
-    transform: translateY(-8px);
-
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-
-}
-
-
-
-.training-card h3{
-
-    color: #0b3d91;
-
-    font-size: 22px;
-
-    margin-bottom: 15px;
-
-}
-
-
-
-.training-card p{
-
-    color: #555555;
-
-    margin-bottom: 20px;
-
-}
-
-
-
-.training-card button{
-
-    background: #0b3d91;
-
-    color: #ffffff;
-
-    padding: 12px 25px;
-
-    border-radius: 8px;
-
-    font-weight: 600;
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.training-card button:hover{
-
-    background: #06275f;
-
-}
-
-
-/* C13 END */
-
-/* ================================
-C14 START
-Business Growth Flow Section Design
-================================ */
-
-
-.growth-section{
-
-    width: 100%;
-
-    padding: 70px 5%;
-
-    background: linear-gradient(135deg, #f8fbff, #eef5ff);
-
-    text-align: center;
-
-}
-
-
-
-.growth-section h2{
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.growth-section p{
-
-    color: #666666;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.growth-flow{
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 15px;
-
-    flex-wrap: wrap;
-
-}
-
-
-
-.growth-card{
-
-    flex: 1;
-
-    min-width: 220px;
-
-    max-width: 260px;
-
-    background: #ffffff;
-
-    padding: 30px 20px;
-
-    border-radius: 15px;
-
-    border-top: 5px solid #0b3d91;
-
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.growth-card:hover{
-
-    transform: translateY(-8px);
-
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-
-}
-
-
-
-.growth-card h3{
-
-    color: #0b3d91;
-
-    font-size: 22px;
-
-    margin-bottom: 15px;
-
-}
-
-
-
-.growth-card p{
-
-    color: #555555;
-
-    font-size: 15px;
-
-}
-
-
-
-.flow-arrow{
-
-    font-size: 34px;
-
-    font-weight: bold;
-
-    color: #0b3d91;
-
-}
-
-
-/* C14 END */
-
-/* ================================
-C15 START
-Customer Trust & Platform Features Design
-================================ */
-
-
-.trust-section{
-
-    width: 100%;
-
-    padding: 70px 5%;
-
-    background: #ffffff;
-
-    text-align: center;
-
-}
-
-
-
-.trust-section h2{
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.trust-section p{
-
-    color: #666666;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.trust-container{
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 25px;
-
-}
-
-
-
-.trust-card{
-
-    background: #f8faff;
-
-    padding: 30px 25px;
-
-    border-radius: 15px;
-
-    border-left: 5px solid #0b3d91;
-
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.trust-card:hover{
-
-    background: #0b3d91;
-
-    color: #ffffff;
-
-    transform: translateY(-8px);
-
-}
-
-
-
-.trust-card h3{
-
-    font-size: 22px;
-
-    margin-bottom: 15px;
-
-}
-
-
-
-.trust-card p{
-
-    font-size: 15px;
-
-    line-height: 1.6;
-
-}
-
-
-/* C15 END */
-
-/* ================================
-C16 START
-Customer Service Booking Section Design
-================================ */
-
-
-.booking-section{
-
-    width: 100%;
-
-    padding: 70px 5%;
-
-    background: #f5f7fb;
-
-    text-align: center;
-
-}
-
-
-
-.booking-section h2{
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.booking-section p{
-
-    color: #666666;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.booking-container{
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 25px;
-
-}
-
-
-
-.booking-card{
-
-    background: #ffffff;
-
-    padding: 30px 25px;
-
-    border-radius: 15px;
-
-    border-top: 5px solid #0b3d91;
-
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.booking-card:hover{
-
-    transform: translateY(-8px);
-
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-
-}
-
-
-
-.booking-card h3{
-
-    color: #0b3d91;
-
-    font-size: 22px;
-
-    margin-bottom: 15px;
-
-}
-
-
-
-.booking-card p{
-
-    color: #555555;
-
-    margin-bottom: 20px;
-
-    line-height: 1.6;
-
-}
-
-
-
-.booking-card button{
-
-    background: #0b3d91;
-
-    color: #ffffff;
-
-    padding: 12px 25px;
-
-    border-radius: 8px;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.booking-card button:hover{
-
-    background: #06275f;
-
-}
-
-
-/* C16 END */
-
-/* ================================
-C17 START
-Technician & Dealer Registration Section Design
-================================ */
-
-
-.registration-section{
-
-    width: 100%;
-
-    padding: 70px 5%;
-
-    background: #ffffff;
-
-    text-align: center;
-
-}
-
-
-
-.registration-section h2{
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.registration-section p{
-
-    color: #666666;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.registration-container{
-
-    display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 30px;
-
-}
-
-
-
-.registration-card{
-
-    background: #f8faff;
-
-    padding: 35px 30px;
-
-    border-radius: 15px;
-
-    border-top: 5px solid #0b3d91;
-
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-
-    transition: all 0.3s ease;
-
-    text-align: left;
-
-}
-
-
-
-.registration-card:hover{
-
-    transform: translateY(-8px);
-
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-
-}
-
-
-
-.registration-card h3{
-
-    color: #0b3d91;
-
-    font-size: 22px;
-
-    margin-bottom: 15px;
-
-}
-
-
-
-.registration-card p{
-
-    color: #555555;
-
-    margin-bottom: 20px;
-
-    line-height: 1.6;
-
-}
-
-
-
-.registration-card ul{
-
-    margin-bottom: 25px;
-
-}
-
-
-
-.registration-card ul li{
-
-    padding: 10px 0;
-
-    border-bottom: 1px solid #e6e6e6;
-
-    color: #333333;
-
-    font-weight: 500;
-
-}
-
-
-
-.registration-card button{
-
-    width: 100%;
-
-    background: #0b3d91;
-
-    color: #ffffff;
-
-    padding: 14px;
-
-    border-radius: 8px;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.registration-card button:hover{
-
-    background: #06275f;
-
-}
-
-
-/* C17 END */
-
-/* ================================
-C18 START
-Product & Business Showcase Design
-================================ */
-
-
-.product-section{
-
-    width: 100%;
-
-    padding: 70px 5%;
-
-    background: #f5f7fb;
-
-    text-align: center;
-
-}
-
-
-
-.product-section h2{
-
-    font-size: 32px;
-
-    color: #0b3d91;
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.product-section p{
-
-    color: #666666;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.product-container{
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 25px;
-
-}
-
-
-
-.product-card{
-
-    background: #ffffff;
-
-    padding: 30px 25px;
-
-    border-radius: 15px;
-
-    border-bottom: 5px solid #0b3d91;
-
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.product-card:hover{
-
-    transform: translateY(-8px);
-
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-
-}
-
-
-
-.product-card h3{
-
-    color: #0b3d91;
-
-    font-size: 22px;
-
-    margin-bottom: 15px;
-
-}
-
-
-
-.product-card p{
-
-    color: #555555;
-
-    margin-bottom: 20px;
-
-    line-height: 1.6;
-
-}
-
-
-
-.product-card button{
-
-    background: #0b3d91;
-
-    color: #ffffff;
-
-    padding: 12px 25px;
-
-    border-radius: 8px;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.product-card button:hover{
-
-    background: #06275f;
-
-}
-
-
-/* C18 END */
-
-    /* ================================
-C19 START
-Statistics & Achievement Section Design
-================================ */
-
-
-.stats-section{
-
-    width: 100%;
-
-    padding: 70px 5%;
-
-    background: linear-gradient(135deg, #0b3d91, #1b73e8);
-
-    text-align: center;
-
-    color: #ffffff;
-
-}
-
-
-
-.stats-section h2{
-
-    font-size: 32px;
-
-    margin-bottom: 10px;
-
-    color: #ffffff;
-
-}
-
-
-
-.stats-section p{
-
-    color: #e6e6e6;
-
-    margin-bottom: 40px;
-
-}
-
-
-
-.stats-container{
-
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 25px;
-
-}
-
-
-
-.stats-card{
-
-    background: rgba(255,255,255,0.12);
-
-    padding: 35px 20px;
-
-    border-radius: 15px;
-
-    border: 1px solid rgba(255,255,255,0.20);
-
-    backdrop-filter: blur(6px);
-
-    transition: all 0.3s ease;
-
-}
-
-
-
-.stats-card:hover{
-
-    background: rgba(255,255,255,0.20);
-
-    transform: translateY(-8px);
-
-}
-
-
-
-.stats-card h3{
-
-    font-size: 36px;
-
-    color: #ffd700;
-
-    margin-bottom: 10px;
-
-}
-
-
-
-.stats-card p{
-
-    color: #ffffff;
-
-    font-size: 16px;
-
-    margin: 0;
-
+    line-height: 1.5;
 }
-
-
-/* C19 END */
 
-/* ================================
-C20 START
-Final CTA, Contact & Responsive Optimization
-================================ */
 
-/* ===== Call To Action ===== */
+/* =========================
+   MOBILE
+========================= */
 
-.cta-section{
+@media (max-width: 700px) {
 
-    width:100%;
-    padding:70px 5%;
-    background:#0b3d91;
-    color:#ffffff;
-    text-align:center;
+    .header-inner {
 
-}
+        flex-direction: column;
 
-.cta-container h2{
+        text-align: center;
+    }
 
-    font-size:36px;
-    margin-bottom:15px;
 
-}
+    .brand-area {
 
-.cta-container p{
+        text-align: center;
+    }
 
-    max-width:700px;
-    margin:0 auto 35px;
-    color:#e8e8e8;
-    line-height:1.7;
 
-}
+    .main-logo {
 
-.cta-buttons{
+        font-size: 27px;
+    }
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:20px;
-    flex-wrap:wrap;
 
-}
+    .main-tagline {
 
-.cta-buttons button{
+        font-size: 12px;
+    }
 
-    background:#ffd700;
-    color:#111111;
-    padding:14px 28px;
-    border-radius:30px;
-    font-weight:700;
-    transition:.3s;
 
-}
+    .header-actions {
 
-.cta-buttons button:hover{
+        width: 100%;
 
-    background:#ffffff;
-    transform:translateY(-3px);
+        justify-content: center;
+    }
 
-}
 
+    .header-btn {
 
-/* ===== Contact ===== */
+        padding:
+            9px 18px;
+    }
 
-.contact-section{
 
-    width:100%;
-    padding:70px 5%;
-    background:#ffffff;
-    text-align:center;
+    .hero {
 
-}
+        padding:
+            50px 16px;
+    }
 
-.contact-container h2{
 
-    font-size:32px;
-    color:#0b3d91;
-    margin-bottom:15px;
+    .hero h1 {
 
-}
+        font-size: 27px;
+    }
 
-.contact-container > p{
 
-    color:#666666;
-    margin-bottom:40px;
-    line-height:1.7;
+    .hero h2 {
 
-}
+        font-size: 21px;
+    }
 
-.contact-box{
 
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:25px;
+    .hero p {
 
-}
+        font-size: 14px;
 
-.contact-box div{
+        line-height: 1.6;
+    }
 
-    background:#f8faff;
-    padding:30px 25px;
-    border-radius:15px;
-    box-shadow:0 6px 18px rgba(0,0,0,.08);
-    transition:.3s;
 
-}
+    .section {
 
-.contact-box div:hover{
+        padding:
+            38px 12px;
+    }
 
-    transform:translateY(-6px);
-    box-shadow:0 12px 25px rgba(0,0,0,.15);
 
-}
+    .section-title {
 
-.contact-box h3{
+        font-size: 24px;
 
-    color:#0b3d91;
-    margin-bottom:15px;
+        margin-bottom: 22px;
+    }
 
-}
 
+    .ecosystem-grid,
+    .service-grid {
 
-/* ===== Final Responsive ===== */
+        grid-template-columns: 1fr;
 
-@media (max-width:992px){
+        gap: 14px;
+    }
 
-    .ecosystem-container,
-    .login-options,
-    .dealer-container,
-    .training-container,
-    .product-container,
-    .stats-container,
-    .contact-box{
 
-        grid-template-columns:repeat(2,1fr);
+    .ecosystem-card,
+    .service-card {
 
+        padding:
+            20px 15px;
     }
 
 }
 
 
-@media (max-width:768px){
+/* =========================
+   SMALL PHONE
+========================= */
 
-    .ecosystem-container,
-    .panel-box,
-    .login-options,
-    .service-container,
-    .technician-info,
-    .dealer-container,
-    .training-container,
-    .growth-flow,
-    .booking-container,
-    .registration-container,
-    .product-container,
-    .stats-container,
-    .contact-box,
-    .footer-container{
+@media (max-width: 360px) {
 
-        grid-template-columns:1fr;
+    .hero h1 {
 
+        font-size: 24px;
     }
 
-    .cta-buttons{
 
-        flex-direction:column;
-        align-items:center;
+    .hero h2 {
 
+        font-size: 19px;
     }
 
-    .cta-buttons button{
 
-        width:100%;
-        max-width:320px;
+    .main-logo {
 
+        font-size: 25px;
+    }
+
+
+    .header-btn {
+
+        font-size: 13px;
+
+        padding:
+            8px 14px;
     }
 
 }
-
-/* ================================
-C20 END
-================================ */
-/* =====================================
-C21 START
-Admin Login Section
-===================================== */
-
-.admin-login-section{
-
-    padding:80px 20px;
-    background:#f5f7fb;
-
-}
-
-.admin-login-box{
-
-    max-width:420px;
-    margin:auto;
-    background:#ffffff;
-    padding:35px 25px;
-    border-radius:18px;
-    box-shadow:0 8px 25px rgba(0,0,0,.10);
-
-}
-
-.admin-login-box h2{
-
-    text-align:center;
-    color:#0d47a1;
-    margin-bottom:15px;
-
-}
-
-.admin-login-box p{
-
-    text-align:center;
-    color:#555;
-    margin-bottom:25px;
-
-}
-
-.admin-login-box input{
-
-    width:100%;
-    padding:14px;
-    margin-bottom:15px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    font-size:16px;
-    box-sizing:border-box;
-
-}
-
-.admin-login-box button{
-
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    background:#0d47a1;
-    color:#fff;
-    font-size:17px;
-    font-weight:bold;
-    cursor:pointer;
-
-}
-
-.admin-login-box button:hover{
-
-    background:#1565c0;
-
-}
-
-/* =====================================
-C21 END
-===================================== */
-
-
-
-
