@@ -10,329 +10,17 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>LUMENIX | Premium Ecosystem Platform</title>
+    <meta
+        name="description"
+        content="LUMENIX ecosystem platform by MS FARDIN ELECTRIC."
+    >
 
-    <link rel="stylesheet" href="css/style.css">
+    <title>LUMENIX | MS FARDIN ELECTRIC</title>
 
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            color: #173f7a;
-        }
-
-        button,
-        a {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* =========================
-        HEADER
-        ========================= */
-
-        .main-header {
-            background: #ffffff;
-            padding: 18px 15px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .main-logo {
-            margin: 0;
-            color: #17458b;
-            font-size: 30px;
-            font-weight: 800;
-        }
-
-        .main-tagline {
-            margin: 5px 0 12px;
-            color: #666;
-            font-size: 15px;
-        }
-
-        .header-actions {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .header-btn {
-            border: none;
-            background: #164b99;
-            color: #ffffff;
-            padding: 10px 28px;
-            border-radius: 25px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .header-btn:hover {
-            background: #0d3979;
-        }
-
-        /* =========================
-        MENU
-        ========================= */
-
-        .mobile-menu {
-            display: none;
-            background: #174a96;
-            padding: 12px;
-        }
-
-        .mobile-menu.active {
-            display: block;
-        }
-
-        .mobile-menu a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            padding: 9px;
-            font-size: 15px;
-        }
-
-        .mobile-menu a:hover {
-            background: rgba(255,255,255,0.12);
-        }
-
-        /* =========================
-        HERO
-        ========================= */
-
-        .hero {
-            background: linear-gradient(
-                135deg,
-                #174c9c,
-                #126dd4
-            );
-
-            color: white;
-            text-align: center;
-            padding: 70px 20px;
-        }
-
-        .hero h1 {
-            margin: 0;
-            font-size: 34px;
-        }
-
-        .hero h2 {
-            color: #ffd900;
-            margin: 12px 0;
-            font-size: 24px;
-        }
-
-        .hero p {
-            max-width: 650px;
-            margin: 15px auto 25px;
-            line-height: 1.7;
-        }
-
-        .hero-btn {
-            border: none;
-            background: #ffd400;
-            color: #111;
-            padding: 14px 35px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .hero-btn:hover {
-            background: #ffbf00;
-        }
-
-        /* =========================
-        SECTION
-        ========================= */
-
-        .section {
-            padding: 50px 15px;
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .section-title {
-            text-align: center;
-            color: #17458b;
-            margin-bottom: 30px;
-            font-size: 28px;
-        }
-
-        /* =========================
-        ECOSYSTEM
-        ========================= */
-
-        .ecosystem-grid {
-            display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(250px, 1fr));
-
-            gap: 20px;
-        }
-
-        .ecosystem-card {
-            background: white;
-            padding: 25px 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.07);
-        }
-
-        .ecosystem-card img {
-            width: 120px;
-            height: 100px;
-            object-fit: contain;
-            margin-bottom: 15px;
-        }
-
-        .ecosystem-card h3 {
-            margin: 8px 0;
-            color: #17458b;
-        }
-
-        .ecosystem-card p {
-            color: #666;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        .card-btn {
-            border: none;
-            background: #164b99;
-            color: white;
-            padding: 10px 22px;
-            border-radius: 22px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .card-btn:hover {
-            background: #0c3979;
-        }
-
-        /* =========================
-        SERVICES
-        ========================= */
-
-        .service-grid {
-            display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(220px, 1fr));
-
-            gap: 18px;
-        }
-
-        .service-card {
-            background: white;
-            padding: 25px;
-            border-radius: 14px;
-            box-shadow:
-                0 4px 15px rgba(0,0,0,0.06);
-            text-align: center;
-        }
-
-        .service-card h3 {
-            color: #17458b;
-        }
-
-        .service-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* =========================
-        CTA
-        ========================= */
-
-        .cta-section {
-            background: #174a96;
-            color: white;
-            text-align: center;
-            padding: 55px 20px;
-        }
-
-        .cta-section h2 {
-            margin-top: 0;
-        }
-
-        .cta-btn {
-            border: none;
-            background: #ffd400;
-            color: #111;
-            padding: 13px 30px;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* =========================
-        FOOTER
-        ========================= */
-
-        .footer {
-            background: #102c55;
-            color: white;
-            text-align: center;
-            padding: 30px 15px;
-        }
-
-        .footer p {
-            margin: 7px 0;
-            font-size: 13px;
-        }
-
-        /* =========================
-        MOBILE
-        ========================= */
-
-        @media (max-width: 600px) {
-
-            .main-logo {
-                font-size: 27px;
-            }
-
-            .hero {
-                padding: 55px 18px;
-            }
-
-            .hero h1 {
-                font-size: 28px;
-            }
-
-            .hero h2 {
-                font-size: 21px;
-            }
-
-            .section {
-                padding: 40px 12px;
-            }
-
-            .section-title {
-                font-size: 24px;
-            }
-
-        }
-
-    </style>
+    <link
+        rel="stylesheet"
+        href="css/index.css"
+    >
 
 </head>
 
@@ -346,31 +34,43 @@ HEADER
 
 <header class="main-header">
 
-    <h1 class="main-logo">
-        LUMENIX
-    </h1>
+    <div class="header-inner">
 
-    <p class="main-tagline">
-        Premium Ecosystem Platform
-    </p>
+        <div class="brand-area">
 
-    <div class="header-actions">
+            <h1 class="main-logo">
+                LUMENIX
+            </h1>
 
-        <button
-            type="button"
-            class="header-btn"
-            id="loginBtn"
-        >
-            Login
-        </button>
+            <p class="main-tagline">
+                Premium Ecosystem Platform
+            </p>
 
-        <button
-            type="button"
-            class="header-btn"
-            id="menuBtn"
-        >
-            ☰ Menu
-        </button>
+        </div>
+
+
+        <div class="header-actions">
+
+            <button
+                type="button"
+                class="header-btn"
+                id="loginBtn"
+            >
+                Login
+            </button>
+
+
+            <button
+                type="button"
+                class="header-btn"
+                id="menuBtn"
+                aria-label="Open menu"
+                aria-expanded="false"
+            >
+                ☰ Menu
+            </button>
+
+        </div>
 
     </div>
 
@@ -384,10 +84,15 @@ NAVIGATION
 <nav
     class="mobile-menu"
     id="mobileMenu"
+    aria-label="Main navigation"
 >
 
     <a href="#home">
         Home
+    </a>
+
+    <a href="#ecosystem">
+        Ecosystem
     </a>
 
     <a href="#services">
@@ -417,30 +122,36 @@ NAVIGATION
 HOME / HERO
 ===================================== -->
 
+<main>
+
 <section
     class="hero"
     id="home"
 >
 
-    <h1>
-        MS FARDIN ELECTRIC
-    </h1>
+    <div class="hero-content">
 
-    <h2>
-        LUMENIX BRAND
-    </h2>
+        <h1>
+            MS FARDIN ELECTRIC
+        </h1>
 
-    <p>
-        One Platform For Complete Business Management
-    </p>
+        <h2>
+            LUMENIX BRAND
+        </h2>
 
-    <button
-        type="button"
-        class="hero-btn"
-        id="exploreBtn"
-    >
-        Explore Ecosystem
-    </button>
+        <p>
+            One Platform For Complete Business Management
+        </p>
+
+        <button
+            type="button"
+            class="hero-btn"
+            id="exploreBtn"
+        >
+            Explore Ecosystem
+        </button>
+
+    </div>
 
 </section>
 
@@ -462,93 +173,123 @@ ECOSYSTEM
     <div class="ecosystem-grid">
 
 
-        <!-- LUMENIX LED -->
+        <!-- =================================
+        LIGHTING & ACCESSORIES
+        ================================= -->
 
-        <div class="ecosystem-card">
+        <article class="ecosystem-card">
 
-            <img
-                src="images/lumenix-led.png"
-                alt="LUMENIX LED"
-            >
+            <div class="card-image-wrap">
+
+                <img
+                    src="images/lumenix-led.png"
+                    alt="LUMENIX Lighting and Accessories"
+                    loading="lazy"
+                >
+
+            </div>
+
 
             <h3>
-                LUMENIX LED
+                LUMENIX Lighting & Accessories
             </h3>
 
+
             <p>
-                Lighting Product Business,
-                Dealer Network and Product
-                Management System.
+                LED lighting products,
+                electrical accessories and
+                lighting business management.
             </p>
+
 
             <button
                 type="button"
                 class="card-btn"
-                data-target="dealer"
+                id="lightingBtn"
             >
-                View Details
+                Explore Lighting
             </button>
 
-        </div>
+        </article>
 
 
-        <!-- SERVICE POINT -->
+        <!-- =================================
+        SERVICE POINT
+        ================================= -->
 
-        <div class="ecosystem-card">
+        <article class="ecosystem-card">
 
-            <img
-                src="images/lumenix-service-point.png"
-                alt="LUMENIX Service Point BD"
-            >
+            <div class="card-image-wrap">
+
+                <img
+                    src="images/lumenix-service-point.png"
+                    alt="LUMENIX Service Point BD"
+                    loading="lazy"
+                >
+
+            </div>
+
 
             <h3>
                 LUMENIX Service Point BD
             </h3>
 
+
             <p>
-                Customer Service Platform,
-                Technician Network and
-                Service Management.
+                Customer service platform,
+                technician network and
+                service management.
             </p>
+
 
             <button
                 type="button"
                 class="card-btn"
-                data-target="services"
+                id="servicePointBtn"
             >
-                Book Service
+                Open Service Point
             </button>
 
-        </div>
+        </article>
 
 
-        <!-- TRAINING -->
+        <!-- =================================
+        TRAINING
+        ================================= -->
 
-        <div class="ecosystem-card">
+        <article class="ecosystem-card">
 
-            <img
-                src="images/lumenix-training.png"
-                alt="LUMENIX Technical Training Centre"
-            >
+            <div class="card-image-wrap">
+
+                <img
+                    src="images/lumenix-training.png"
+                    alt="LUMENIX Technical Training Centre"
+                    loading="lazy"
+                >
+
+            </div>
+
 
             <h3>
                 LUMENIX Technical Training Centre
             </h3>
 
+
             <p>
-                Skill Development, Training
-                and Career Network.
+                Skill development, training
+                and career network.
             </p>
+
 
             <button
                 type="button"
                 class="card-btn"
-                data-target="training"
+                id="trainingBtn"
             >
-                Learn More
+                Open Training
             </button>
 
-        </div>
+        </article>
 
 
     </div>
@@ -573,10 +314,14 @@ SERVICES
     <div class="service-grid">
 
 
-        <div class="service-card">
+        <article class="service-card">
+
+            <div class="service-icon">
+                ⚡
+            </div>
 
             <h3>
-                ⚡ Electrical Service
+                Electrical Service
             </h3>
 
             <p>
@@ -585,21 +330,26 @@ SERVICES
                 services.
             </p>
 
+
             <button
                 type="button"
                 class="card-btn"
                 id="serviceBookBtn"
             >
-                Book Service
+                Open Service Point
             </button>
 
-        </div>
+        </article>
 
 
-        <div class="service-card">
+        <article class="service-card">
+
+            <div class="service-icon">
+                🔧
+            </div>
 
             <h3>
-                🔧 Maintenance
+                Maintenance
             </h3>
 
             <p>
@@ -607,13 +357,17 @@ SERVICES
                 and technical support.
             </p>
 
-        </div>
+        </article>
 
 
-        <div class="service-card">
+        <article class="service-card">
+
+            <div class="service-icon">
+                🏠
+            </div>
 
             <h3>
-                🏠 Smart Home
+                Smart Home
             </h3>
 
             <p>
@@ -621,7 +375,7 @@ SERVICES
                 electrical automation.
             </p>
 
-        </div>
+        </article>
 
 
     </div>
@@ -642,12 +396,18 @@ TRAINING
         Technical Training
     </h2>
 
+
     <div class="service-grid">
 
-        <div class="service-card">
+
+        <article class="service-card">
+
+            <div class="service-icon">
+                🛠
+            </div>
 
             <h3>
-                🛠 Electrical Skills
+                Electrical Skills
             </h3>
 
             <p>
@@ -655,13 +415,17 @@ TRAINING
                 and practical learning.
             </p>
 
-        </div>
+        </article>
 
 
-        <div class="service-card">
+        <article class="service-card">
+
+            <div class="service-icon">
+                📚
+            </div>
 
             <h3>
-                📚 Professional Training
+                Professional Training
             </h3>
 
             <p>
@@ -669,7 +433,7 @@ TRAINING
                 development programs.
             </p>
 
-        </div>
+        </article>
 
 
     </div>
@@ -690,7 +454,12 @@ DEALER
         Dealer Network
     </h2>
 
-    <div class="service-card">
+
+    <article class="service-card dealer-card">
+
+        <div class="service-icon">
+            🏪
+        </div>
 
         <h3>
             LUMENIX Dealer Network
@@ -702,6 +471,7 @@ DEALER
             business network support.
         </p>
 
+
         <button
             type="button"
             class="card-btn"
@@ -710,7 +480,7 @@ DEALER
             Dealer Information
         </button>
 
-    </div>
+    </article>
 
 </section>
 
@@ -728,12 +498,17 @@ PROJECTS
         Projects
     </h2>
 
+
     <div class="service-grid">
 
-        <div class="service-card">
+        <article class="service-card">
+
+            <div class="service-icon">
+                📁
+            </div>
 
             <h3>
-                📁 Project Management
+                Project Management
             </h3>
 
             <p>
@@ -741,6 +516,7 @@ PROJECTS
                 customers, status and
                 project information.
             </p>
+
 
             <button
                 type="button"
@@ -750,7 +526,7 @@ PROJECTS
                 Project Management
             </button>
 
-        </div>
+        </article>
 
     </div>
 
@@ -766,23 +542,30 @@ CONTACT
     id="contact"
 >
 
-    <h2>
-        Contact LUMENIX
-    </h2>
+    <div class="cta-content">
 
-    <p>
-        Get in touch with MS FARDIN ELECTRIC.
-    </p>
+        <h2>
+            Contact LUMENIX
+        </h2>
 
-    <button
-        type="button"
-        class="cta-btn"
-        id="contactBtn"
-    >
-        Contact Us
-    </button>
+        <p>
+            Get in touch with MS FARDIN ELECTRIC.
+        </p>
+
+
+        <button
+            type="button"
+            class="cta-btn"
+            id="contactBtn"
+        >
+            Contact Us
+        </button>
+
+    </div>
 
 </section>
+
+</main>
 
 
 <!-- =====================================
@@ -806,268 +589,10 @@ FOOTER
 </footer>
 
 
-<!-- =====================================
-JAVASCRIPT
-===================================== -->
-
-<script>
-
-"use strict";
-
-
-/* ================================
-MENU
-================================ */
-
-const menuBtn =
-    document.getElementById("menuBtn");
-
-const mobileMenu =
-    document.getElementById("mobileMenu");
-
-
-if (menuBtn && mobileMenu) {
-
-    menuBtn.addEventListener(
-        "click",
-        function () {
-
-            mobileMenu.classList.toggle(
-                "active"
-            );
-
-        }
-    );
-
-}
-
-
-/* ================================
-CLOSE MENU AFTER CLICK
-================================ */
-
-const menuLinks =
-    document.querySelectorAll(
-        ".mobile-menu a"
-    );
-
-
-menuLinks.forEach(function(link) {
-
-    link.addEventListener(
-        "click",
-        function() {
-
-            mobileMenu.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-});
-
-
-/* ================================
-LOGIN
-================================ */
-
-const loginBtn =
-    document.getElementById("loginBtn");
-
-
-if (loginBtn) {
-
-    loginBtn.addEventListener(
-        "click",
-        function() {
-
-            window.location.href =
-                "admin.html";
-
-        }
-    );
-
-}
-
-
-/* ================================
-EXPLORE ECOSYSTEM
-================================ */
-
-const exploreBtn =
-    document.getElementById("exploreBtn");
-
-
-if (exploreBtn) {
-
-    exploreBtn.addEventListener(
-        "click",
-        function() {
-
-            const ecosystem =
-                document.getElementById(
-                    "ecosystem"
-                );
-
-            if (ecosystem) {
-
-                ecosystem.scrollIntoView({
-                    behavior: "smooth"
-                });
-
-            }
-
-        }
-    );
-
-}
-
-
-/* ================================
-ECOSYSTEM CARD BUTTONS
-================================ */
-
-const cardButtons =
-    document.querySelectorAll(
-        ".card-btn[data-target]"
-    );
-
-
-cardButtons.forEach(function(button) {
-
-    button.addEventListener(
-        "click",
-        function() {
-
-            const targetId =
-                button.getAttribute(
-                    "data-target"
-                );
-
-            const target =
-                document.getElementById(
-                    targetId
-                );
-
-            if (target) {
-
-                target.scrollIntoView({
-                    behavior: "smooth"
-                });
-
-            }
-
-        }
-    );
-
-});
-
-
-/* ================================
-PROJECT MANAGEMENT
-================================ */
-
-const projectBtn =
-    document.getElementById(
-        "projectBtn"
-    );
-
-
-if (projectBtn) {
-
-    projectBtn.addEventListener(
-        "click",
-        function() {
-
-            window.location.href =
-                "project.html";
-
-        }
-    );
-
-}
-
-
-/* ================================
-SERVICE BOOKING
-================================ */
-
-const serviceBookBtn =
-    document.getElementById(
-        "serviceBookBtn"
-    );
-
-
-if (serviceBookBtn) {
-
-    serviceBookBtn.addEventListener(
-        "click",
-        function() {
-
-            alert(
-                "Service booking module is ready."
-            );
-
-        }
-    );
-
-}
-
-
-/* ================================
-DEALER
-================================ */
-
-const dealerBtn =
-    document.getElementById(
-        "dealerBtn"
-    );
-
-
-if (dealerBtn) {
-
-    dealerBtn.addEventListener(
-        "click",
-        function() {
-
-            alert(
-                "Dealer information module is ready."
-            );
-
-        }
-    );
-
-}
-
-
-/* ================================
-CONTACT
-================================ */
-
-const contactBtn =
-    document.getElementById(
-        "contactBtn"
-    );
-
-
-if (contactBtn) {
-
-    contactBtn.addEventListener(
-        "click",
-        function() {
-
-            alert(
-                "Contact module is ready."
-            );
-
-        }
-    );
-
-}
-
-
-</script>
+<script
+    src="js/index.js"
+    defer
+></script>
 
 
 </body>
