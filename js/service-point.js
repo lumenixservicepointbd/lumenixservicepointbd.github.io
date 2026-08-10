@@ -1,1044 +1,852 @@
-/* =========================================================
-   LUMENIX V5.1
-   SERVICE POINT BD
-   Customer + Service Booking Module
-   ========================================================= */
+/* =====================================
+   LUMENIX SERVICE POINT
+   V5.1 — Service Point Controller
+   ===================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+"use strict";
 
-  const STORAGE = {
-    customers: "lumenix_service_customers",
-    bookings: "lumenix_service_bookings"
-  };
+document.addEventListener("DOMContentLoaded", function () {
 
+    /* =====================================
+       SECURITY
+       ===================================== */
 
-  let customers = JSON.parse(
-    localStorage.getItem(STORAGE.customers) || "[]"
-  );
+    const loggedIn =
+        localStorage.getItem("adminLoggedIn");
 
-  let bookings = JSON.parse(
-    localStorage.getItem(STORAGE.bookings) || "[]"
-  );
-
-
-  const $ = id => document.getElementById(id);
+    if (loggedIn !== "true") {
+        window.location.href = "admin.html";
+        return;
+    }
 
 
-  /* =====================================================
-     HELPERS
-     ===================================================== */
+    /* =====================================
+       HELPERS
+       ===================================== */
 
-  function saveData() {
+    function getData(key, fallback = []) {
 
-    localStorage.setItem(
-      STORAGE.customers,
-      JSON.stringify(customers)
-    );
+        try {
 
-    localStorage.setItem(
-      STORAGE.bookings,
-      JSON.stringify(bookings)
-    );
+            const saved =
+                localStorage.getItem(key);
 
-  }
+            if (!saved) {
+                return fallback;
+            }
 
+            const parsed =
+                JSON.parse(saved);
 
-  function today() {
+            return parsed ?? fallback;
 
-    return new Date()
-      .toISOString()
-      .split("T")[0];
+        } catch (error) {
 
-  }
+            console.warn(
+                "Could not load:",
+                key,
+                error
+            );
 
-
-  function escapeHTML(value) {
-
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
+            return fallback;
+        }
+    }
 
 
-  function toast(message) {
+    function money(value) {
 
-    const element = $("toast");
+        const amount =
+            Number(value) || 0;
 
-    element.textContent = message;
-
-    element.classList.add("show");
-
-    setTimeout(() => {
-
-      element.classList.remove("show");
-
-    }, 2500);
-
-  }
+        return "৳" +
+            amount.toLocaleString("en-BD");
+    }
 
 
-  function generateID(prefix, collection) {
+    function escapeHTML(value) {
 
-    const number =
-      String(collection.length + 1)
-        .padStart(5, "0");
-
-    return `${prefix}-${number}`;
-
-  }
-
-
-  /* =====================================================
-     DEMO DATA
-     Only created when localStorage is empty.
-     ===================================================== */
-
-  if (customers.length === 0) {
-
-    customers = [
-      {
-        id: "LSP-C-00001",
-        name: "Demo Customer",
-        mobile: "01700000000",
-        altMobile: "",
-        type: "Individual",
-        division: "Dhaka",
-        district: "Dhaka",
-        area: "Demo Area",
-        address: "Demo Address",
-        registrationDate: today(),
-        status: "Active"
-      }
-    ];
-
-  }
-
-
-  if (bookings.length === 0) {
-
-    bookings = [
-      {
-        id: "LSP-B-00001",
-        customerId: "LSP-C-00001",
-        service: "Electrical",
-        date: today(),
-        time: "10:00",
-        division: "Dhaka",
-        district: "Dhaka",
-        area: "Demo Area",
-        address: "Demo Address",
-        description: "Demo electrical service request.",
-        technician: "Not Assigned",
-        status: "Pending",
-        termsAccepted: true,
-        createdAt: new Date().toISOString()
-      }
-    ];
-
-  }
-
-
-  saveData();
-
-
-  /* =====================================================
-     MODALS
-     ===================================================== */
-
-  function openModal(id) {
-
-    $(id).classList.add("show");
-
-  }
-
-
-  function closeModal(id) {
-
-    $(id).classList.remove("show");
-
-  }
-
-
-  $("newCustomerBtn").addEventListener(
-    "click",
-    () => openModal("customerModal")
-  );
-
-
-  $("newBookingBtn").addEventListener(
-    "click",
-    () => {
-
-      populateCustomerSelect();
-
-      $("bookingDate").value = today();
-
-      openModal("bookingModal");
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
 
     }
-  );
 
 
-  document.querySelectorAll("[data-close]")
-    .forEach(button => {
+    /* =====================================
+       HEADER BUTTONS
+       ===================================== */
 
-      button.addEventListener("click", () => {
-
-        closeModal(
-          button.dataset.close
+    const dashboardBtn =
+        document.getElementById(
+            "dashboardBtn"
         );
 
-      });
+    const backDashboardBtn =
+        document.getElementById(
+            "backDashboardBtn"
+        );
 
-    });
+    const logoutBtn =
+        document.getElementById(
+            "logoutBtn"
+        );
 
 
-  document.querySelectorAll(".modal-overlay")
-    .forEach(overlay => {
+    function goDashboard(event) {
 
-      overlay.addEventListener("click", event => {
+        if (event) {
+            event.preventDefault();
+        }
 
-        if (event.target === overlay) {
+        window.location.href =
+            "dashboard.html";
+    }
 
-          overlay.classList.remove("show");
+
+    if (dashboardBtn) {
+
+        dashboardBtn.addEventListener(
+            "click",
+            goDashboard
+        );
+
+    }
+
+
+    if (backDashboardBtn) {
+
+        backDashboardBtn.addEventListener(
+            "click",
+            goDashboard
+        );
+
+    }
+
+
+    if (logoutBtn) {
+
+        logoutBtn.addEventListener(
+            "click",
+            function () {
+
+                localStorage.removeItem(
+                    "adminLoggedIn"
+                );
+
+                localStorage.removeItem(
+                    "adminRole"
+                );
+
+                localStorage.removeItem(
+                    "currentUserRole"
+                );
+
+                window.location.href =
+                    "admin.html";
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+       BRAND / PROJECT DATA
+       ===================================== */
+
+    const brands = [
+
+        {
+            id: "lighting",
+            name:
+                "LUMENIX Lighting & Accessories",
+            description:
+                "Lighting products, accessories and dealer network.",
+            logo:
+                "images/lumenix-led-logo-white.png"
+        },
+
+        {
+            id: "service_point",
+            name:
+                "LUMENIX Service Point BD",
+            description:
+                "Customer service, repair and technical support.",
+            logo:
+                "images/lumenix-service-logo-white.png"
+        },
+
+        {
+            id: "training",
+            name:
+                "LUMENIX Technical Training Center",
+            description:
+                "Technical training and skill development.",
+            logo:
+                "images/lumenix-training-logo.png"
+        }
+
+    ];
+
+
+    /* =====================================
+       BRAND CARD RENDER
+       ===================================== */
+
+    const brandGrid =
+        document.getElementById(
+            "brandGrid"
+        );
+
+
+    function renderBrands() {
+
+        if (!brandGrid) {
+            return;
+        }
+
+        brandGrid.innerHTML = "";
+
+        brands.forEach(function (brand, index) {
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "brand-card";
+
+            if (index === 0) {
+                card.classList.add("active");
+            }
+
+            card.dataset.project =
+                brand.id;
+
+            card.innerHTML = `
+
+                <div class="brand-logo">
+
+                    <img
+                        src="${escapeHTML(brand.logo)}"
+                        alt="${escapeHTML(brand.name)}"
+                    >
+
+                </div>
+
+                <div class="brand-info">
+
+                    <h3>
+                        ${escapeHTML(brand.name)}
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(brand.description)}
+                    </p>
+
+                </div>
+
+            `;
+
+            card.addEventListener(
+                "click",
+                function () {
+
+                    document
+                        .querySelectorAll(
+                            ".brand-card"
+                        )
+                        .forEach(function (item) {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        });
+
+                    card.classList.add(
+                        "active"
+                    );
+
+                    localStorage.setItem(
+                        "lumenixSelectedProject",
+                        brand.id
+                    );
+
+                    updateDashboard(
+                        brand.id
+                    );
+
+                }
+            );
+
+            brandGrid.appendChild(card);
+
+        });
+
+    }
+
+
+    /* =====================================
+       PROJECT DATA
+       ===================================== */
+
+    const projects =
+        getData(
+            "lumenixProjects",
+            []
+        );
+
+
+    const transactions =
+        getData(
+            "lumenixTransactions",
+            []
+        );
+
+
+    const payments =
+        getData(
+            "lumenixPayments",
+            []
+        );
+
+
+    /* =====================================
+       SUMMARY ELEMENTS
+       ===================================== */
+
+    const totalProjects =
+        document.getElementById(
+            "totalProjects"
+        );
+
+    const totalCustomers =
+        document.getElementById(
+            "totalCustomers"
+        );
+
+    const totalServices =
+        document.getElementById(
+            "totalServices"
+        );
+
+    const pendingServices =
+        document.getElementById(
+            "pendingServices"
+        );
+
+
+    /* =====================================
+       DASHBOARD UPDATE
+       ===================================== */
+
+    function updateDashboard(projectId) {
+
+        const projectTransactions =
+            transactions.filter(
+                function (item) {
+
+                    return (
+                        item.projectId ===
+                        projectId
+                    );
+
+                }
+            );
+
+
+        const projectPayments =
+            payments.filter(
+                function (item) {
+
+                    return (
+                        item.projectId ===
+                        projectId
+                    );
+
+                }
+            );
+
+
+        let income = 0;
+        let expense = 0;
+
+
+        projectTransactions.forEach(
+            function (item) {
+
+                const amount =
+                    Number(item.amount) || 0;
+
+                if (
+                    item.type ===
+                    "income"
+                ) {
+
+                    income += amount;
+
+                } else if (
+                    item.type ===
+                    "expense"
+                ) {
+
+                    expense += amount;
+
+                }
+
+            }
+        );
+
+
+        const customerCount =
+            new Set(
+                projectPayments.map(
+                    function (item) {
+
+                        return item.customer;
+
+                    }
+                )
+            ).size;
+
+
+        if (totalProjects) {
+
+            totalProjects.textContent =
+                projects.filter(
+                    function (project) {
+
+                        return (
+                            project.projectType ===
+                            projectId ||
+                            project.projectId ===
+                            projectId
+                        );
+
+                    }
+                ).length;
 
         }
 
-      });
 
-    });
+        if (totalCustomers) {
 
+            totalCustomers.textContent =
+                customerCount;
 
-  /* =====================================================
-     CUSTOMER REGISTRATION
-     ===================================================== */
-
-  $("customerForm")
-    .addEventListener("submit", event => {
-
-      event.preventDefault();
+        }
 
 
-      const customer = {
+        if (totalServices) {
 
-        id:
-          generateID("LSP-C", customers),
+            totalServices.textContent =
+                projectTransactions.length;
 
-        name:
-          $("customerName")
-            .value
-            .trim(),
-
-        mobile:
-          $("customerMobile")
-            .value
-            .trim(),
-
-        altMobile:
-          $("customerAltMobile")
-            .value
-            .trim(),
-
-        type:
-          $("customerType").value,
-
-        division:
-          $("customerDivision")
-            .value
-            .trim(),
-
-        district:
-          $("customerDistrict")
-            .value
-            .trim(),
-
-        area:
-          $("customerArea")
-            .value
-            .trim(),
-
-        address:
-          $("customerAddress")
-            .value
-            .trim(),
-
-        registrationDate:
-          today(),
-
-        status:
-          "Active"
-
-      };
+        }
 
 
-      customers.push(customer);
+        if (pendingServices) {
 
-      saveData();
+            pendingServices.textContent =
+                projectTransactions.filter(
+                    function (item) {
 
-      event.target.reset();
+                        return (
+                            String(
+                                item.status || ""
+                            ).toLowerCase() ===
+                            "pending"
+                        );
 
-      closeModal("customerModal");
+                    }
+                ).length;
 
-      renderAll();
-
-      toast(
-        `Customer ${customer.id} registered successfully.`
-      );
-
-    });
-
-
-  /* =====================================================
-     CUSTOMER SELECT
-     ===================================================== */
-
-  function populateCustomerSelect() {
-
-    const select =
-      $("bookingCustomer");
-
-    select.innerHTML =
-      `<option value="">Select Customer</option>`;
+        }
 
 
-    customers.forEach(customer => {
-
-      const option =
-        document.createElement("option");
-
-      option.value =
-        customer.id;
-
-      option.textContent =
-        `${customer.name} — ${customer.mobile}`;
-
-      select.appendChild(option);
-
-    });
-
-  }
-
-
-  /* =====================================================
-     AUTO FILL CUSTOMER LOCATION
-     ===================================================== */
-
-  $("bookingCustomer")
-    .addEventListener("change", () => {
-
-      const customer =
-        customers.find(
-          item =>
-            item.id ===
-            $("bookingCustomer").value
+        renderTransactions(
+            projectTransactions
         );
 
-
-      if (!customer) return;
-
-
-      $("bookingDivision").value =
-        customer.division || "";
-
-      $("bookingDistrict").value =
-        customer.district || "";
-
-      $("bookingArea").value =
-        customer.area || "";
-
-      $("bookingAddress").value =
-        customer.address || "";
-
-    });
-
-
-  /* =====================================================
-     SERVICE CATEGORY QUICK SELECT
-     ===================================================== */
-
-  document.querySelectorAll(".service-box")
-    .forEach(button => {
-
-      button.addEventListener("click", () => {
-
-        const service =
-          button.dataset.service;
-
-        $("bookingService").value =
-          service;
-
-        document
-          .querySelectorAll(".service-box")
-          .forEach(item =>
-            item.classList.remove("active")
-          );
-
-        button.classList.add("active");
-
-        openModal("bookingModal");
-
-        $("bookingDate").value = today();
-
-        populateCustomerSelect();
-
-      });
-
-    });
-
-
-  /* =====================================================
-     CREATE BOOKING
-     ===================================================== */
-
-  $("bookingForm")
-    .addEventListener("submit", event => {
-
-      event.preventDefault();
-
-
-      const customerId =
-        $("bookingCustomer").value;
-
-
-      const customer =
-        customers.find(
-          item =>
-            item.id === customerId
+        renderPayments(
+            projectPayments
         );
 
-
-      if (!customer) {
-
-        toast("Please select a customer.");
-
-        return;
-
-      }
-
-
-      if (!$("termsAccepted").checked) {
-
-        toast(
-          "Terms & Conditions acceptance is required."
+        updateFinancialCards(
+            income,
+            expense
         );
-
-        return;
-
-      }
-
-
-      const booking = {
-
-        id:
-          generateID("LSP-B", bookings),
-
-        customerId,
-
-        service:
-          $("bookingService").value,
-
-        date:
-          $("bookingDate").value,
-
-        time:
-          $("bookingTime").value,
-
-        division:
-          $("bookingDivision")
-            .value
-            .trim(),
-
-        district:
-          $("bookingDistrict")
-            .value
-            .trim(),
-
-        area:
-          $("bookingArea")
-            .value
-            .trim(),
-
-        address:
-          $("bookingAddress")
-            .value
-            .trim(),
-
-        description:
-          $("bookingDescription")
-            .value
-            .trim(),
-
-        technician:
-          "Not Assigned",
-
-        status:
-          "Pending",
-
-        termsAccepted:
-          true,
-
-        agreementDate:
-          new Date().toISOString(),
-
-        createdAt:
-          new Date().toISOString()
-
-      };
-
-
-      bookings.push(booking);
-
-      saveData();
-
-      event.target.reset();
-
-      closeModal("bookingModal");
-
-      renderAll();
-
-      toast(
-        `Booking ${booking.id} created successfully.`
-      );
-
-    });
-
-
-  /* =====================================================
-     BOOKING STATUS CLASS
-     ===================================================== */
-
-  function statusClass(status) {
-
-    const map = {
-
-      "Pending": "pending",
-      "Confirmed": "confirmed",
-      "Assigned": "assigned",
-      "In Progress": "progress",
-      "Completed": "completed",
-      "Cancelled": "cancelled"
-
-    };
-
-    return map[status] || "pending";
-
-  }
-
-
-  /* =====================================================
-     RENDER SUMMARY
-     ===================================================== */
-
-  function renderSummary() {
-
-    $("totalCustomers").textContent =
-      customers.length;
-
-    $("totalBookings").textContent =
-      bookings.length;
-
-    $("completedBookings").textContent =
-      bookings.filter(
-        item =>
-          item.status === "Completed"
-      ).length;
-
-    $("pendingBookings").textContent =
-      bookings.filter(
-        item =>
-          item.status === "Pending"
-      ).length;
-
-  }
-
-
-  /* =====================================================
-     BOOKING TABLE
-     ===================================================== */
-
-  function renderBookings() {
-
-    const tbody =
-      $("bookingTableBody");
-
-
-    const search =
-      $("bookingSearch")
-        .value
-        .trim()
-        .toLowerCase();
-
-
-    const status =
-      $("statusFilter").value;
-
-
-    const service =
-      $("serviceFilter").value;
-
-
-    let list =
-      bookings.filter(booking => {
-
-        const customer =
-          customers.find(
-            item =>
-              item.id ===
-              booking.customerId
-          );
-
-
-        const customerName =
-          customer?.name || "";
-
-
-        const matchesSearch =
-          !search ||
-
-          booking.id
-            .toLowerCase()
-            .includes(search) ||
-
-          customerName
-            .toLowerCase()
-            .includes(search) ||
-
-          booking.area
-            .toLowerCase()
-            .includes(search);
-
-
-        const matchesStatus =
-          status === "all" ||
-          booking.status === status;
-
-
-        const matchesService =
-          service === "all" ||
-          booking.service === service;
-
-
-        return (
-          matchesSearch &&
-          matchesStatus &&
-          matchesService
-        );
-
-      });
-
-
-    tbody.innerHTML = "";
-
-
-    if (list.length === 0) {
-
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="8"
-              style="text-align:center;padding:35px;">
-            No service bookings found.
-          </td>
-        </tr>
-      `;
-
-      return;
 
     }
 
 
-    list
-      .slice()
-      .reverse()
-      .forEach(booking => {
+    /* =====================================
+       FINANCIAL CARDS
+       ===================================== */
 
-        const customer =
-          customers.find(
-            item =>
-              item.id ===
-              booking.customerId
-          );
+    function updateFinancialCards(
+        income,
+        expense
+    ) {
 
-
-        const row =
-          document.createElement("tr");
-
-
-        row.innerHTML = `
-
-          <td>
-            <strong>
-              ${escapeHTML(booking.id)}
-            </strong>
-          </td>
-
-          <td>
-            ${escapeHTML(
-              customer?.name || "Unknown"
-            )}
-            <br>
-            <small>
-              ${escapeHTML(
-                customer?.mobile || ""
-              )}
-            </small>
-          </td>
-
-          <td>
-            ${escapeHTML(booking.service)}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              booking.area || "-"
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(booking.date)}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              booking.technician
-            )}
-          </td>
-
-          <td>
-
-            <select
-              class="status-select"
-              data-id="${escapeHTML(booking.id)}">
-
-              ${[
-                "Pending",
-                "Confirmed",
-                "Assigned",
-                "In Progress",
-                "Completed",
-                "Cancelled"
-              ]
-                .map(option => `
-                  <option
-                    value="${option}"
-                    ${
-                      booking.status === option
-                        ? "selected"
-                        : ""
-                    }>
-                    ${option}
-                  </option>
-                `)
-                .join("")}
-
-            </select>
-
-          </td>
-
-          <td>
-
-            <button
-              class="view-btn"
-              data-view="${escapeHTML(
-                booking.id
-              )}">
-              View
-            </button>
-
-          </td>
-
-        `;
-
-
-        tbody.appendChild(row);
-
-      });
-
-
-    document
-      .querySelectorAll(".status-select")
-      .forEach(select => {
-
-        select.addEventListener(
-          "change",
-          () => {
-
-            updateBookingStatus(
-              select.dataset.id,
-              select.value
+        const totalIncome =
+            document.getElementById(
+                "totalIncome"
             );
 
-          }
-        );
-
-      });
-
-
-    document
-      .querySelectorAll("[data-view]")
-      .forEach(button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            showBookingDetails(
-              button.dataset.view
+        const totalExpense =
+            document.getElementById(
+                "totalExpense"
             );
 
-          }
+        const currentBalance =
+            document.getElementById(
+                "currentBalance"
+            );
+
+        const profitLoss =
+            document.getElementById(
+                "profitLoss"
+            );
+
+
+        const balance =
+            income - expense;
+
+
+        if (totalIncome) {
+
+            totalIncome.textContent =
+                money(income);
+
+        }
+
+
+        if (totalExpense) {
+
+            totalExpense.textContent =
+                money(expense);
+
+        }
+
+
+        if (currentBalance) {
+
+            currentBalance.textContent =
+                money(balance);
+
+        }
+
+
+        if (profitLoss) {
+
+            profitLoss.textContent =
+                money(balance);
+
+        }
+
+    }
+
+
+    /* =====================================
+       TRANSACTIONS
+       ===================================== */
+
+    const transactionBody =
+        document.getElementById(
+            "transactionTableBody"
         );
 
-      });
 
-  }
+    function renderTransactions(items) {
 
-
-  /* =====================================================
-     UPDATE STATUS
-     ===================================================== */
-
-  function updateBookingStatus(
-    bookingId,
-    newStatus
-  ) {
-
-    const booking =
-      bookings.find(
-        item =>
-          item.id === bookingId
-      );
+        if (!transactionBody) {
+            return;
+        }
 
 
-    if (!booking) return;
+        transactionBody.innerHTML = "";
 
 
-    booking.status =
-      newStatus;
+        if (
+            !items ||
+            items.length === 0
+        ) {
+
+            transactionBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        style="text-align:center;padding:28px;"
+                    >
+                        No transaction found.
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
 
 
-    saveData();
+        items
+            .slice()
+            .reverse()
+            .slice(0, 10)
+            .forEach(
+                function (item) {
 
-    renderAll();
-
-    toast(
-      `${bookingId} status updated to ${newStatus}.`
-    );
-
-  }
-
-
-  /* =====================================================
-     BOOKING DETAILS
-     ===================================================== */
-
-  function showBookingDetails(
-    bookingId
-  ) {
-
-    const booking =
-      bookings.find(
-        item =>
-          item.id === bookingId
-      );
+                    const row =
+                        document.createElement("tr");
 
 
-    if (!booking) return;
+                    row.innerHTML = `
+
+                        <td>
+                            ${escapeHTML(
+                                item.date || "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                item.type || "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                item.category || "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                item.description || "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                item.reference || "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${money(
+                                item.amount
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                item.status ||
+                                "Completed"
+                            )}
+                        </td>
+
+                    `;
+
+                    transactionBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+    }
 
 
-    const customer =
-      customers.find(
-        item =>
-          item.id ===
-          booking.customerId
-      );
+    /* =====================================
+       PAYMENTS
+       ===================================== */
+
+    const paymentBody =
+        document.getElementById(
+            "paymentTableBody"
+        );
 
 
-    $("detailsTitle").textContent =
-      booking.id;
+    function renderPayments(items) {
+
+        if (!paymentBody) {
+            return;
+        }
 
 
-    $("bookingDetails").innerHTML = `
+        paymentBody.innerHTML = "";
 
-      <div class="detail-grid">
 
-        <div class="detail-item">
-          <span>Booking ID</span>
-          <strong>
-            ${escapeHTML(booking.id)}
-          </strong>
-        </div>
+        if (
+            !items ||
+            items.length === 0
+        ) {
 
-        <div class="detail-item">
-          <span>Status</span>
-          <strong>
-            ${escapeHTML(booking.status)}
-          </strong>
-        </div>
+            paymentBody.innerHTML = `
 
-        <div class="detail-item">
-          <span>Customer</span>
-          <strong>
-            ${escapeHTML(
-              customer?.name || "-"
-            )}
-          </strong>
-        </div>
+                <tr>
 
-        <div class="detail-item">
-          <span>Mobile</span>
-          <strong>
-            ${escapeHTML(
-              customer?.mobile || "-"
-            )}
-          </strong>
-        </div>
+                    <td
+                        colspan="6"
+                        style="text-align:center;padding:28px;"
+                    >
+                        No payment record found.
+                    </td>
 
-        <div class="detail-item">
-          <span>Service</span>
-          <strong>
-            ${escapeHTML(
-              booking.service
-            )}
-          </strong>
-        </div>
+                </tr>
 
-        <div class="detail-item">
-          <span>Preferred Date</span>
-          <strong>
-            ${escapeHTML(
-              booking.date
-            )}
-          </strong>
-        </div>
+            `;
 
-        <div class="detail-item">
-          <span>Preferred Time</span>
-          <strong>
-            ${escapeHTML(
-              booking.time || "-"
-            )}
-          </strong>
-        </div>
+            return;
 
-        <div class="detail-item">
-          <span>Technician</span>
-          <strong>
-            ${escapeHTML(
-              booking.technician
-            )}
-          </strong>
-        </div>
+        }
 
-        <div class="detail-item">
-          <span>Division</span>
-          <strong>
-            ${escapeHTML(
-              booking.division || "-"
-            )}
-          </strong>
-        </div>
 
-        <div class="detail-item">
-          <span>District</span>
-          <strong>
-            ${escapeHTML(
-              booking.district || "-"
-            )}
-          </strong>
-        </div>
+        items
+            .slice()
+            .reverse()
+            .slice(0, 10)
+            .forEach(
+                function (item) {
 
-        <div class="detail-item">
-          <span>Area</span>
-          <strong>
-            ${escapeHTML(
-              booking.area || "-"
-            )}
-          </strong>
-        </div>
+                    const row =
+                        document.createElement("tr");
 
-        <div class="detail-item full">
-          <span>Service Address</span>
-          <strong>
-            ${escapeHTML(
-              booking.address || "-"
-            )}
-          </strong>
-        </div>
 
-        <div class="detail-item full">
-          <span>Problem / Description</span>
-          <strong>
-            ${escapeHTML(
-              booking.description || "-"
-            )}
-          </strong>
-        </div>
+                    row.innerHTML = `
 
-        <div class="detail-item full">
-          <span>Terms & Consent</span>
-          <strong>
-            ${
-              booking.termsAccepted
-                ? "Accepted"
-                : "Not Accepted"
+                        <td>
+                            ${escapeHTML(
+                                item.date || "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                item.customer || "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                item.method || "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                item.reference || "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${money(
+                                item.amount
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                item.status ||
+                                "Completed"
+                            )}
+                        </td>
+
+                    `;
+
+                    paymentBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* =====================================
+       SELECTED PROJECT
+       ===================================== */
+
+    const savedProject =
+        localStorage.getItem(
+            "lumenixSelectedProject"
+        );
+
+
+    const selectedProject =
+        brands.some(
+            function (brand) {
+
+                return (
+                    brand.id ===
+                    savedProject
+                );
+
             }
-          </strong>
-        </div>
-
-      </div>
-
-    `;
+        )
+            ? savedProject
+            : brands[0].id;
 
 
-    openModal("detailsModal");
+    /* =====================================
+       INITIAL LOAD
+       ===================================== */
 
-  }
+    renderBrands();
 
-
-  /* =====================================================
-     FILTER EVENTS
-     ===================================================== */
-
-  $("bookingSearch")
-    .addEventListener(
-      "input",
-      renderBookings
+    updateDashboard(
+        selectedProject
     );
 
 
-  $("statusFilter")
-    .addEventListener(
-      "change",
-      renderBookings
+    /* =====================================
+       RESTORE ACTIVE BRAND
+       ===================================== */
+
+    document
+        .querySelectorAll(".brand-card")
+        .forEach(function (card) {
+
+            if (
+                card.dataset.project ===
+                selectedProject
+            ) {
+
+                document
+                    .querySelectorAll(
+                        ".brand-card"
+                    )
+                    .forEach(function (item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    });
+
+                card.classList.add(
+                    "active"
+                );
+
+            }
+
+        });
+
+
+    /* =====================================
+       READY
+       ===================================== */
+
+    console.log(
+        "LUMENIX Service Point V5.1 loaded."
     );
-
-
-  $("serviceFilter")
-    .addEventListener(
-      "change",
-      renderBookings
-    );
-
-
-  /* =====================================================
-     INITIAL RENDER
-     ===================================================== */
-
-  function renderAll() {
-
-    renderSummary();
-
-    renderBookings();
-
-  }
-
-
-  populateCustomerSelect();
-
-  renderAll();
 
 });
