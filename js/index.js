@@ -1,69 +1,60 @@
-/* =========================================================
+/* =====================================================
    LUMENIX
-   HOMEPAGE JAVASCRIPT
-   Lightweight / Mobile Friendly
-   ========================================================= */
+   INDEX / HOME PAGE JAVASCRIPT
+   ===================================================== */
 
 "use strict";
 
+
+/* =========================================
+HELPERS
+========================================= */
+
+function goToPage(page) {
+
+    window.location.href = page;
+
+}
+
+
+function scrollToSection(id) {
+
+    const section =
+        document.getElementById(id);
+
+    if (!section) {
+        return;
+    }
+
+    section.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+/* =========================================
+DOM READY
+========================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
 
-        /* ================================
-           HELPERS
-        ================================= */
-
-        function goToPage(page) {
-
-            if (!page) {
-                return;
-            }
-
-            window.location.href = page;
-
-        }
-
-
-        function scrollToSection(id) {
-
-            const section =
-                document.getElementById(id);
-
-            if (!section) {
-                return;
-            }
-
-            section.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        }
-
-
-        /* ================================
-           MENU
+        /* =================================
+        MENU
         ================================= */
 
         const menuBtn =
-            document.getElementById(
-                "menuBtn"
-            );
-
+            document.getElementById("menuBtn");
 
         const mobileMenu =
-            document.getElementById(
-                "mobileMenu"
-            );
+            document.getElementById("mobileMenu");
 
 
-        if (
-            menuBtn &&
-            mobileMenu
-        ) {
+        if (menuBtn && mobileMenu) {
 
             menuBtn.addEventListener(
                 "click",
@@ -74,12 +65,9 @@ document.addEventListener(
                             "active"
                         );
 
-
                     menuBtn.setAttribute(
                         "aria-expanded",
                         isOpen
-                            ? "true"
-                            : "false"
                     );
 
                 }
@@ -88,8 +76,8 @@ document.addEventListener(
         }
 
 
-        /* ================================
-           CLOSE MENU AFTER LINK CLICK
+        /* =================================
+        MENU LINKS
         ================================= */
 
         const menuLinks =
@@ -105,9 +93,7 @@ document.addEventListener(
                     "click",
                     function () {
 
-                        if (
-                            mobileMenu
-                        ) {
+                        if (mobileMenu) {
 
                             mobileMenu.classList.remove(
                                 "active"
@@ -115,10 +101,7 @@ document.addEventListener(
 
                         }
 
-
-                        if (
-                            menuBtn
-                        ) {
+                        if (menuBtn) {
 
                             menuBtn.setAttribute(
                                 "aria-expanded",
@@ -134,8 +117,8 @@ document.addEventListener(
         );
 
 
-        /* ================================
-           LOGIN
+        /* =================================
+        LOGIN
         ================================= */
 
         const loginBtn =
@@ -160,8 +143,8 @@ document.addEventListener(
         }
 
 
-        /* ================================
-           EXPLORE ECOSYSTEM
+        /* =================================
+        EXPLORE ECOSYSTEM
         ================================= */
 
         const exploreBtn =
@@ -186,8 +169,9 @@ document.addEventListener(
         }
 
 
-        /* ================================
-           LIGHTING & ACCESSORIES
+        /* =================================
+        LIGHTING
+        IMPORTANT
         ================================= */
 
         const lightingBtn =
@@ -212,8 +196,8 @@ document.addEventListener(
         }
 
 
-        /* ================================
-           SERVICE POINT
+        /* =================================
+        SERVICE POINT
         ================================= */
 
         const servicePointBtn =
@@ -238,19 +222,19 @@ document.addEventListener(
         }
 
 
-        /* ================================
-           SERVICE BOOKING
+        /* =================================
+        ELECTRICAL SERVICE
         ================================= */
 
-        const serviceBookBtn =
+        const electricalServiceBtn =
             document.getElementById(
-                "serviceBookBtn"
+                "electricalServiceBtn"
             );
 
 
-        if (serviceBookBtn) {
+        if (electricalServiceBtn) {
 
-            serviceBookBtn.addEventListener(
+            electricalServiceBtn.addEventListener(
                 "click",
                 function () {
 
@@ -264,8 +248,8 @@ document.addEventListener(
         }
 
 
-        /* ================================
-           TRAINING
+        /* =================================
+        TRAINING
         ================================= */
 
         const trainingBtn =
@@ -281,14 +265,14 @@ document.addEventListener(
                 function () {
 
                     /*
-                     * Existing training module.
-                     * Change this filename only if
-                     * your main training page uses
-                     * another filename.
+                     * Training module page.
+                     * Change this filename later
+                     * if your main training page
+                     * has another name.
                      */
 
                     goToPage(
-                        "training-program.html"
+                        "training.html"
                     );
 
                 }
@@ -297,8 +281,8 @@ document.addEventListener(
         }
 
 
-        /* ================================
-           DEALER
+        /* =================================
+        DEALER
         ================================= */
 
         const dealerBtn =
@@ -313,13 +297,9 @@ document.addEventListener(
                 "click",
                 function () {
 
-                    /*
-                     * Dealer module can be connected
-                     * here when its main page is ready.
-                     */
-
-                    scrollToSection(
-                        "dealer"
+                    showToast(
+                        "Dealer Network module is ready.",
+                        "success"
                     );
 
                 }
@@ -328,8 +308,8 @@ document.addEventListener(
         }
 
 
-        /* ================================
-           PROJECT MANAGEMENT
+        /* =================================
+        PROJECT
         ================================= */
 
         const projectBtn =
@@ -354,8 +334,8 @@ document.addEventListener(
         }
 
 
-        /* ================================
-           CONTACT
+        /* =================================
+        CONTACT
         ================================= */
 
         const contactBtn =
@@ -374,38 +354,61 @@ document.addEventListener(
                         "contact"
                     );
 
+                    showToast(
+                        "Contact section opened.",
+                        "success"
+                    );
+
                 }
             );
 
         }
 
 
-        /* ================================
-           KEYBOARD ACCESSIBILITY
+        /* =================================
+        CLOSE MENU WHEN CLICKING OUTSIDE
         ================================= */
 
         document.addEventListener(
-            "keydown",
+            "click",
             function (event) {
 
                 if (
-                    event.key === "Escape" &&
-                    mobileMenu
+                    !mobileMenu ||
+                    !menuBtn
+                ) {
+                    return;
+                }
+
+
+                const clickedInsideMenu =
+                    mobileMenu.contains(
+                        event.target
+                    );
+
+
+                const clickedMenuButton =
+                    menuBtn.contains(
+                        event.target
+                    );
+
+
+                if (
+                    mobileMenu.classList.contains(
+                        "active"
+                    ) &&
+                    !clickedInsideMenu &&
+                    !clickedMenuButton
                 ) {
 
                     mobileMenu.classList.remove(
                         "active"
                     );
 
-
-                    if (menuBtn) {
-
-                        menuBtn.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                    }
+                    menuBtn.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
 
                 }
 
@@ -413,14 +416,61 @@ document.addEventListener(
         );
 
 
-        /* ================================
-           HOME PAGE READY
+        /* =================================
+        TOAST
+        ================================= */
+
+        window.showToast =
+            function (
+                message,
+                type = "success"
+            ) {
+
+                const toast =
+                    document.getElementById(
+                        "toast"
+                    );
+
+
+                if (!toast) {
+                    return;
+                }
+
+
+                toast.textContent =
+                    message;
+
+
+                toast.className =
+                    "toast show " + type;
+
+
+                clearTimeout(
+                    window.lumenixToastTimer
+                );
+
+
+                window.lumenixToastTimer =
+                    setTimeout(
+                        function () {
+
+                            toast.className =
+                                "toast";
+
+                        },
+                        2500
+                    );
+
+            };
+
+
+        /* =================================
+        PAGE LOADED
         ================================= */
 
         console.log(
-            "LUMENIX Homepage loaded successfully."
+            "LUMENIX Home Page loaded successfully."
         );
-
 
     }
 );
