@@ -59,6 +59,10 @@ document.addEventListener(
                     );
 
 
+                    /* =================================
+                    SUPER ADMIN SESSION
+                    ================================= */
+
                     localStorage.setItem(
                         "adminLoggedIn",
                         "true"
@@ -66,8 +70,14 @@ document.addEventListener(
 
 
                     localStorage.setItem(
-                        "adminRole",
+                        "currentUserRole",
                         "super_admin"
+                    );
+
+
+                    localStorage.setItem(
+                        "currentUsername",
+                        username
                     );
 
 
