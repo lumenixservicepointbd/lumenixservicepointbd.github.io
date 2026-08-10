@@ -1,112 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>LUMENIX | Role & Permission</title>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/role-permission.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="css/role-permission.css">
+
 </head>
 
 <body>
 
 <header class="rp-header">
+
     <div>
+
         <h1>LUMENIX</h1>
-        <p>V5.1 Role & Permission Control</p>
+
+        <p>
+            V5.1 Role & Permission Control
+        </p>
+
     </div>
 
     <div class="header-actions">
-        <a href="dashboard.html" class="back-btn">← Dashboard</a>
+
+        <a
+            href="dashboard.html"
+            class="back-btn">
+            ← Dashboard
+        </a>
+
     </div>
+
 </header>
+
 
 <main class="rp-container">
 
+
+    <!-- =====================================
+    PAGE INTRO
+    ===================================== -->
+
     <section class="page-intro">
+
         <div>
-            <span class="eyebrow">ADMIN CONTROL</span>
-            <h2>Role & Permission Management</h2>
+
+            <span class="eyebrow">
+                ADMIN CONTROL
+            </span>
+
+            <h2>
+                Role & Permission Management
+            </h2>
+
             <p>
-                Control users, roles and module-level access from one place.
+                Control users, roles, permissions and
+                technician profiles from one place.
             </p>
+
         </div>
 
-        <button id="saveAllBtn" class="primary-btn">
+        <button
+            id="saveAllBtn"
+            class="primary-btn">
+
             Save Changes
+
         </button>
+
     </section>
 
-    <!-- SUMMARY -->
+
+    <!-- =====================================
+    SUMMARY
+    ===================================== -->
 
     <section class="summary-grid">
 
         <div class="summary-card">
+
             <span>👤</span>
+
             <div>
-                <strong id="totalUsers">0</strong>
-                <small>Total Users</small>
+
+                <strong id="totalUsers">
+                    0
+                </strong>
+
+                <small>
+                    Total Users
+                </small>
+
             </div>
+
         </div>
 
+
         <div class="summary-card">
+
             <span>🛡️</span>
+
             <div>
-                <strong id="totalRoles">0</strong>
-                <small>Total Roles</small>
+
+                <strong id="totalRoles">
+                    0
+                </strong>
+
+                <small>
+                    Total Roles
+                </small>
+
             </div>
+
         </div>
 
+
         <div class="summary-card">
+
             <span>🔐</span>
+
             <div>
-                <strong id="activeUsers">0</strong>
-                <small>Active Users</small>
+
+                <strong id="activeUsers">
+                    0
+                </strong>
+
+                <small>
+                    Active Users
+                </small>
+
             </div>
+
         </div>
 
+
         <div class="summary-card">
+
             <span>⚙️</span>
+
             <div>
-                <strong id="permissionCount">0</strong>
-                <small>Permission Rules</small>
+
+                <strong id="permissionCount">
+                    0
+                </strong>
+
+                <small>
+                    Permission Rules
+                </small>
+
             </div>
+
         </div>
 
     </section>
 
 
-    <!-- USER MANAGEMENT -->
+    <!-- =====================================
+    USER MANAGEMENT
+    ===================================== -->
 
     <section class="panel">
 
         <div class="panel-header">
+
             <div>
-                <h3>User Management</h3>
-                <p>Create users and assign system roles.</p>
+
+                <h3>
+                    User Management
+                </h3>
+
+                <p>
+                    Create users and assign system roles.
+                </p>
+
             </div>
 
-            <button id="addUserBtn" class="primary-btn">
+            <button
+                id="addUserBtn"
+                class="primary-btn">
+
                 + Add User
+
             </button>
+
         </div>
+
 
         <div class="table-wrapper">
 
             <table class="data-table">
 
                 <thead>
+
                     <tr>
+
                         <th>User ID</th>
+
                         <th>Name</th>
+
                         <th>Username</th>
+
                         <th>Role</th>
+
                         <th>Status</th>
+
                         <th>Actions</th>
+
                     </tr>
+
                 </thead>
+
 
                 <tbody id="usersTableBody"></tbody>
 
@@ -117,59 +234,182 @@
     </section>
 
 
-    <!-- ROLE MANAGEMENT -->
+    <!-- =====================================
+    TECHNICIAN MANAGEMENT
+    ===================================== -->
+
+    <section class="panel technician-management">
+
+        <div class="panel-header">
+
+            <div>
+
+                <span class="eyebrow">
+                    SERVICE POINT
+                </span>
+
+                <h3>
+                    Verified Technician Profiles
+                </h3>
+
+                <p>
+                    Manage technician identity, work,
+                    department and area-based service
+                    information.
+                </p>
+
+            </div>
+
+
+            <button
+                id="addTechnicianBtn"
+                class="primary-btn">
+
+                + Add Technician
+
+            </button>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table class="data-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Technician</th>
+
+                        <th>Department</th>
+
+                        <th>District</th>
+
+                        <th>Area</th>
+
+                        <th>Verification</th>
+
+                        <th>Status</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="techniciansTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+    ROLE MANAGEMENT
+    ===================================== -->
 
     <section class="panel">
 
         <div class="panel-header">
+
             <div>
-                <h3>Role Management</h3>
-                <p>Select a role and configure its permissions.</p>
+
+                <h3>
+                    Role Management
+                </h3>
+
+                <p>
+                    Select a role and configure its permissions.
+                </p>
+
             </div>
 
-            <button id="addRoleBtn" class="secondary-btn">
+
+            <button
+                id="addRoleBtn"
+                class="secondary-btn">
+
                 + Add Role
+
             </button>
+
         </div>
+
 
         <div class="role-layout">
 
-            <aside class="role-list" id="roleList"></aside>
+            <aside
+                class="role-list"
+                id="roleList">
+            </aside>
+
 
             <div class="permission-area">
 
                 <div class="permission-header">
 
                     <div>
-                        <span class="eyebrow">SELECTED ROLE</span>
-                        <h3 id="selectedRoleName">Super Admin</h3>
+
+                        <span class="eyebrow">
+                            SELECTED ROLE
+                        </span>
+
+                        <h3 id="selectedRoleName">
+                            Super Admin
+                        </h3>
+
                         <p id="selectedRoleDescription">
                             Full system control.
                         </p>
+
                     </div>
 
-                    <button id="selectAllBtn" class="small-btn">
+
+                    <button
+                        id="selectAllBtn"
+                        class="small-btn">
+
                         Select All
+
                     </button>
 
                 </div>
+
 
                 <div class="permission-table-wrapper">
 
                     <table class="permission-table">
 
                         <thead>
+
                             <tr>
+
                                 <th>Module</th>
+
                                 <th>View</th>
+
                                 <th>Add</th>
+
                                 <th>Edit</th>
+
                                 <th>Delete</th>
+
                                 <th>Manage</th>
+
                             </tr>
+
                         </thead>
 
-                        <tbody id="permissionTableBody"></tbody>
+
+                        <tbody
+                            id="permissionTableBody">
+                        </tbody>
 
                     </table>
 
@@ -182,27 +422,63 @@
     </section>
 
 
-    <!-- ACCESS PRINCIPLE -->
+    <!-- =====================================
+    ACCESS PRINCIPLE
+    ===================================== -->
 
     <section class="security-note">
 
-        <div class="security-icon">🔒</div>
+        <div class="security-icon">
+            🔒
+        </div>
+
 
         <div>
-            <h3>Access Control Principle</h3>
+
+            <h3>
+                Access Control Principle
+            </h3>
+
 
             <p>
-                A user should only see and use modules permitted by their
-                assigned role. Customer, Technician, Dealer, Employee and
-                other accounts must remain separated by role and permission.
+
+                A user should only see and use modules
+                permitted by their assigned role.
+                Customer, Technician, Dealer, Employee
+                and other accounts remain separated by
+                role and permission.
+
             </p>
 
+
             <div class="boundary-list">
-                <span>✓ Role Based Access</span>
-                <span>✓ Module Visibility</span>
-                <span>✓ Permission Separation</span>
-                <span>✓ Data Boundary</span>
+
+                <span>
+                    ✓ Role Based Access
+                </span>
+
+                <span>
+                    ✓ Module Visibility
+                </span>
+
+                <span>
+                    ✓ Permission Separation
+                </span>
+
+                <span>
+                    ✓ Data Boundary
+                </span>
+
+                <span>
+                    ✓ Verified Technician Profiles
+                </span>
+
+                <span>
+                    ✓ Area Based Technician System
+                </span>
+
             </div>
+
         </div>
 
     </section>
@@ -210,58 +486,117 @@
 </main>
 
 
-<!-- USER MODAL -->
+<!-- =====================================
+USER MODAL
+===================================== -->
 
-<div class="modal" id="userModal">
+<div
+    class="modal"
+    id="userModal">
 
     <div class="modal-box">
 
         <div class="modal-header">
-            <h3 id="userModalTitle">Add User</h3>
-            <button class="close-modal" data-close="userModal">×</button>
+
+            <h3 id="userModalTitle">
+                Add User
+            </h3>
+
+            <button
+                class="close-modal"
+                data-close="userModal">
+
+                ×
+
+            </button>
+
         </div>
+
 
         <form id="userForm">
 
-            <input type="hidden" id="editUserId">
+            <input
+                type="hidden"
+                id="editUserId">
+
 
             <div class="form-grid">
 
                 <label>
+
                     Full Name
-                    <input type="text" id="userName" required>
+
+                    <input
+                        type="text"
+                        id="userName"
+                        required>
+
                 </label>
 
+
                 <label>
+
                     Username
-                    <input type="text" id="userUsername" required>
+
+                    <input
+                        type="text"
+                        id="userUsername"
+                        required>
+
                 </label>
 
+
                 <label>
+
                     User Role
-                    <select id="userRole" required></select>
+
+                    <select
+                        id="userRole"
+                        required>
+                    </select>
+
                 </label>
 
+
                 <label>
+
                     Status
+
                     <select id="userStatus">
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
                     </select>
+
                 </label>
 
             </div>
 
+
             <div class="modal-actions">
 
-                <button type="button"
-                        class="secondary-btn"
-                        data-close="userModal">
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    data-close="userModal">
+
                     Cancel
+
                 </button>
 
-                <button type="submit" class="primary-btn">
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+
                     Save User
+
                 </button>
 
             </div>
@@ -273,39 +608,327 @@
 </div>
 
 
-<!-- ROLE MODAL -->
+<!-- =====================================
+TECHNICIAN PROFILE MODAL
+===================================== -->
 
-<div class="modal" id="roleModal">
+<div
+    class="modal"
+    id="technicianModal">
 
     <div class="modal-box">
 
         <div class="modal-header">
-            <h3>Add Role</h3>
-            <button class="close-modal" data-close="roleModal">×</button>
+
+            <h3 id="technicianModalTitle">
+                Add Technician Profile
+            </h3>
+
+            <button
+                class="close-modal"
+                data-close="technicianModal">
+
+                ×
+
+            </button>
+
         </div>
+
+
+        <form id="technicianForm">
+
+            <input
+                type="hidden"
+                id="editTechnicianId">
+
+
+            <div class="form-grid">
+
+                <label>
+
+                    Full Name
+
+                    <input
+                        type="text"
+                        id="technicianName"
+                        required>
+
+                </label>
+
+
+                <label>
+
+                    Username
+
+                    <input
+                        type="text"
+                        id="technicianUsername"
+                        required>
+
+                </label>
+
+
+                <label>
+
+                    Phone
+
+                    <input
+                        type="tel"
+                        id="technicianPhone">
+
+                </label>
+
+
+                <label>
+
+                    Email
+
+                    <input
+                        type="email"
+                        id="technicianEmail">
+
+                </label>
+
+
+                <label>
+
+                    Department
+
+                    <input
+                        type="text"
+                        id="technicianDepartment"
+                        placeholder="Example: Electrical">
+
+                </label>
+
+
+                <label>
+
+                    District
+
+                    <input
+                        type="text"
+                        id="technicianDistrict"
+                        placeholder="Technician District">
+
+                </label>
+
+
+                <label>
+
+                    Area
+
+                    <input
+                        type="text"
+                        id="technicianArea"
+                        placeholder="Technician Service Area">
+
+                </label>
+
+
+                <label>
+
+                    Experience
+
+                    <input
+                        type="text"
+                        id="technicianExperience"
+                        placeholder="Example: 5 Years">
+
+                </label>
+
+
+                <label>
+
+                    Profile Photo URL
+
+                    <input
+                        type="url"
+                        id="technicianPhoto"
+                        placeholder="https://...">
+
+                </label>
+
+
+                <label>
+
+                    Profile Status
+
+                    <select id="technicianStatus">
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+
+                    Verified Profile
+
+                    <select id="technicianVerified">
+
+                        <option value="true">
+                            Verified
+                        </option>
+
+                        <option value="false">
+                            Not Verified
+                        </option>
+
+                    </select>
+
+                </label>
+
+            </div>
+
+
+            <label>
+
+                Work Description
+
+                <textarea
+                    id="technicianWorkDescription"
+                    rows="4"
+                    placeholder="Technician's work description">
+                </textarea>
+
+            </label>
+
+
+            <label>
+
+                Services
+
+                <textarea
+                    id="technicianServices"
+                    rows="3"
+                    placeholder="Example: Wiring, Maintenance, Installation">
+                </textarea>
+
+            </label>
+
+
+            <label>
+
+                Profile Bio
+
+                <textarea
+                    id="technicianBio"
+                    rows="4"
+                    placeholder="Public technician profile information">
+                </textarea>
+
+            </label>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    data-close="technicianModal">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+
+                    Save Technician Profile
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+ROLE MODAL
+===================================== -->
+
+<div
+    class="modal"
+    id="roleModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                Add Role
+            </h3>
+
+            <button
+                class="close-modal"
+                data-close="roleModal">
+
+                ×
+
+            </button>
+
+        </div>
+
 
         <form id="roleForm">
 
             <label>
+
                 Role Name
-                <input type="text" id="roleName" required>
+
+                <input
+                    type="text"
+                    id="roleName"
+                    required>
+
             </label>
 
+
             <label>
+
                 Description
-                <textarea id="roleDescription" rows="4"></textarea>
+
+                <textarea
+                    id="roleDescription"
+                    rows="4">
+                </textarea>
+
             </label>
+
 
             <div class="modal-actions">
 
-                <button type="button"
-                        class="secondary-btn"
-                        data-close="roleModal">
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    data-close="roleModal">
+
                     Cancel
+
                 </button>
 
-                <button type="submit" class="primary-btn">
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+
                     Create Role
+
                 </button>
 
             </div>
@@ -320,4 +943,5 @@
 <script src="js/role-permission.js"></script>
 
 </body>
+
 </html>
