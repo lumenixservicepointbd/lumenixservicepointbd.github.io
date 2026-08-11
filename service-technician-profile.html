@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LUMENIX | Technician Profile</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #07111f;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 900px;
+            margin: auto;
+            padding: 18px;
+        }
+
+        .header,
+        .card {
+            background: linear-gradient(145deg, #10253d, #0b1a2d);
+            border: 1px solid #1e3b59;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand img {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 12px;
+            padding: 6px;
+        }
+
+        .brand h1 {
+            font-size: 22px;
+        }
+
+        .brand p {
+            color: #8fa6bd;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .btn {
+            border: 1px solid #294a6c;
+            background: #12304f;
+            color: #fff;
+            padding: 13px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .primary {
+            background: #087fe5;
+            border-color: #087fe5;
+        }
+
+        .hero {
+            padding: 5px 2px 20px;
+        }
+
+        .eyebrow {
+            color: #36a4ff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .hero h2 {
+            font-size: 31px;
+            margin-bottom: 9px;
+        }
+
+        .hero p,
+        .muted {
+            color: #8da3ba;
+            line-height: 1.6;
+        }
+
+        .muted {
+            margin: 7px 0 18px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .summary {
+            background: #091a2d;
+            border: 1px solid #1e3a57;
+            border-radius: 15px;
+            padding: 15px;
+        }
+
+        .summary span {
+            display: block;
+            color: #8299b1;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .summary strong {
+            font-size: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            color: #c9d6e3;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border-radius: 11px;
+            border: 1px solid #294662;
+            background: #08182a;
+            color: #fff;
+            outline: none;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #1595ff;
+        }
+
+        .save-btn {
+            width: 100%;
+            border: 0;
+            background: #0789ed;
+            color: #fff;
+            padding: 14px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .technician-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .technician {
+            background: #09192c;
+            border: 1px solid #1e3b58;
+            border-radius: 15px;
+            padding: 16px;
+        }
+
+        .technician strong {
+            display: block;
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .technician p {
+            color: #8ea4bb;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .empty {
+            text-align: center;
+            color: #7e95ad;
+            padding: 20px;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 22px;
+            transform: translate(-50%, 20px);
+            background: #087fe5;
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        @media (max-width: 650px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero h2 {
+                font-size: 27px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <header class="header">
+
+        <div class="brand">
+
+            <img
+                src="images/lumenix-service-logo-white.png"
+                alt="LUMENIX Service Point BD"
+            >
+
+            <div>
+                <h1>LUMENIX</h1>
+                <p>Service Point BD</p>
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <button
+                class="btn primary"
+                id="servicePointBtn"
+            >
+                🛠️ Service Point
+            </button>
+
+            <button
+                class="btn"
+                id="dashboardBtn"
+            >
+                🏠 Dashboard
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            SERVICE POINT BD
+        </div>
+
+        <h2>
+            Technician Profile
+        </h2>
+
+        <p>
+            Manage technician information,
+            assigned services, completed work,
+            earnings and service history.
+        </p>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>
+            Technician Summary
+        </h3>
+
+        <p class="muted">
+            Current overview of registered
+            Service Point technicians.
+        </p>
+
+        <div class="summary-grid">
+
+            <div class="summary">
+                <span>Total Technicians</span>
+                <strong id="totalTechnicians">0</strong>
+            </div>
+
+            <div class="summary">
+                <span>Assigned Services</span>
+                <strong id="assignedServices">0</strong>
+            </div>
+
+            <div class="summary">
+                <span>Completed Services</span>
+                <strong id="completedServices">0</strong>
+            </div>
+
+            <div class="summary">
+                <span>Total Earnings</span>
+                <strong id="totalEarnings">৳0</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>
+            Create Technician Profile
+        </h3>
+
+        <p class="muted">
+            Create an individual profile for
+            each LUMENIX Service Point technician.
+        </p>
+
+        <form id="technicianForm">
+
+            <div class="form-grid">
+
+                <div>
+                    <label for="technicianName">
+                        Technician Name
+                    </label>
+
+                    <input
+                        id="technicianName"
+                        type="text"
+                        required
+                        placeholder="Technician name"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="technicianCode">
+                        Technician Code
+                    </label>
+
+                    <input
+                        id="technicianCode"
+                        type="text"
+                        placeholder="Technician ID / Code"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="phone">
+                        Phone
+                    </label>
+
+                    <input
+                        id="phone"
+                        type="tel"
+                        required
+                        placeholder="Phone number"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="specialization">
+                        Specialization
+                    </label>
+
+                    <input
+                        id="specialization"
+                        type="text"
+                        placeholder="Service specialization"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="location">
+                        Working Area
+                    </label>
+
+                    <input
+                        id="location"
+                        type="text"
+                        placeholder="Working area"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="status">
+                        Technician Status
+                    </label>
+
+                    <select id="status">
+
+                        <option value="Available">
+                            Available
+                        </option>
+
+                        <option value="Busy">
+                            Busy
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div class="full">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        placeholder="Technician address"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="full">
+
+                    <label for="notes">
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        placeholder="Additional technician information"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                + Save Technician Profile
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>
+            Technician Profiles
+        </h3>
+
+        <p class="muted">
+            Registered LUMENIX Service Point
+            technicians.
+        </p>
+
+        <div
+            class="technician-list"
+            id="technicianList"
+        ></div>
+
+    </section>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+"use strict";
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const STORAGE_KEY =
+            "lumenixServiceTechnicians";
+
+        let technicians = [];
+
+        try {
+
+            technicians =
+                JSON.parse(
+                    localStorage.getItem(
+                        STORAGE_KEY
+                    )
+                ) || [];
+
+        } catch (error) {
+
+            technicians = [];
+
+        }
+
+
+        const form =
+            document.getElementById(
+                "technicianForm"
+            );
+
+        const list =
+            document.getElementById(
+                "technicianList"
+            );
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        function showToast(message) {
+
+            toast.textContent = message;
+
+            toast.classList.add("show");
+
+            clearTimeout(showToast.timer);
+
+            showToast.timer =
+                setTimeout(
+                    function () {
+                        toast.classList.remove("show");
+                    },
+                    2200
+                );
+        }
+
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        function updateSummary() {
+
+            let assigned = 0;
+            let completed = 0;
+            let earnings = 0;
+
+            technicians.forEach(
+                function (technician) {
+
+                    assigned += Number(
+                        technician.assignedServices || 0
+                    );
+
+                    completed += Number(
+                        technician.completedServices || 0
+                    );
+
+                    earnings += Number(
+                        technician.earnings || 0
+                    );
+                }
+            );
+
+
+            document.getElementById(
+                "totalTechnicians"
+            ).textContent =
+                technicians.length;
+
+            document.getElementById(
+                "assignedServices"
+            ).textContent =
+                assigned;
+
+            document.getElementById(
+                "completedServices"
+            ).textContent =
+                completed;
+
+            document.getElementById(
+                "totalEarnings"
+            ).textContent =
+                "৳" + earnings;
+        }
+
+
+        function renderTechnicians() {
+
+            list.innerHTML = "";
+
+
+            if (!technicians.length) {
+
+                list.innerHTML = `
+                    <div class="empty">
+                        No technician profile found.
+                    </div>
+                `;
+
+                updateSummary();
+
+                return;
+            }
+
+
+            technicians
+                .slice()
+                .reverse()
+                .forEach(
+                    function (technician) {
+
+                        const item =
+                            document.createElement(
+                                "div"
+                            );
+
+                        item.className =
+                            "technician";
+
+                        item.innerHTML = `
+
+                            <strong>
+                                ${escapeHTML(
+                                    technician.technicianName
+                                )}
+                            </strong>
+
+                            <p>
+                                Technician Code:
+                                ${escapeHTML(
+                                    technician.technicianCode || "-"
+                                )}
+                            </p>
+
+                            <p>
+                                Phone:
+                                ${escapeHTML(
+                                    technician.phone
+                                )}
+                            </p>
+
+                            <p>
+                                Specialization:
+                                ${escapeHTML(
+                                    technician.specialization || "-"
+                                )}
+                            </p>
+
+                            <p>
+                                Working Area:
+                                ${escapeHTML(
+                                    technician.location || "-"
+                                )}
+                            </p>
+
+                            <p>
+                                Status:
+                                ${escapeHTML(
+                                    technician.status
+                                )}
+                            </p>
+
+                        `;
+
+                        list.appendChild(item);
+                    }
+                );
+
+
+            updateSummary();
+        }
+
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const technician = {
+
+                    id:
+                        "TECH-" +
+                        Date.now(),
+
+                    technicianName:
+                        document
+                            .getElementById(
+                                "technicianName"
+                            )
+                            .value
+                            .trim(),
+
+                    technicianCode:
+                        document
+                            .getElementById(
+                                "technicianCode"
+                            )
+                            .value
+                            .trim(),
+
+                    phone:
+                        document
+                            .getElementById(
+                                "phone"
+                            )
+                            .value
+                            .trim(),
+
+                    specialization:
+                        document
+                            .getElementById(
+                                "specialization"
+                            )
+                            .value
+                            .trim(),
+
+                    location:
+                        document
+                            .getElementById(
+                                "location"
+                            )
+                            .value
+                            .trim(),
+
+                    status:
+                        document
+                            .getElementById(
+                                "status"
+                            )
+                            .value,
+
+                    address:
+                        document
+                            .getElementById(
+                                "address"
+                            )
+                            .value
+                            .trim(),
+
+                    notes:
+                        document
+                            .getElementById(
+                                "notes"
+                            )
+                            .value
+                            .trim(),
+
+                    assignedServices: 0,
+
+                    completedServices: 0,
+
+                    earnings: 0,
+
+                    createdAt:
+                        new Date().toISOString()
+                };
+
+
+                technicians.push(
+                    technician
+                );
+
+
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(
+                        technicians
+                    )
+                );
+
+
+                form.reset();
+
+                renderTechnicians();
+
+                showToast(
+                    "Technician profile saved successfully."
+                );
+
+            }
+        );
+
+
+        document
+            .getElementById(
+                "servicePointBtn"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "service-point.html";
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "dashboardBtn"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                }
+            );
+
+
+        renderTechnicians();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
