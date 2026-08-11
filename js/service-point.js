@@ -1,953 +1,828 @@
-/* =========================================================
-   LUMENIX V5.1
-   SERVICE POINT BD
-   COMPLETE JAVASCRIPT
-   ========================================================= */
+/* =====================================
+LUMENIX V5.1
+SERVICE POINT CONTROLLER
+REPLACEMENT VERSION
+===================================== */
 
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* =====================================================
-       STORAGE
-       ===================================================== */
+    /* =====================================
+    SECURITY
+    ===================================== */
 
-    const CUSTOMER_KEY = "lumenixServiceCustomers";
-    const BOOKING_KEY = "lumenixServiceBookings";
+    const loggedIn =
+        localStorage.getItem("adminLoggedIn");
+
+    if (loggedIn !== "true") {
+
+        window.location.href = "admin.html";
+
+        return;
+    }
 
 
-    function getData(key) {
+    /* =====================================
+    NAVIGATION HELPER
+    ===================================== */
 
-        try {
+    function goTo(page) {
 
-            return JSON.parse(
-                localStorage.getItem(key)
-            ) || [];
-
-        } catch (error) {
-
-            return [];
-
-        }
+        window.location.href = page;
 
     }
 
 
-    function saveData(key, data) {
+    /* =====================================
+    HEADER NAVIGATION
+    ===================================== */
 
-        localStorage.setItem(
-            key,
-            JSON.stringify(data)
-        );
+    const dashboardBtn =
+        document.getElementById("dashboardBtn");
 
-    }
+    const logoutBtn =
+        document.getElementById("logoutBtn");
 
 
-    /* =====================================================
-       DATA
-       ===================================================== */
+    if (dashboardBtn) {
 
-    let customers = getData(CUSTOMER_KEY);
-
-    let bookings = getData(BOOKING_KEY);
-
-
-    /* =====================================================
-       ELEMENT HELPERS
-       ===================================================== */
-
-    function find(...selectors) {
-
-        for (const selector of selectors) {
-
-            const element =
-                document.querySelector(selector);
-
-            if (element) return element;
-
-        }
-
-        return null;
-
-    }
-
-
-    function findAll(selector) {
-
-        return document.querySelectorAll(selector);
-
-    }
-
-
-    /* =====================================================
-       TOAST
-       ===================================================== */
-
-    function showToast(message) {
-
-        let toast =
-            find(
-                "#spToast",
-                ".sp-toast",
-                "#toast"
-            );
-
-
-        if (!toast) {
-
-            toast =
-                document.createElement("div");
-
-            toast.className = "sp-toast";
-
-            toast.id = "spToast";
-
-            document.body.appendChild(toast);
-
-        }
-
-
-        toast.textContent = message;
-
-        toast.classList.add("show");
-
-
-        clearTimeout(
-            window.lumenixToastTimer
-        );
-
-
-        window.lumenixToastTimer =
-            setTimeout(function () {
-
-                toast.classList.remove("show");
-
-            }, 2500);
-
-    }
-
-
-    /* =====================================================
-       DASHBOARD BUTTON
-       ===================================================== */
-
-    const dashboardButtons =
-        findAll(
-            "#dashboardBtn, #dashboardButton, .sp-dashboard-btn"
-        );
-
-
-    dashboardButtons.forEach(function (button) {
-
-        button.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                window.location.href =
-                    "dashboard.html";
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       BUSINESS DIVISION BUTTONS
-       ===================================================== */
-
-    const divisionButtons =
-        findAll(
-            ".business-action"
-        );
-
-
-    divisionButtons.forEach(function (button) {
-
-        button.addEventListener(
-            "click",
-            function (event) {
-
-                const href =
-                    button.getAttribute("href");
-
-
-                if (href && href !== "#") {
-
-                    return;
-
-                }
-
-
-                event.preventDefault();
-
-                showToast(
-                    "This business division is selected."
-                );
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       SERVICE CATEGORY
-       ===================================================== */
-
-    const categoryButtons =
-        findAll(
-            ".category-card"
-        );
-
-
-    categoryButtons.forEach(function (button) {
-
-        button.addEventListener(
+        dashboardBtn.addEventListener(
             "click",
             function () {
 
-                const service =
-                    button.dataset.service ||
-                    button.querySelector("strong")?.textContent ||
-                    "Service";
+                goTo("dashboard.html");
+
+            }
+        );
+
+    }
 
 
-                const serviceSelect =
-                    find(
-                        "#bookingService",
-                        "#serviceFilter"
+    if (logoutBtn) {
+
+        logoutBtn.addEventListener(
+            "click",
+            function () {
+
+                const confirmLogout =
+                    confirm(
+                        "Are you sure you want to logout?"
                     );
 
 
-                if (serviceSelect) {
-
-                    const option =
-                        Array.from(
-                            serviceSelect.options
-                        ).find(function (option) {
-
-                            return (
-                                option.value === service ||
-                                option.textContent.trim() === service
-                            );
-
-                        });
+                if (!confirmLogout) return;
 
 
-                    if (option) {
+                localStorage.removeItem(
+                    "adminLoggedIn"
+                );
 
-                        serviceSelect.value =
-                            option.value;
+                localStorage.removeItem(
+                    "adminRole"
+                );
+
+                localStorage.removeItem(
+                    "currentUserRole"
+                );
+
+
+                goTo("admin.html");
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+    DIVISION NAVIGATION
+    ===================================== */
+
+    /*
+    IMPORTANT:
+    Only ONE set of division cards exists
+    in the new HTML.
+
+    Each card uses data-division.
+    */
+
+
+    const divisionButtons =
+        document.querySelectorAll(
+            ".division-btn"
+        );
+
+
+    divisionButtons.forEach(
+        function (button) {
+
+            button.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    const division =
+                        button.dataset.division;
+
+
+                    if (
+                        division ===
+                        "service-point"
+                    ) {
+
+                        /*
+                        Current page.
+                        No unnecessary reload.
+                        */
+
+                        showToast(
+                            "Service Point is already open."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        division ===
+                        "lighting"
+                    ) {
+
+                        /*
+                        Lighting division.
+                        */
+
+                        goTo(
+                            "lighting.html"
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        division ===
+                        "training"
+                    ) {
+
+                        /*
+                        Training division.
+                        */
+
+                        goTo(
+                            "training.html"
+                        );
+
+                        return;
 
                     }
 
                 }
-
-
-                showToast(
-                    service + " selected."
-                );
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       CUSTOMER MODAL
-       ===================================================== */
-
-    const modal =
-        find(
-            "#customerModal",
-            ".sp-modal-overlay"
-        );
-
-
-    const openCustomerButtons =
-        findAll(
-            "#openCustomerModal",
-            "#addCustomerBtn",
-            "#customerBtn",
-            ".customer-action"
-        );
-
-
-    function openCustomerModal() {
-
-        if (!modal) return;
-
-        modal.classList.add("active");
-
-        modal.style.display = "flex";
-
-    }
-
-
-    function closeCustomerModal() {
-
-        if (!modal) return;
-
-        modal.classList.remove("active");
-
-        modal.style.display = "none";
-
-    }
-
-
-    openCustomerButtons.forEach(function (button) {
-
-        button.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                openCustomerModal();
-
-            }
-        );
-
-    });
-
-
-    const closeModalButtons =
-        findAll(
-            "#closeCustomerModal",
-            ".sp-modal-close",
-            "[data-close='customerModal']"
-        );
-
-
-    closeModalButtons.forEach(function (button) {
-
-        button.addEventListener(
-            "click",
-            function () {
-
-                closeCustomerModal();
-
-            }
-        );
-
-    });
-
-
-    if (modal) {
-
-        modal.addEventListener(
-            "click",
-            function (event) {
-
-                if (event.target === modal) {
-
-                    closeCustomerModal();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    document.addEventListener(
-        "keydown",
-        function (event) {
-
-            if (event.key === "Escape") {
-
-                closeCustomerModal();
-
-            }
+            );
 
         }
     );
 
 
-    /* =====================================================
-       CUSTOMER FORM
-       ===================================================== */
+    /* =====================================
+    DIVISION CARD CLICK
+    ===================================== */
 
-    const customerForm =
-        find(
-            "#customerForm"
+    const divisionCards =
+        document.querySelectorAll(
+            ".division-card"
         );
 
 
-    if (customerForm) {
+    divisionCards.forEach(
+        function (card) {
 
-        customerForm.addEventListener(
-            "submit",
-            function (event) {
+            card.addEventListener(
+                "click",
+                function (event) {
 
-                event.preventDefault();
+                    /*
+                    Do not fire when the actual
+                    button was clicked.
+                    */
 
+                    if (
+                        event.target.closest(
+                            ".division-btn"
+                        )
+                    ) {
 
-                const name =
-                    find(
-                        "#customerName",
-                        "#customer_name"
-                    )?.value.trim() || "";
+                        return;
 
-
-                const phone =
-                    find(
-                        "#customerPhone",
-                        "#customer_phone"
-                    )?.value.trim() || "";
-
-
-                const address =
-                    find(
-                        "#customerAddress",
-                        "#customer_address"
-                    )?.value.trim() || "";
+                    }
 
 
-                if (!name || !phone) {
+                    const division =
+                        card.dataset.division;
 
-                    showToast(
-                        "Customer name and phone are required."
-                    );
 
-                    return;
+                    if (
+                        division ===
+                        "service-point"
+                    ) {
+
+                        setActiveDivision(
+                            card
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        division ===
+                        "lighting"
+                    ) {
+
+                        goTo(
+                            "lighting.html"
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        division ===
+                        "training"
+                    ) {
+
+                        goTo(
+                            "training.html"
+                        );
+
+                        return;
+
+                    }
 
                 }
-
-
-                const customer = {
-
-                    id:
-                        "CUS-" +
-                        Date.now(),
-
-                    name: name,
-
-                    phone: phone,
-
-                    address: address,
-
-                    createdAt:
-                        new Date().toISOString()
-
-                };
-
-
-                customers.push(customer);
-
-                saveData(
-                    CUSTOMER_KEY,
-                    customers
-                );
-
-
-                customerForm.reset();
-
-                closeCustomerModal();
-
-                updateDashboard();
-
-                showToast(
-                    "Customer registered successfully."
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       BOOKING
-       ===================================================== */
-
-    const bookingForm =
-        find(
-            "#bookingForm"
-        );
-
-
-    if (bookingForm) {
-
-        bookingForm.addEventListener(
-            "submit",
-            function (event) {
-
-                event.preventDefault();
-
-
-                const customer =
-                    find(
-                        "#bookingCustomer",
-                        "#booking_customer"
-                    )?.value.trim() || "";
-
-
-                const service =
-                    find(
-                        "#bookingService",
-                        "#booking_service"
-                    )?.value || "";
-
-
-                const area =
-                    find(
-                        "#bookingArea",
-                        "#booking_area"
-                    )?.value.trim() || "";
-
-
-                const date =
-                    find(
-                        "#bookingDate",
-                        "#booking_date"
-                    )?.value || "";
-
-
-                const technician =
-                    find(
-                        "#bookingTechnician",
-                        "#booking_technician"
-                    )?.value.trim() || "";
-
-
-                if (!customer || !service || !date) {
-
-                    showToast(
-                        "Customer, service and date are required."
-                    );
-
-                    return;
-
-                }
-
-
-                const booking = {
-
-                    id:
-                        "BK-" +
-                        Date.now(),
-
-                    customer: customer,
-
-                    service: service,
-
-                    area: area,
-
-                    date: date,
-
-                    technician: technician,
-
-                    status: "Pending",
-
-                    createdAt:
-                        new Date().toISOString()
-
-                };
-
-
-                bookings.push(booking);
-
-                saveData(
-                    BOOKING_KEY,
-                    bookings
-                );
-
-
-                bookingForm.reset();
-
-                updateDashboard();
-
-                renderBookings();
-
-                showToast(
-                    "New service booking added."
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       BOOKING FILTER
-       ===================================================== */
-
-    const searchInput =
-        find(
-            "#bookingSearch",
-            "#searchBooking",
-            "#searchCustomer"
-        );
-
-
-    const statusFilter =
-        find(
-            "#bookingStatusFilter",
-            "#statusFilter"
-        );
-
-
-    const serviceFilter =
-        find(
-            "#bookingServiceFilter",
-            "#serviceFilter"
-        );
-
-
-    if (searchInput) {
-
-        searchInput.addEventListener(
-            "input",
-            renderBookings
-        );
-
-    }
-
-
-    if (statusFilter) {
-
-        statusFilter.addEventListener(
-            "change",
-            renderBookings
-        );
-
-    }
-
-
-    if (serviceFilter) {
-
-        serviceFilter.addEventListener(
-            "change",
-            renderBookings
-        );
-
-    }
-
-
-    /* =====================================================
-       BOOKING TABLE
-       ===================================================== */
-
-    function renderBookings() {
-
-        const tableBody =
-            find(
-                "#bookingTableBody",
-                "#serviceBookingBody",
-                "#bookingsBody"
             );
 
+        }
+    );
+
+
+    function setActiveDivision(
+        selectedCard
+    ) {
+
+        divisionCards.forEach(
+            function (card) {
+
+                card.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        selectedCard.classList.add(
+            "active"
+        );
+
+    }
+
+
+    /* =====================================
+    QUICK ACTIONS
+    ===================================== */
+
+    const quickCustomerBtn =
+        document.getElementById(
+            "quickCustomerBtn"
+        );
+
+
+    const quickServiceBtn =
+        document.getElementById(
+            "quickServiceBtn"
+        );
+
+
+    const quickTechnicianBtn =
+        document.getElementById(
+            "quickTechnicianBtn"
+        );
+
+
+    const quickDealerBtn =
+        document.getElementById(
+            "quickDealerBtn"
+        );
+
+
+    const quickShopkeeperBtn =
+        document.getElementById(
+            "quickShopkeeperBtn"
+        );
+
+
+    const quickReportsBtn =
+        document.getElementById(
+            "quickReportsBtn"
+        );
+
+
+    /* =====================================
+    CUSTOMERS
+    ===================================== */
+
+    if (quickCustomerBtn) {
+
+        quickCustomerBtn.addEventListener(
+            "click",
+            function () {
+
+                goTo(
+                    "customers.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+    SERVICE REQUESTS
+    ===================================== */
+
+    if (quickServiceBtn) {
+
+        quickServiceBtn.addEventListener(
+            "click",
+            function () {
+
+                goTo(
+                    "service-requests.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+    TECHNICIANS
+    ===================================== */
+
+    if (quickTechnicianBtn) {
+
+        quickTechnicianBtn.addEventListener(
+            "click",
+            function () {
+
+                goTo(
+                    "technicians.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+    DEALERS
+    ===================================== */
+
+    if (quickDealerBtn) {
+
+        quickDealerBtn.addEventListener(
+            "click",
+            function () {
+
+                goTo(
+                    "dealers.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+    SHOPKEEPERS
+    ===================================== */
+
+    if (quickShopkeeperBtn) {
+
+        quickShopkeeperBtn.addEventListener(
+            "click",
+            function () {
+
+                goTo(
+                    "shopkeepers.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+    REPORTS
+    ===================================== */
+
+    if (quickReportsBtn) {
+
+        quickReportsBtn.addEventListener(
+            "click",
+            function () {
+
+                goTo(
+                    "reports.html"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+    SERVICE REQUEST DATA
+    ===================================== */
+
+    const tableBody =
+        document.getElementById(
+            "serviceRequestTableBody"
+        );
+
+
+    function loadServiceRequests() {
 
         if (!tableBody) return;
 
 
-        const search =
-            searchInput?.value
-                .trim()
-                .toLowerCase() || "";
+        let requests = [];
 
 
-        const status =
-            statusFilter?.value || "all";
+        try {
 
+            requests =
+                JSON.parse(
+                    localStorage.getItem(
+                        "lumenixServiceRequests"
+                    )
+                ) || [];
 
-        const service =
-            serviceFilter?.value || "all";
+        } catch (error) {
 
+            requests = [];
 
-        let filtered =
-            bookings.filter(function (booking) {
-
-                const searchMatch =
-
-                    !search ||
-
-                    String(booking.id || "")
-                        .toLowerCase()
-                        .includes(search) ||
-
-                    String(booking.customer || "")
-                        .toLowerCase()
-                        .includes(search);
-
-
-                const statusMatch =
-
-                    status === "all" ||
-
-                    booking.status === status;
-
-
-                const serviceMatch =
-
-                    service === "all" ||
-
-                    booking.service === service;
-
-
-                return (
-                    searchMatch &&
-                    statusMatch &&
-                    serviceMatch
-                );
-
-            });
+        }
 
 
         tableBody.innerHTML = "";
 
 
-        if (filtered.length === 0) {
+        if (
+            !Array.isArray(requests) ||
+            requests.length === 0
+        ) {
 
             tableBody.innerHTML = `
 
                 <tr>
 
                     <td
-                        colspan="7"
+                        colspan="5"
                         class="empty-state"
                     >
-                        No service booking found.
+                        No service request found.
                     </td>
 
                 </tr>
 
             `;
 
+            updateOverview([]);
+
             return;
 
         }
 
 
-        filtered
-            .slice()
-            .reverse()
-            .forEach(function (booking) {
+        const latestRequests =
+            requests
+                .slice(-10)
+                .reverse();
+
+
+        latestRequests.forEach(
+            function (request) {
 
                 const row =
-                    document.createElement("tr");
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                const status =
+                    request.status ||
+                    "Pending";
 
 
                 row.innerHTML = `
 
                     <td>
-                        ${escapeHTML(booking.id)}
+                        ${escapeHTML(
+                            request.id ||
+                            "-"
+                        )}
                     </td>
 
                     <td>
-                        ${escapeHTML(booking.customer)}
+                        ${escapeHTML(
+                            request.customer ||
+                            request.customerName ||
+                            "-"
+                        )}
                     </td>
 
                     <td>
-                        ${escapeHTML(booking.service)}
+                        ${escapeHTML(
+                            request.service ||
+                            request.serviceType ||
+                            "-"
+                        )}
                     </td>
 
                     <td>
-                        ${escapeHTML(booking.area || "-")}
+                        ${escapeHTML(
+                            request.technician ||
+                            "-"
+                        )}
                     </td>
 
                     <td>
-                        ${escapeHTML(booking.date || "-")}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(booking.technician || "-")}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(booking.status || "Pending")}
+                        ${escapeHTML(
+                            status
+                        )}
                     </td>
 
                 `;
 
 
-                tableBody.appendChild(row);
+                tableBody.appendChild(
+                    row
+                );
 
-            });
+            }
+        );
+
+
+        updateOverview(requests);
 
     }
 
 
-    /* =====================================================
-       UPDATE SUMMARY
-       ===================================================== */
+    /* =====================================
+    OVERVIEW
+    ===================================== */
 
-    function updateDashboard() {
+    function updateOverview(
+        requests
+    ) {
 
-        const totalCustomers =
-            find(
-                "#totalCustomers"
+        const totalRequests =
+            document.getElementById(
+                "totalRequests"
             );
 
 
-        const totalBookings =
-            find(
-                "#totalBookings"
+        const pendingRequests =
+            document.getElementById(
+                "pendingRequests"
             );
 
 
-        const completedServices =
-            find(
-                "#completedServices"
+        const workingRequests =
+            document.getElementById(
+                "workingRequests"
             );
 
 
-        const pendingServices =
-            find(
-                "#pendingServices"
+        const completedRequests =
+            document.getElementById(
+                "completedRequests"
             );
 
 
-        if (totalCustomers) {
-
-            totalCustomers.textContent =
-                customers.length;
-
-        }
-
-
-        if (totalBookings) {
-
-            totalBookings.textContent =
-                bookings.length;
-
-        }
-
-
-        const completed =
-            bookings.filter(function (item) {
-
-                return (
-                    String(item.status)
-                        .toLowerCase() ===
-                    "completed"
-                );
-
-            }).length;
+        const total =
+            requests.length;
 
 
         const pending =
-            bookings.filter(function (item) {
+            requests.filter(
+                function (item) {
 
-                return (
-                    String(item.status)
-                        .toLowerCase() ===
-                    "pending"
-                );
+                    return normalizeStatus(
+                        item.status
+                    ) === "pending";
 
-            }).length;
+                }
+            ).length;
 
 
-        if (completedServices) {
+        const working =
+            requests.filter(
+                function (item) {
 
-            completedServices.textContent =
-                completed;
+                    const status =
+                        normalizeStatus(
+                            item.status
+                        );
+
+                    return (
+                        status ===
+                            "working" ||
+                        status ===
+                            "in progress" ||
+                        status ===
+                            "running"
+                    );
+
+                }
+            ).length;
+
+
+        const completed =
+            requests.filter(
+                function (item) {
+
+                    return normalizeStatus(
+                        item.status
+                    ) === "completed";
+
+                }
+            ).length;
+
+
+        if (totalRequests) {
+
+            totalRequests.textContent =
+                total;
 
         }
 
 
-        if (pendingServices) {
+        if (pendingRequests) {
 
-            pendingServices.textContent =
+            pendingRequests.textContent =
                 pending;
 
         }
 
-    }
 
+        if (workingRequests) {
 
-    /* =====================================================
-       STATUS UPDATE
-       ===================================================== */
-
-    document.addEventListener(
-        "click",
-        function (event) {
-
-            const button =
-                event.target.closest(
-                    "[data-booking-status]"
-                );
-
-
-            if (!button) return;
-
-
-            const bookingId =
-                button.dataset.bookingId;
-
-
-            const newStatus =
-                button.dataset.bookingStatus;
-
-
-            const booking =
-                bookings.find(function (item) {
-
-                    return item.id === bookingId;
-
-                });
-
-
-            if (!booking) return;
-
-
-            booking.status =
-                newStatus;
-
-
-            saveData(
-                BOOKING_KEY,
-                bookings
-            );
-
-
-            renderBookings();
-
-            updateDashboard();
-
-            showToast(
-                "Booking status updated."
-            );
+            workingRequests.textContent =
+                working;
 
         }
-    );
 
 
-    /* =====================================================
-       SAFE HTML
-       ===================================================== */
+        if (completedRequests) {
 
-    function escapeHTML(value) {
+            completedRequests.textContent =
+                completed;
 
-        return String(value ?? "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+        }
 
     }
 
 
-    /* =====================================================
-       INITIAL LOAD
-       ===================================================== */
+    /* =====================================
+    HELPERS
+    ===================================== */
 
-    updateDashboard();
+    function normalizeStatus(
+        value
+    ) {
 
-    renderBookings();
+        return String(
+            value || ""
+        )
+            .trim()
+            .toLowerCase();
+
+    }
+
+
+    function escapeHTML(
+        value
+    ) {
+
+        return String(
+            value ?? ""
+        )
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /* =====================================
+    TOAST
+    ===================================== */
+
+    const toast =
+        document.getElementById(
+            "serviceToast"
+        );
+
+
+    function showToast(
+        message
+    ) {
+
+        if (!toast) {
+
+            alert(message);
+
+            return;
+
+        }
+
+
+        toast.textContent =
+            message;
+
+
+        toast.classList.add(
+            "show"
+        );
+
+
+        clearTimeout(
+            showToast.timer
+        );
+
+
+        showToast.timer =
+            setTimeout(
+                function () {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                2200
+            );
+
+    }
+
+
+    /* =====================================
+    INITIAL LOAD
+    ===================================== */
+
+    loadServiceRequests();
 
 
     console.log(
-        "LUMENIX V5.1 Service Point loaded successfully."
+        "LUMENIX Service Point V5.1 loaded successfully."
     );
 
 });
