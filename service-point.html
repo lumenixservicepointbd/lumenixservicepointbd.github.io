@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +11,6 @@
 </head>
 
 <body>
-
-<!-- =====================================
-LUMENIX SERVICE POINT
-MAIN HEADER
-===================================== -->
 
 <header class="sp-header">
 
@@ -46,7 +42,7 @@ MAIN HEADER
 
         <button
             type="button"
-            class="header-btn"
+            class="header-btn logout-btn"
             id="logoutBtn"
         >
             Logout
@@ -57,32 +53,55 @@ MAIN HEADER
 </header>
 
 
-<!-- =====================================
-PAGE
-===================================== -->
-
 <main class="service-point-page">
 
-    <!-- =================================
-    PAGE TITLE
-    ================================= -->
+    <!-- PAGE INTRO -->
 
     <section class="page-intro">
 
-        <div>
+        <span class="eyebrow">
+            LUMENIX V5.1
+        </span>
 
-            <span class="eyebrow">
-                LUMENIX V5.1
+        <h2>
+            LUMENIX Service Point BD
+        </h2>
+
+        <p>
+            Manage customers, technicians, service requests,
+            dealer connections and shopkeeper partnerships
+            from one service management system.
+        </p>
+
+    </section>
+
+
+    <!-- SERVICE POINT IDENTITY -->
+
+    <section class="service-identity">
+
+        <div class="identity-logo">
+
+            <img
+                src="images/lumenix-service-logo-white.png"
+                alt="LUMENIX Service Point BD"
+            >
+
+        </div>
+
+        <div class="identity-content">
+
+            <span class="section-label">
+                SERVICE DIVISION
             </span>
 
             <h2>
-                Service Point Management
+                LUMENIX Service Point BD
             </h2>
 
             <p>
-                Manage service operations, customers,
-                technicians, service requests and
-                maintenance activities.
+                Customer service, repair, maintenance,
+                technician management and service operations.
             </p>
 
         </div>
@@ -90,175 +109,99 @@ PAGE
     </section>
 
 
-    <!-- =================================
-    BRAND / DIVISION CARDS
-    ================================= -->
+    <!-- PROFILE CENTER -->
 
-    <section class="division-section">
+    <section class="profile-section">
 
         <div class="section-heading">
 
             <div>
                 <span class="section-label">
-                    LUMENIX DIVISIONS
+                    PROFILE CENTER
                 </span>
 
                 <h2>
-                    Select Service Division
+                    Service Point Profiles
                 </h2>
             </div>
 
             <p>
-                Choose the division you want to manage.
+                Manage service partners and team profiles.
             </p>
 
         </div>
 
 
-        <div class="division-grid">
+        <div class="profile-grid">
 
-
-            <!-- SERVICE POINT -->
-
-            <article
-                class="division-card active"
-                data-division="service-point"
+            <button
+                type="button"
+                class="profile-card"
+                id="myProfileBtn"
             >
 
-                <div class="division-logo">
+                <span class="profile-icon">
+                    👤
+                </span>
 
-                    <img
-                        src="images/lumenix-service-logo-white.png"
-                        alt="LUMENIX Service Point BD"
-                    >
+                <span class="profile-title">
+                    My Profile
+                </span>
 
-                </div>
+                <span class="profile-description">
+                    Manage your Service Point profile.
+                </span>
 
-                <div class="division-content">
-
-                    <span class="division-tag">
-                        SERVICE
-                    </span>
-
-                    <h3>
-                        LUMENIX Service Point BD
-                    </h3>
-
-                    <p>
-                        Customer service, repair,
-                        maintenance and technician
-                        management.
-                    </p>
-
-                    <button
-                        type="button"
-                        class="division-btn"
-                        data-division="service-point"
-                    >
-                        Open Service Point
-                    </button>
-
-                </div>
-
-            </article>
+            </button>
 
 
-            <!-- LIGHTING -->
-
-            <article
-                class="division-card"
-                data-division="lighting"
+            <button
+                type="button"
+                class="profile-card"
+                id="technicianProfileBtn"
             >
 
-                <div class="division-logo">
+                <span class="profile-icon">
+                    👨‍🔧
+                </span>
 
-                    <img
-                        src="images/lumenix-led-logo-white.png"
-                        alt="LUMENIX Lighting and Accessories"
-                    >
+                <span class="profile-title">
+                    Technician Profile
+                </span>
 
-                </div>
+                <span class="profile-description">
+                    Manage technicians and technical staff.
+                </span>
 
-                <div class="division-content">
-
-                    <span class="division-tag">
-                        DEALER
-                    </span>
-
-                    <h3>
-                        LUMENIX Lighting & Accessories
-                    </h3>
-
-                    <p>
-                        Dealer, shopkeeper, product and
-                        lighting accessories management.
-                    </p>
-
-                    <button
-                        type="button"
-                        class="division-btn"
-                        data-division="lighting"
-                    >
-                        Open Lighting
-                    </button>
-
-                </div>
-
-            </article>
+            </button>
 
 
-            <!-- TRAINING -->
-
-            <article
-                class="division-card"
-                data-division="training"
+            <button
+                type="button"
+                class="profile-card"
+                id="shopkeeperProfileBtn"
             >
 
-                <div class="division-logo">
+                <span class="profile-icon">
+                    🤝
+                </span>
 
-                    <img
-                        src="images/lumenix-training-logo.png"
-                        alt="LUMENIX Technical Training Center"
-                    >
+                <span class="profile-title">
+                    Shopkeeper Partnership
+                </span>
 
-                </div>
+                <span class="profile-description">
+                    Manage shopkeeper partnership profiles.
+                </span>
 
-                <div class="division-content">
-
-                    <span class="division-tag">
-                        TRAINING
-                    </span>
-
-                    <h3>
-                        LUMENIX Technical Training Center
-                    </h3>
-
-                    <p>
-                        Technical training, trainees,
-                        instructors and certification
-                        management.
-                    </p>
-
-                    <button
-                        type="button"
-                        class="division-btn"
-                        data-division="training"
-                    >
-                        Open Training
-                    </button>
-
-                </div>
-
-            </article>
+            </button>
 
         </div>
 
     </section>
 
 
-    <!-- =================================
-    QUICK ACTIONS
-    ================================= -->
+    <!-- QUICK ACTIONS -->
 
     <section class="quick-section">
 
@@ -275,8 +218,7 @@ PAGE
             </div>
 
             <p>
-                Frequently used service management
-                functions.
+                Frequently used service management functions.
             </p>
 
         </div>
@@ -284,16 +226,13 @@ PAGE
 
         <div class="quick-grid">
 
-
             <button
                 type="button"
                 class="quick-card"
                 id="quickCustomerBtn"
             >
 
-                <span class="quick-icon">
-                    👤
-                </span>
+                <span class="quick-icon">👤</span>
 
                 <span class="quick-title">
                     Customers
@@ -312,9 +251,7 @@ PAGE
                 id="quickServiceBtn"
             >
 
-                <span class="quick-icon">
-                    🛠️
-                </span>
+                <span class="quick-icon">🛠️</span>
 
                 <span class="quick-title">
                     Service Requests
@@ -333,9 +270,7 @@ PAGE
                 id="quickTechnicianBtn"
             >
 
-                <span class="quick-icon">
-                    👨‍🔧
-                </span>
+                <span class="quick-icon">👨‍🔧</span>
 
                 <span class="quick-title">
                     Technicians
@@ -354,9 +289,7 @@ PAGE
                 id="quickDealerBtn"
             >
 
-                <span class="quick-icon">
-                    🏪
-                </span>
+                <span class="quick-icon">🏢</span>
 
                 <span class="quick-title">
                     Dealers
@@ -375,9 +308,7 @@ PAGE
                 id="quickShopkeeperBtn"
             >
 
-                <span class="quick-icon">
-                    🏬
-                </span>
+                <span class="quick-icon">🏪</span>
 
                 <span class="quick-title">
                     Shopkeepers
@@ -396,9 +327,7 @@ PAGE
                 id="quickReportsBtn"
             >
 
-                <span class="quick-icon">
-                    📊
-                </span>
+                <span class="quick-icon">📊</span>
 
                 <span class="quick-title">
                     Reports
@@ -415,31 +344,26 @@ PAGE
     </section>
 
 
-    <!-- =================================
-    SERVICE OVERVIEW
-    ================================= -->
+    <!-- SERVICE OVERVIEW -->
 
     <section class="overview-section">
 
         <div class="section-heading">
 
             <div>
-
                 <span class="section-label">
                     SERVICE OVERVIEW
                 </span>
 
                 <h2>
-                    Today's Service Status
+                    Service Status
                 </h2>
-
             </div>
 
         </div>
 
 
         <div class="overview-grid">
-
 
             <div class="overview-card">
 
@@ -448,15 +372,8 @@ PAGE
                 </span>
 
                 <div>
-
-                    <strong id="totalRequests">
-                        0
-                    </strong>
-
-                    <p>
-                        Total Requests
-                    </p>
-
+                    <strong id="totalRequests">0</strong>
+                    <p>Total Requests</p>
                 </div>
 
             </div>
@@ -469,15 +386,8 @@ PAGE
                 </span>
 
                 <div>
-
-                    <strong id="pendingRequests">
-                        0
-                    </strong>
-
-                    <p>
-                        Pending
-                    </p>
-
+                    <strong id="pendingRequests">0</strong>
+                    <p>Pending</p>
                 </div>
 
             </div>
@@ -490,15 +400,8 @@ PAGE
                 </span>
 
                 <div>
-
-                    <strong id="workingRequests">
-                        0
-                    </strong>
-
-                    <p>
-                        In Progress
-                    </p>
-
+                    <strong id="workingRequests">0</strong>
+                    <p>In Progress</p>
                 </div>
 
             </div>
@@ -511,15 +414,8 @@ PAGE
                 </span>
 
                 <div>
-
-                    <strong id="completedRequests">
-                        0
-                    </strong>
-
-                    <p>
-                        Completed
-                    </p>
-
+                    <strong id="completedRequests">0</strong>
+                    <p>Completed</p>
                 </div>
 
             </div>
@@ -529,16 +425,13 @@ PAGE
     </section>
 
 
-    <!-- =================================
-    RECENT SERVICE REQUESTS
-    ================================= -->
+    <!-- RECENT REQUESTS -->
 
     <section class="requests-section">
 
         <div class="section-heading">
 
             <div>
-
                 <span class="section-label">
                     RECENT ACTIVITY
                 </span>
@@ -546,7 +439,6 @@ PAGE
                 <h2>
                     Recent Service Requests
                 </h2>
-
             </div>
 
         </div>
@@ -559,27 +451,11 @@ PAGE
                 <thead>
 
                     <tr>
-
-                        <th>
-                            Request ID
-                        </th>
-
-                        <th>
-                            Customer
-                        </th>
-
-                        <th>
-                            Service
-                        </th>
-
-                        <th>
-                            Technician
-                        </th>
-
-                        <th>
-                            Status
-                        </th>
-
+                        <th>Request ID</th>
+                        <th>Customer</th>
+                        <th>Service</th>
+                        <th>Technician</th>
+                        <th>Status</th>
                     </tr>
 
                 </thead>
@@ -587,14 +463,12 @@ PAGE
                 <tbody id="serviceRequestTableBody">
 
                     <tr>
-
                         <td
                             colspan="5"
                             class="empty-state"
                         >
                             No service request found.
                         </td>
-
                     </tr>
 
                 </tbody>
@@ -608,10 +482,6 @@ PAGE
 </main>
 
 
-<!-- =====================================
-TOAST
-===================================== -->
-
 <div
     class="toast"
     id="serviceToast"
@@ -619,10 +489,6 @@ TOAST
     aria-live="polite"
 ></div>
 
-
-<!-- =====================================
-JAVASCRIPT
-===================================== -->
 
 <script src="js/service-point.js"></script>
 
