@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LUMENIX | Service Customer Profile</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #07111f;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            padding: 18px;
+        }
+
+        .header,
+        .card {
+            background: linear-gradient(145deg, #10253d, #0b1a2d);
+            border: 1px solid #1e3b59;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand img {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 6px;
+        }
+
+        .brand h1 {
+            font-size: 22px;
+        }
+
+        .brand p {
+            color: #8fa6bd;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .btn {
+            border: 1px solid #294a6c;
+            background: #12304f;
+            color: #ffffff;
+            padding: 13px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .primary {
+            background: #087fe5;
+            border-color: #087fe5;
+        }
+
+        .hero {
+            padding: 5px 2px 20px;
+        }
+
+        .eyebrow {
+            color: #36a4ff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .hero h2 {
+            font-size: 31px;
+            margin-bottom: 9px;
+        }
+
+        .hero p,
+        .muted {
+            color: #8da3ba;
+            line-height: 1.6;
+        }
+
+        .muted {
+            margin: 7px 0 18px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .summary {
+            background: #091a2d;
+            border: 1px solid #1e3a57;
+            border-radius: 15px;
+            padding: 15px;
+        }
+
+        .summary span {
+            display: block;
+            color: #8299b1;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .summary strong {
+            font-size: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            color: #c9d6e3;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border-radius: 11px;
+            border: 1px solid #294662;
+            background: #08182a;
+            color: #ffffff;
+            outline: none;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #1595ff;
+        }
+
+        .save-btn {
+            width: 100%;
+            border: 0;
+            background: #0789ed;
+            color: #ffffff;
+            padding: 14px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .customer-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .customer {
+            background: #09192c;
+            border: 1px solid #1e3b58;
+            border-radius: 15px;
+            padding: 16px;
+        }
+
+        .customer strong {
+            display: block;
+            font-size: 17px;
+            margin-bottom: 7px;
+        }
+
+        .customer p {
+            color: #8ea4bb;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .empty {
+            text-align: center;
+            color: #7e95ad;
+            padding: 20px;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 22px;
+            transform: translate(-50%, 20px);
+            background: #087fe5;
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        @media (max-width: 650px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero h2 {
+                font-size: 27px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <header class="header">
+
+        <div class="brand">
+
+            <img
+                src="images/lumenix-service-logo-white.png"
+                alt="LUMENIX Service Point BD"
+            >
+
+            <div>
+                <h1>LUMENIX</h1>
+                <p>Service Point BD</p>
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <button
+                class="btn primary"
+                id="servicePointBtn"
+            >
+                🛠️ Service Point
+            </button>
+
+            <button
+                class="btn"
+                id="dashboardBtn"
+            >
+                🏠 Dashboard
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            SERVICE POINT BD
+        </div>
+
+        <h2>
+            Customer Profile
+        </h2>
+
+        <p>
+            Manage service customers, service
+            requests, technician assignments,
+            payments and service history.
+        </p>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>
+            Service Customer Summary
+        </h3>
+
+        <p class="muted">
+            Overview of customers registered
+            with LUMENIX Service Point BD.
+        </p>
+
+        <div class="summary-grid">
+
+            <div class="summary">
+                <span>Total Customers</span>
+                <strong id="totalCustomers">0</strong>
+            </div>
+
+            <div class="summary">
+                <span>Service Requests</span>
+                <strong id="serviceRequests">0</strong>
+            </div>
+
+            <div class="summary">
+                <span>Completed Services</span>
+                <strong id="completedServices">0</strong>
+            </div>
+
+            <div class="summary">
+                <span>Total Paid</span>
+                <strong id="totalPaid">৳0</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>
+            Create Service Customer Profile
+        </h3>
+
+        <p class="muted">
+            Create an individual profile for
+            each Service Point customer.
+        </p>
+
+        <form id="customerForm">
+
+            <div class="form-grid">
+
+                <div>
+
+                    <label for="customerName">
+                        Customer Name
+                    </label>
+
+                    <input
+                        id="customerName"
+                        type="text"
+                        required
+                        placeholder="Customer name"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="customerCode">
+                        Customer Code
+                    </label>
+
+                    <input
+                        id="customerCode"
+                        type="text"
+                        placeholder="Customer ID / Code"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="phone">
+                        Phone
+                    </label>
+
+                    <input
+                        id="phone"
+                        type="tel"
+                        required
+                        placeholder="Phone number"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="serviceType">
+                        Service Type
+                    </label>
+
+                    <input
+                        id="serviceType"
+                        type="text"
+                        placeholder="Type of service"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="technician">
+                        Assigned Technician
+                    </label>
+
+                    <input
+                        id="technician"
+                        type="text"
+                        placeholder="Technician name/code"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="status">
+                        Customer Status
+                    </label>
+
+                    <select id="status">
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="full">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        placeholder="Customer address"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="full">
+
+                    <label for="notes">
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        placeholder="Additional service/customer information"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                + Save Service Customer
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>
+            Service Customer Profiles
+        </h3>
+
+        <p class="muted">
+            Registered customers of LUMENIX
+            Service Point BD.
+        </p>
+
+        <div
+            class="customer-list"
+            id="customerList"
+        ></div>
+
+    </section>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+"use strict";
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const STORAGE_KEY =
+            "lumenixServiceCustomers";
+
+        let customers = [];
+
+        try {
+
+            customers =
+                JSON.parse(
+                    localStorage.getItem(
+                        STORAGE_KEY
+                    )
+                ) || [];
+
+        } catch (error) {
+
+            customers = [];
+
+        }
+
+
+        const form =
+            document.getElementById(
+                "customerForm"
+            );
+
+        const list =
+            document.getElementById(
+                "customerList"
+            );
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        function showToast(message) {
+
+            toast.textContent = message;
+
+            toast.classList.add("show");
+
+            clearTimeout(showToast.timer);
+
+            showToast.timer =
+                setTimeout(
+                    function () {
+                        toast.classList.remove("show");
+                    },
+                    2200
+                );
+        }
+
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        function updateSummary() {
+
+            let requests = 0;
+            let completed = 0;
+            let paid = 0;
+
+            customers.forEach(
+                function (customer) {
+
+                    requests += Number(
+                        customer.serviceRequests || 0
+                    );
+
+                    completed += Number(
+                        customer.completedServices || 0
+                    );
+
+                    paid += Number(
+                        customer.totalPaid || 0
+                    );
+
+                }
+            );
+
+
+            document.getElementById(
+                "totalCustomers"
+            ).textContent =
+                customers.length;
+
+            document.getElementById(
+                "serviceRequests"
+            ).textContent =
+                requests;
+
+            document.getElementById(
+                "completedServices"
+            ).textContent =
+                completed;
+
+            document.getElementById(
+                "totalPaid"
+            ).textContent =
+                "৳" + paid;
+        }
+
+
+        function renderCustomers() {
+
+            list.innerHTML = "";
+
+
+            if (!customers.length) {
+
+                list.innerHTML = `
+                    <div class="empty">
+                        No service customer profile found.
+                    </div>
+                `;
+
+                updateSummary();
+
+                return;
+            }
+
+
+            customers
+                .slice()
+                .reverse()
+                .forEach(
+                    function (customer) {
+
+                        const item =
+                            document.createElement(
+                                "div"
+                            );
+
+                        item.className =
+                            "customer";
+
+                        item.innerHTML = `
+
+                            <strong>
+                                ${escapeHTML(
+                                    customer.customerName
+                                )}
+                            </strong>
+
+                            <p>
+                                Customer Code:
+                                ${escapeHTML(
+                                    customer.customerCode || "-"
+                                )}
+                            </p>
+
+                            <p>
+                                Phone:
+                                ${escapeHTML(
+                                    customer.phone
+                                )}
+                            </p>
+
+                            <p>
+                                Service:
+                                ${escapeHTML(
+                                    customer.serviceType || "-"
+                                )}
+                            </p>
+
+                            <p>
+                                Technician:
+                                ${escapeHTML(
+                                    customer.technician || "-"
+                                )}
+                            </p>
+
+                            <p>
+                                Status:
+                                ${escapeHTML(
+                                    customer.status
+                                )}
+                            </p>
+
+                        `;
+
+                        list.appendChild(item);
+
+                    }
+                );
+
+
+            updateSummary();
+        }
+
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const customer = {
+
+                    id:
+                        "SCUS-" +
+                        Date.now(),
+
+                    customerName:
+                        document
+                            .getElementById(
+                                "customerName"
+                            )
+                            .value
+                            .trim(),
+
+                    customerCode:
+                        document
+                            .getElementById(
+                                "customerCode"
+                            )
+                            .value
+                            .trim(),
+
+                    phone:
+                        document
+                            .getElementById(
+                                "phone"
+                            )
+                            .value
+                            .trim(),
+
+                    serviceType:
+                        document
+                            .getElementById(
+                                "serviceType"
+                            )
+                            .value
+                            .trim(),
+
+                    technician:
+                        document
+                            .getElementById(
+                                "technician"
+                            )
+                            .value
+                            .trim(),
+
+                    status:
+                        document
+                            .getElementById(
+                                "status"
+                            )
+                            .value,
+
+                    address:
+                        document
+                            .getElementById(
+                                "address"
+                            )
+                            .value
+                            .trim(),
+
+                    notes:
+                        document
+                            .getElementById(
+                                "notes"
+                            )
+                            .value
+                            .trim(),
+
+                    serviceRequests: 0,
+
+                    completedServices: 0,
+
+                    totalPaid: 0,
+
+                    dueBalance: 0,
+
+                    replacementCount: 0,
+
+                    createdAt:
+                        new Date().toISOString()
+                };
+
+
+                customers.push(
+                    customer
+                );
+
+
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(
+                        customers
+                    )
+                );
+
+
+                form.reset();
+
+                renderCustomers();
+
+                showToast(
+                    "Service customer profile saved successfully."
+                );
+
+            }
+        );
+
+
+        document
+            .getElementById(
+                "servicePointBtn"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "service-point.html";
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "dashboardBtn"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                }
+            );
+
+
+        renderCustomers();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
