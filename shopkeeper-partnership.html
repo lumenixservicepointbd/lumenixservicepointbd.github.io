@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        LUMENIX | Shopkeeper Partnership
+    </title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                #071526;
+
+            color: #ffffff;
+
+            min-height: 100vh;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: #0c1d33;
+            border: 1px solid #1c3553;
+            border-radius: 22px;
+            padding: 20px;
+            margin-bottom: 22px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-logo {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 6px;
+        }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .brand-subtitle {
+            color: #8fa4bd;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .top-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 14px;
+            padding: 14px 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #0d4382;
+            color: #ffffff;
+        }
+
+        .btn-secondary {
+            background: #12243a;
+            color: #ffffff;
+            border: 1px solid #29425f;
+        }
+
+        .hero {
+            padding: 8px 2px 26px;
+        }
+
+        .eyebrow {
+            color: #43a5ff;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 34px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .hero-text {
+            color: #91a6be;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .card {
+            background:
+                linear-gradient(
+                    145deg,
+                    #10253e,
+                    #0c1c30
+                );
+
+            border: 1px solid #1c3958;
+            border-radius: 22px;
+            padding: 22px;
+            margin-bottom: 18px;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            color: #91a6be;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #c5d2df;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #2a4664;
+            background: #08182b;
+            color: #ffffff;
+            border-radius: 12px;
+            padding: 13px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #2997ff;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: 0;
+            border-radius: 14px;
+            padding: 15px;
+            background: #1687e8;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .profile-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .profile-item {
+            background: #0a1b2f;
+            border: 1px solid #1c3855;
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .profile-item strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .profile-item span {
+            display: block;
+            color: #8fa4bb;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .empty {
+            text-align: center;
+            color: #8096ad;
+            padding: 20px 5px;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 25px;
+
+            transform:
+                translate(-50%, 20px);
+
+            background: #0d4382;
+            color: #ffffff;
+
+            padding: 13px 20px;
+            border-radius: 12px;
+
+            opacity: 0;
+            pointer-events: none;
+
+            transition:
+                opacity .25s ease,
+                transform .25s ease;
+
+            z-index: 9999;
+        }
+
+        .toast.show {
+            opacity: 1;
+
+            transform:
+                translate(-50%, 0);
+        }
+
+        @media (max-width: 520px) {
+
+            .page {
+                padding: 14px;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .top-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 18px;
+                border-radius: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <img
+                class="brand-logo"
+                src="images/lumenix-service-logo-white.png"
+                alt="LUMENIX Service Point BD"
+            >
+
+            <div>
+
+                <div class="brand-name">
+                    LUMENIX
+                </div>
+
+                <div class="brand-subtitle">
+                    Service Point BD
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="top-actions">
+
+            <button
+                class="btn btn-primary"
+                id="dashboardBtn"
+            >
+                🏠 Dashboard
+            </button>
+
+            <button
+                class="btn btn-secondary"
+                id="backBtn"
+            >
+                ← Service Point
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            PARTNERSHIP CENTER
+        </div>
+
+        <h1>
+            Shopkeeper Partnership
+        </h1>
+
+        <p class="hero-text">
+            Manage LUMENIX Service Point shopkeeper
+            and business partnership profiles.
+        </p>
+
+    </section>
+
+
+    <!-- ADD PARTNER -->
+
+    <section class="card">
+
+        <h2>
+            Add Shopkeeper Partner
+        </h2>
+
+        <p class="card-description">
+            Create a partnership profile for a
+            shopkeeper or business partner.
+        </p>
+
+
+        <form id="partnerForm">
+
+            <div class="form-group">
+
+                <label for="shopName">
+                    Shop / Business Name
+                </label>
+
+                <input
+                    type="text"
+                    id="shopName"
+                    placeholder="Enter shop or business name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="ownerName">
+                    Owner / Contact Person
+                </label>
+
+                <input
+                    type="text"
+                    id="ownerName"
+                    placeholder="Enter owner or contact person"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="phone">
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="Enter phone number"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="location">
+                    Shop Location
+                </label>
+
+                <input
+                    type="text"
+                    id="location"
+                    placeholder="Enter shop location"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="partnershipType">
+                    Partnership Type
+                </label>
+
+                <select id="partnershipType">
+
+                    <option value="Shopkeeper Partner">
+                        Shopkeeper Partner
+                    </option>
+
+                    <option value="Dealer Partner">
+                        Dealer Partner
+                    </option>
+
+                    <option value="Service Partner">
+                        Service Partner
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="notes">
+                    Notes
+                </label>
+
+                <textarea
+                    id="notes"
+                    placeholder="Additional information"
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                + Save Partnership Profile
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- PARTNER LIST -->
+
+    <section class="card">
+
+        <h2>
+            Partnership Profiles
+        </h2>
+
+        <p class="card-description">
+            Registered shopkeeper and partnership
+            profiles.
+        </p>
+
+        <div
+            class="profile-list"
+            id="partnerList"
+        ></div>
+
+    </section>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+"use strict";
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        /* ==============================
+        SECURITY
+        ============================== */
+
+        const loggedIn =
+            localStorage.getItem(
+                "adminLoggedIn"
+            );
+
+
+        if (loggedIn !== "true") {
+
+            window.location.href =
+                "admin.html";
+
+            return;
+
+        }
+
+
+        /* ==============================
+        NAVIGATION
+        ============================== */
+
+        document
+            .getElementById("dashboardBtn")
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                }
+            );
+
+
+        document
+            .getElementById("backBtn")
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "service-point.html";
+
+                }
+            );
+
+
+        /* ==============================
+        STORAGE
+        ============================== */
+
+        const STORAGE_KEY =
+            "lumenixShopkeeperPartners";
+
+
+        let partners = [];
+
+
+        try {
+
+            partners =
+                JSON.parse(
+                    localStorage.getItem(
+                        STORAGE_KEY
+                    )
+                ) || [];
+
+        } catch (error) {
+
+            partners = [];
+
+        }
+
+
+        /* ==============================
+        ELEMENTS
+        ============================== */
+
+        const form =
+            document.getElementById(
+                "partnerForm"
+            );
+
+
+        const partnerList =
+            document.getElementById(
+                "partnerList"
+            );
+
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        /* ==============================
+        TOAST
+        ============================== */
+
+        function showToast(
+            message
+        ) {
+
+            toast.textContent =
+                message;
+
+            toast.classList.add(
+                "show"
+            );
+
+
+            setTimeout(
+                function () {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                2200
+            );
+
+        }
+
+
+        /* ==============================
+        ESCAPE HTML
+        ============================== */
+
+        function escapeHTML(
+            value
+        ) {
+
+            return String(
+                value || ""
+            )
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        /* ==============================
+        RENDER
+        ============================== */
+
+        function renderPartners() {
+
+            partnerList.innerHTML =
+                "";
+
+
+            if (
+                partners.length === 0
+            ) {
+
+                partnerList.innerHTML = `
+
+                    <div class="empty">
+                        No partnership profile found yet.
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            partners
+                .slice()
+                .reverse()
+                .forEach(
+                    function (partner) {
+
+                        const item =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        item.className =
+                            "profile-item";
+
+
+                        item.innerHTML = `
+
+                            <strong>
+                                ${escapeHTML(
+                                    partner.shopName
+                                )}
+                            </strong>
+
+                            <span>
+                                Contact:
+                                ${escapeHTML(
+                                    partner.ownerName
+                                )}
+                            </span>
+
+                            <span>
+                                Phone:
+                                ${escapeHTML(
+                                    partner.phone
+                                )}
+                            </span>
+
+                            <span>
+                                Location:
+                                ${escapeHTML(
+                                    partner.location ||
+                                    "-"
+                                )}
+                            </span>
+
+                            <span>
+                                Type:
+                                ${escapeHTML(
+                                    partner.partnershipType
+                                )}
+                            </span>
+
+                        `;
+
+
+                        partnerList.appendChild(
+                            item
+                        );
+
+                    }
+                );
+
+        }
+
+
+        /* ==============================
+        SAVE PARTNER
+        ============================== */
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const partner = {
+
+                    id:
+                        "SP-" +
+                        Date.now(),
+
+                    shopName:
+                        document
+                            .getElementById(
+                                "shopName"
+                            )
+                            .value
+                            .trim(),
+
+                    ownerName:
+                        document
+                            .getElementById(
+                                "ownerName"
+                            )
+                            .value
+                            .trim(),
+
+                    phone:
+                        document
+                            .getElementById(
+                                "phone"
+                            )
+                            .value
+                            .trim(),
+
+                    location:
+                        document
+                            .getElementById(
+                                "location"
+                            )
+                            .value
+                            .trim(),
+
+                    partnershipType:
+                        document
+                            .getElementById(
+                                "partnershipType"
+                            )
+                            .value,
+
+                    notes:
+                        document
+                            .getElementById(
+                                "notes"
+                            )
+                            .value
+                            .trim(),
+
+                    createdAt:
+                        new Date()
+                            .toISOString()
+
+                };
+
+
+                partners.push(
+                    partner
+                );
+
+
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(
+                        partners
+                    )
+                );
+
+
+                form.reset();
+
+
+                renderPartners();
+
+
+                showToast(
+                    "Partnership profile saved successfully."
+                );
+
+            }
+        );
+
+
+        /* ==============================
+        INITIAL RENDER
+        ============================== */
+
+        renderPartners();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
