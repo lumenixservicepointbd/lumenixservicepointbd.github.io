@@ -4,7 +4,7 @@
 
     const SYSTEM_KEY = "lumenixSystemData";
 
-    const MAP = {
+    const LEGACY_MAP = {
 
         lumenixLightingDealers: [
             "lighting",
@@ -34,63 +34,293 @@
     };
 
 
-    const originalGet =
-        Storage.prototype.getItem;
+    const DEFAULT_DATA = {
 
-    const originalSet =
-        Storage.prototype.setItem;
+        lighting: {
+
+            dealers: [],
+            customers: [],
+            orders: [],
+            payments: [],
+            returns: [],
+            replacements: []
+
+        },
+
+        service: {
+
+            partners: [],
+            technicians: [],
+            customers: [],
+            requests: [],
+            payments: [],
+            replacements: [],
+            history: []
+
+        }
+
+    };
 
 
-    function readSystem() {
+    function safeParse(value, fallback) {
 
         try {
 
-            const raw =
-                originalGet.call(
-                    localStorage,
-                    SYSTEM_KEY
+            const parsed =
+                JSON.parse(value);
+
+            return parsed;
+
+        } catch (error) {
+
+            return fallback;
+
+        }
+
+    }
+
+
+    function loadSystem() {
+
+        const raw =
+            localStorage.getItem(
+                SYSTEM_KEY
+            );
+
+        if (!raw) {
+
+            return JSON.parse(
+                JSON.stringify(
+                    DEFAULT_DATA
+                )
+            );
+
+        }
+
+
+        const saved =
+            safeParse(
+                raw,
+                null
+            );
+
+
+        if (!saved) {
+
+            return JSON.parse(
+                JSON.stringify(
+                    DEFAULT_DATA
+                )
+            );
+
+        }
+
+
+        return mergeDefaults(
+            DEFAULT_DATA,
+            saved
+        );
+
+    }
+
+
+    function mergeDefaults(
+        defaults,
+        saved
+    ) {
+
+        const result =
+            JSON.parse(
+                JSON.stringify(
+                    defaults
+                )
+            );
+
+
+        Object.keys(saved || {})
+            .forEach(
+                function (section) {
+
+                    if (
+                        typeof saved[section] !==
+                        "object"
+                    ) {
+                        return;
+                    }
+
+
+                    if (
+                        !result[section]
+                    ) {
+
+                        result[section] =
+                            saved[section];
+
+                        return;
+
+                    }
+
+
+                    Object.keys(
+                        saved[section]
+                    ).forEach(
+                        function (collection) {
+
+                            if (
+                                Array.isArray(
+                                    saved[section][collection]
+                                )
+                            ) {
+
+                                result[section][collection] =
+                                    saved[section][collection];
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+        return result;
+
+    }
+
+
+    function saveSystem(data) {
+
+        localStorage.setItem(
+            SYSTEM_KEY,
+            JSON.stringify(data)
+        );
+
+    }
+
+
+    function migrateLegacyData() {
+
+        const system =
+            loadSystem();
+
+
+        let changed = false;
+
+
+        Object.keys(
+            LEGACY_MAP
+        ).forEach(
+            function (legacyKey) {
+
+                const raw =
+                    localStorage.getItem(
+                        legacyKey
+                    );
+
+
+                if (!raw) {
+                    return;
+                }
+
+
+                const oldData =
+                    safeParse(
+                        raw,
+                        []
+                    );
+
+
+                if (
+                    !Array.isArray(
+                        oldData
+                    ) ||
+                    oldData.length === 0
+                ) {
+                    return;
+                }
+
+
+                const section =
+                    LEGACY_MAP[
+                        legacyKey
+                    ][0];
+
+
+                const collection =
+                    LEGACY_MAP[
+                        legacyKey
+                    ][1];
+
+
+                const current =
+                    system[
+                        section
+                    ][
+                        collection
+                    ];
+
+
+                const existingIds =
+                    new Set(
+                        current
+                            .map(
+                                function (item) {
+                                    return item.id;
+                                }
+                            )
+                    );
+
+
+                oldData.forEach(
+                    function (item) {
+
+                        if (
+                            item &&
+                            item.id &&
+                            existingIds.has(
+                                item.id
+                            )
+                        ) {
+                            return;
+                        }
+
+
+                        current.push(
+                            item
+                        );
+
+
+                        changed = true;
+
+                    }
                 );
 
-            if (!raw) {
-                return null;
             }
+        );
 
-            return JSON.parse(raw);
 
-        } catch (error) {
+        if (changed) {
 
-            return null;
+            saveSystem(
+                system
+            );
+
         }
+
+
+        return system;
+
     }
 
 
-    function writeSystem(data) {
+    function getCollection(
+        key
+    ) {
 
-        try {
+        const mapping =
+            LEGACY_MAP[key];
 
-            originalSet.call(
-                localStorage,
-                SYSTEM_KEY,
-                JSON.stringify(data)
-            );
-
-            return true;
-
-        } catch (error) {
-
-            console.error(
-                "LUMENIX profile bridge save error:",
-                error
-            );
-
-            return false;
-        }
-    }
-
-
-    function getMappedValue(key) {
-
-        const mapping = MAP[key];
 
         if (!mapping) {
             return null;
@@ -98,18 +328,137 @@
 
 
         const system =
-            readSystem();
+            loadSystem();
 
-        if (!system) {
+
+        return system[
+            mapping[0]
+        ][
+            mapping[1]
+        ];
+
+    }
+
+
+    function setCollection(
+        key,
+        value
+    ) {
+
+        const mapping =
+            LEGACY_MAP[key];
+
+
+        if (!mapping) {
+            return false;
+        }
+
+
+        const system =
+            loadSystem();
+
+
+        system[
+            mapping[0]
+        ][
+            mapping[1]
+        ] =
+            Array.isArray(value)
+                ? value
+                : [];
+
+
+        saveSystem(
+            system
+        );
+
+
+        return true;
+
+    }
+
+
+    function createId(
+        prefix
+    ) {
+
+        return (
+            prefix +
+            "-" +
+            Date.now() +
+            "-" +
+            Math.random()
+                .toString(36)
+                .slice(2, 7)
+        );
+
+    }
+
+
+    function addRecord(
+        section,
+        collection,
+        record
+    ) {
+
+        const system =
+            loadSystem();
+
+
+        if (
+            !system[section] ||
+            !Array.isArray(
+                system[section][collection]
+            )
+        ) {
             return null;
         }
 
 
-        const section =
-            mapping[0];
+        const newRecord = {
 
-        const collection =
-            mapping[1];
+            id:
+                record.id ||
+                createId(
+                    "LUX"
+                ),
+
+            createdAt:
+                record.createdAt ||
+                new Date()
+                    .toISOString(),
+
+            ...record
+
+        };
+
+
+        system[
+            section
+        ][
+            collection
+        ].push(
+            newRecord
+        );
+
+
+        saveSystem(
+            system
+        );
+
+
+        return newRecord;
+
+    }
+
+
+    function getRecords(
+        section,
+        collection
+    ) {
+
+        const system =
+            loadSystem();
 
 
         if (
@@ -122,147 +471,302 @@
         }
 
 
-        return JSON.stringify(
-            system[section][collection]
-        );
+        return system[
+            section
+        ][
+            collection
+        ];
+
     }
 
 
-    function setMappedValue(
-        key,
-        value
+    function findRecord(
+        section,
+        collection,
+        id
     ) {
 
-        const mapping = MAP[key];
-
-        if (!mapping) {
-            return false;
-        }
-
-
-        let system =
-            readSystem();
+        const records =
+            getRecords(
+                section,
+                collection
+            );
 
 
-        if (!system) {
+        return records.find(
+            function (item) {
 
-            system = {
+                return (
+                    item.id === id
+                );
 
-                lighting: {
-                    dealers: [],
-                    customers: [],
-                    orders: [],
-                    payments: [],
-                    returns: [],
-                    replacements: []
-                },
-
-                service: {
-                    partners: [],
-                    technicians: [],
-                    customers: [],
-                    requests: [],
-                    payments: [],
-                    replacements: [],
-                    history: []
-                }
-
-            };
-
-        }
-
-
-        const section =
-            mapping[0];
-
-        const collection =
-            mapping[1];
-
-
-        try {
-
-            const parsed =
-                JSON.parse(value);
-
-
-            if (!Array.isArray(parsed)) {
-                return false;
             }
+        ) || null;
+
+    }
 
 
-            system[section][collection] =
-                parsed;
+    function updateRecord(
+        section,
+        collection,
+        id,
+        updates
+    ) {
+
+        const system =
+            loadSystem();
 
 
-            writeSystem(system);
+        if (
+            !system[section] ||
+            !Array.isArray(
+                system[section][collection]
+            )
+        ) {
+            return null;
+        }
 
-            return true;
 
-        } catch (error) {
+        const index =
+            system[
+                section
+            ][
+                collection
+            ].findIndex(
+                function (item) {
 
+                    return (
+                        item.id === id
+                    );
+
+                }
+            );
+
+
+        if (index === -1) {
+            return null;
+        }
+
+
+        system[
+            section
+        ][
+            collection
+        ][index] = {
+
+            ...system[
+                section
+            ][
+                collection
+            ][index],
+
+            ...updates,
+
+            updatedAt:
+                new Date()
+                    .toISOString()
+
+        };
+
+
+        saveSystem(
+            system
+        );
+
+
+        return system[
+            section
+        ][
+            collection
+        ][index];
+
+    }
+
+
+    function removeRecord(
+        section,
+        collection,
+        id
+    ) {
+
+        const system =
+            loadSystem();
+
+
+        if (
+            !system[section] ||
+            !Array.isArray(
+                system[section][collection]
+            )
+        ) {
             return false;
         }
+
+
+        const before =
+            system[
+                section
+            ][
+                collection
+            ].length;
+
+
+        system[
+            section
+        ][
+            collection
+        ] =
+            system[
+                section
+            ][
+                collection
+            ].filter(
+                function (item) {
+
+                    return (
+                        item.id !== id
+                    );
+
+                }
+            );
+
+
+        if (
+            system[
+                section
+            ][
+                collection
+            ].length === before
+        ) {
+            return false;
+        }
+
+
+        saveSystem(
+            system
+        );
+
+
+        return true;
+
     }
+
+
+    /*
+     * Legacy localStorage compatibility.
+     * Existing profile pages can continue
+     * using their old STORAGE_KEY values.
+     */
+
+    const originalGetItem =
+        Storage.prototype.getItem;
+
+
+    const originalSetItem =
+        Storage.prototype.setItem;
 
 
     Storage.prototype.getItem =
         function (key) {
 
-            if (MAP[key]) {
+            if (
+                LEGACY_MAP[key]
+            ) {
 
-                const mapped =
-                    getMappedValue(key);
+                migrateLegacyData();
 
-                if (mapped !== null) {
-                    return mapped;
-                }
+                return JSON.stringify(
+                    getCollection(
+                        key
+                    )
+                );
 
             }
 
 
-            return originalGet.call(
+            return originalGetItem.call(
                 this,
                 key
             );
+
         };
 
 
     Storage.prototype.setItem =
         function (key, value) {
 
-            if (MAP[key]) {
+            if (
+                LEGACY_MAP[key]
+            ) {
 
-                if (
-                    setMappedValue(
-                        key,
-                        value
-                    )
-                ) {
-                    return;
-                }
+                const parsed =
+                    safeParse(
+                        value,
+                        []
+                    );
+
+
+                setCollection(
+                    key,
+                    parsed
+                );
+
+
+                return;
 
             }
 
 
-            return originalSet.call(
+            return originalSetItem.call(
                 this,
                 key,
                 value
             );
+
         };
 
 
-    window.LumenixProfileBridge = {
+    /*
+     * Public API
+     */
 
-        enabled: true,
+    window.LumenixData = {
 
-        mappings: MAP,
+        load:
+            loadSystem,
 
-        sync: function () {
+        save:
+            saveSystem,
 
-            return readSystem();
-        }
+        migrate:
+            migrateLegacyData,
+
+        add:
+            addRecord,
+
+        get:
+            getRecords,
+
+        find:
+            findRecord,
+
+        update:
+            updateRecord,
+
+        remove:
+            removeRecord,
+
+        generateId:
+            createId
 
     };
+
+
+    /*
+     * Run migration once when bridge loads.
+     */
+
+    migrateLegacyData();
+
 
 })();
