@@ -1,7 +1,7 @@
 /* =====================================
-LUMENIX SERVICE POINT
-V5.1 PREMIUM UI
-SERVICE-POINT.CSS
+LUMENIX V5.1
+SERVICE POINT BD
+FINAL REPLACEMENT CSS
 ===================================== */
 
 * {
@@ -11,51 +11,28 @@ SERVICE-POINT.CSS
 }
 
 :root {
+    --bg: #07111f;
+    --bg-soft: #0b1728;
+    --panel: #0e1c30;
+    --panel-light: #13243b;
 
-    --bg:
-        #07111f;
+    --border: rgba(255,255,255,.09);
 
-    --bg-soft:
-        #0b1728;
+    --text: #f4f8ff;
+    --muted: #91a3bb;
 
-    --panel:
-        #0e1c30;
+    --blue: #1687ff;
+    --blue-light: #49a7ff;
+    --cyan: #25d9ff;
 
-    --panel-light:
-        #13243b;
+    --green: #19c982;
+    --orange: #ffae42;
+    --red: #ff5f6d;
+    --purple: #9b7cff;
 
-    --border:
-        rgba(255, 255, 255, 0.09);
+    --shadow: 0 18px 45px rgba(0,0,0,.28);
 
-    --text:
-        #f4f8ff;
-
-    --muted:
-        #91a3bb;
-
-    --blue:
-        #1687ff;
-
-    --blue-light:
-        #49a7ff;
-
-    --cyan:
-        #25d9ff;
-
-    --green:
-        #19c982;
-
-    --orange:
-        #ffae42;
-
-    --red:
-        #ff5f6d;
-
-    --shadow:
-        0 18px 45px rgba(0, 0, 0, 0.28);
-
-    --radius:
-        18px;
+    --radius: 18px;
 }
 
 html {
@@ -63,21 +40,7 @@ html {
 }
 
 body {
-
     min-height: 100vh;
-
-    background:
-        radial-gradient(
-            circle at 15% 0%,
-            rgba(22, 135, 255, 0.14),
-            transparent 32%
-        ),
-        radial-gradient(
-            circle at 90% 15%,
-            rgba(37, 217, 255, 0.08),
-            transparent 28%
-        ),
-        var(--bg);
 
     color: var(--text);
 
@@ -88,6 +51,19 @@ body {
         sans-serif;
 
     line-height: 1.5;
+
+    background:
+        radial-gradient(
+            circle at 15% 0%,
+            rgba(22,135,255,.14),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(37,217,255,.08),
+            transparent 28%
+        ),
+        var(--bg);
 }
 
 
@@ -96,48 +72,34 @@ HEADER
 ===================================== */
 
 .sp-header {
-
     width: 100%;
-
     min-height: 78px;
 
     padding:
         14px
-        clamp(18px, 4vw, 55px);
+        clamp(16px,4vw,55px);
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 
     gap: 20px;
 
     background:
-        rgba(7, 17, 31, 0.94);
+        rgba(7,17,31,.94);
 
     border-bottom:
         1px solid var(--border);
 
     position: sticky;
-
     top: 0;
-
     z-index: 100;
 
-    backdrop-filter:
-        blur(18px);
+    backdrop-filter: blur(18px);
 }
 
-
-/* =====================================
-BRAND
-===================================== */
-
 .sp-brand {
-
     display: flex;
-
     align-items: center;
 
     gap: 14px;
@@ -146,15 +108,11 @@ BRAND
 }
 
 .sp-logo {
-
     width: 58px;
-
     height: 58px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     flex-shrink: 0;
@@ -168,7 +126,7 @@ BRAND
 
     border:
         1px solid
-        rgba(73, 167, 255, 0.2);
+        rgba(73,167,255,.2);
 
     border-radius: 14px;
 
@@ -176,29 +134,22 @@ BRAND
 }
 
 .sp-logo img {
-
     width: 100%;
-
     height: 100%;
 
     object-fit: contain;
 
-    padding: 8px;
+    padding: 7px;
 }
 
 .sp-brand-text h1 {
-
     font-size: 23px;
-
     font-weight: 800;
-
     letter-spacing: 1px;
-
     line-height: 1.1;
 }
 
 .sp-brand-text p {
-
     margin-top: 3px;
 
     color: var(--muted);
@@ -206,26 +157,18 @@ BRAND
     font-size: 13px;
 }
 
-
-/* =====================================
-HEADER BUTTONS
-===================================== */
-
 .sp-header-actions {
-
     display: flex;
-
     align-items: center;
-
     gap: 10px;
 }
 
 .header-btn {
-
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
 
     background:
-        rgba(255, 255, 255, 0.04);
+        rgba(255,255,255,.04);
 
     color: var(--text);
 
@@ -235,25 +178,29 @@ HEADER BUTTONS
     border-radius: 10px;
 
     font-size: 13px;
-
     font-weight: 700;
 
     cursor: pointer;
 
-    transition:
-        0.2s ease;
+    transition: .2s ease;
 }
 
 .header-btn:hover {
-
     background:
-        rgba(22, 135, 255, 0.14);
+        rgba(22,135,255,.14);
 
     border-color:
-        rgba(73, 167, 255, 0.35);
+        rgba(73,167,255,.35);
 
     transform:
         translateY(-1px);
+}
+
+.logout-btn:hover {
+    border-color:
+        rgba(255,95,109,.5);
+
+    color: #ff8b95;
 }
 
 
@@ -262,14 +209,12 @@ MAIN
 ===================================== */
 
 .service-point-page {
-
     width: min(
         1380px,
         calc(100% - 40px)
     );
 
-    margin:
-        0 auto;
+    margin: 0 auto;
 
     padding:
         42px 0 70px;
@@ -281,17 +226,15 @@ PAGE INTRO
 ===================================== */
 
 .page-intro {
-
     margin-bottom: 38px;
 
-    padding:
-        30px;
+    padding: 32px;
 
     background:
         linear-gradient(
             135deg,
-            rgba(18, 47, 78, 0.72),
-            rgba(10, 26, 44, 0.72)
+            rgba(18,47,78,.72),
+            rgba(10,26,44,.72)
         );
 
     border:
@@ -305,14 +248,11 @@ PAGE INTRO
 }
 
 .eyebrow {
-
     display: inline-block;
 
-    color:
-        var(--cyan);
+    color: var(--cyan);
 
     font-size: 11px;
-
     font-weight: 800;
 
     letter-spacing: 1.8px;
@@ -321,9 +261,8 @@ PAGE INTRO
 }
 
 .page-intro h2 {
-
     font-size:
-        clamp(28px, 4vw, 42px);
+        clamp(28px,4vw,42px);
 
     line-height: 1.15;
 
@@ -331,8 +270,7 @@ PAGE INTRO
 }
 
 .page-intro p {
-
-    max-width: 700px;
+    max-width: 750px;
 
     margin-top: 10px;
 
@@ -343,15 +281,12 @@ PAGE INTRO
 
 
 /* =====================================
-SECTION HEADING
+SECTION HEADINGS
 ===================================== */
 
 .section-heading {
-
     display: flex;
-
     align-items: flex-end;
-
     justify-content: space-between;
 
     gap: 20px;
@@ -360,13 +295,11 @@ SECTION HEADING
 }
 
 .section-label {
-
     display: block;
 
     color: var(--blue-light);
 
     font-size: 10px;
-
     font-weight: 800;
 
     letter-spacing: 1.7px;
@@ -375,14 +308,11 @@ SECTION HEADING
 }
 
 .section-heading h2 {
-
     font-size: 23px;
-
     font-weight: 800;
 }
 
 .section-heading > p {
-
     color: var(--muted);
 
     font-size: 13px;
@@ -392,46 +322,123 @@ SECTION HEADING
 
 
 /* =====================================
-DIVISION SECTION
+SERVICE IDENTITY
 ===================================== */
 
-.division-section {
+.service-identity {
+    display: flex;
+    align-items: center;
+
+    gap: 28px;
+
+    padding: 28px;
 
     margin-bottom: 45px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #102b47,
+            #0b1829
+        );
+
+    border:
+        1px solid
+        rgba(37,217,255,.22);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
 }
 
-.division-grid {
+.identity-logo {
+    width: 230px;
+    min-width: 230px;
+    height: 120px;
 
-    display: grid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+    padding: 18px;
 
-    gap: 20px;
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #07192c,
+            #0d3556
+        );
+
+    border:
+        1px solid
+        rgba(73,167,255,.18);
+}
+
+.identity-logo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+.identity-content h2 {
+    font-size: 27px;
+
+    margin-bottom: 8px;
+}
+
+.identity-content p {
+    color: var(--muted);
+
+    max-width: 650px;
+
+    font-size: 14px;
 }
 
 
 /* =====================================
-DIVISION CARD
+PROFILE CENTER
 ===================================== */
 
-.division-card {
+.profile-section {
+    margin-bottom: 45px;
+}
 
-    position: relative;
+.profile-grid {
+    display: grid;
 
-    min-height: 310px;
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
 
-    overflow: hidden;
+    gap: 18px;
+}
+
+.profile-card {
+    min-height: 175px;
 
     display: flex;
-
     flex-direction: column;
+
+    align-items: flex-start;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 25px;
+
+    text-align: left;
+
+    color: var(--text);
 
     background:
         linear-gradient(
-            160deg,
-            #11243a,
-            #0b1829
+            145deg,
+            var(--panel-light),
+            var(--panel)
         );
 
     border:
@@ -440,199 +447,56 @@ DIVISION CARD
     border-radius:
         var(--radius);
 
+    cursor: pointer;
+
     box-shadow:
-        0 14px 35px rgba(0, 0, 0, 0.22);
+        0 14px 35px
+        rgba(0,0,0,.18);
 
     transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
+        transform .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease;
 }
 
-.division-card:hover {
-
+.profile-card:hover {
     transform:
-        translateY(-5px);
+        translateY(-4px);
 
     border-color:
-        rgba(73, 167, 255, 0.38);
+        rgba(37,217,255,.38);
 
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.32);
+        0 20px 45px
+        rgba(0,0,0,.28);
 }
 
-.division-card.active {
+.profile-icon {
+    width: 48px;
+    height: 48px;
 
-    border-color:
-        rgba(37, 217, 255, 0.42);
+    display: grid;
+    place-items: center;
 
-    box-shadow:
-        0 20px 50px
-        rgba(0, 125, 220, 0.12);
-}
+    border-radius: 13px;
 
-
-/* =====================================
-DIVISION LOGO
-===================================== */
-
-.division-logo {
-
-    height: 116px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding:
-        16px 22px;
+    font-size: 24px;
 
     background:
-        linear-gradient(
-            135deg,
-            #0c1c2f,
-            #102b47
-        );
-
-    border-bottom:
-        1px solid var(--border);
+        rgba(37,217,255,.10);
 }
 
-.division-logo img {
-
-    display: block;
-
-    width: auto;
-
-    max-width: 82%;
-
-    height: 76px;
-
-    object-fit: contain;
-
-    transition:
-        transform 0.25s ease;
-}
-
-.division-card:hover
-.division-logo img {
-
-    transform:
-        scale(1.04);
-}
-
-
-/* =====================================
-DIVISION CONTENT
-===================================== */
-
-.division-content {
-
-    padding:
-        20px 21px 22px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    flex: 1;
-}
-
-.division-tag {
-
-    display: inline-flex;
-
-    width: fit-content;
-
-    padding:
-        4px 9px;
-
-    margin-bottom: 8px;
-
-    border-radius: 6px;
-
-    background:
-        rgba(37, 217, 255, 0.08);
-
-    color:
-        var(--cyan);
-
-    font-size: 9px;
-
-    font-weight: 800;
-
-    letter-spacing: 1.2px;
-}
-
-.division-content h3 {
-
-    font-size: 19px;
-
-    line-height: 1.25;
-
+.profile-title {
+    font-size: 18px;
     font-weight: 800;
 }
 
-.division-content p {
-
+.profile-description {
     color: var(--muted);
-
-    font-size: 13px;
-
-    margin-top: 8px;
-
-    line-height: 1.6;
-
-    flex: 1;
-}
-
-
-/* =====================================
-DIVISION BUTTON
-===================================== */
-
-.division-btn {
-
-    width: 100%;
-
-    margin-top: 18px;
-
-    padding:
-        11px 15px;
-
-    border:
-        1px solid
-        rgba(73, 167, 255, 0.25);
-
-    border-radius: 10px;
-
-    background:
-        rgba(22, 135, 255, 0.09);
-
-    color:
-        #dceeff;
 
     font-size: 12px;
 
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition:
-        0.2s ease;
-}
-
-.division-btn:hover {
-
-    background:
-        var(--blue);
-
-    border-color:
-        var(--blue);
-
-    color: white;
+    line-height: 1.5;
 }
 
 
@@ -641,100 +505,79 @@ QUICK ACTIONS
 ===================================== */
 
 .quick-section {
-
     margin-bottom: 45px;
 }
 
 .quick-grid {
-
     display: grid;
 
     grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+        repeat(6,minmax(0,1fr));
 
-    gap: 15px;
+    gap: 13px;
 }
 
 .quick-card {
+    min-height: 140px;
 
-    min-height: 125px;
+    display: flex;
+    flex-direction: column;
 
-    padding:
-        20px;
+    align-items: center;
+    justify-content: center;
 
-    text-align: left;
+    gap: 6px;
+
+    padding: 18px 10px;
+
+    color: var(--text);
+
+    background:
+        var(--panel);
 
     border:
         1px solid var(--border);
 
-    border-radius:
-        15px;
-
-    background:
-        rgba(14, 28, 48, 0.85);
-
-    color: var(--text);
+    border-radius: 14px;
 
     cursor: pointer;
 
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: flex-start;
-
     transition:
-        0.22s ease;
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
 }
 
 .quick-card:hover {
-
     transform:
-        translateY(-3px);
-
-    background:
-        #122943;
+        translateY(-4px);
 
     border-color:
-        rgba(73, 167, 255, 0.3);
+        rgba(22,135,255,.45);
+
+    background:
+        #11243b;
 }
 
 .quick-icon {
+    font-size: 27px;
 
-    width: 40px;
-
-    height: 40px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 11px;
-
-    background:
-        rgba(22, 135, 255, 0.12);
-
-    font-size: 20px;
-
-    margin-bottom: 12px;
+    margin-bottom: 3px;
 }
 
 .quick-title {
-
-    font-size: 15px;
-
+    font-size: 14px;
     font-weight: 800;
+
+    text-align: center;
 }
 
 .quick-description {
-
-    margin-top: 3px;
-
     color: var(--muted);
 
-    font-size: 11px;
+    font-size: 10px;
+
+    text-align: center;
 }
 
 
@@ -743,111 +586,92 @@ OVERVIEW
 ===================================== */
 
 .overview-section {
-
     margin-bottom: 45px;
 }
 
 .overview-grid {
-
     display: grid;
 
     grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+        repeat(4,minmax(0,1fr));
 
     gap: 15px;
 }
 
 .overview-card {
+    min-height: 125px;
 
     display: flex;
-
     align-items: center;
 
-    gap: 14px;
+    gap: 15px;
 
-    padding:
-        19px;
+    padding: 20px;
+
+    background:
+        var(--panel);
 
     border:
         1px solid var(--border);
 
     border-radius:
         15px;
-
-    background:
-        var(--panel);
 }
 
 .overview-icon {
+    width: 48px;
+    height: 48px;
 
-    width: 43px;
-
-    height: 43px;
+    display: grid;
+    place-items: center;
 
     flex-shrink: 0;
 
-    display: flex;
+    border-radius: 13px;
 
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 12px;
+    font-size: 22px;
 
     background:
-        rgba(22, 135, 255, 0.12);
-
-    font-size: 19px;
+        rgba(37,217,255,.10);
 }
 
 .overview-icon.pending {
-
     background:
-        rgba(255, 174, 66, 0.12);
+        rgba(255,174,66,.12);
 }
 
 .overview-icon.working {
-
     background:
-        rgba(37, 217, 255, 0.1);
+        rgba(22,135,255,.12);
 }
 
 .overview-icon.completed {
-
     background:
-        rgba(25, 201, 130, 0.12);
+        rgba(25,201,130,.12);
 }
 
 .overview-card strong {
-
     display: block;
 
-    font-size: 24px;
-
-    line-height: 1;
+    font-size: 27px;
 }
 
 .overview-card p {
-
     color: var(--muted);
 
-    font-size: 11px;
-
-    margin-top: 5px;
+    font-size: 12px;
 }
 
 
 /* =====================================
-REQUESTS
+TABLE
 ===================================== */
 
 .requests-section {
-
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .table-container {
-
     overflow-x: auto;
 
     background:
@@ -858,83 +682,61 @@ REQUESTS
 
     border-radius:
         var(--radius);
+
+    box-shadow:
+        var(--shadow);
 }
 
 .service-table {
-
     width: 100%;
 
     border-collapse: collapse;
 
-    min-width: 760px;
+    min-width: 700px;
 }
 
-.service-table th {
-
+.service-table th,
+.service-table td {
     padding:
-        15px 18px;
-
-    background:
-        #12243a;
-
-    color:
-        #9db2cb;
-
-    font-size: 10px;
-
-    font-weight: 800;
+        15px 16px;
 
     text-align: left;
 
-    letter-spacing: 0.8px;
-
-    text-transform: uppercase;
-
     border-bottom:
         1px solid var(--border);
+
+    font-size: 13px;
+}
+
+.service-table th {
+    color: var(--cyan);
+
+    background:
+        rgba(255,255,255,.025);
+
+    font-size: 11px;
+
+    letter-spacing: .7px;
+
+    text-transform: uppercase;
 }
 
 .service-table td {
-
-    padding:
-        15px 18px;
-
-    color:
-        #dce7f5;
-
-    font-size: 13px;
-
-    border-bottom:
-        1px solid
-        rgba(255, 255, 255, 0.055);
-}
-
-.service-table tbody tr {
-
-    transition:
-        background 0.2s ease;
+    color: #dce6f4;
 }
 
 .service-table tbody tr:hover {
-
     background:
-        rgba(255, 255, 255, 0.025);
-}
-
-.service-table tbody tr:last-child td {
-
-    border-bottom: none;
+        rgba(255,255,255,.025);
 }
 
 .empty-state {
+    color: var(--muted) !important;
 
-    text-align: center;
+    text-align: center !important;
 
     padding:
         35px !important;
-
-    color:
-        var(--muted) !important;
 }
 
 
@@ -943,7 +745,6 @@ TOAST
 ===================================== */
 
 .toast {
-
     position: fixed;
 
     left: 50%;
@@ -951,206 +752,243 @@ TOAST
     bottom: 25px;
 
     transform:
-        translate(-50%, 20px);
-
-    min-width: 230px;
-
-    max-width: 90%;
-
-    padding:
-        12px 18px;
-
-    border:
-        1px solid
-        rgba(73, 167, 255, 0.3);
-
-    border-radius: 10px;
-
-    background:
-        #10243a;
-
-    color: white;
-
-    text-align: center;
-
-    font-size: 13px;
+        translate(-50%,20px);
 
     opacity: 0;
 
     pointer-events: none;
 
-    transition:
-        0.25s ease;
+    padding:
+        12px 20px;
 
-    z-index: 9999;
+    border-radius: 10px;
+
+    background:
+        #10243b;
+
+    border:
+        1px solid
+        rgba(37,217,255,.25);
+
+    color: var(--text);
+
+    font-size: 13px;
 
     box-shadow:
-        var(--shadow);
+        0 15px 40px
+        rgba(0,0,0,.35);
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
+
+    z-index: 999;
 }
 
 .toast.show {
-
     opacity: 1;
 
     transform:
-        translate(-50%, 0);
+        translate(-50%,0);
 }
 
 
 /* =====================================
-RESPONSIVE
+TABLET
 ===================================== */
 
 @media (max-width: 1050px) {
 
-    .division-grid {
-
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-
     .quick-grid {
-
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+            repeat(3,minmax(0,1fr));
     }
 
     .overview-grid {
-
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+            repeat(2,minmax(0,1fr));
     }
+
 }
 
 
-@media (max-width: 720px) {
+/* =====================================
+MOBILE
+===================================== */
+
+@media (max-width: 760px) {
 
     .sp-header {
+        align-items: flex-start;
 
-        padding:
-            12px 16px;
+        padding: 12px 15px;
     }
 
-    .sp-brand-text h1 {
-
-        font-size: 19px;
-    }
-
-    .sp-brand-text p {
-
-        font-size: 11px;
+    .sp-brand {
+        gap: 9px;
     }
 
     .sp-logo {
-
         width: 48px;
-
         height: 48px;
+
+        border-radius: 11px;
+    }
+
+    .sp-logo img {
+        padding: 5px;
+    }
+
+    .sp-brand-text h1 {
+        font-size: 18px;
+    }
+
+    .sp-brand-text p {
+        font-size: 11px;
     }
 
     .sp-header-actions {
-
         gap: 6px;
     }
 
     .header-btn {
-
         padding:
-            8px 10px;
+            9px 10px;
 
         font-size: 11px;
     }
 
     .service-point-page {
-
         width:
             calc(100% - 24px);
 
-        padding-top:
-            25px;
+        padding:
+            25px 0 45px;
     }
 
     .page-intro {
+        padding: 22px;
 
-        padding:
-            22px;
-    }
-
-    .section-heading {
-
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
-    }
-
-    .section-heading > p {
-
-        text-align:
-            left;
-    }
-
-    .division-grid {
-
-        grid-template-columns:
-            1fr;
-    }
-
-    .quick-grid {
-
-        grid-template-columns:
-            1fr;
-    }
-
-    .overview-grid {
-
-        grid-template-columns:
-            1fr;
-    }
-}
-
-
-@media (max-width: 480px) {
-
-    .sp-header {
-
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
-    }
-
-    .sp-header-actions {
-
-        width: 100%;
-    }
-
-    .header-btn {
-
-        flex: 1;
+        margin-bottom: 28px;
     }
 
     .page-intro h2 {
-
         font-size: 28px;
     }
 
-    .division-logo {
+    .page-intro p {
+        font-size: 13px;
+    }
+
+    .section-heading {
+        display: block;
+    }
+
+    .section-heading > p {
+        text-align: left;
+
+        margin-top: 6px;
+    }
+
+    .service-identity {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 18px;
+
+        padding: 20px;
+
+        margin-bottom: 32px;
+    }
+
+    .identity-logo {
+        width: 100%;
+        min-width: 0;
 
         height: 105px;
     }
 
-    .division-logo img {
+    .identity-content h2 {
+        font-size: 22px;
+    }
 
-        height: 68px;
+    .profile-grid {
+        grid-template-columns: 1fr;
 
-        max-width: 78%;
+        gap: 12px;
+    }
+
+    .profile-card {
+        min-height: 125px;
+
+        padding: 20px;
+    }
+
+    .quick-grid {
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap: 10px;
     }
 
     .quick-card {
-
-        min-height: 110px;
+        min-height: 125px;
     }
+
+    .overview-grid {
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap: 10px;
+    }
+
+    .overview-card {
+        min-height: 110px;
+
+        padding: 15px;
+
+        gap: 10px;
+    }
+
+    .overview-icon {
+        width: 40px;
+        height: 40px;
+
+        font-size: 18px;
+    }
+
+    .overview-card strong {
+        font-size: 22px;
+    }
+
+}
+
+
+/* =====================================
+SMALL MOBILE
+===================================== */
+
+@media (max-width: 430px) {
+
+    .sp-header {
+        flex-wrap: wrap;
+    }
+
+    .sp-header-actions {
+        width: 100%;
+    }
+
+    .header-btn {
+        flex: 1;
+    }
+
+    .quick-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .overview-grid {
+        grid-template-columns: 1fr;
+    }
+
 }
