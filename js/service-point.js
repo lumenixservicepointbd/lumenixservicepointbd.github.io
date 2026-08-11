@@ -1,7 +1,7 @@
 /* =====================================
 LUMENIX V5.1
-SERVICE POINT CONTROLLER
-REPLACEMENT VERSION
+SERVICE POINT BD
+FINAL REPLACEMENT JS
 ===================================== */
 
 "use strict";
@@ -24,40 +24,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================
-    NAVIGATION HELPER
+    NAVIGATION
     ===================================== */
 
     function goTo(page) {
-
         window.location.href = page;
+    }
 
+
+    function bindNavigation(id, page) {
+
+        const element =
+            document.getElementById(id);
+
+        if (!element) return;
+
+        element.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                goTo(page);
+
+            }
+        );
     }
 
 
     /* =====================================
-    HEADER NAVIGATION
+    HEADER
     ===================================== */
 
-    const dashboardBtn =
-        document.getElementById("dashboardBtn");
+    bindNavigation(
+        "dashboardBtn",
+        "dashboard.html"
+    );
+
 
     const logoutBtn =
         document.getElementById("logoutBtn");
-
-
-    if (dashboardBtn) {
-
-        dashboardBtn.addEventListener(
-            "click",
-            function () {
-
-                goTo("dashboard.html");
-
-            }
-        );
-
-    }
-
 
     if (logoutBtn) {
 
@@ -69,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     confirm(
                         "Are you sure you want to logout?"
                     );
-
 
                 if (!confirmLogout) return;
 
@@ -96,367 +101,62 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================
-    DIVISION NAVIGATION
+    PROFILE CENTER
     ===================================== */
 
-    /*
-    IMPORTANT:
-    Only ONE set of division cards exists
-    in the new HTML.
-
-    Each card uses data-division.
-    */
-
-
-    const divisionButtons =
-        document.querySelectorAll(
-            ".division-btn"
-        );
-
-
-    divisionButtons.forEach(
-        function (button) {
-
-            button.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
-
-                    const division =
-                        button.dataset.division;
-
-
-                    if (
-                        division ===
-                        "service-point"
-                    ) {
-
-                        /*
-                        Current page.
-                        No unnecessary reload.
-                        */
-
-                        showToast(
-                            "Service Point is already open."
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (
-                        division ===
-                        "lighting"
-                    ) {
-
-                        /*
-                        Lighting division.
-                        */
-
-                        goTo(
-                            "lighting.html"
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (
-                        division ===
-                        "training"
-                    ) {
-
-                        /*
-                        Training division.
-                        */
-
-                        goTo(
-                            "training.html"
-                        );
-
-                        return;
-
-                    }
-
-                }
-            );
-
-        }
+    bindNavigation(
+        "myProfileBtn",
+        "profile.html"
     );
 
-
-    /* =====================================
-    DIVISION CARD CLICK
-    ===================================== */
-
-    const divisionCards =
-        document.querySelectorAll(
-            ".division-card"
-        );
-
-
-    divisionCards.forEach(
-        function (card) {
-
-            card.addEventListener(
-                "click",
-                function (event) {
-
-                    /*
-                    Do not fire when the actual
-                    button was clicked.
-                    */
-
-                    if (
-                        event.target.closest(
-                            ".division-btn"
-                        )
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    const division =
-                        card.dataset.division;
-
-
-                    if (
-                        division ===
-                        "service-point"
-                    ) {
-
-                        setActiveDivision(
-                            card
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (
-                        division ===
-                        "lighting"
-                    ) {
-
-                        goTo(
-                            "lighting.html"
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (
-                        division ===
-                        "training"
-                    ) {
-
-                        goTo(
-                            "training.html"
-                        );
-
-                        return;
-
-                    }
-
-                }
-            );
-
-        }
+    bindNavigation(
+        "technicianProfileBtn",
+        "technicians.html"
     );
 
-
-    function setActiveDivision(
-        selectedCard
-    ) {
-
-        divisionCards.forEach(
-            function (card) {
-
-                card.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-        selectedCard.classList.add(
-            "active"
-        );
-
-    }
+    bindNavigation(
+        "shopkeeperProfileBtn",
+        "shopkeepers.html"
+    );
 
 
     /* =====================================
     QUICK ACTIONS
     ===================================== */
 
-    const quickCustomerBtn =
-        document.getElementById(
-            "quickCustomerBtn"
-        );
+    bindNavigation(
+        "quickCustomerBtn",
+        "customers.html"
+    );
 
+    bindNavigation(
+        "quickServiceBtn",
+        "service-requests.html"
+    );
 
-    const quickServiceBtn =
-        document.getElementById(
-            "quickServiceBtn"
-        );
+    bindNavigation(
+        "quickTechnicianBtn",
+        "technicians.html"
+    );
 
+    bindNavigation(
+        "quickDealerBtn",
+        "dealers.html"
+    );
 
-    const quickTechnicianBtn =
-        document.getElementById(
-            "quickTechnicianBtn"
-        );
+    bindNavigation(
+        "quickShopkeeperBtn",
+        "shopkeepers.html"
+    );
 
-
-    const quickDealerBtn =
-        document.getElementById(
-            "quickDealerBtn"
-        );
-
-
-    const quickShopkeeperBtn =
-        document.getElementById(
-            "quickShopkeeperBtn"
-        );
-
-
-    const quickReportsBtn =
-        document.getElementById(
-            "quickReportsBtn"
-        );
+    bindNavigation(
+        "quickReportsBtn",
+        "reports.html"
+    );
 
 
     /* =====================================
-    CUSTOMERS
-    ===================================== */
-
-    if (quickCustomerBtn) {
-
-        quickCustomerBtn.addEventListener(
-            "click",
-            function () {
-
-                goTo(
-                    "customers.html"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    SERVICE REQUESTS
-    ===================================== */
-
-    if (quickServiceBtn) {
-
-        quickServiceBtn.addEventListener(
-            "click",
-            function () {
-
-                goTo(
-                    "service-requests.html"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    TECHNICIANS
-    ===================================== */
-
-    if (quickTechnicianBtn) {
-
-        quickTechnicianBtn.addEventListener(
-            "click",
-            function () {
-
-                goTo(
-                    "technicians.html"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    DEALERS
-    ===================================== */
-
-    if (quickDealerBtn) {
-
-        quickDealerBtn.addEventListener(
-            "click",
-            function () {
-
-                goTo(
-                    "dealers.html"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    SHOPKEEPERS
-    ===================================== */
-
-    if (quickShopkeeperBtn) {
-
-        quickShopkeeperBtn.addEventListener(
-            "click",
-            function () {
-
-                goTo(
-                    "shopkeepers.html"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    REPORTS
-    ===================================== */
-
-    if (quickReportsBtn) {
-
-        quickReportsBtn.addEventListener(
-            "click",
-            function () {
-
-                goTo(
-                    "reports.html"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================
-    SERVICE REQUEST DATA
+    SERVICE REQUEST TABLE
     ===================================== */
 
     const tableBody =
@@ -465,57 +165,87 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
+    function escapeHTML(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    function normalizeStatus(value) {
+
+        return String(value || "")
+            .trim()
+            .toLowerCase();
+
+    }
+
+
+    function getRequests() {
+
+        try {
+
+            const saved =
+                localStorage.getItem(
+                    "lumenixServiceRequests"
+                );
+
+            if (!saved) return [];
+
+            const parsed =
+                JSON.parse(saved);
+
+            return Array.isArray(parsed)
+                ? parsed
+                : [];
+
+        } catch (error) {
+
+            console.error(
+                "Service request data error:",
+                error
+            );
+
+            return [];
+
+        }
+
+    }
+
+
     function loadServiceRequests() {
 
         if (!tableBody) return;
 
 
-        let requests = [];
-
-
-        try {
-
-            requests =
-                JSON.parse(
-                    localStorage.getItem(
-                        "lumenixServiceRequests"
-                    )
-                ) || [];
-
-        } catch (error) {
-
-            requests = [];
-
-        }
+        const requests =
+            getRequests();
 
 
         tableBody.innerHTML = "";
 
 
-        if (
-            !Array.isArray(requests) ||
-            requests.length === 0
-        ) {
+        if (requests.length === 0) {
 
             tableBody.innerHTML = `
-
                 <tr>
-
                     <td
                         colspan="5"
                         class="empty-state"
                     >
                         No service request found.
                     </td>
-
                 </tr>
-
             `;
 
             updateOverview([]);
 
             return;
-
         }
 
 
@@ -529,9 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
             function (request) {
 
                 const row =
-                    document.createElement(
-                        "tr"
-                    );
+                    document.createElement("tr");
 
 
                 const status =
@@ -543,8 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <td>
                         ${escapeHTML(
-                            request.id ||
-                            "-"
+                            request.id || "-"
                         )}
                     </td>
 
@@ -580,9 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
 
 
-                tableBody.appendChild(
-                    row
-                );
+                tableBody.appendChild(row);
 
             }
         );
@@ -597,167 +322,108 @@ document.addEventListener("DOMContentLoaded", function () {
     OVERVIEW
     ===================================== */
 
-    function updateOverview(
-        requests
-    ) {
+    function updateOverview(requests) {
 
-        const totalRequests =
+        const totalElement =
             document.getElementById(
                 "totalRequests"
             );
 
-
-        const pendingRequests =
+        const pendingElement =
             document.getElementById(
                 "pendingRequests"
             );
 
-
-        const workingRequests =
+        const workingElement =
             document.getElementById(
                 "workingRequests"
             );
 
-
-        const completedRequests =
+        const completedElement =
             document.getElementById(
                 "completedRequests"
             );
 
 
-        const total =
-            requests.length;
+        let pending = 0;
+        let working = 0;
+        let completed = 0;
 
 
-        const pending =
-            requests.filter(
-                function (item) {
+        requests.forEach(
+            function (request) {
 
-                    return normalizeStatus(
-                        item.status
-                    ) === "pending";
-
-                }
-            ).length;
-
-
-        const working =
-            requests.filter(
-                function (item) {
-
-                    const status =
-                        normalizeStatus(
-                            item.status
-                        );
-
-                    return (
-                        status ===
-                            "working" ||
-                        status ===
-                            "in progress" ||
-                        status ===
-                            "running"
+                const status =
+                    normalizeStatus(
+                        request.status
                     );
 
+
+                if (status === "pending") {
+
+                    pending++;
+
+                    return;
                 }
-            ).length;
 
 
-        const completed =
-            requests.filter(
-                function (item) {
+                if (
+                    status === "working" ||
+                    status === "running" ||
+                    status === "in progress" ||
+                    status === "in-progress"
+                ) {
 
-                    return normalizeStatus(
-                        item.status
-                    ) === "completed";
+                    working++;
+
+                    return;
+                }
+
+
+                if (
+                    status === "completed" ||
+                    status === "complete" ||
+                    status === "done"
+                ) {
+
+                    completed++;
 
                 }
-            ).length;
+
+            }
+        );
 
 
-        if (totalRequests) {
+        if (totalElement) {
 
-            totalRequests.textContent =
-                total;
+            totalElement.textContent =
+                requests.length;
 
         }
 
 
-        if (pendingRequests) {
+        if (pendingElement) {
 
-            pendingRequests.textContent =
+            pendingElement.textContent =
                 pending;
 
         }
 
 
-        if (workingRequests) {
+        if (workingElement) {
 
-            workingRequests.textContent =
+            workingElement.textContent =
                 working;
 
         }
 
 
-        if (completedRequests) {
+        if (completedElement) {
 
-            completedRequests.textContent =
+            completedElement.textContent =
                 completed;
 
         }
-
-    }
-
-
-    /* =====================================
-    HELPERS
-    ===================================== */
-
-    function normalizeStatus(
-        value
-    ) {
-
-        return String(
-            value || ""
-        )
-            .trim()
-            .toLowerCase();
-
-    }
-
-
-    function escapeHTML(
-        value
-    ) {
-
-        return String(
-            value ?? ""
-        )
-
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-
-            .replace(
-                /</g,
-                "&lt;"
-            )
-
-            .replace(
-                />/g,
-                "&gt;"
-            )
-
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-
-            .replace(
-                /'/g,
-                "&#039;"
-            );
 
     }
 
@@ -772,34 +438,25 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-    function showToast(
-        message
-    ) {
+    let toastTimer = null;
 
-        if (!toast) {
 
-            alert(message);
+    function showToast(message) {
 
-            return;
-
-        }
+        if (!toast) return;
 
 
         toast.textContent =
             message;
 
 
-        toast.classList.add(
-            "show"
-        );
+        toast.classList.add("show");
 
 
-        clearTimeout(
-            showToast.timer
-        );
+        clearTimeout(toastTimer);
 
 
-        showToast.timer =
+        toastTimer =
             setTimeout(
                 function () {
 
@@ -808,7 +465,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
                 },
-                2200
+                2500
             );
 
     }
@@ -821,8 +478,33 @@ document.addEventListener("DOMContentLoaded", function () {
     loadServiceRequests();
 
 
+    /* =====================================
+    STORAGE SYNC
+    ===================================== */
+
+    window.addEventListener(
+        "storage",
+        function (event) {
+
+            if (
+                event.key ===
+                "lumenixServiceRequests"
+            ) {
+
+                loadServiceRequests();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================
+    READY
+    ===================================== */
+
     console.log(
-        "LUMENIX Service Point V5.1 loaded successfully."
+        "LUMENIX Service Point BD loaded successfully."
     );
 
 });
