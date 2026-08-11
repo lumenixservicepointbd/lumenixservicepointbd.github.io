@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        LUMENIX | Dealer Profile
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                #07111f;
+
+            color: #ffffff;
+
+            min-height: 100vh;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            padding: 18px;
+        }
+
+        .header {
+            background: #0d1c30;
+            border: 1px solid #203b5a;
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand img {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 6px;
+        }
+
+        .brand h1 {
+            font-size: 22px;
+        }
+
+        .brand p {
+            color: #8fa6bf;
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        button {
+            cursor: pointer;
+            border: 0;
+        }
+
+        .btn {
+            padding: 13px 15px;
+            border-radius: 12px;
+            font-weight: 700;
+            color: #ffffff;
+            background: #12304f;
+            border: 1px solid #294a6c;
+        }
+
+        .btn-primary {
+            background: #087fe5;
+            border-color: #087fe5;
+        }
+
+        .hero {
+            padding: 10px 2px 20px;
+        }
+
+        .eyebrow {
+            color: #36a4ff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .hero h2 {
+            font-size: 31px;
+            margin-bottom: 9px;
+        }
+
+        .hero p {
+            color: #8ea4bb;
+            line-height: 1.6;
+        }
+
+        .card {
+            background:
+                linear-gradient(
+                    145deg,
+                    #10253d,
+                    #0b1a2d
+                );
+
+            border: 1px solid #1e3b59;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        .muted {
+            color: #8da3ba;
+            line-height: 1.55;
+            margin-bottom: 18px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .field {
+            margin-bottom: 2px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #c8d6e4;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border-radius: 11px;
+            border: 1px solid #294662;
+            background: #08182a;
+            color: #ffffff;
+            outline: none;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #1595ff;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            background: #0789ed;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 15px;
+            margin-top: 15px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+        }
+
+        .summary-card {
+            background: #0a1a2d;
+            border: 1px solid #1d3a58;
+            border-radius: 15px;
+            padding: 16px;
+        }
+
+        .summary-card span {
+            display: block;
+            color: #8299b1;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .summary-card strong {
+            font-size: 21px;
+        }
+
+        .profile-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .dealer-item {
+            background: #09192c;
+            border: 1px solid #1e3b58;
+            border-radius: 15px;
+            padding: 16px;
+        }
+
+        .dealer-item strong {
+            font-size: 17px;
+        }
+
+        .dealer-item p {
+            color: #8ea4bb;
+            font-size: 13px;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .empty {
+            text-align: center;
+            color: #7e95ad;
+            padding: 20px;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 22px;
+            transform:
+                translate(-50%, 20px);
+
+            background: #087fe5;
+            color: #ffffff;
+
+            padding: 12px 18px;
+            border-radius: 10px;
+
+            opacity: 0;
+            pointer-events: none;
+
+            transition:
+                .25s ease;
+
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform:
+                translate(-50%, 0);
+        }
+
+        @media (max-width: 650px) {
+
+            .page {
+                padding: 12px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .summary-grid {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+            .hero h2 {
+                font-size: 27px;
+            }
+
+        }
+
+        @media (max-width: 420px) {
+
+            .header-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-grid {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <img
+                src="images/lumenix-led-logo-white.png"
+                alt="LUMENIX Lighting & Accessories"
+            >
+
+            <div>
+
+                <h1>
+                    LUMENIX
+                </h1>
+
+                <p>
+                    Lighting & Accessories
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <button
+                class="btn btn-primary"
+                id="lightingBtn"
+            >
+                💡 Lighting Division
+            </button>
+
+            <button
+                class="btn"
+                id="dashboardBtn"
+            >
+                🏠 Dashboard
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            LIGHTING DIVISION
+        </div>
+
+        <h2>
+            Dealer Profile
+        </h2>
+
+        <p>
+            Dealer account, orders, payments,
+            balance, returns and replacement
+            records.
+        </p>
+
+    </section>
+
+
+    <!-- ACCOUNT SUMMARY -->
+
+    <section class="card">
+
+        <h3>
+            Account Summary
+        </h3>
+
+        <p class="muted">
+            Dealer financial and transaction
+            summary.
+        </p>
+
+
+        <div class="summary-grid">
+
+            <div class="summary-card">
+
+                <span>
+                    Total Orders
+                </span>
+
+                <strong id="totalOrders">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Total Paid
+                </span>
+
+                <strong id="totalPaid">
+                    ৳0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Due Balance
+                </span>
+
+                <strong id="dueBalance">
+                    ৳0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>
+                    Replacements
+                </span>
+
+                <strong id="replacementCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DEALER PROFILE -->
+
+    <section class="card">
+
+        <h3>
+            Create Dealer Profile
+        </h3>
+
+        <p class="muted">
+            Register a dealer and keep the
+            account information in one profile.
+        </p>
+
+
+        <form id="dealerForm">
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label for="dealerName">
+                        Dealer Name
+                    </label>
+
+                    <input
+                        id="dealerName"
+                        type="text"
+                        required
+                        placeholder="Dealer / Business Name"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="ownerName">
+                        Owner / Contact Person
+                    </label>
+
+                    <input
+                        id="ownerName"
+                        type="text"
+                        required
+                        placeholder="Owner or contact name"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="phone">
+                        Phone
+                    </label>
+
+                    <input
+                        id="phone"
+                        type="tel"
+                        required
+                        placeholder="Phone number"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        id="email"
+                        type="email"
+                        placeholder="Email address"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="dealerCode">
+                        Dealer Code
+                    </label>
+
+                    <input
+                        id="dealerCode"
+                        type="text"
+                        placeholder="Dealer code"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="status">
+                        Account Status
+                    </label>
+
+                    <select id="status">
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        placeholder="Dealer address"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label for="notes">
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        placeholder="Additional dealer information"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                + Save Dealer Profile
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- DEALER LIST -->
+
+    <section class="card">
+
+        <h3>
+            Dealer Profiles
+        </h3>
+
+        <p class="muted">
+            Registered dealer accounts.
+        </p>
+
+
+        <div
+            class="profile-list"
+            id="dealerList"
+        ></div>
+
+    </section>
+
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+"use strict";
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        const STORAGE_KEY =
+            "lumenixLightingDealers";
+
+
+        let dealers = [];
+
+
+        try {
+
+            dealers =
+                JSON.parse(
+                    localStorage.getItem(
+                        STORAGE_KEY
+                    )
+                ) || [];
+
+        } catch (error) {
+
+            dealers = [];
+
+        }
+
+
+        const form =
+            document.getElementById(
+                "dealerForm"
+            );
+
+
+        const dealerList =
+            document.getElementById(
+                "dealerList"
+            );
+
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        function showToast(message) {
+
+            toast.textContent =
+                message;
+
+            toast.classList.add(
+                "show"
+            );
+
+            clearTimeout(
+                showToast.timer
+            );
+
+            showToast.timer =
+                setTimeout(
+                    function () {
+
+                        toast.classList.remove(
+                            "show"
+                        );
+
+                    },
+                    2200
+                );
+
+        }
+
+
+        function escapeHTML(value) {
+
+            return String(
+                value ?? ""
+            )
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        function renderDealers() {
+
+            dealerList.innerHTML = "";
+
+
+            if (!dealers.length) {
+
+                dealerList.innerHTML = `
+
+                    <div class="empty">
+                        No dealer profile found.
+                    </div>
+
+                `;
+
+                updateSummary();
+
+                return;
+            }
+
+
+            dealers
+                .slice()
+                .reverse()
+                .forEach(
+                    function (dealer) {
+
+                        const item =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        item.className =
+                            "dealer-item";
+
+
+                        item.innerHTML = `
+
+                            <strong>
+                                ${escapeHTML(
+                                    dealer.dealerName
+                                )}
+                            </strong>
+
+                            <p>
+                                Dealer Code:
+                                ${escapeHTML(
+                                    dealer.dealerCode || "-"
+                                )}
+                            </p>
+
+                            <p>
+                                Contact:
+                                ${escapeHTML(
+                                    dealer.ownerName
+                                )}
+                            </p>
+
+                            <p>
+                                Phone:
+                                ${escapeHTML(
+                                    dealer.phone
+                                )}
+                            </p>
+
+                            <p>
+                                Status:
+                                ${escapeHTML(
+                                    dealer.status
+                                )}
+                            </p>
+
+                        `;
+
+
+                        dealerList.appendChild(
+                            item
+                        );
+
+                    }
+                );
+
+
+            updateSummary();
+
+        }
+
+
+        function updateSummary() {
+
+            let totalOrders = 0;
+            let totalPaid = 0;
+            let dueBalance = 0;
+            let replacementCount = 0;
+
+
+            dealers.forEach(
+                function (dealer) {
+
+                    totalOrders +=
+                        Number(
+                            dealer.totalOrders || 0
+                        );
+
+                    totalPaid +=
+                        Number(
+                            dealer.totalPaid || 0
+                        );
+
+                    dueBalance +=
+                        Number(
+                            dealer.dueBalance || 0
+                        );
+
+                    replacementCount +=
+                        Number(
+                            dealer.replacementCount || 0
+                        );
+
+                }
+            );
+
+
+            document.getElementById(
+                "totalOrders"
+            ).textContent =
+                totalOrders;
+
+
+            document.getElementById(
+                "totalPaid"
+            ).textContent =
+                "৳" +
+                totalPaid;
+
+
+            document.getElementById(
+                "dueBalance"
+            ).textContent =
+                "৳" +
+                dueBalance;
+
+
+            document.getElementById(
+                "replacementCount"
+            ).textContent =
+                replacementCount;
+
+        }
+
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const dealer = {
+
+                    id:
+                        "DLR-" +
+                        Date.now(),
+
+                    dealerName:
+                        document
+                            .getElementById(
+                                "dealerName"
+                            )
+                            .value
+                            .trim(),
+
+                    ownerName:
+                        document
+                            .getElementById(
+                                "ownerName"
+                            )
+                            .value
+                            .trim(),
+
+                    phone:
+                        document
+                            .getElementById(
+                                "phone"
+                            )
+                            .value
+                            .trim(),
+
+                    email:
+                        document
+                            .getElementById(
+                                "email"
+                            )
+                            .value
+                            .trim(),
+
+                    dealerCode:
+                        document
+                            .getElementById(
+                                "dealerCode"
+                            )
+                            .value
+                            .trim(),
+
+                    status:
+                        document
+                            .getElementById(
+                                "status"
+                            )
+                            .value,
+
+                    address:
+                        document
+                            .getElementById(
+                                "address"
+                            )
+                            .value
+                            .trim(),
+
+                    notes:
+                        document
+                            .getElementById(
+                                "notes"
+                            )
+                            .value
+                            .trim(),
+
+                    totalOrders: 0,
+
+                    totalPaid: 0,
+
+                    dueBalance: 0,
+
+                    replacementCount: 0,
+
+                    createdAt:
+                        new Date()
+                            .toISOString()
+
+                };
+
+
+                dealers.push(
+                    dealer
+                );
+
+
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(
+                        dealers
+                    )
+                );
+
+
+                form.reset();
+
+                renderDealers();
+
+                showToast(
+                    "Dealer profile saved successfully."
+                );
+
+            }
+        );
+
+
+        document
+            .getElementById(
+                "lightingBtn"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "lighting-accessories.html";
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "dashboardBtn"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                }
+            );
+
+
+        renderDealers();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
