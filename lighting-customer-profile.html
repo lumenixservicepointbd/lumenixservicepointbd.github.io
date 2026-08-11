@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LUMENIX | Lighting Customer Profile</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #07111f;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            padding: 18px;
+        }
+
+        .header {
+            background: #0d1c30;
+            border: 1px solid #203b5a;
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand img {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 12px;
+            padding: 6px;
+        }
+
+        .brand h1 {
+            font-size: 22px;
+        }
+
+        .brand p {
+            color: #91a7be;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .btn {
+            border: 1px solid #294a6c;
+            background: #12304f;
+            color: #fff;
+            padding: 13px 15px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .btn-primary {
+            background: #087fe5;
+            border-color: #087fe5;
+        }
+
+        .hero {
+            padding: 5px 2px 20px;
+        }
+
+        .eyebrow {
+            color: #36a4ff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .hero h2 {
+            font-size: 31px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #8fa5bc;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #10253d, #0b1a2d);
+            border: 1px solid #1e3b59;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        .muted {
+            color: #8da3ba;
+            line-height: 1.55;
+            margin-bottom: 18px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .summary {
+            background: #091a2d;
+            border: 1px solid #1e3a57;
+            border-radius: 15px;
+            padding: 15px;
+        }
+
+        .summary span {
+            display: block;
+            color: #8299b1;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .summary strong {
+            font-size: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            color: #c9d6e3;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border-radius: 11px;
+            border: 1px solid #294662;
+            background: #08182a;
+            color: #fff;
+            outline: none;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #1595ff;
+        }
+
+        .save-btn {
+            width: 100%;
+            border: 0;
+            background: #0789ed;
+            color: #fff;
+            padding: 14px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .customer-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .customer {
+            background: #09192c;
+            border: 1px solid #1e3b58;
+            border-radius: 15px;
+            padding: 16px;
+        }
+
+        .customer strong {
+            display: block;
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .customer p {
+            color: #8ea4bb;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .empty {
+            text-align: center;
+            color: #7e95ad;
+            padding: 20px;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 22px;
+            transform: translate(-50%, 20px);
+            background: #087fe5;
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        @media (max-width: 650px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero h2 {
+                font-size: 27px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <header class="header">
+
+        <div class="brand">
+
+            <img
+                src="images/lumenix-led-logo-white.png"
+                alt="LUMENIX Lighting & Accessories"
+            >
+
+            <div>
+                <h1>LUMENIX</h1>
+                <p>Lighting & Accessories</p>
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <button
+                class="btn btn-primary"
+                id="lightingBtn"
+            >
+                💡 Lighting Division
+            </button>
+
+            <button
+                class="btn"
+                id="dashboardBtn"
+            >
+                🏠 Dashboard
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            LIGHTING DIVISION
+        </div>
+
+        <h2>
+            Customer Profile
+        </h2>
+
+        <p>
+            Manage shopkeeper customers,
+            orders, payments, due balance,
+            returns and replacement records.
+        </p>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>
+            Customer Account Summary
+        </h3>
+
+        <p class="muted">
+            Overview of registered Lighting
+            Division customers.
+        </p>
+
+        <div class="summary-grid">
+
+            <div class="summary">
+                <span>Total Customers</span>
+                <strong id="totalCustomers">0</strong>
+            </div>
+
+            <div class="summary">
+                <span>Total Orders</span>
+                <strong id="totalOrders">0</strong>
+            </div>
+
+            <div class="summary">
+                <span>Total Paid</span>
+                <strong id="totalPaid">৳0</strong>
+            </div>
+
+            <div class="summary">
+                <span>Total Due</span>
+                <strong id="totalDue">৳0</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>
+            Create Customer Profile
+        </h3>
+
+        <p class="muted">
+            Create a separate account for each
+            Lighting & Accessories customer.
+        </p>
+
+        <form id="customerForm">
+
+            <div class="form-grid">
+
+                <div>
+                    <label for="customerName">
+                        Customer / Shop Name
+                    </label>
+
+                    <input
+                        id="customerName"
+                        type="text"
+                        required
+                        placeholder="Shop name"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="ownerName">
+                        Owner / Contact Person
+                    </label>
+
+                    <input
+                        id="ownerName"
+                        type="text"
+                        required
+                        placeholder="Owner name"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="phone">
+                        Phone
+                    </label>
+
+                    <input
+                        id="phone"
+                        type="tel"
+                        required
+                        placeholder="Phone number"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="dealerCode">
+                        Associated Dealer Code
+                    </label>
+
+                    <input
+                        id="dealerCode"
+                        type="text"
+                        placeholder="Dealer code"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="location">
+                        Shop Location
+                    </label>
+
+                    <input
+                        id="location"
+                        type="text"
+                        placeholder="Location"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="status">
+                        Account Status
+                    </label>
+
+                    <select id="status">
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div class="field full">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        placeholder="Full shop address"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label for="notes">
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        placeholder="Additional customer information"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                + Save Customer Profile
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <section class="card">
+
+        <h3>
+            Lighting Customer Profiles
+        </h3>
+
+        <p class="muted">
+            Registered customers of LUMENIX
+            Lighting & Accessories.
+        </p>
+
+        <div
+            class="customer-list"
+            id="customerList"
+        ></div>
+
+    </section>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+"use strict";
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const STORAGE_KEY =
+            "lumenixLightingCustomers";
+
+        let customers = [];
+
+        try {
+
+            customers =
+                JSON.parse(
+                    localStorage.getItem(
+                        STORAGE_KEY
+                    )
+                ) || [];
+
+        } catch (error) {
+
+            customers = [];
+
+        }
+
+
+        const form =
+            document.getElementById(
+                "customerForm"
+            );
+
+        const list =
+            document.getElementById(
+                "customerList"
+            );
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        function showToast(message) {
+
+            toast.textContent = message;
+
+            toast.classList.add("show");
+
+            clearTimeout(
+                showToast.timer
+            );
+
+            showToast.timer =
+                setTimeout(
+                    function () {
+
+                        toast.classList.remove(
+                            "show"
+                        );
+
+                    },
+                    2200
+                );
+
+        }
+
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        function updateSummary() {
+
+            let orders = 0;
+            let paid = 0;
+            let due = 0;
+
+            customers.forEach(
+                function (customer) {
+
+                    orders +=
+                        Number(
+                            customer.totalOrders || 0
+                        );
+
+                    paid +=
+                        Number(
+                            customer.totalPaid || 0
+                        );
+
+                    due +=
+                        Number(
+                            customer.dueBalance || 0
+                        );
+
+                }
+            );
+
+
+            document.getElementById(
+                "totalCustomers"
+            ).textContent =
+                customers.length;
+
+            document.getElementById(
+                "totalOrders"
+            ).textContent =
+                orders;
+
+            document.getElementById(
+                "totalPaid"
+            ).textContent =
+                "৳" + paid;
+
+            document.getElementById(
+                "totalDue"
+            ).textContent =
+                "৳" + due;
+
+        }
+
+
+        function renderCustomers() {
+
+            list.innerHTML = "";
+
+            if (!customers.length) {
+
+                list.innerHTML = `
+                    <div class="empty">
+                        No Lighting customer profile found.
+                    </div>
+                `;
+
+                updateSummary();
+
+                return;
+            }
+
+
+            customers
+                .slice()
+                .reverse()
+                .forEach(
+                    function (customer) {
+
+                        const item =
+                            document.createElement(
+                                "div"
+                            );
+
+                        item.className =
+                            "customer";
+
+                        item.innerHTML = `
+
+                            <strong>
+                                ${escapeHTML(
+                                    customer.customerName
+                                )}
+                            </strong>
+
+                            <p>
+                                Contact:
+                                ${escapeHTML(
+                                    customer.ownerName
+                                )}
+                            </p>
+
+                            <p>
+                                Phone:
+                                ${escapeHTML(
+                                    customer.phone
+                                )}
+                            </p>
+
+                            <p>
+                                Dealer:
+                                ${escapeHTML(
+                                    customer.dealerCode || "-"
+                                )}
+                            </p>
+
+                            <p>
+                                Location:
+                                ${escapeHTML(
+                                    customer.location || "-"
+                                )}
+                            </p>
+
+                            <p>
+                                Status:
+                                ${escapeHTML(
+                                    customer.status
+                                )}
+                            </p>
+
+                        `;
+
+                        list.appendChild(item);
+
+                    }
+                );
+
+
+            updateSummary();
+
+        }
+
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const customer = {
+
+                    id:
+                        "CUS-" +
+                        Date.now(),
+
+                    customerName:
+                        document
+                            .getElementById(
+                                "customerName"
+                            )
+                            .value
+                            .trim(),
+
+                    ownerName:
+                        document
+                            .getElementById(
+                                "ownerName"
+                            )
+                            .value
+                            .trim(),
+
+                    phone:
+                        document
+                            .getElementById(
+                                "phone"
+                            )
+                            .value
+                            .trim(),
+
+                    dealerCode:
+                        document
+                            .getElementById(
+                                "dealerCode"
+                            )
+                            .value
+                            .trim(),
+
+                    location:
+                        document
+                            .getElementById(
+                                "location"
+                            )
+                            .value
+                            .trim(),
+
+                    status:
+                        document
+                            .getElementById(
+                                "status"
+                            )
+                            .value,
+
+                    address:
+                        document
+                            .getElementById(
+                                "address"
+                            )
+                            .value
+                            .trim(),
+
+                    notes:
+                        document
+                            .getElementById(
+                                "notes"
+                            )
+                            .value
+                            .trim(),
+
+                    totalOrders: 0,
+
+                    totalPaid: 0,
+
+                    dueBalance: 0,
+
+                    replacementCount: 0,
+
+                    createdAt:
+                        new Date()
+                            .toISOString()
+
+                };
+
+
+                customers.push(
+                    customer
+                );
+
+
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(
+                        customers
+                    )
+                );
+
+
+                form.reset();
+
+                renderCustomers();
+
+                showToast(
+                    "Customer profile saved successfully."
+                );
+
+            }
+        );
+
+
+        document
+            .getElementById(
+                "lightingBtn"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "lighting-accessories.html";
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "dashboardBtn"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                }
+            );
+
+
+        renderCustomers();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
