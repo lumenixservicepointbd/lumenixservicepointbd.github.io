@@ -634,14 +634,9 @@ ECOSYSTEM
 
 .ecosystem-logo-box {
 
-    height: 115px;
+    height: 145px;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--navy),
-            var(--navy-light)
-        );
+    background: var(--white);
 
     display: flex;
 
@@ -649,17 +644,22 @@ ECOSYSTEM
 
     justify-content: center;
 
-    padding: 17px;
+    padding: 18px;
+
+    border-bottom:
+        1px solid var(--border);
 }
 
 
 .ecosystem-logo {
 
-    width: 180px;
+    width: 210px;
 
-    height: 82px;
+    height: 105px;
 
     object-fit: contain;
+
+    display: block;
 }
 
 
