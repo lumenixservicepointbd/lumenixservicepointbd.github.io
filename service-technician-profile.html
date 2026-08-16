@@ -2,535 +2,1255 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>LUMENIX | Technician Profile</title>
+<meta charset="UTF-8">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #07111f;
-            color: #fff;
-            min-height: 100vh;
-        }
+<title>LUMENIX | Technician Profile</title>
 
-        .page {
-            max-width: 900px;
-            margin: auto;
-            padding: 18px;
-        }
 
-        .header,
-        .card {
-            background: linear-gradient(145deg, #10253d, #0b1a2d);
-            border: 1px solid #1e3b59;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 18px;
-        }
+<style>
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        .brand img {
-            width: 58px;
-            height: 58px;
-            object-fit: contain;
-            background: #fff;
-            border-radius: 12px;
-            padding: 6px;
-        }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #07111f;
+    color: #ffffff;
+    min-height: 100vh;
+}
 
-        .brand h1 {
-            font-size: 22px;
-        }
+.page {
+    max-width: 900px;
+    margin: auto;
+    padding: 16px;
+}
 
-        .brand p {
-            color: #8fa6bd;
-            font-size: 14px;
-            margin-top: 4px;
-        }
+.card,
+.header {
+    background: #0d2035;
+    border: 1px solid #1e3b59;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 16px;
+}
 
-        .actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 16px;
-        }
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-        button {
-            cursor: pointer;
-        }
+.brand img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 5px;
+}
 
-        .btn {
-            border: 1px solid #294a6c;
-            background: #12304f;
-            color: #fff;
-            padding: 13px;
-            border-radius: 12px;
-            font-weight: 700;
-        }
+.brand h1 {
+    font-size: 21px;
+}
 
-        .primary {
-            background: #087fe5;
-            border-color: #087fe5;
-        }
+.brand p {
+    color: #8fa6bd;
+    font-size: 13px;
+    margin-top: 4px;
+}
 
-        .hero {
-            padding: 5px 2px 20px;
-        }
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
 
-        .eyebrow {
-            color: #36a4ff;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
+button {
+    cursor: pointer;
+}
 
-        .hero h2 {
-            font-size: 31px;
-            margin-bottom: 9px;
-        }
+.btn {
+    border: 1px solid #294a6c;
+    background: #12304f;
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+}
 
-        .hero p,
-        .muted {
-            color: #8da3ba;
-            line-height: 1.6;
-        }
+.primary {
+    background: #087fe5;
+    border-color: #087fe5;
+}
 
-        .muted {
-            margin: 7px 0 18px;
-        }
+.eyebrow {
+    color: #36a4ff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 7px;
+}
 
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
+.hero h2 {
+    font-size: 29px;
+    margin-bottom: 8px;
+}
 
-        .summary {
-            background: #091a2d;
-            border: 1px solid #1e3a57;
-            border-radius: 15px;
-            padding: 15px;
-        }
+.muted {
+    color: #8da3ba;
+    line-height: 1.6;
+}
 
-        .summary span {
-            display: block;
-            color: #8299b1;
-            font-size: 12px;
-            margin-bottom: 8px;
-        }
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 13px;
+}
 
-        .summary strong {
-            font-size: 20px;
-        }
+.full {
+    grid-column: 1 / -1;
+}
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
+label {
+    display: block;
+    color: #c9d6e3;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
 
-        .full {
-            grid-column: 1 / -1;
-        }
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #294662;
+    background: #08182a;
+    color: #ffffff;
+    outline: none;
+    font-size: 14px;
+}
 
-        label {
-            display: block;
-            color: #c9d6e3;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 7px;
-        }
+textarea {
+    min-height: 85px;
+    resize: vertical;
+}
 
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 13px;
-            border-radius: 11px;
-            border: 1px solid #294662;
-            background: #08182a;
-            color: #fff;
-            outline: none;
-            font-size: 14px;
-        }
 
-        textarea {
-            min-height: 90px;
-            resize: vertical;
-        }
+/* ===============================
+   PROFILE PHOTO
+================================ */
 
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: #1595ff;
-        }
+.photo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #08182a;
+    border: 1px solid #294662;
+    border-radius: 14px;
+    padding: 14px;
+}
 
-        .save-btn {
-            width: 100%;
-            border: 0;
-            background: #0789ed;
-            color: #fff;
-            padding: 14px;
-            border-radius: 12px;
-            margin-top: 15px;
-            font-weight: 800;
-            font-size: 15px;
-        }
+.photo-preview {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #12304f;
+    border: 2px solid #2d6c9e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    font-size: 35px;
+}
 
-        .technician-list {
-            display: grid;
-            gap: 12px;
-        }
+.photo-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-        .technician {
-            background: #09192c;
-            border: 1px solid #1e3b58;
-            border-radius: 15px;
-            padding: 16px;
-        }
+.photo-controls {
+    flex: 1;
+}
 
-        .technician strong {
-            display: block;
-            font-size: 17px;
-            margin-bottom: 6px;
-        }
+.photo-controls p {
+    color: #8299b1;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 9px;
+}
 
-        .technician p {
-            color: #8ea4bb;
-            font-size: 13px;
-            line-height: 1.55;
-        }
+.photo-input {
+    display: none;
+}
 
-        .empty {
-            text-align: center;
-            color: #7e95ad;
-            padding: 20px;
-        }
+.photo-btn {
+    display: inline-block;
+    background: #123b61;
+    border: 1px solid #2874ad;
+    color: #ffffff;
+    padding: 10px 13px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
 
-        .toast {
-            position: fixed;
-            left: 50%;
-            bottom: 22px;
-            transform: translate(-50%, 20px);
-            background: #087fe5;
-            color: #fff;
-            padding: 12px 18px;
-            border-radius: 10px;
-            opacity: 0;
-            pointer-events: none;
-            transition: .25s ease;
-            z-index: 1000;
-        }
 
-        .toast.show {
-            opacity: 1;
-            transform: translate(-50%, 0);
-        }
+/* ===============================
+   CATEGORY
+================================ */
 
-        @media (max-width: 650px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
+.category-box {
+    background: #08182a;
+    border: 1px solid #294662;
+    border-radius: 12px;
+    padding: 12px;
+}
 
-            .full {
-                grid-column: auto;
-            }
+.category-help {
+    color: #8299b1;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 11px;
+}
 
-            .summary-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+.category-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
 
-            .hero h2 {
-                font-size: 27px;
-            }
-        }
+.category-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #0d2238;
+    border: 1px solid #244663;
+    border-radius: 9px;
+    padding: 9px;
+    cursor: pointer;
+}
 
-        @media (max-width: 430px) {
-            .actions {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+.category-option input {
+    width: 18px;
+    height: 18px;
+    accent-color: #087fe5;
+}
+
+.category-option span {
+    color: #d8e4ef;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ===============================
+   TERMS
+================================ */
+
+.terms-box {
+    background: #08182a;
+    border: 1px solid #294662;
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.terms-link {
+    color: #55b8ff;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 13px;
+}
+
+.consent input {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    accent-color: #087fe5;
+}
+
+.consent label {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+
+/* ===============================
+   SAVE
+================================ */
+
+.save-btn {
+    width: 100%;
+    border: 0;
+    background: #0789ed;
+    color: #ffffff;
+    padding: 14px;
+    border-radius: 11px;
+    margin-top: 15px;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.save-btn:disabled {
+    background: #31516c;
+    color: #91a5b8;
+    cursor: not-allowed;
+}
+
+
+/* ===============================
+   LIST
+================================ */
+
+.technician-list {
+    display: grid;
+    gap: 12px;
+}
+
+.technician {
+    background: #09192c;
+    border: 1px solid #1e3b58;
+    border-radius: 14px;
+    padding: 14px;
+}
+
+.tech-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tech-photo {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #12304f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 23px;
+}
+
+.tech-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.technician strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.technician p {
+    color: #8ea4bb;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.category-tag {
+    background: #123b61;
+    border: 1px solid #21649b;
+    color: #72c3ff;
+    padding: 4px 7px;
+    border-radius: 15px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.profile-btn {
+    display: inline-block;
+    margin-top: 7px;
+    background: #087fe5;
+    color: #ffffff;
+    padding: 9px 11px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.empty {
+    text-align: center;
+    color: #7e95ad;
+    padding: 20px;
+}
+
+
+/* ===============================
+   MODAL
+================================ */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    z-index: 999;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 620px;
+    max-height: 88vh;
+    overflow-y: auto;
+    background: #0d2035;
+    border: 1px solid #2b4d6e;
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.modal-card h2 {
+    margin-bottom: 12px;
+}
+
+.terms-content {
+    color: #b6c6d5;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.terms-content p {
+    margin-bottom: 10px;
+}
+
+.modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin-top: 15px;
+}
+
+
+/* ===============================
+   TOAST
+================================ */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, 20px);
+    background: #087fe5;
+    color: #ffffff;
+    padding: 11px 17px;
+    border-radius: 9px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .25s ease;
+    z-index: 1200;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+
+/* ===============================
+   MOBILE
+================================ */
+
+@media (max-width: 650px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full {
+        grid-column: auto;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 430px) {
+
+    .actions {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-section {
+        align-items: flex-start;
+    }
+
+    .modal-actions {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
+
 <div class="page">
 
-    <header class="header">
 
-        <div class="brand">
+<!-- ===============================
+     HEADER
+================================ -->
 
-            <img
-                src="images/lumenix-service-logo-white.png"
-                alt="LUMENIX Service Point BD"
-            >
+<header class="header">
 
-            <div>
-                <h1>LUMENIX</h1>
-                <p>Service Point BD</p>
-            </div>
+    <div class="brand">
+
+        <img
+            src="images/lumenix-service-logo-white.png"
+            alt="LUMENIX Service Point BD"
+        >
+
+        <div>
+
+            <h1>LUMENIX</h1>
+
+            <p>
+                Service Point BD
+            </p>
 
         </div>
 
-        <div class="actions">
+    </div>
 
-            <button
-                class="btn primary"
-                id="servicePointBtn"
-            >
-                🛠️ Service Point
-            </button>
+
+    <div class="actions">
+
+        <button
+            class="btn primary"
+            id="servicePointBtn"
+            type="button"
+        >
+            🛠️ Service Point
+        </button>
+
+
+        <button
+            class="btn"
+            id="dashboardBtn"
+            type="button"
+        >
+            🏠 Dashboard
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- ===============================
+     HERO
+================================ -->
+
+<section class="hero">
+
+    <div class="eyebrow">
+        SERVICE POINT BD
+    </div>
+
+    <h2>
+        Technician Profile
+    </h2>
+
+    <p class="muted">
+        Create and manage individual technician
+        profiles, service categories, photo,
+        working area and professional reference.
+    </p>
+
+</section>
+
+
+
+<!-- ===============================
+     FORM
+================================ -->
+
+<section class="card">
+
+    <h3>
+        Create / Activate Technician Profile
+    </h3>
+
+    <p class="muted">
+        Technician must accept the Terms & Conditions
+        before the profile can be activated.
+    </p>
+
+
+    <form id="technicianForm">
+
+
+        <div class="form-grid">
+
+
+            <!-- PHOTO -->
+
+            <div class="full">
+
+                <label>
+                    Profile Photo
+                </label>
+
+
+                <div class="photo-section">
+
+
+                    <div
+                        class="photo-preview"
+                        id="photoPreview"
+                    >
+                        👨‍🔧
+                    </div>
+
+
+                    <div class="photo-controls">
+
+                        <p>
+                            নিজের ছবি Gallery বা Camera
+                            থেকে select করুন। ছবি profile-এর
+                            সঙ্গে save হবে।
+                        </p>
+
+
+                        <label
+                            class="photo-btn"
+                            for="photoInput"
+                        >
+                            📷 Add / Change Photo
+                        </label>
+
+
+                        <input
+                            class="photo-input"
+                            id="photoInput"
+                            type="file"
+                            accept="image/*"
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- NAME -->
+
+            <div>
+
+                <label
+                    for="technicianName"
+                >
+                    Technician Name
+                </label>
+
+                <input
+                    id="technicianName"
+                    type="text"
+                    required
+                    placeholder="Technician name"
+                >
+
+            </div>
+
+
+
+            <!-- CODE -->
+
+            <div>
+
+                <label
+                    for="technicianCode"
+                >
+                    Technician Code
+                </label>
+
+                <input
+                    id="technicianCode"
+                    type="text"
+                    placeholder="Technician ID / Code"
+                >
+
+            </div>
+
+
+
+            <!-- PHONE -->
+
+            <div>
+
+                <label
+                    for="phone"
+                >
+                    Phone
+                </label>
+
+                <input
+                    id="phone"
+                    type="tel"
+                    required
+                    placeholder="Phone number"
+                >
+
+            </div>
+
+
+
+            <!-- SPECIALIZATION -->
+
+            <div>
+
+                <label
+                    for="specialization"
+                >
+                    Main Specialization
+                </label>
+
+                <input
+                    id="specialization"
+                    type="text"
+                    placeholder="Optional"
+                >
+
+            </div>
+
+
+
+            <!-- LOCATION -->
+
+            <div>
+
+                <label
+                    for="location"
+                >
+                    Working Area / District
+                </label>
+
+                <input
+                    id="location"
+                    type="text"
+                    placeholder="Working area / district"
+                >
+
+            </div>
+
+
+
+            <!-- STATUS -->
+
+            <div>
+
+                <label
+                    for="status"
+                >
+                    Technician Status
+                </label>
+
+                <select id="status">
+
+                    <option value="Available">
+                        Available
+                    </option>
+
+                    <option value="Busy">
+                        Busy
+                    </option>
+
+                    <option value="Inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- CATEGORIES -->
+
+            <div class="full">
+
+                <label>
+                    Service Categories
+                </label>
+
+
+                <div class="category-box">
+
+                    <div class="category-help">
+
+                        Technician যে যে কাজ জানেন,
+                        সেগুলোতে টিক দিন।
+                        একাধিক category select করা যাবে।
+
+                    </div>
+
+
+                    <div class="category-grid">
+
+
+                        <label class="category-option">
+
+                            <input
+                                type="checkbox"
+                                name="serviceCategories"
+                                value="AC & Refrigerator"
+                            >
+
+                            <span>
+                                AC & Refrigerator
+                            </span>
+
+                        </label>
+
+
+                        <label class="category-option">
+
+                            <input
+                                type="checkbox"
+                                name="serviceCategories"
+                                value="TV & LED"
+                            >
+
+                            <span>
+                                TV & LED
+                            </span>
+
+                        </label>
+
+
+                        <label class="category-option">
+
+                            <input
+                                type="checkbox"
+                                name="serviceCategories"
+                                value="Electrical"
+                            >
+
+                            <span>
+                                Electrical
+                            </span>
+
+                        </label>
+
+
+                        <label class="category-option">
+
+                            <input
+                                type="checkbox"
+                                name="serviceCategories"
+                                value="Fan & Motor"
+                            >
+
+                            <span>
+                                Fan & Motor
+                            </span>
+
+                        </label>
+
+
+                        <label class="category-option">
+
+                            <input
+                                type="checkbox"
+                                name="serviceCategories"
+                                value="Lighting"
+                            >
+
+                            <span>
+                                Lighting
+                            </span>
+
+                        </label>
+
+
+                        <label class="category-option">
+
+                            <input
+                                type="checkbox"
+                                name="serviceCategories"
+                                value="Wiring"
+                            >
+
+                            <span>
+                                Wiring
+                            </span>
+
+                        </label>
+
+
+                        <label class="category-option">
+
+                            <input
+                                type="checkbox"
+                                name="serviceCategories"
+                                value="Water Pump"
+                            >
+
+                            <span>
+                                Water Pump
+                            </span>
+
+                        </label>
+
+
+                        <label class="category-option">
+
+                            <input
+                                type="checkbox"
+                                name="serviceCategories"
+                                value="Home Appliance"
+                            >
+
+                            <span>
+                                Home Appliance
+                            </span>
+
+                        </label>
+
+
+                        <label class="category-option">
+
+                            <input
+                                type="checkbox"
+                                name="serviceCategories"
+                                value="Mobile & Small Electronics"
+                            >
+
+                            <span>
+                                Mobile & Small Electronics
+                            </span>
+
+                        </label>
+
+
+                        <label class="category-option">
+
+                            <input
+                                type="checkbox"
+                                name="serviceCategories"
+                                value="Other Service"
+                            >
+
+                            <span>
+                                Other Service
+                            </span>
+
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ADDRESS -->
+
+            <div class="full">
+
+                <label
+                    for="address"
+                >
+                    Address
+                </label>
+
+                <textarea
+                    id="address"
+                    placeholder="Technician address"
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- NOTES -->
+
+            <div class="full">
+
+                <label
+                    for="notes"
+                >
+                    Notes
+                </label>
+
+                <textarea
+                    id="notes"
+                    placeholder="Additional information"
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- TERMS -->
+
+            <div class="full">
+
+                <label>
+                    Terms & Conditions
+                </label>
+
+
+                <div class="terms-box">
+
+                    <div class="muted">
+
+                        Technician profile activation-এর আগে
+                        অবশ্যই
+
+                        <span
+                            class="terms-link"
+                            id="openTerms"
+                        >
+                            Terms & Conditions
+                        </span>
+
+                        পড়ে সম্মতি দিতে হবে।
+
+                    </div>
+
+
+                    <div class="consent">
+
+                        <input
+                            id="termsConsent"
+                            type="checkbox"
+                        >
+
+
+                        <label
+                            for="termsConsent"
+                        >
+
+                            আমি Terms & Conditions পড়েছি,
+                            বুঝেছি এবং LUMENIX Service Point
+                            BD-এর Technician Profile হিসেবে
+                            কাজ করার জন্য সম্মতি দিচ্ছি।
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            class="save-btn"
+            id="saveBtn"
+            type="submit"
+            disabled
+        >
+            🔒 Accept Terms to Activate Profile
+        </button>
+
+
+    </form>
+
+</section>
+
+
+
+<!-- ===============================
+     TECHNICIAN LIST
+================================ -->
+
+<section class="card">
+
+    <h3>
+        Technician Profiles
+    </h3>
+
+    <p class="muted">
+        Activated technician profiles.
+    </p>
+
+
+    <div
+        class="technician-list"
+        id="technicianList"
+    ></div>
+
+</section>
+
+
+</div>
+
+
+
+<!-- ===============================
+     TERMS MODAL
+================================ -->
+
+<div
+    class="modal"
+    id="termsModal"
+>
+
+
+    <div class="modal-card">
+
+
+        <h2>
+            LUMENIX Technician
+            Terms & Conditions
+        </h2>
+
+
+        <div class="terms-content">
+
+
+            <p>
+                1. Technician must provide accurate
+                profile information.
+            </p>
+
+
+            <p>
+                2. Technician must provide genuine
+                contact and professional information.
+            </p>
+
+
+            <p>
+                3. Technician must perform assigned
+                service responsibly and professionally.
+            </p>
+
+
+            <p>
+                4. Technician must follow customer
+                communication and service guidelines.
+            </p>
+
+
+            <p>
+                5. Technician must not misuse customer
+                information or LUMENIX Service Point
+                information.
+            </p>
+
+
+            <p>
+                6. Technician profile information may
+                be displayed as a professional reference
+                for customers.
+            </p>
+
+
+            <p>
+                7. Technician is responsible for the
+                accuracy of the information submitted
+                in the profile.
+            </p>
+
+
+            <p>
+                8. LUMENIX Service Point BD may update,
+                suspend or deactivate a profile when
+                necessary according to its operational
+                rules.
+            </p>
+
+
+            <p>
+                9. By accepting these Terms & Conditions,
+                the technician confirms that the submitted
+                information is provided voluntarily and
+                accurately.
+            </p>
+
+
+        </div>
+
+
+        <div class="modal-actions">
+
 
             <button
                 class="btn"
-                id="dashboardBtn"
+                id="closeTerms"
+                type="button"
             >
-                🏠 Dashboard
+                Close
             </button>
-
-        </div>
-
-    </header>
-
-
-    <section class="hero">
-
-        <div class="eyebrow">
-            SERVICE POINT BD
-        </div>
-
-        <h2>
-            Technician Profile
-        </h2>
-
-        <p>
-            Manage technician information,
-            assigned services, completed work,
-            earnings and service history.
-        </p>
-
-    </section>
-
-
-    <section class="card">
-
-        <h3>
-            Technician Summary
-        </h3>
-
-        <p class="muted">
-            Current overview of registered
-            Service Point technicians.
-        </p>
-
-        <div class="summary-grid">
-
-            <div class="summary">
-                <span>Total Technicians</span>
-                <strong id="totalTechnicians">0</strong>
-            </div>
-
-            <div class="summary">
-                <span>Assigned Services</span>
-                <strong id="assignedServices">0</strong>
-            </div>
-
-            <div class="summary">
-                <span>Completed Services</span>
-                <strong id="completedServices">0</strong>
-            </div>
-
-            <div class="summary">
-                <span>Total Earnings</span>
-                <strong id="totalEarnings">৳0</strong>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <section class="card">
-
-        <h3>
-            Create Technician Profile
-        </h3>
-
-        <p class="muted">
-            Create an individual profile for
-            each LUMENIX Service Point technician.
-        </p>
-
-        <form id="technicianForm">
-
-            <div class="form-grid">
-
-                <div>
-                    <label for="technicianName">
-                        Technician Name
-                    </label>
-
-                    <input
-                        id="technicianName"
-                        type="text"
-                        required
-                        placeholder="Technician name"
-                    >
-                </div>
-
-
-                <div>
-                    <label for="technicianCode">
-                        Technician Code
-                    </label>
-
-                    <input
-                        id="technicianCode"
-                        type="text"
-                        placeholder="Technician ID / Code"
-                    >
-                </div>
-
-
-                <div>
-                    <label for="phone">
-                        Phone
-                    </label>
-
-                    <input
-                        id="phone"
-                        type="tel"
-                        required
-                        placeholder="Phone number"
-                    >
-                </div>
-
-
-                <div>
-                    <label for="specialization">
-                        Specialization
-                    </label>
-
-                    <input
-                        id="specialization"
-                        type="text"
-                        placeholder="Service specialization"
-                    >
-                </div>
-
-
-                <div>
-                    <label for="location">
-                        Working Area
-                    </label>
-
-                    <input
-                        id="location"
-                        type="text"
-                        placeholder="Working area"
-                    >
-                </div>
-
-
-                <div>
-                    <label for="status">
-                        Technician Status
-                    </label>
-
-                    <select id="status">
-
-                        <option value="Available">
-                            Available
-                        </option>
-
-                        <option value="Busy">
-                            Busy
-                        </option>
-
-                        <option value="Inactive">
-                            Inactive
-                        </option>
-
-                    </select>
-                </div>
-
-
-                <div class="full">
-
-                    <label for="address">
-                        Address
-                    </label>
-
-                    <textarea
-                        id="address"
-                        placeholder="Technician address"
-                    ></textarea>
-
-                </div>
-
-
-                <div class="full">
-
-                    <label for="notes">
-                        Notes
-                    </label>
-
-                    <textarea
-                        id="notes"
-                        placeholder="Additional technician information"
-                    ></textarea>
-
-                </div>
-
-            </div>
 
 
             <button
-                type="submit"
-                class="save-btn"
+                class="btn primary"
+                id="agreeTerms"
+                type="button"
             >
-                + Save Technician Profile
+                ✓ I Agree
             </button>
 
-        </form>
 
-    </section>
+        </div>
 
 
-    <section class="card">
-
-        <h3>
-            Technician Profiles
-        </h3>
-
-        <p class="muted">
-            Registered LUMENIX Service Point
-            technicians.
-        </p>
-
-        <div
-            class="technician-list"
-            id="technicianList"
-        ></div>
-
-    </section>
+    </div>
 
 </div>
+
+
 
 <div
     class="toast"
@@ -538,21 +1258,31 @@
 ></div>
 
 
+
+<!-- ===============================
+     PROFILE BRIDGE
+================================ -->
+
 <script src="js/lumenix-profile-bridge.js"></script>
+
 
 
 <script>
 
 "use strict";
 
+
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
+
         const STORAGE_KEY =
             "lumenixServiceTechnicians";
 
+
         let technicians = [];
+
 
         try {
 
@@ -570,15 +1300,18 @@ document.addEventListener(
         }
 
 
+
         const form =
             document.getElementById(
                 "technicianForm"
             );
 
+
         const list =
             document.getElementById(
                 "technicianList"
             );
+
 
         const toast =
             document.getElementById(
@@ -586,188 +1319,823 @@ document.addEventListener(
             );
 
 
-        function showToast(message) {
+        const photoInput =
+            document.getElementById(
+                "photoInput"
+            );
 
-            toast.textContent = message;
 
-            toast.classList.add("show");
+        const photoPreview =
+            document.getElementById(
+                "photoPreview"
+            );
 
-            clearTimeout(showToast.timer);
+
+        const termsModal =
+            document.getElementById(
+                "termsModal"
+            );
+
+
+        const termsConsent =
+            document.getElementById(
+                "termsConsent"
+            );
+
+
+        const saveBtn =
+            document.getElementById(
+                "saveBtn"
+            );
+
+
+        let selectedPhoto =
+            "";
+
+
+
+        /* ===============================
+           TOAST
+        =============================== */
+
+        function showToast(
+            message
+        ) {
+
+            toast.textContent =
+                message;
+
+
+            toast.classList.add(
+                "show"
+            );
+
+
+            clearTimeout(
+                showToast.timer
+            );
+
 
             showToast.timer =
                 setTimeout(
                     function () {
-                        toast.classList.remove("show");
+
+                        toast.classList.remove(
+                            "show"
+                        );
+
                     },
-                    2200
+                    2400
                 );
+
         }
 
 
-        function escapeHTML(value) {
 
-            return String(value ?? "")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+        /* ===============================
+           ESCAPE
+        =============================== */
+
+        function escapeHTML(
+            value
+        ) {
+
+            return String(
+                value ?? ""
+            )
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
         }
 
 
-        function updateSummary() {
 
-            let assigned = 0;
-            let completed = 0;
-            let earnings = 0;
+        /* ===============================
+           PHOTO COMPRESSION
+        =============================== */
 
-            technicians.forEach(
-                function (technician) {
+        function compressPhoto(
+            file
+        ) {
 
-                    assigned += Number(
-                        technician.assignedServices || 0
+            return new Promise(
+                function (
+                    resolve,
+                    reject
+                ) {
+
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function (
+                            event
+                        ) {
+
+
+                            const image =
+                                new Image();
+
+
+                            image.onload =
+                                function () {
+
+
+                                    const maxSize =
+                                        500;
+
+
+                                    let width =
+                                        image.width;
+
+
+                                    let height =
+                                        image.height;
+
+
+                                    if (
+                                        width >
+                                        height
+                                    ) {
+
+                                        if (
+                                            width >
+                                            maxSize
+                                        ) {
+
+                                            height =
+                                                Math.round(
+                                                    height *
+                                                    maxSize /
+                                                    width
+                                                );
+
+                                            width =
+                                                maxSize;
+
+                                        }
+
+                                    } else {
+
+                                        if (
+                                            height >
+                                            maxSize
+                                        ) {
+
+                                            width =
+                                                Math.round(
+                                                    width *
+                                                    maxSize /
+                                                    height
+                                                );
+
+                                            height =
+                                                maxSize;
+
+                                        }
+
+                                    }
+
+
+                                    const canvas =
+                                        document.createElement(
+                                            "canvas"
+                                        );
+
+
+                                    canvas.width =
+                                        width;
+
+
+                                    canvas.height =
+                                        height;
+
+
+                                    const context =
+                                        canvas.getContext(
+                                            "2d"
+                                        );
+
+
+                                    context.drawImage(
+                                        image,
+                                        0,
+                                        0,
+                                        width,
+                                        height
+                                    );
+
+
+                                    resolve(
+                                        canvas.toDataURL(
+                                            "image/jpeg",
+                                            0.72
+                                        )
+                                    );
+
+                                };
+
+
+                            image.onerror =
+                                reject;
+
+
+                            image.src =
+                                event.target.result;
+
+                        };
+
+
+                    reader.onerror =
+                        reject;
+
+
+                    reader.readAsDataURL(
+                        file
                     );
 
-                    completed += Number(
-                        technician.completedServices || 0
+                }
+            );
+
+        }
+
+
+
+        /* ===============================
+           PHOTO SELECT
+        =============================== */
+
+        photoInput.addEventListener(
+            "change",
+            async function () {
+
+
+                const file =
+                    this.files &&
+                    this.files[0];
+
+
+                if (!file) {
+                    return;
+                }
+
+
+                if (
+                    !file.type.startsWith(
+                        "image/"
+                    )
+                ) {
+
+                    showToast(
+                        "Please select an image."
                     );
 
-                    earnings += Number(
-                        technician.earnings || 0
+                    return;
+
+                }
+
+
+                try {
+
+                    selectedPhoto =
+                        await compressPhoto(
+                            file
+                        );
+
+
+                    photoPreview.innerHTML =
+                        `
+                        <img
+                            src="${selectedPhoto}"
+                            alt="Technician photo"
+                        >
+                        `;
+
+
+                    showToast(
+                        "Photo selected."
                     );
+
+
+                } catch (error) {
+
+                    selectedPhoto =
+                        "";
+
+
+                    showToast(
+                        "Photo could not be processed."
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* ===============================
+           TERMS MODAL
+        =============================== */
+
+        document
+            .getElementById(
+                "openTerms"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    termsModal.classList.add(
+                        "show"
+                    );
+
                 }
             );
 
 
-            document.getElementById(
-                "totalTechnicians"
-            ).textContent =
-                technicians.length;
+        document
+            .getElementById(
+                "closeTerms"
+            )
+            .addEventListener(
+                "click",
+                function () {
 
-            document.getElementById(
-                "assignedServices"
-            ).textContent =
-                assigned;
+                    termsModal.classList.remove(
+                        "show"
+                    );
 
-            document.getElementById(
-                "completedServices"
-            ).textContent =
-                completed;
+                }
+            );
 
-            document.getElementById(
-                "totalEarnings"
-            ).textContent =
-                "৳" + earnings;
+
+        document
+            .getElementById(
+                "agreeTerms"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+
+                    termsConsent.checked =
+                        true;
+
+
+                    termsModal.classList.remove(
+                        "show"
+                    );
+
+
+                    updateSaveButton();
+
+
+                    showToast(
+                        "Terms & Conditions accepted."
+                    );
+
+                }
+            );
+
+
+
+        /* ===============================
+           CONSENT
+        =============================== */
+
+        termsConsent.addEventListener(
+            "change",
+            function () {
+
+                updateSaveButton();
+
+            }
+        );
+
+
+
+        function updateSaveButton() {
+
+
+            if (
+                termsConsent.checked
+            ) {
+
+                saveBtn.disabled =
+                    false;
+
+
+                saveBtn.textContent =
+                    "✓ Activate Technician Profile";
+
+            } else {
+
+                saveBtn.disabled =
+                    true;
+
+
+                saveBtn.textContent =
+                    "🔒 Accept Terms to Activate Profile";
+
+            }
+
         }
 
 
+
+        /* ===============================
+           CATEGORIES
+        =============================== */
+
+        function getCategories() {
+
+
+            return Array
+                .from(
+                    document.querySelectorAll(
+                        'input[name="serviceCategories"]:checked'
+                    )
+                )
+                .map(
+                    function (item) {
+
+                        return item.value;
+
+                    }
+                );
+
+        }
+
+
+
+        /* ===============================
+           CATEGORY TAGS
+        =============================== */
+
+        function categoryTags(
+            categories
+        ) {
+
+
+            if (
+                !Array.isArray(
+                    categories
+                ) ||
+                categories.length === 0
+            ) {
+
+                return "";
+
+            }
+
+
+            return `
+
+                <div class="category-tags">
+
+                    ${
+                        categories
+                            .map(
+                                function (
+                                    category
+                                ) {
+
+                                    return `
+
+                                        <span
+                                            class="category-tag"
+                                        >
+                                            ${escapeHTML(
+                                                category
+                                            )}
+                                        </span>
+
+                                    `;
+
+                                }
+                            )
+                            .join("")
+                    }
+
+                </div>
+
+            `;
+
+        }
+
+
+
+        /* ===============================
+           SUMMARY
+        =============================== */
+
+        function updateSummary() {
+
+            return;
+
+        }
+
+
+
+        /* ===============================
+           RENDER
+        =============================== */
+
         function renderTechnicians() {
 
-            list.innerHTML = "";
+
+            list.innerHTML =
+                "";
 
 
-            if (!technicians.length) {
+            if (
+                technicians.length === 0
+            ) {
 
                 list.innerHTML = `
+
                     <div class="empty">
-                        No technician profile found.
+
+                        No activated technician
+                        profile found.
+
                     </div>
+
                 `;
 
-                updateSummary();
-
                 return;
+
             }
+
 
 
             technicians
                 .slice()
                 .reverse()
                 .forEach(
-                    function (technician) {
+                    function (
+                        technician
+                    ) {
+
 
                         const item =
                             document.createElement(
                                 "div"
                             );
 
+
                         item.className =
                             "technician";
 
+
+                        const id =
+                            encodeURIComponent(
+                                technician.id
+                            );
+
+
+                        const photo =
+                            technician.photo
+                                ? `
+                                    <img
+                                        src="${technician.photo}"
+                                        alt="Technician"
+                                    >
+                                  `
+                                : "👨‍🔧";
+
+
                         item.innerHTML = `
 
-                            <strong>
-                                ${escapeHTML(
-                                    technician.technicianName
-                                )}
-                            </strong>
+                            <div class="tech-row">
 
-                            <p>
-                                Technician Code:
-                                ${escapeHTML(
-                                    technician.technicianCode || "-"
-                                )}
-                            </p>
 
-                            <p>
-                                Phone:
-                                ${escapeHTML(
-                                    technician.phone
-                                )}
-                            </p>
+                                <div
+                                    class="tech-photo"
+                                >
 
-                            <p>
-                                Specialization:
-                                ${escapeHTML(
-                                    technician.specialization || "-"
-                                )}
-                            </p>
+                                    ${photo}
 
-                            <p>
-                                Working Area:
-                                ${escapeHTML(
-                                    technician.location || "-"
-                                )}
-                            </p>
+                                </div>
+
+
+                                <div>
+
+                                    <strong>
+                                        ${escapeHTML(
+                                            technician.technicianName
+                                        )}
+                                    </strong>
+
+
+                                    <p>
+                                        Code:
+                                        ${escapeHTML(
+                                            technician.technicianCode ||
+                                            "-"
+                                        )}
+                                    </p>
+
+
+                                    <p>
+                                        Area:
+                                        ${escapeHTML(
+                                            technician.location ||
+                                            "-"
+                                        )}
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+
+
+                            ${categoryTags(
+                                technician.categories ||
+                                []
+                            )}
+
 
                             <p>
                                 Status:
                                 ${escapeHTML(
-                                    technician.status
+                                    technician.status ||
+                                    "Available"
                                 )}
                             </p>
 
+
+                            <p>
+                                Profile:
+                                ${
+                                    technician.profileStatus ===
+                                    "Active"
+                                        ? "Active"
+                                        : "Inactive"
+                                }
+                            </p>
+
+
+                            <a
+                                class="profile-btn"
+                                href="technician-my-profile.html?id=${id}"
+                            >
+                                👤 View My Profile
+                            </a>
+
                         `;
 
-                        list.appendChild(item);
+
+                        list.appendChild(
+                            item
+                        );
+
+
                     }
                 );
 
-
-            updateSummary();
         }
 
 
+
+        /* ===============================
+           SAVE PROFILE
+        =============================== */
+
         form.addEventListener(
             "submit",
-            function (event) {
+            async function (
+                event
+            ) {
+
 
                 event.preventDefault();
 
 
+
+                /* TERMS CHECK */
+
+                if (
+                    !termsConsent.checked
+                ) {
+
+                    showToast(
+                        "You must accept Terms & Conditions."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* CATEGORY CHECK */
+
+                const categories =
+                    getCategories();
+
+
+                if (
+                    categories.length === 0
+                ) {
+
+                    showToast(
+                        "Select at least one service category."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* PHOTO CHECK */
+
+                if (
+                    !selectedPhoto
+                ) {
+
+                    showToast(
+                        "Please upload a profile photo."
+                    );
+
+                    return;
+
+                }
+
+
+
+                const technicianName =
+                    document
+                        .getElementById(
+                            "technicianName"
+                        )
+                        .value
+                        .trim();
+
+
+                const phone =
+                    document
+                        .getElementById(
+                            "phone"
+                        )
+                        .value
+                        .trim();
+
+
+
+                if (
+                    !technicianName ||
+                    !phone
+                ) {
+
+                    showToast(
+                        "Name and phone are required."
+                    );
+
+                    return;
+
+                }
+
+
+
+                const now =
+                    new Date();
+
+
                 const technician = {
+
 
                     id:
                         "TECH-" +
                         Date.now(),
 
+
                     technicianName:
-                        document
-                            .getElementById(
-                                "technicianName"
-                            )
-                            .value
-                            .trim(),
+                        technicianName,
+
 
                     technicianCode:
                         document
@@ -777,13 +2145,10 @@ document.addEventListener(
                             .value
                             .trim(),
 
+
                     phone:
-                        document
-                            .getElementById(
-                                "phone"
-                            )
-                            .value
-                            .trim(),
+                        phone,
+
 
                     specialization:
                         document
@@ -793,6 +2158,11 @@ document.addEventListener(
                             .value
                             .trim(),
 
+
+                    categories:
+                        categories,
+
+
                     location:
                         document
                             .getElementById(
@@ -801,12 +2171,14 @@ document.addEventListener(
                             .value
                             .trim(),
 
+
                     status:
                         document
                             .getElementById(
                                 "status"
                             )
                             .value,
+
 
                     address:
                         document
@@ -816,6 +2188,7 @@ document.addEventListener(
                             .value
                             .trim(),
 
+
                     notes:
                         document
                             .getElementById(
@@ -824,15 +2197,40 @@ document.addEventListener(
                             .value
                             .trim(),
 
-                    assignedServices: 0,
 
-                    completedServices: 0,
+                    photo:
+                        selectedPhoto,
 
-                    earnings: 0,
+
+                    profileStatus:
+                        "Active",
+
+
+                    termsAccepted:
+                        true,
+
+
+                    termsAcceptedAt:
+                        now.toISOString(),
+
+
+                    assignedServices:
+                        0,
+
+
+                    completedServices:
+                        0,
+
+
+                    earnings:
+                        0,
+
 
                     createdAt:
-                        new Date().toISOString()
+                        now.toISOString()
+
                 };
+
 
 
                 technicians.push(
@@ -840,25 +2238,69 @@ document.addEventListener(
                 );
 
 
-                localStorage.setItem(
-                    STORAGE_KEY,
-                    JSON.stringify(
-                        technicians
-                    )
-                );
+
+                try {
+
+
+                    localStorage.setItem(
+                        STORAGE_KEY,
+                        JSON.stringify(
+                            technicians
+                        )
+                    );
+
+
+                } catch (error) {
+
+
+                    technicians.pop();
+
+
+                    showToast(
+                        "Storage full. Please use a smaller photo."
+                    );
+
+
+                    return;
+
+                }
+
 
 
                 form.reset();
 
+
+                selectedPhoto =
+                    "";
+
+
+                photoPreview.innerHTML =
+                    "👨‍🔧";
+
+
+                termsConsent.checked =
+                    false;
+
+
+                updateSaveButton();
+
+
                 renderTechnicians();
 
+
                 showToast(
-                    "Technician profile saved successfully."
+                    "Technician profile activated successfully."
                 );
+
 
             }
         );
 
+
+
+        /* ===============================
+           NAVIGATION
+        =============================== */
 
         document
             .getElementById(
@@ -890,6 +2332,13 @@ document.addEventListener(
             );
 
 
+
+        /* ===============================
+           INITIAL
+        =============================== */
+
+        updateSaveButton();
+
         renderTechnicians();
 
     }
@@ -897,5 +2346,7 @@ document.addEventListener(
 
 </script>
 
+
 </body>
+
 </html>
