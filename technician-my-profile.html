@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>LUMENIX | My Technician Profile</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #07111f;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+.page {
+    max-width: 900px;
+    margin: auto;
+    padding: 16px;
+}
+
+.card {
+    background: #0d2035;
+    border: 1px solid #1e3b59;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.logo h1 {
+    font-size: 20px;
+}
+
+.logo p {
+    color: #8fa6bd;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+button {
+    border: 1px solid #285077;
+    background: #12304f;
+    color: #ffffff;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.primary {
+    background: #087fe5;
+    border-color: #087fe5;
+}
+
+.hero h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.hero p {
+    color: #8da3ba;
+    line-height: 1.6;
+}
+
+.profile-head {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #087fe5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
+
+.profile-head h2 {
+    font-size: 24px;
+}
+
+.profile-head p {
+    color: #8da3ba;
+    margin-top: 5px;
+}
+
+.status {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: #164d38;
+    color: #65e6ad;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.info {
+    background: #091a2d;
+    border: 1px solid #1e3a57;
+    border-radius: 13px;
+    padding: 14px;
+}
+
+.info span {
+    display: block;
+    color: #8299b1;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.info strong {
+    font-size: 15px;
+    word-break: break-word;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.stat {
+    text-align: center;
+    background: #091a2d;
+    border: 1px solid #1e3a57;
+    border-radius: 13px;
+    padding: 15px 8px;
+}
+
+.stat strong {
+    display: block;
+    font-size: 22px;
+    color: #36a4ff;
+}
+
+.stat span {
+    display: block;
+    color: #8299b1;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.activity {
+    display: grid;
+    gap: 10px;
+}
+
+.activity-item {
+    background: #091a2d;
+    border-left: 3px solid #087fe5;
+    padding: 12px;
+    border-radius: 9px;
+}
+
+.activity-item strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.activity-item span {
+    color: #8da3ba;
+    font-size: 13px;
+}
+
+.empty {
+    text-align: center;
+    color: #8299b1;
+    padding: 25px 10px;
+    line-height: 1.6;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .profile-head {
+        align-items: flex-start;
+    }
+
+}
+
+@media (max-width: 400px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+<header class="card header">
+
+    <div class="logo">
+
+        <img
+            src="images/lumenix-service-logo-white.png"
+            alt="LUMENIX Service Point BD"
+        >
+
+        <div>
+            <h1>LUMENIX</h1>
+            <p>Service Point BD</p>
+        </div>
+
+    </div>
+
+
+    <button
+        type="button"
+        id="servicePointBtn"
+    >
+        🛠️ Service Point
+    </button>
+
+</header>
+
+
+
+<section class="card hero">
+
+    <h2>My Technician Profile</h2>
+
+    <p>
+        Technician reference profile, service activity,
+        working area and professional information.
+    </p>
+
+</section>
+
+
+
+<div id="profileContainer"></div>
+
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const STORAGE_KEY =
+            "lumenixServiceTechnicians";
+
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const requestedId =
+            params.get("id");
+
+
+        let technicians = [];
+
+
+        try {
+
+            technicians =
+                JSON.parse(
+                    localStorage.getItem(
+                        STORAGE_KEY
+                    )
+                ) || [];
+
+        } catch (error) {
+
+            technicians = [];
+
+        }
+
+
+        const container =
+            document.getElementById(
+                "profileContainer"
+            );
+
+
+        function escapeHTML(value) {
+
+            return String(
+                value ?? ""
+            )
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        function openProfile(id) {
+
+            window.location.href =
+                "technician-my-profile.html?id=" +
+                encodeURIComponent(id);
+
+        }
+
+
+        function renderProfile(technician) {
+
+            const requests =
+                JSON.parse(
+                    localStorage.getItem(
+                        "lumenixServiceRequests"
+                    ) || "[]"
+                );
+
+
+            const technicianName =
+                String(
+                    technician.technicianName ||
+                    ""
+                ).toLowerCase();
+
+
+            const technicianCode =
+                String(
+                    technician.technicianCode ||
+                    ""
+                ).toLowerCase();
+
+
+            const activities =
+                Array.isArray(requests)
+                    ? requests.filter(
+                        function (request) {
+
+                            const requestTech =
+                                String(
+                                    request.technician ||
+                                    request.technicianName ||
+                                    request.technicianCode ||
+                                    ""
+                                ).toLowerCase();
+
+
+                            return (
+                                requestTech ===
+                                    technicianName ||
+                                requestTech ===
+                                    technicianCode
+                            );
+
+                        }
+                    )
+                    : [];
+
+
+            container.innerHTML = `
+
+                <section class="card">
+
+                    <div class="profile-head">
+
+                        <div class="avatar">
+                            👨‍🔧
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                ${escapeHTML(
+                                    technician.technicianName
+                                )}
+                            </h2>
+
+                            <p>
+                                Technician Code:
+                                ${escapeHTML(
+                                    technician.technicianCode || "-"
+                                )}
+                            </p>
+
+                            <span class="status">
+                                ${escapeHTML(
+                                    technician.status || "Available"
+                                )}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-grid">
+
+                        <div class="info">
+                            <span>Phone</span>
+                            <strong>
+                                ${escapeHTML(
+                                    technician.phone || "-"
+                                )}
+                            </strong>
+                        </div>
+
+
+                        <div class="info">
+                            <span>Specialization</span>
+                            <strong>
+                                ${escapeHTML(
+                                    technician.specialization || "-"
+                                )}
+                            </strong>
+                        </div>
+
+
+                        <div class="info">
+                            <span>Working Area / District</span>
+                            <strong>
+                                ${escapeHTML(
+                                    technician.location || "-"
+                                )}
+                            </strong>
+                        </div>
+
+
+                        <div class="info">
+                            <span>Address</span>
+                            <strong>
+                                ${escapeHTML(
+                                    technician.address || "-"
+                                )}
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <section class="card">
+
+                    <h3>
+                        Service Performance
+                    </h3>
+
+                    <br>
+
+                    <div class="stats">
+
+                        <div class="stat">
+                            <strong>
+                                ${Number(
+                                    technician.assignedServices || 0
+                                )}
+                            </strong>
+                            <span>
+                                Assigned
+                            </span>
+                        </div>
+
+
+                        <div class="stat">
+                            <strong>
+                                ${Number(
+                                    technician.completedServices || 0
+                                )}
+                            </strong>
+                            <span>
+                                Completed
+                            </span>
+                        </div>
+
+
+                        <div class="stat">
+                            <strong>
+                                ৳${Number(
+                                    technician.earnings || 0
+                                )}
+                            </strong>
+                            <span>
+                                Earnings
+                            </span>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <section class="card">
+
+                    <h3>
+                        Service Activity
+                    </h3>
+
+                    <br>
+
+                    <div class="activity">
+
+                        ${
+                            activities.length
+                                ? activities
+                                    .slice(-10)
+                                    .reverse()
+                                    .map(
+                                        function (item) {
+
+                                            return `
+
+                                                <div
+                                                    class="activity-item"
+                                                >
+
+                                                    <strong>
+                                                        ${escapeHTML(
+                                                            item.service ||
+                                                            item.serviceType ||
+                                                            "Service Request"
+                                                        )}
+                                                    </strong>
+
+                                                    <span>
+                                                        Customer:
+                                                        ${escapeHTML(
+                                                            item.customer ||
+                                                            item.customerName ||
+                                                            "-"
+                                                        )}
+
+                                                        <br>
+
+                                                        Status:
+                                                        ${escapeHTML(
+                                                            item.status ||
+                                                            "Pending"
+                                                        )}
+                                                    </span>
+
+                                                </div>
+
+                                            `;
+
+                                        }
+                                    )
+                                    .join("")
+                                : `
+                                    <div class="empty">
+
+                                        No service activity
+                                        has been recorded yet.
+
+                                    </div>
+                                `
+                        }
+
+                    </div>
+
+                </section>
+
+
+
+                <section class="card">
+
+                    <h3>
+                        Professional Reference
+                    </h3>
+
+                    <p class="hero">
+
+                        This profile provides a reference
+                        for customers who need to identify
+                        their LUMENIX Service Point technician.
+
+                    </p>
+
+                    <div class="info">
+                        <span>Technician Notes</span>
+                        <strong>
+                            ${escapeHTML(
+                                technician.notes || "-"
+                            )}
+                        </strong>
+                    </div>
+
+                </section>
+
+
+
+                <section class="card">
+
+                    <div class="actions">
+
+                        <button
+                            type="button"
+                            class="primary"
+                            id="servicePointBottomBtn"
+                        >
+                            🛠️ Service Point
+                        </button>
+
+                    </div>
+
+                </section>
+
+            `;
+
+
+            document
+                .getElementById(
+                    "servicePointBottomBtn"
+                )
+                .addEventListener(
+                    "click",
+                    function () {
+
+                        window.location.href =
+                            "service-point.html";
+
+                    }
+                );
+
+        }
+
+
+        function renderSelector() {
+
+            if (
+                !technicians.length
+            ) {
+
+                container.innerHTML = `
+
+                    <section class="card">
+
+                        <div class="empty">
+
+                            No technician profile
+                            has been created yet.
+
+                            <br><br>
+
+                            Create a technician profile
+                            first.
+
+                        </div>
+
+                    </section>
+
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML = `
+
+                <section class="card">
+
+                    <h3>
+                        Select Technician
+                    </h3>
+
+                    <p class="hero">
+                        Select a technician to open
+                        the individual My Profile.
+                    </p>
+
+                    <div class="activity">
+
+                        ${
+                            technicians
+                                .slice()
+                                .reverse()
+                                .map(
+                                    function (technician) {
+
+                                        return `
+
+                                            <div
+                                                class="activity-item"
+                                            >
+
+                                                <strong>
+                                                    ${escapeHTML(
+                                                        technician.technicianName
+                                                    )}
+                                                </strong>
+
+                                                <span>
+                                                    Code:
+                                                    ${escapeHTML(
+                                                        technician.technicianCode || "-"
+                                                    )}
+
+                                                    <br>
+
+                                                    Area:
+                                                    ${escapeHTML(
+                                                        technician.location || "-"
+                                                    )}
+                                                </span>
+
+                                                <br><br>
+
+                                                <button
+                                                    type="button"
+                                                    data-id="${escapeHTML(
+                                                        technician.id
+                                                    )}"
+                                                >
+                                                    View My Profile
+                                                </button>
+
+                                            </div>
+
+                                        `;
+
+                                    }
+                                )
+                                .join("")
+                        }
+
+                    </div>
+
+                </section>
+
+            `;
+
+
+            container
+                .querySelectorAll(
+                    "button[data-id]"
+                )
+                .forEach(
+                    function (button) {
+
+                        button.addEventListener(
+                            "click",
+                            function () {
+
+                                openProfile(
+                                    button.dataset.id
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+        }
+
+
+        const selectedTechnician =
+            technicians.find(
+                function (technician) {
+
+                    return (
+                        technician.id ===
+                        requestedId
+                    );
+
+                }
+            );
+
+
+        if (
+            selectedTechnician
+        ) {
+
+            renderProfile(
+                selectedTechnician
+            );
+
+        } else {
+
+            renderSelector();
+
+        }
+
+
+        document
+            .getElementById(
+                "servicePointBtn"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "service-point.html";
+
+                }
+            );
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
