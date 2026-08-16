@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+LUMENIX Product Management
+</title>
+
+<link
+    rel="stylesheet"
+    href="css/lighting-product-management.css"
+>
+
+</head>
+
+
+<body>
+
+
+<header class="pm-header">
+
+    <div>
+
+        <h1>
+            LUMENIX
+        </h1>
+
+        <p>
+            Lighting & Accessories
+            — Product Management
+        </p>
+
+    </div>
+
+
+    <button
+        type="button"
+        id="backLightingBtn"
+        class="header-btn"
+    >
+        ← Lighting
+    </button>
+
+</header>
+
+
+
+<main class="pm-container">
+
+
+<section class="pm-hero">
+
+    <span>
+        ADMIN PRODUCT MASTER
+    </span>
+
+    <h2>
+        Product Management
+    </h2>
+
+    <p>
+        Add, edit and manage LUMENIX
+        Lighting & Accessories products.
+    </p>
+
+</section>
+
+
+
+<section
+    class="pm-login-warning"
+    id="accessWarning"
+    hidden
+>
+
+    <h2>
+        Admin Access Required
+    </h2>
+
+    <p>
+        এই পেজটি শুধুমাত্র Admin-এর জন্য।
+    </p>
+
+    <button
+        type="button"
+        id="goAdminBtn"
+        class="primary-btn"
+    >
+        Admin Login
+    </button>
+
+</section>
+
+
+
+<section
+    class="pm-panel"
+    id="managementPanel"
+    hidden
+>
+
+
+<div class="panel-heading">
+
+    <div>
+
+        <h2>
+            Product Master
+        </h2>
+
+        <p>
+            Product information এখানে
+            সংরক্ষণ ও পরিবর্তন করুন।
+        </p>
+
+    </div>
+
+
+    <button
+        type="button"
+        id="newProductBtn"
+        class="primary-btn"
+    >
+        + New Product
+    </button>
+
+</div>
+
+
+
+<form
+    id="productForm"
+    class="product-form"
+    autocomplete="off"
+>
+
+
+<input
+    type="hidden"
+    id="productId"
+>
+
+
+
+<div class="form-group full">
+
+    <label for="productImage">
+        Product Photo
+    </label>
+
+    <input
+        type="file"
+        id="productImage"
+        accept="image/*"
+    >
+
+    <small>
+        মোবাইল থেকে সরাসরি ছবি নির্বাচন করা যাবে।
+    </small>
+
+
+    <div
+        class="image-preview"
+        id="imagePreview"
+        hidden
+    >
+
+        <img
+            id="previewImage"
+            alt="Product preview"
+        >
+
+        <button
+            type="button"
+            id="removeImageBtn"
+            class="danger-small"
+        >
+            Remove Photo
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<div class="form-grid">
+
+
+<div class="form-group">
+
+    <label for="productName">
+        Product Name *
+    </label>
+
+    <input
+        type="text"
+        id="productName"
+        required
+        placeholder="Example: LUMENIX LED Bulb"
+    >
+
+</div>
+
+
+
+<div class="form-group">
+
+    <label for="productCode">
+        Product Code / SKU *
+    </label>
+
+    <input
+        type="text"
+        id="productCode"
+        required
+        placeholder="Example: LX-LED-001"
+    >
+
+</div>
+
+
+
+<div class="form-group">
+
+    <label for="productCategory">
+        Category *
+    </label>
+
+    <select
+        id="productCategory"
+        required
+    >
+
+        <option value="">
+            Select Category
+        </option>
+
+        <option value="lighting">
+            Lighting
+        </option>
+
+        <option value="accessories">
+            Accessories
+        </option>
+
+        <option value="electrical">
+            Electrical Accessories
+        </option>
+
+    </select>
+
+</div>
+
+
+
+<div class="form-group">
+
+    <label for="productStatus">
+        Status
+    </label>
+
+    <select id="productStatus">
+
+        <option value="active">
+            Active
+        </option>
+
+        <option value="inactive">
+            Inactive
+        </option>
+
+    </select>
+
+</div>
+
+
+
+<div class="form-group">
+
+    <label for="sellingPrice">
+        Selling Price (৳)
+    </label>
+
+    <input
+        type="number"
+        id="sellingPrice"
+        min="0"
+        step="0.01"
+        placeholder="0"
+    >
+
+</div>
+
+
+
+<div class="form-group">
+
+    <label for="dealerPrice">
+        Dealer Price (৳)
+    </label>
+
+    <input
+        type="number"
+        id="dealerPrice"
+        min="0"
+        step="0.01"
+        placeholder="0"
+    >
+
+</div>
+
+
+
+<div class="form-group">
+
+    <label for="stockQuantity">
+        Current Stock
+    </label>
+
+    <input
+        type="number"
+        id="stockQuantity"
+        min="0"
+        step="1"
+        placeholder="0"
+    >
+
+</div>
+
+
+
+<div class="form-group">
+
+    <label>
+        Serial Number Tracking
+    </label>
+
+    <label class="switch-row">
+
+        <input
+            type="checkbox"
+            id="serialTracking"
+        >
+
+        <span>
+            এই product-এর serial track হবে
+        </span>
+
+    </label>
+
+</div>
+
+
+</div>
+
+
+
+<div class="form-group full">
+
+    <label for="productDescription">
+        Product Description
+    </label>
+
+    <textarea
+        id="productDescription"
+        rows="4"
+        placeholder="Product সম্পর্কে সংক্ষিপ্ত বিবরণ"
+    ></textarea>
+
+</div>
+
+
+
+<div class="form-group full">
+
+    <label for="productSpecification">
+        Specification
+    </label>
+
+    <textarea
+        id="productSpecification"
+        rows="5"
+        placeholder="Watt, voltage, colour, size, warranty ইত্যাদি"
+    ></textarea>
+
+</div>
+
+
+
+<div class="form-actions">
+
+    <button
+        type="submit"
+        class="primary-btn"
+        id="saveProductBtn"
+    >
+        Save Product
+    </button>
+
+
+    <button
+        type="button"
+        class="secondary-btn"
+        id="cancelEditBtn"
+    >
+        Clear
+    </button>
+
+</div>
+
+
+</form>
+
+</section>
+
+
+
+<section
+    class="pm-panel"
+    id="productListPanel"
+    hidden
+>
+
+
+<div class="panel-heading">
+
+    <div>
+
+        <h2>
+            Product List
+        </h2>
+
+        <p id="productCount">
+            0 Products
+        </p>
+
+    </div>
+
+
+    <input
+        type="search"
+        id="managementSearch"
+        class="management-search"
+        placeholder="Search product..."
+        autocomplete="off"
+    >
+
+</div>
+
+
+
+<div
+    id="productManagementList"
+    class="management-list"
+></div>
+
+
+<div
+    id="managementEmpty"
+    class="management-empty"
+    hidden
+>
+
+    No product found.
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+
+<script
+    src="js/lighting-product-management.js"
+></script>
+
+</body>
+
+</html>
