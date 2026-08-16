@@ -1674,3 +1674,26 @@ REDUCED MOTION
         transition: none !important;
     }
 }
+
+/* =========================================================
+MOBILE ECOSYSTEM LOGO FIX
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .ecosystem-logo-box {
+
+        height: 145px;
+
+        padding: 16px;
+    }
+
+
+    .ecosystem-logo {
+
+        width: 190px;
+
+        height: 105px;
+    }
+
+}
