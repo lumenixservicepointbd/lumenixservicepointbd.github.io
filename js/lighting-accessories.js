@@ -379,7 +379,39 @@ document.addEventListener(
                 }
             );
 
+/* =================================================
+   PRODUCT MANAGEMENT
+================================================= */
 
+document
+    .getElementById(
+        "productManagementBtn"
+    )
+    ?.addEventListener(
+        "click",
+        function () {
+
+            const isAdmin =
+                localStorage.getItem(
+                    "adminLoggedIn"
+                ) === "true";
+
+
+            if (!isAdmin) {
+
+                window.location.href =
+                    "admin.html";
+
+                return;
+            }
+
+
+            window.location.href =
+                "lighting-product-management.html";
+
+        }
+    );
+       
         /* =================================================
            INITIALIZE
            ================================================= */
