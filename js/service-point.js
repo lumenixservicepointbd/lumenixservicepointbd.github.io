@@ -1,14 +1,15 @@
 /* =====================================
-   LUMENIX V5.2
-   SERVICE POINT BD
-   NAVIGATION + OPERATION FIX
+   LUMENIX SERVICE POINT BD
+   FINAL NAVIGATION + MY PROFILE
 ===================================== */
 
 "use strict";
 
+
 document.addEventListener(
     "DOMContentLoaded",
     function () {
+
 
         /* =====================================
            SECURITY
@@ -19,17 +20,22 @@ document.addEventListener(
                 "adminLoggedIn"
             );
 
-        if (loggedIn !== "true") {
+
+        if (
+            loggedIn !== "true"
+        ) {
 
             window.location.href =
                 "admin.html";
 
             return;
+
         }
 
 
+
         /* =====================================
-           NAVIGATION HELPERS
+           NAVIGATION
         ===================================== */
 
         function goTo(page) {
@@ -50,6 +56,7 @@ document.addEventListener(
                     id
                 );
 
+
             if (!element) {
                 return;
             }
@@ -68,27 +75,6 @@ document.addEventListener(
 
         }
 
-
-        function scrollToSection(
-            selector
-        ) {
-
-            const section =
-                document.querySelector(
-                    selector
-                );
-
-            if (!section) {
-                return;
-            }
-
-
-            section.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        }
 
 
         /* =====================================
@@ -113,13 +99,11 @@ document.addEventListener(
                 "click",
                 function () {
 
-                    const confirmLogout =
-                        window.confirm(
+                    if (
+                        !confirm(
                             "Are you sure you want to logout?"
-                        );
-
-
-                    if (!confirmLogout) {
+                        )
+                    ) {
                         return;
                     }
 
@@ -147,42 +131,21 @@ document.addEventListener(
         }
 
 
+
         /* =====================================
-           SERVICE PROFILE CENTER
+           MY PROFILE
         ===================================== */
 
-        /*
-         * My Profile
-         * No separate profile.html exists.
-         * Keep the button working by returning
-         * to the Service Point profile center.
-         */
-
-        const myProfileBtn =
-            document.getElementById(
-                "myProfileBtn"
-            );
+        bindNavigation(
+            "myProfileBtn",
+            "technician-my-profile.html"
+        );
 
 
-        if (myProfileBtn) {
 
-            myProfileBtn.addEventListener(
-                "click",
-                function () {
-
-                    scrollToSection(
-                        ".profile-section"
-                    );
-
-                }
-            );
-
-        }
-
-
-        /*
-         * REAL SERVICE PROFILE FILES
-         */
+        /* =====================================
+           TECHNICIAN PROFILE
+        ===================================== */
 
         bindNavigation(
             "technicianProfileBtn",
@@ -190,31 +153,21 @@ document.addEventListener(
         );
 
 
+
+        /* =====================================
+           SHOPKEEPER
+        ===================================== */
+
         bindNavigation(
             "shopkeeperProfileBtn",
             "shopkeeper-partnership.html"
         );
 
 
-        /*
-         * If a Service Customer button
-         * exists, connect it automatically.
-         */
-
-        bindNavigation(
-            "serviceCustomerProfileBtn",
-            "service-customer-profile.html"
-        );
-
 
         /* =====================================
-           QUICK ACTIONS
+           QUICK CUSTOMER
         ===================================== */
-
-        /*
-         * Customer
-         * → Service Customer Profile
-         */
 
         bindNavigation(
             "quickCustomerBtn",
@@ -222,12 +175,45 @@ document.addEventListener(
         );
 
 
-        /*
-         * Service Requests
-         * No separate service-requests.html exists.
-         * The Service Point already contains the
-         * Recent Service Requests section.
-         */
+
+        /* =====================================
+           QUICK TECHNICIAN
+        ===================================== */
+
+        bindNavigation(
+            "quickTechnicianBtn",
+            "service-technician-profile.html"
+        );
+
+
+
+        /* =====================================
+           QUICK SHOPKEEPER
+        ===================================== */
+
+        bindNavigation(
+            "quickShopkeeperBtn",
+            "shopkeeper-partnership.html"
+        );
+
+
+
+        /* =====================================
+           QUICK DEALER
+           Lighting division profile
+        ===================================== */
+
+        bindNavigation(
+            "quickDealerBtn",
+            "dealer-profile.html"
+        );
+
+
+
+        /* =====================================
+           SERVICE REQUESTS
+           Same page section
+        ===================================== */
 
         const quickServiceBtn =
             document.getElementById(
@@ -241,9 +227,20 @@ document.addEventListener(
                 "click",
                 function () {
 
-                    scrollToSection(
-                        ".requests-section"
-                    );
+                    const section =
+                        document.querySelector(
+                            ".requests-section"
+                        );
+
+
+                    if (section) {
+
+                        section.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                    }
 
                 }
             );
@@ -251,46 +248,11 @@ document.addEventListener(
         }
 
 
-        /*
-         * Technician
-         */
 
-        bindNavigation(
-            "quickTechnicianBtn",
-            "service-technician-profile.html"
-        );
-
-
-        /*
-         * Dealer
-         *
-         * Dealer belongs to Lighting division,
-         * but this existing Service Point button
-         * can still open the existing dealer profile.
-         */
-
-        bindNavigation(
-            "quickDealerBtn",
-            "dealer-profile.html"
-        );
-
-
-        /*
-         * Shopkeeper
-         */
-
-        bindNavigation(
-            "quickShopkeeperBtn",
-            "shopkeeper-partnership.html"
-        );
-
-
-        /*
-         * Reports
-         * No reports.html currently exists.
-         * Keep the button functional by taking
-         * the user to the Service Overview.
-         */
+        /* =====================================
+           REPORTS
+           No reports.html yet
+        ===================================== */
 
         const quickReportsBtn =
             document.getElementById(
@@ -304,14 +266,26 @@ document.addEventListener(
                 "click",
                 function () {
 
-                    scrollToSection(
-                        ".overview-section"
-                    );
+                    const section =
+                        document.querySelector(
+                            ".overview-section"
+                        );
+
+
+                    if (section) {
+
+                        section.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                    }
 
                 }
             );
 
         }
+
 
 
         /* =====================================
@@ -355,6 +329,7 @@ document.addEventListener(
         }
 
 
+
         function normalizeStatus(
             value
         ) {
@@ -366,6 +341,7 @@ document.addEventListener(
                 .toLowerCase();
 
         }
+
 
 
         function getRequests() {
@@ -397,7 +373,9 @@ document.addEventListener(
                     ? parsed
                     : [];
 
-            } catch (error) {
+            } catch (
+                error
+            ) {
 
                 console.error(
                     "Service request data error:",
@@ -412,127 +390,6 @@ document.addEventListener(
         }
 
 
-        function loadServiceRequests() {
-
-            if (!tableBody) {
-                return;
-            }
-
-
-            const requests =
-                getRequests();
-
-
-            tableBody.innerHTML =
-                "";
-
-
-            if (
-                requests.length ===
-                0
-            ) {
-
-                tableBody.innerHTML = `
-                    <tr>
-                        <td
-                            colspan="5"
-                            class="empty-state"
-                        >
-                            No service request found.
-                        </td>
-                    </tr>
-                `;
-
-
-                updateOverview(
-                    []
-                );
-
-
-                return;
-
-            }
-
-
-            const latestRequests =
-                requests
-                    .slice(-10)
-                    .reverse();
-
-
-            latestRequests.forEach(
-                function (request) {
-
-                    const row =
-                        document.createElement(
-                            "tr"
-                        );
-
-
-                    const status =
-                        request.status ||
-                        "Pending";
-
-
-                    row.innerHTML = `
-
-                        <td>
-                            ${escapeHTML(
-                                request.id ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                request.customer ||
-                                request.customerName ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                request.service ||
-                                request.serviceType ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                request.technician ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                status
-                            )}
-                        </td>
-
-                    `;
-
-
-                    tableBody.appendChild(
-                        row
-                    );
-
-                }
-            );
-
-
-            updateOverview(
-                requests
-            );
-
-        }
-
-
-        /* =====================================
-           OVERVIEW
-        ===================================== */
 
         function updateOverview(
             requests
@@ -563,8 +420,11 @@ document.addEventListener(
 
 
             let pending = 0;
+
             let working = 0;
+
             let completed = 0;
+
 
 
             requests.forEach(
@@ -583,36 +443,25 @@ document.addEventListener(
 
                         pending++;
 
-                        return;
-
                     }
 
 
                     if (
-                        status ===
-                            "working" ||
-                        status ===
-                            "running" ||
-                        status ===
-                            "in progress" ||
-                        status ===
-                            "in-progress"
+                        status === "working" ||
+                        status === "running" ||
+                        status === "in progress" ||
+                        status === "in-progress"
                     ) {
 
                         working++;
 
-                        return;
-
                     }
 
 
                     if (
-                        status ===
-                            "completed" ||
-                        status ===
-                            "complete" ||
-                        status ===
-                            "done"
+                        status === "completed" ||
+                        status === "complete" ||
+                        status === "done"
                     ) {
 
                         completed++;
@@ -657,56 +506,123 @@ document.addEventListener(
         }
 
 
-        /* =====================================
-           TOAST
-        ===================================== */
 
-        const toast =
-            document.getElementById(
-                "serviceToast"
-            );
+        function loadServiceRequests() {
 
-
-        let toastTimer =
-            null;
-
-
-        function showToast(
-            message
-        ) {
-
-            if (!toast) {
+            if (!tableBody) {
                 return;
             }
 
 
-            toast.textContent =
-                message;
+            const requests =
+                getRequests();
 
 
-            toast.classList.add(
-                "show"
-            );
+            tableBody.innerHTML =
+                "";
 
 
-            clearTimeout(
-                toastTimer
-            );
+            if (
+                requests.length === 0
+            ) {
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="empty-state"
+                        >
+                            No service request found.
+                        </td>
+
+                    </tr>
+
+                `;
 
 
-            toastTimer =
-                setTimeout(
-                    function () {
-
-                        toast.classList.remove(
-                            "show"
-                        );
-
-                    },
-                    2500
+                updateOverview(
+                    []
                 );
 
+
+                return;
+
+            }
+
+
+            requests
+                .slice(-10)
+                .reverse()
+                .forEach(
+                    function (request) {
+
+                        const row =
+                            document.createElement(
+                                "tr"
+                            );
+
+
+                        const status =
+                            request.status ||
+                            "Pending";
+
+
+                        row.innerHTML = `
+
+                            <td>
+                                ${escapeHTML(
+                                    request.id || "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    request.customer ||
+                                    request.customerName ||
+                                    "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    request.service ||
+                                    request.serviceType ||
+                                    "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    request.technician ||
+                                    "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    status
+                                )}
+                            </td>
+
+                        `;
+
+
+                        tableBody.appendChild(
+                            row
+                        );
+
+                    }
+                );
+
+
+            updateOverview(
+                requests
+            );
+
         }
+
 
 
         /* =====================================
@@ -714,6 +630,7 @@ document.addEventListener(
         ===================================== */
 
         loadServiceRequests();
+
 
 
         /* =====================================
@@ -737,12 +654,9 @@ document.addEventListener(
         );
 
 
-        /* =====================================
-           READY
-        ===================================== */
 
         console.log(
-            "LUMENIX Service Point BD loaded successfully."
+            "LUMENIX Service Point BD ready."
         );
 
     }
