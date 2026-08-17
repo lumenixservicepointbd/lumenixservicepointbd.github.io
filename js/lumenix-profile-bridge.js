@@ -2,6 +2,13 @@
 
 (function () {
 
+    /*
+     * =========================================================
+     * LUMENIX DATA BRIDGE
+     * Central System + Legacy localStorage Compatibility
+     * =========================================================
+     */
+
     const SYSTEM_KEY = "lumenixSystemData";
 
     const LEGACY_MAP = {
@@ -34,6 +41,28 @@
     };
 
 
+    /*
+     * =========================================================
+     * KEEP ORIGINAL STORAGE METHODS
+     * =========================================================
+     */
+
+    const originalGetItem =
+        Storage.prototype.getItem;
+
+    const originalSetItem =
+        Storage.prototype.setItem;
+
+    const originalRemoveItem =
+        Storage.prototype.removeItem;
+
+
+    /*
+     * =========================================================
+     * DEFAULT SYSTEM
+     * =========================================================
+     */
+
     const DEFAULT_DATA = {
 
         lighting: {
@@ -62,9 +91,26 @@
     };
 
 
-    function safeParse(value, fallback) {
+    /*
+     * =========================================================
+     * SAFE JSON PARSER
+     * =========================================================
+     */
+
+    function safeParse(
+        value,
+        fallback
+    ) {
 
         try {
+
+            if (
+                value === null ||
+                value === undefined ||
+                value === ""
+            ) {
+                return fallback;
+            }
 
             const parsed =
                 JSON.parse(value);
@@ -80,49 +126,28 @@
     }
 
 
-    function loadSystem() {
+    /*
+     * =========================================================
+     * DEEP DEFAULT CLONE
+     * =========================================================
+     */
 
-        const raw =
-            localStorage.getItem(
-                SYSTEM_KEY
-            );
+    function cloneDefaults() {
 
-        if (!raw) {
-
-            return JSON.parse(
-                JSON.stringify(
-                    DEFAULT_DATA
-                )
-            );
-
-        }
-
-
-        const saved =
-            safeParse(
-                raw,
-                null
-            );
-
-
-        if (!saved) {
-
-            return JSON.parse(
-                JSON.stringify(
-                    DEFAULT_DATA
-                )
-            );
-
-        }
-
-
-        return mergeDefaults(
-            DEFAULT_DATA,
-            saved
+        return JSON.parse(
+            JSON.stringify(
+                DEFAULT_DATA
+            )
         );
 
     }
 
+
+    /*
+     * =========================================================
+     * MERGE SYSTEM DATA
+     * =========================================================
+     */
 
     function mergeDefaults(
         defaults,
@@ -137,11 +162,22 @@
             );
 
 
-        Object.keys(saved || {})
+        if (
+            !saved ||
+            typeof saved !== "object"
+        ) {
+
+            return result;
+
+        }
+
+
+        Object.keys(saved)
             .forEach(
                 function (section) {
 
                     if (
+                        !saved[section] ||
                         typeof saved[section] !==
                         "object"
                     ) {
@@ -163,17 +199,30 @@
 
                     Object.keys(
                         saved[section]
-                    ).forEach(
+                    )
+                    .forEach(
                         function (collection) {
 
                             if (
                                 Array.isArray(
-                                    saved[section][collection]
+                                    saved[
+                                        section
+                                    ][
+                                        collection
+                                    ]
                                 )
                             ) {
 
-                                result[section][collection] =
-                                    saved[section][collection];
+                                result[
+                                    section
+                                ][
+                                    collection
+                                ] =
+                                    saved[
+                                        section
+                                    ][
+                                        collection
+                                    ];
 
                             }
 
@@ -189,15 +238,80 @@
     }
 
 
-    function saveSystem(data) {
+    /*
+     * =========================================================
+     * LOAD SYSTEM
+     * IMPORTANT:
+     * Uses ORIGINAL getItem to avoid bridge recursion.
+     * =========================================================
+     */
 
-        localStorage.setItem(
+    function loadSystem() {
+
+        const raw =
+            originalGetItem.call(
+                localStorage,
+                SYSTEM_KEY
+            );
+
+
+        if (!raw) {
+
+            return cloneDefaults();
+
+        }
+
+
+        const saved =
+            safeParse(
+                raw,
+                null
+            );
+
+
+        if (!saved) {
+
+            return cloneDefaults();
+
+        }
+
+
+        return mergeDefaults(
+            DEFAULT_DATA,
+            saved
+        );
+
+    }
+
+
+    /*
+     * =========================================================
+     * SAVE SYSTEM
+     * IMPORTANT:
+     * Uses ORIGINAL setItem.
+     * =========================================================
+     */
+
+    function saveSystem(
+        data
+    ) {
+
+        originalSetItem.call(
+            localStorage,
             SYSTEM_KEY,
             JSON.stringify(data)
         );
 
     }
 
+
+    /*
+     * =========================================================
+     * LEGACY MIGRATION
+     * IMPORTANT:
+     * NEVER use overridden localStorage.getItem here.
+     * =========================================================
+     */
 
     function migrateLegacyData() {
 
@@ -210,11 +324,13 @@
 
         Object.keys(
             LEGACY_MAP
-        ).forEach(
+        )
+        .forEach(
             function (legacyKey) {
 
                 const raw =
-                    localStorage.getItem(
+                    originalGetItem.call(
+                        localStorage,
                         legacyKey
                     );
 
@@ -237,7 +353,9 @@
                     ) ||
                     oldData.length === 0
                 ) {
+
                     return;
+
                 }
 
 
@@ -253,6 +371,22 @@
                     ][1];
 
 
+                if (
+                    !system[section] ||
+                    !Array.isArray(
+                        system[
+                            section
+                        ][
+                            collection
+                        ]
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
                 const current =
                     system[
                         section
@@ -266,9 +400,17 @@
                         current
                             .map(
                                 function (item) {
-                                    return item.id;
+
+                                    return item &&
+                                        item.id
+                                        ? String(
+                                            item.id
+                                        )
+                                        : null;
+
                                 }
                             )
+                            .filter(Boolean)
                     );
 
 
@@ -276,19 +418,48 @@
                     function (item) {
 
                         if (
-                            item &&
-                            item.id &&
-                            existingIds.has(
+                            !item ||
+                            typeof item !==
+                            "object"
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const itemId =
+                            item.id
+                            ? String(
                                 item.id
                             )
+                            : null;
+
+
+                        if (
+                            itemId &&
+                            existingIds.has(
+                                itemId
+                            )
                         ) {
+
                             return;
+
                         }
 
 
                         current.push(
                             item
                         );
+
+
+                        if (itemId) {
+
+                            existingIds.add(
+                                itemId
+                            );
+
+                        }
 
 
                         changed = true;
@@ -314,6 +485,12 @@
     }
 
 
+    /*
+     * =========================================================
+     * GET LEGACY COLLECTION
+     * =========================================================
+     */
+
     function getCollection(
         key
     ) {
@@ -323,12 +500,34 @@
 
 
         if (!mapping) {
+
             return null;
+
         }
 
 
+        /*
+         * First migrate old records safely.
+         */
+
         const system =
-            loadSystem();
+            migrateLegacyData();
+
+
+        if (
+            !system[mapping[0]] ||
+            !Array.isArray(
+                system[
+                    mapping[0]
+                ][
+                    mapping[1]
+                ]
+            )
+        ) {
+
+            return [];
+
+        }
 
 
         return system[
@@ -340,6 +539,12 @@
     }
 
 
+    /*
+     * =========================================================
+     * SET LEGACY COLLECTION
+     * =========================================================
+     */
+
     function setCollection(
         key,
         value
@@ -350,12 +555,23 @@
 
 
         if (!mapping) {
+
             return false;
+
         }
 
 
         const system =
             loadSystem();
+
+
+        if (
+            !system[mapping[0]]
+        ) {
+
+            system[mapping[0]] = {};
+
+        }
 
 
         system[
@@ -378,22 +594,34 @@
     }
 
 
+    /*
+     * =========================================================
+     * ID GENERATOR
+     * =========================================================
+     */
+
     function createId(
         prefix
     ) {
 
         return (
-            prefix +
+            String(prefix || "LUX") +
             "-" +
             Date.now() +
             "-" +
             Math.random()
                 .toString(36)
-                .slice(2, 7)
+                .slice(2, 8)
         );
 
     }
 
+
+    /*
+     * =========================================================
+     * ADD RECORD
+     * =========================================================
+     */
 
     function addRecord(
         section,
@@ -408,27 +636,35 @@
         if (
             !system[section] ||
             !Array.isArray(
-                system[section][collection]
+                system[
+                    section
+                ][
+                    collection
+                ]
             )
         ) {
+
             return null;
+
         }
 
 
         const newRecord = {
 
             id:
-                record.id ||
-                createId(
-                    "LUX"
-                ),
+                record &&
+                record.id
+                    ? record.id
+                    : createId("LUX"),
 
             createdAt:
-                record.createdAt ||
-                new Date()
-                    .toISOString(),
+                record &&
+                record.createdAt
+                    ? record.createdAt
+                    : new Date()
+                        .toISOString(),
 
-            ...record
+            ...(record || {})
 
         };
 
@@ -452,6 +688,12 @@
     }
 
 
+    /*
+     * =========================================================
+     * GET RECORDS
+     * =========================================================
+     */
+
     function getRecords(
         section,
         collection
@@ -464,10 +706,16 @@
         if (
             !system[section] ||
             !Array.isArray(
-                system[section][collection]
+                system[
+                    section
+                ][
+                    collection
+                ]
             )
         ) {
+
             return [];
+
         }
 
 
@@ -480,11 +728,27 @@
     }
 
 
+    /*
+     * =========================================================
+     * FIND RECORD
+     * =========================================================
+     */
+
     function findRecord(
         section,
         collection,
         id
     ) {
+
+        if (
+            id === null ||
+            id === undefined
+        ) {
+
+            return null;
+
+        }
+
 
         const records =
             getRecords(
@@ -493,18 +757,28 @@
             );
 
 
-        return records.find(
-            function (item) {
+        return (
+            records.find(
+                function (item) {
 
-                return (
-                    item.id === id
-                );
+                    return (
+                        item &&
+                        String(item.id) ===
+                        String(id)
+                    );
 
-            }
-        ) || null;
+                }
+            ) || null
+        );
 
     }
 
+
+    /*
+     * =========================================================
+     * UPDATE RECORD
+     * =========================================================
+     */
 
     function updateRecord(
         section,
@@ -520,10 +794,16 @@
         if (
             !system[section] ||
             !Array.isArray(
-                system[section][collection]
+                system[
+                    section
+                ][
+                    collection
+                ]
             )
         ) {
+
             return null;
+
         }
 
 
@@ -536,7 +816,9 @@
                 function (item) {
 
                     return (
-                        item.id === id
+                        item &&
+                        String(item.id) ===
+                        String(id)
                     );
 
                 }
@@ -544,7 +826,9 @@
 
 
         if (index === -1) {
+
             return null;
+
         }
 
 
@@ -560,7 +844,7 @@
                 collection
             ][index],
 
-            ...updates,
+            ...(updates || {}),
 
             updatedAt:
                 new Date()
@@ -583,6 +867,12 @@
     }
 
 
+    /*
+     * =========================================================
+     * REMOVE RECORD
+     * =========================================================
+     */
+
     function removeRecord(
         section,
         collection,
@@ -596,10 +886,16 @@
         if (
             !system[section] ||
             !Array.isArray(
-                system[section][collection]
+                system[
+                    section
+                ][
+                    collection
+                ]
             )
         ) {
+
             return false;
+
         }
 
 
@@ -623,8 +919,10 @@
             ].filter(
                 function (item) {
 
-                    return (
-                        item.id !== id
+                    return !(
+                        item &&
+                        String(item.id) ===
+                        String(id)
                     );
 
                 }
@@ -638,7 +936,9 @@
                 collection
             ].length === before
         ) {
+
             return false;
+
         }
 
 
@@ -653,27 +953,20 @@
 
 
     /*
-     * Legacy localStorage compatibility.
-     * Existing profile pages can continue
-     * using their old STORAGE_KEY values.
+     * =========================================================
+     * LEGACY localStorage GET INTERCEPTOR
+     * =========================================================
      */
-
-    const originalGetItem =
-        Storage.prototype.getItem;
-
-
-    const originalSetItem =
-        Storage.prototype.setItem;
-
 
     Storage.prototype.getItem =
         function (key) {
 
             if (
-                LEGACY_MAP[key]
+                Object.prototype.hasOwnProperty.call(
+                    LEGACY_MAP,
+                    key
+                )
             ) {
-
-                migrateLegacyData();
 
                 return JSON.stringify(
                     getCollection(
@@ -692,11 +985,20 @@
         };
 
 
+    /*
+     * =========================================================
+     * LEGACY localStorage SET INTERCEPTOR
+     * =========================================================
+     */
+
     Storage.prototype.setItem =
         function (key, value) {
 
             if (
-                LEGACY_MAP[key]
+                Object.prototype.hasOwnProperty.call(
+                    LEGACY_MAP,
+                    key
+                )
             ) {
 
                 const parsed =
@@ -727,7 +1029,43 @@
 
 
     /*
-     * Public API
+     * =========================================================
+     * LEGACY REMOVE SUPPORT
+     * =========================================================
+     */
+
+    Storage.prototype.removeItem =
+        function (key) {
+
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    LEGACY_MAP,
+                    key
+                )
+            ) {
+
+                setCollection(
+                    key,
+                    []
+                );
+
+                return;
+
+            }
+
+
+            return originalRemoveItem.call(
+                this,
+                key
+            );
+
+        };
+
+
+    /*
+     * =========================================================
+     * PUBLIC LUMENIX API
+     * =========================================================
      */
 
     window.LumenixData = {
@@ -763,7 +1101,9 @@
 
 
     /*
-     * Run migration once when bridge loads.
+     * =========================================================
+     * INITIAL MIGRATION
+     * =========================================================
      */
 
     migrateLegacyData();
