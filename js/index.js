@@ -1,885 +1,1112 @@
-/* =========================================================
-   LUMENIX™
-   HOME PAGE CONTROLLER
-   Lightweight / Mobile First
-   ========================================================= */
-
 "use strict";
 
+(function () {
 
-document.addEventListener("DOMContentLoaded", function () {
+    /*
+     * =========================================================
+     * LUMENIX DATA BRIDGE
+     * Central System + Legacy localStorage Compatibility
+     * =========================================================
+     */
 
+    const SYSTEM_KEY = "lumenixSystemData";
 
-    /* =====================================================
-       CONFIG
-    ===================================================== */
+    const LEGACY_MAP = {
 
-    const WHATSAPP_NUMBER =
-        "8801710897732";
+        lumenixLightingDealers: [
+            "lighting",
+            "dealers"
+        ],
 
-    const PRODUCT_STORAGE_KEY =
-        "lumenix_lighting_products";
+        lumenixLightingCustomers: [
+            "lighting",
+            "customers"
+        ],
 
+        lumenixShopkeeperPartners: [
+            "service",
+            "partners"
+        ],
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+        lumenixServiceTechnicians: [
+            "service",
+            "technicians"
+        ],
 
-    const menuBtn =
-        document.getElementById("menuBtn");
+        lumenixServiceCustomers: [
+            "service",
+            "customers"
+        ]
 
-    const mobileMenu =
-        document.getElementById("mobileMenu");
-
-    const exploreBtn =
-        document.getElementById("exploreBtn");
-
-    const productGrid =
-        document.getElementById(
-            "lightingProductGrid"
-        );
-
-    const productModal =
-        document.getElementById(
-            "productModal"
-        );
-
-    const modalClose =
-        document.getElementById(
-            "modalClose"
-        );
-
-    const modalContent =
-        document.getElementById(
-            "modalProductContent"
-        );
-
-    const toast =
-        document.getElementById("toast");
+    };
 
 
-    /* =====================================================
-       DEFAULT PRODUCT DATA
+    /*
+     * =========================================================
+     * KEEP ORIGINAL STORAGE METHODS
+     * =========================================================
+     */
 
-       এই data structure রাখা হয়েছে যাতে ভবিষ্যতে
-       Admin section থেকে product data replace/update
-       করা সহজ হয়।
+    const originalGetItem =
+        Storage.prototype.getItem;
 
-       Product name English.
-       Description/details বাংলা।
-       ===================================================== */
+    const originalSetItem =
+        Storage.prototype.setItem;
 
-    const defaultProducts = [
-
-    {
-        id: "7W",
-        name: "7 Watt",
-        brand: "LUMENIX™",
-        image: "images/7watt.png",
-        packageImage: "images/7watt-package.png",
-        description:
-            "দৈনন্দিন আলো ব্যবহারের জন্য উপযোগী LUMENIX™ 7 Watt লাইট।",
-        details:
-            "LUMENIX™ 7 Watt লাইটের বিস্তারিত তথ্য ও বৈশিষ্ট্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
-        active: true
-    },
-
-    {
-        id: "12W",
-        name: "12 Watt",
-        brand: "LUMENIX™",
-        image: "images/12watt.png",
-        packageImage: "images/12watt-package.png",
-        description:
-            "বাড়ি, দোকান ও প্রয়োজনীয় বিভিন্ন স্থানে ব্যবহারের জন্য উপযোগী LUMENIX™ 12 Watt লাইট।",
-        details:
-            "LUMENIX™ 12 Watt লাইটের বিস্তারিত তথ্য ও বৈশিষ্ট্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
-        active: true
-    },
-
-    {
-        id: "20W",
-        name: "20 Watt",
-        brand: "LUMENIX™",
-        image: "images/20watt.png",
-        packageImage: "images/20watt-package.png",
-        description:
-            "বেশি আলোর প্রয়োজনের জন্য উপযোগী LUMENIX™ 20 Watt লাইট।",
-        details:
-            "LUMENIX™ 20 Watt লাইটের বিস্তারিত তথ্য ও বৈশিষ্ট্য Admin section থেকে পরবর্তীতে পরিবর্তন করা যাবে।",
-        active: true
-    }
-
-];
+    const originalRemoveItem =
+        Storage.prototype.removeItem;
 
 
-    /* =====================================================
-       HELPERS
-    ===================================================== */
+    /*
+     * =========================================================
+     * DEFAULT SYSTEM
+     * =========================================================
+     */
 
-    function escapeHTML(value) {
+    const DEFAULT_DATA = {
 
-        return String(value ?? "")
+        lighting: {
 
-            .replace(
-                /&/g,
-                "&amp;"
-            )
+            dealers: [],
+            customers: [],
+            orders: [],
+            payments: [],
+            returns: [],
+            replacements: []
 
-            .replace(
-                /</g,
-                "&lt;"
-            )
+        },
 
-            .replace(
-                />/g,
-                "&gt;"
-            )
+        service: {
 
-            .replace(
-                /"/g,
-                "&quot;"
-            )
+            partners: [],
+            technicians: [],
+            customers: [],
+            requests: [],
+            payments: [],
+            replacements: [],
+            history: []
 
-            .replace(
-                /'/g,
-                "&#039;"
-            );
-    }
-
-
-    function showToast(message) {
-
-        if (!toast) {
-            return;
         }
 
-        toast.textContent =
-            message;
-
-        toast.classList.add(
-            "show"
-        );
-
-        clearTimeout(
-            showToast.timer
-        );
-
-        showToast.timer =
-            setTimeout(
-                function () {
-
-                    toast.classList.remove(
-                        "show"
-                    );
-
-                },
-                2400
-            );
-    }
+    };
 
 
-    function getStoredProducts() {
+    /*
+     * =========================================================
+     * SAFE JSON PARSER
+     * =========================================================
+     */
+
+    function safeParse(
+        value,
+        fallback
+    ) {
 
         try {
 
-            const saved =
-                localStorage.getItem(
-                    PRODUCT_STORAGE_KEY
-                );
-
-            if (!saved) {
-
-                return defaultProducts;
+            if (
+                value === null ||
+                value === undefined ||
+                value === ""
+            ) {
+                return fallback;
             }
-
 
             const parsed =
-                JSON.parse(saved);
-
-
-            if (
-                !Array.isArray(parsed)
-            ) {
-
-                return defaultProducts;
-            }
-
+                JSON.parse(value);
 
             return parsed;
 
         } catch (error) {
 
-            console.warn(
-                "LUMENIX product data could not be loaded.",
-                error
-            );
+            return fallback;
 
-            return defaultProducts;
-        }
-    }
-
-
-    /* =====================================================
-       MENU
-    ===================================================== */
-
-    if (
-        menuBtn &&
-        mobileMenu
-    ) {
-
-        menuBtn.addEventListener(
-            "click",
-            function () {
-
-                const active =
-                    mobileMenu.classList.toggle(
-                        "active"
-                    );
-
-
-                menuBtn.setAttribute(
-                    "aria-expanded",
-                    active
-                        ? "true"
-                        : "false"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       CLOSE MENU AFTER NAVIGATION
-    ===================================================== */
-
-    if (mobileMenu) {
-
-        mobileMenu
-            .querySelectorAll("a")
-            .forEach(
-                function (link) {
-
-                    link.addEventListener(
-                        "click",
-                        function () {
-
-                            mobileMenu.classList.remove(
-                                "active"
-                            );
-
-                            if (menuBtn) {
-
-                                menuBtn.setAttribute(
-                                    "aria-expanded",
-                                    "false"
-                                );
-
-                            }
-
-                        }
-                    );
-
-                }
-            );
-
-    }
-
-
-    /* =====================================================
-       EXPLORE
-    ===================================================== */
-
-    if (exploreBtn) {
-
-        exploreBtn.addEventListener(
-            "click",
-            function () {
-
-                const ecosystem =
-                    document.getElementById(
-                        "ecosystem"
-                    );
-
-
-                if (ecosystem) {
-
-                    ecosystem.scrollIntoView({
-                        behavior:
-                            "smooth",
-                        block:
-                            "start"
-                    });
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       PRODUCT IMAGE FALLBACK
-    ===================================================== */
-
-    function addImageFallbacks() {
-
-        if (!productGrid) {
-            return;
         }
 
+    }
 
-        productGrid
-            .querySelectorAll(
-                "img"
+
+    /*
+     * =========================================================
+     * DEEP DEFAULT CLONE
+     * =========================================================
+     */
+
+    function cloneDefaults() {
+
+        return JSON.parse(
+            JSON.stringify(
+                DEFAULT_DATA
             )
-            .forEach(
-                function (image) {
-
-                    image.addEventListener(
-                        "error",
-                        function () {
-
-                            image.style.display =
-                                "none";
-
-                            const parent =
-                                image.parentElement;
-
-
-                            if (
-                                parent &&
-                                !parent.querySelector(
-                                    ".image-fallback"
-                                )
-                            ) {
-
-                                const fallback =
-                                    document.createElement(
-                                        "div"
-                                    );
-
-                                fallback.className =
-                                    "image-fallback";
-
-                                fallback.textContent =
-                                    "ছবি যোগ করা হয়নি";
-
-                                fallback.style.cssText =
-                                    `
-                                    color:#667085;
-                                    font-size:13px;
-                                    text-align:center;
-                                    `;
-
-                                parent.appendChild(
-                                    fallback
-                                );
-
-                            }
-
-                        },
-                        {
-                            once: true
-                        }
-                    );
-
-                }
-            );
+        );
 
     }
 
 
-    /* =====================================================
-       RENDER PRODUCTS
-    ===================================================== */
+    /*
+     * =========================================================
+     * MERGE SYSTEM DATA
+     * =========================================================
+     */
 
-    function renderProducts() {
-
-        if (!productGrid) {
-            return;
-        }
-
-
-        const products =
-            getStoredProducts()
-                .filter(
-                    function (product) {
-
-                        return (
-                            product &&
-                            product.active !== false
-                        );
-
-                    }
-                );
-
-
-        if (!products.length) {
-
-            productGrid.innerHTML = `
-
-                <div
-                    style="
-                        grid-column:1/-1;
-                        text-align:center;
-                        padding:30px;
-                        color:#667085;
-                    "
-                >
-                    বর্তমানে কোনো পণ্য প্রদর্শনের জন্য নেই।
-                </div>
-
-            `;
-
-            return;
-        }
-
-
-        productGrid.innerHTML =
-            products
-                .map(
-                    function (product) {
-
-                        return `
-
-                            <article
-                                class="product-card"
-                                data-product-id="${escapeHTML(
-                                    product.id
-                                )}"
-                            >
-
-                                <div
-                                    class="product-image-wrap"
-                                >
-
-                                    <img
-                                        src="${escapeHTML(
-                                            product.image
-                                        )}"
-                                        alt="${escapeHTML(
-                                            product.name
-                                        )}"
-                                        class="product-image"
-                                        loading="lazy"
-                                    >
-
-                                </div>
-
-
-                                <div class="product-info">
-
-                                    <span
-                                        class="product-brand"
-                                    >
-                                        ${escapeHTML(
-                                            product.brand ||
-                                            "LUMENIX™"
-                                        )}
-                                    </span>
-
-
-                                    <h3
-                                        class="product-name"
-                                    >
-                                        ${escapeHTML(
-                                            product.name
-                                        )}
-                                    </h3>
-
-
-                                    <p
-                                        class="product-description"
-                                    >
-                                        ${escapeHTML(
-                                            product.description
-                                        )}
-                                    </p>
-
-
-                                    <button
-                                        type="button"
-                                        class="product-view-btn"
-                                        data-product-view="${escapeHTML(
-                                            product.id
-                                        )}"
-                                    >
-                                        View Details
-                                    </button>
-
-                                </div>
-
-                            </article>
-
-                        `;
-
-                    }
-                )
-                .join("");
-
-
-        addImageFallbacks();
-
-    }
-
-
-    /* =====================================================
-       OPEN PRODUCT DETAILS
-    ===================================================== */
-
-    function openProductDetails(
-        productId
+    function mergeDefaults(
+        defaults,
+        saved
     ) {
 
-        const products =
-            getStoredProducts();
-
-
-        const product =
-            products.find(
-                function (item) {
-
-                    return (
-                        item.id ===
-                        productId
-                    );
-
-                }
+        const result =
+            JSON.parse(
+                JSON.stringify(
+                    defaults
+                )
             );
 
 
-        if (!product) {
+        if (
+            !saved ||
+            typeof saved !== "object"
+        ) {
 
-            showToast(
-                "পণ্যের তথ্য পাওয়া যায়নি।"
-            );
-
-            return;
-        }
-
-
-        if (!modalContent) {
-            return;
-        }
-
-
-        const packageImage =
-            product.packageImage;
-
-
-        modalContent.innerHTML = `
-
-            <div>
-
-                <img
-                    src="${escapeHTML(
-                        product.image
-                    )}"
-                    alt="${escapeHTML(
-                        product.name
-                    )}"
-                    class="modal-product-image"
-                    id="modalProductImage"
-                >
-
-
-                <span
-                    style="
-                        color:#F58220;
-                        font-size:11px;
-                        font-weight:900;
-                    "
-                >
-                    ${escapeHTML(
-                        product.brand ||
-                        "LUMENIX™"
-                    )}
-                </span>
-
-
-                <h2>
-                    ${escapeHTML(
-                        product.name
-                    )}
-                </h2>
-
-
-                <p>
-                    ${escapeHTML(
-                        product.details ||
-                        product.description ||
-                        ""
-                    )}
-                </p>
-
-
-                ${
-                    packageImage
-                        ? `
-                            <button
-                                type="button"
-                                id="showPackageBtn"
-                                class="small-btn"
-                            >
-                                প্যাকেটের ছবি দেখুন
-                            </button>
-                          `
-                        : ""
-                }
-
-
-                <a
-                    href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                        "আমি LUMENIX™ " +
-                        product.name +
-                        " সম্পর্কে জানতে চাই।"
-                    )}"
-                    target="_blank"
-                    rel="noopener"
-                    class="whatsapp-large"
-                    style="
-                        width:100%;
-                        margin-top:10px;
-                    "
-                >
-                    <span class="wa-symbol">
-                        ◉
-                    </span>
-
-                    WhatsApp-এ জানতে চাই
-
-                </a>
-
-            </div>
-
-        `;
-
-
-        if (productModal) {
-
-            productModal.classList.add(
-                "active"
-            );
-
-            productModal.setAttribute(
-                "aria-hidden",
-                "false"
-            );
-
-            document.body.style.overflow =
-                "hidden";
+            return result;
 
         }
 
 
-        const packageBtn =
-            document.getElementById(
-                "showPackageBtn"
-            );
+        Object.keys(saved)
+            .forEach(
+                function (section) {
 
-
-        if (packageBtn) {
-
-            packageBtn.addEventListener(
-                "click",
-                function () {
-
-                    const image =
-                        document.getElementById(
-                            "modalProductImage"
-                        );
-
-
-                    if (!image) {
+                    if (
+                        !saved[section] ||
+                        typeof saved[section] !==
+                        "object"
+                    ) {
                         return;
                     }
 
 
                     if (
-                        image.dataset.package !==
-                        "true"
+                        !result[section]
                     ) {
 
-                        image.src =
-                            product.packageImage;
+                        result[section] =
+                            saved[section];
 
-                        image.dataset.package =
-                            "true";
-
-                        packageBtn.textContent =
-                            "লাইটের ছবি দেখুন";
-
-                    } else {
-
-                        image.src =
-                            product.image;
-
-                        image.dataset.package =
-                            "false";
-
-                        packageBtn.textContent =
-                            "প্যাকেটের ছবি দেখুন";
+                        return;
 
                     }
+
+
+                    Object.keys(
+                        saved[section]
+                    )
+                    .forEach(
+                        function (collection) {
+
+                            if (
+                                Array.isArray(
+                                    saved[
+                                        section
+                                    ][
+                                        collection
+                                    ]
+                                )
+                            ) {
+
+                                result[
+                                    section
+                                ][
+                                    collection
+                                ] =
+                                    saved[
+                                        section
+                                    ][
+                                        collection
+                                    ];
+
+                            }
+
+                        }
+                    );
 
                 }
             );
 
-        }
+
+        return result;
 
     }
 
 
-    /* =====================================================
-       PRODUCT CLICK
-    ===================================================== */
+    /*
+     * =========================================================
+     * LOAD SYSTEM
+     * IMPORTANT:
+     * Uses ORIGINAL getItem to avoid bridge recursion.
+     * =========================================================
+     */
 
-    if (productGrid) {
+    function loadSystem() {
 
-        productGrid.addEventListener(
-            "click",
-            function (event) {
+        const raw =
+            originalGetItem.call(
+                localStorage,
+                SYSTEM_KEY
+            );
 
-                const button =
-                    event.target.closest(
-                        "[data-product-view]"
+
+        if (!raw) {
+
+            return cloneDefaults();
+
+        }
+
+
+        const saved =
+            safeParse(
+                raw,
+                null
+            );
+
+
+        if (!saved) {
+
+            return cloneDefaults();
+
+        }
+
+
+        return mergeDefaults(
+            DEFAULT_DATA,
+            saved
+        );
+
+    }
+
+
+    /*
+     * =========================================================
+     * SAVE SYSTEM
+     * IMPORTANT:
+     * Uses ORIGINAL setItem.
+     * =========================================================
+     */
+
+    function saveSystem(
+        data
+    ) {
+
+        originalSetItem.call(
+            localStorage,
+            SYSTEM_KEY,
+            JSON.stringify(data)
+        );
+
+    }
+
+
+    /*
+     * =========================================================
+     * LEGACY MIGRATION
+     * IMPORTANT:
+     * NEVER use overridden localStorage.getItem here.
+     * =========================================================
+     */
+
+    function migrateLegacyData() {
+
+        const system =
+            loadSystem();
+
+
+        let changed = false;
+
+
+        Object.keys(
+            LEGACY_MAP
+        )
+        .forEach(
+            function (legacyKey) {
+
+                const raw =
+                    originalGetItem.call(
+                        localStorage,
+                        legacyKey
                     );
 
 
-                if (!button) {
+                if (!raw) {
                     return;
                 }
 
 
-                openProductDetails(
-                    button.dataset.productView
+                const oldData =
+                    safeParse(
+                        raw,
+                        []
+                    );
+
+
+                if (
+                    !Array.isArray(
+                        oldData
+                    ) ||
+                    oldData.length === 0
+                ) {
+
+                    return;
+
+                }
+
+
+                const section =
+                    LEGACY_MAP[
+                        legacyKey
+                    ][0];
+
+
+                const collection =
+                    LEGACY_MAP[
+                        legacyKey
+                    ][1];
+
+
+                if (
+                    !system[section] ||
+                    !Array.isArray(
+                        system[
+                            section
+                        ][
+                            collection
+                        ]
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                const current =
+                    system[
+                        section
+                    ][
+                        collection
+                    ];
+
+
+                const existingIds =
+                    new Set(
+                        current
+                            .map(
+                                function (item) {
+
+                                    return item &&
+                                        item.id
+                                        ? String(
+                                            item.id
+                                        )
+                                        : null;
+
+                                }
+                            )
+                            .filter(Boolean)
+                    );
+
+
+                oldData.forEach(
+                    function (item) {
+
+                        if (
+                            !item ||
+                            typeof item !==
+                            "object"
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const itemId =
+                            item.id
+                            ? String(
+                                item.id
+                            )
+                            : null;
+
+
+                        if (
+                            itemId &&
+                            existingIds.has(
+                                itemId
+                            )
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        current.push(
+                            item
+                        );
+
+
+                        if (itemId) {
+
+                            existingIds.add(
+                                itemId
+                            );
+
+                        }
+
+
+                        changed = true;
+
+                    }
                 );
 
             }
         );
 
-    }
 
+        if (changed) {
 
-    /* =====================================================
-       CLOSE MODAL
-    ===================================================== */
-
-    function closeProductModal() {
-
-        if (!productModal) {
-            return;
-        }
-
-
-        productModal.classList.remove(
-            "active"
-        );
-
-        productModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        document.body.style.overflow =
-            "";
-
-    }
-
-
-    if (modalClose) {
-
-        modalClose.addEventListener(
-            "click",
-            closeProductModal
-        );
-
-    }
-
-
-    if (productModal) {
-
-        const backdrop =
-            productModal.querySelector(
-                ".modal-backdrop"
-            );
-
-
-        if (backdrop) {
-
-            backdrop.addEventListener(
-                "click",
-                closeProductModal
+            saveSystem(
+                system
             );
 
         }
 
+
+        return system;
+
     }
 
 
-    /* =====================================================
-       ESCAPE
-    ===================================================== */
+    /*
+     * =========================================================
+     * GET LEGACY COLLECTION
+     * =========================================================
+     */
 
-    document.addEventListener(
-        "keydown",
-        function (event) {
+    function getCollection(
+        key
+    ) {
+
+        const mapping =
+            LEGACY_MAP[key];
+
+
+        if (!mapping) {
+
+            return null;
+
+        }
+
+
+        /*
+         * First migrate old records safely.
+         */
+
+        const system =
+            migrateLegacyData();
+
+
+        if (
+            !system[mapping[0]] ||
+            !Array.isArray(
+                system[
+                    mapping[0]
+                ][
+                    mapping[1]
+                ]
+            )
+        ) {
+
+            return [];
+
+        }
+
+
+        return system[
+            mapping[0]
+        ][
+            mapping[1]
+        ];
+
+    }
+
+
+    /*
+     * =========================================================
+     * SET LEGACY COLLECTION
+     * =========================================================
+     */
+
+    function setCollection(
+        key,
+        value
+    ) {
+
+        const mapping =
+            LEGACY_MAP[key];
+
+
+        if (!mapping) {
+
+            return false;
+
+        }
+
+
+        const system =
+            loadSystem();
+
+
+        if (
+            !system[mapping[0]]
+        ) {
+
+            system[mapping[0]] = {};
+
+        }
+
+
+        system[
+            mapping[0]
+        ][
+            mapping[1]
+        ] =
+            Array.isArray(value)
+                ? value
+                : [];
+
+
+        saveSystem(
+            system
+        );
+
+
+        return true;
+
+    }
+
+
+    /*
+     * =========================================================
+     * ID GENERATOR
+     * =========================================================
+     */
+
+    function createId(
+        prefix
+    ) {
+
+        return (
+            String(prefix || "LUX") +
+            "-" +
+            Date.now() +
+            "-" +
+            Math.random()
+                .toString(36)
+                .slice(2, 8)
+        );
+
+    }
+
+
+    /*
+     * =========================================================
+     * ADD RECORD
+     * =========================================================
+     */
+
+    function addRecord(
+        section,
+        collection,
+        record
+    ) {
+
+        const system =
+            loadSystem();
+
+
+        if (
+            !system[section] ||
+            !Array.isArray(
+                system[
+                    section
+                ][
+                    collection
+                ]
+            )
+        ) {
+
+            return null;
+
+        }
+
+
+        const newRecord = {
+
+            id:
+                record &&
+                record.id
+                    ? record.id
+                    : createId("LUX"),
+
+            createdAt:
+                record &&
+                record.createdAt
+                    ? record.createdAt
+                    : new Date()
+                        .toISOString(),
+
+            ...(record || {})
+
+        };
+
+
+        system[
+            section
+        ][
+            collection
+        ].push(
+            newRecord
+        );
+
+
+        saveSystem(
+            system
+        );
+
+
+        return newRecord;
+
+    }
+
+
+    /*
+     * =========================================================
+     * GET RECORDS
+     * =========================================================
+     */
+
+    function getRecords(
+        section,
+        collection
+    ) {
+
+        const system =
+            loadSystem();
+
+
+        if (
+            !system[section] ||
+            !Array.isArray(
+                system[
+                    section
+                ][
+                    collection
+                ]
+            )
+        ) {
+
+            return [];
+
+        }
+
+
+        return system[
+            section
+        ][
+            collection
+        ];
+
+    }
+
+
+    /*
+     * =========================================================
+     * FIND RECORD
+     * =========================================================
+     */
+
+    function findRecord(
+        section,
+        collection,
+        id
+    ) {
+
+        if (
+            id === null ||
+            id === undefined
+        ) {
+
+            return null;
+
+        }
+
+
+        const records =
+            getRecords(
+                section,
+                collection
+            );
+
+
+        return (
+            records.find(
+                function (item) {
+
+                    return (
+                        item &&
+                        String(item.id) ===
+                        String(id)
+                    );
+
+                }
+            ) || null
+        );
+
+    }
+
+
+    /*
+     * =========================================================
+     * UPDATE RECORD
+     * =========================================================
+     */
+
+    function updateRecord(
+        section,
+        collection,
+        id,
+        updates
+    ) {
+
+        const system =
+            loadSystem();
+
+
+        if (
+            !system[section] ||
+            !Array.isArray(
+                system[
+                    section
+                ][
+                    collection
+                ]
+            )
+        ) {
+
+            return null;
+
+        }
+
+
+        const index =
+            system[
+                section
+            ][
+                collection
+            ].findIndex(
+                function (item) {
+
+                    return (
+                        item &&
+                        String(item.id) ===
+                        String(id)
+                    );
+
+                }
+            );
+
+
+        if (index === -1) {
+
+            return null;
+
+        }
+
+
+        system[
+            section
+        ][
+            collection
+        ][index] = {
+
+            ...system[
+                section
+            ][
+                collection
+            ][index],
+
+            ...(updates || {}),
+
+            updatedAt:
+                new Date()
+                    .toISOString()
+
+        };
+
+
+        saveSystem(
+            system
+        );
+
+
+        return system[
+            section
+        ][
+            collection
+        ][index];
+
+    }
+
+
+    /*
+     * =========================================================
+     * REMOVE RECORD
+     * =========================================================
+     */
+
+    function removeRecord(
+        section,
+        collection,
+        id
+    ) {
+
+        const system =
+            loadSystem();
+
+
+        if (
+            !system[section] ||
+            !Array.isArray(
+                system[
+                    section
+                ][
+                    collection
+                ]
+            )
+        ) {
+
+            return false;
+
+        }
+
+
+        const before =
+            system[
+                section
+            ][
+                collection
+            ].length;
+
+
+        system[
+            section
+        ][
+            collection
+        ] =
+            system[
+                section
+            ][
+                collection
+            ].filter(
+                function (item) {
+
+                    return !(
+                        item &&
+                        String(item.id) ===
+                        String(id)
+                    );
+
+                }
+            );
+
+
+        if (
+            system[
+                section
+            ][
+                collection
+            ].length === before
+        ) {
+
+            return false;
+
+        }
+
+
+        saveSystem(
+            system
+        );
+
+
+        return true;
+
+    }
+
+
+    /*
+     * =========================================================
+     * LEGACY localStorage GET INTERCEPTOR
+     * =========================================================
+     */
+
+    Storage.prototype.getItem =
+        function (key) {
 
             if (
-                event.key === "Escape" &&
-                productModal &&
-                productModal.classList.contains(
-                    "active"
+                Object.prototype.hasOwnProperty.call(
+                    LEGACY_MAP,
+                    key
                 )
             ) {
 
-                closeProductModal();
+                return JSON.stringify(
+                    getCollection(
+                        key
+                    )
+                );
 
             }
 
-        }
-    );
+
+            return originalGetItem.call(
+                this,
+                key
+            );
+
+        };
 
 
-    /* =====================================================
-       ADMIN DATA SYNC
+    /*
+     * =========================================================
+     * LEGACY localStorage SET INTERCEPTOR
+     * =========================================================
+     */
 
-       অন্য module থেকে localStorage-এ
-       product update হলে Home Page refresh
-       করতে পারবে।
-    ===================================================== */
-
-    window.addEventListener(
-        "storage",
-        function (event) {
+    Storage.prototype.setItem =
+        function (key, value) {
 
             if (
-                event.key ===
-                PRODUCT_STORAGE_KEY
+                Object.prototype.hasOwnProperty.call(
+                    LEGACY_MAP,
+                    key
+                )
             ) {
 
-                renderProducts();
+                const parsed =
+                    safeParse(
+                        value,
+                        []
+                    );
+
+
+                setCollection(
+                    key,
+                    parsed
+                );
+
+
+                return;
 
             }
 
-        }
-    );
+
+            return originalSetItem.call(
+                this,
+                key,
+                value
+            );
+
+        };
 
 
-    /* =====================================================
-       INITIALIZE
-    ===================================================== */
+    /*
+     * =========================================================
+     * LEGACY REMOVE SUPPORT
+     * =========================================================
+     */
 
-    renderProducts();
+    Storage.prototype.removeItem =
+        function (key) {
+
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    LEGACY_MAP,
+                    key
+                )
+            ) {
+
+                setCollection(
+                    key,
+                    []
+                );
+
+                return;
+
+            }
 
 
-    console.log(
-        "LUMENIX™ Home Page loaded successfully."
-    );
+            return originalRemoveItem.call(
+                this,
+                key
+            );
 
-});
+        };
+
+
+    /*
+     * =========================================================
+     * PUBLIC LUMENIX API
+     * =========================================================
+     */
+
+    window.LumenixData = {
+
+        load:
+            loadSystem,
+
+        save:
+            saveSystem,
+
+        migrate:
+            migrateLegacyData,
+
+        add:
+            addRecord,
+
+        get:
+            getRecords,
+
+        find:
+            findRecord,
+
+        update:
+            updateRecord,
+
+        remove:
+            removeRecord,
+
+        generateId:
+            createId
+
+    };
+
+
+    /*
+     * =========================================================
+     * INITIAL MIGRATION
+     * =========================================================
+     */
+
+    migrateLegacyData();
+
+
+})();
